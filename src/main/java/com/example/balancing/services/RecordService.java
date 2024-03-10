@@ -17,4 +17,6 @@ public interface RecordService {
 
     void deleteRecord(Long id);
 
+    List<Record> getAllCompleteRecords();
+
 }

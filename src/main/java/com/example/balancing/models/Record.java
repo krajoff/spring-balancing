@@ -1,38 +1,59 @@
 package com.example.balancing.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
+import static java.lang.Math.*;
 
 @Entity
 @Table(name = "records")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Record implements IRecord{
+@RequiredArgsConstructor
+public class Record implements IRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @NonNull
     private Long id;
-    @Column(name = "mode")
+    @Column(name = "mode", nullable = false)
+    @NonNull
     private String mode;
-    @Column(name = "magvibration")
+    @Column(name = "magvibration", columnDefinition = "double default 0")
+    @NonNull
     private Double magvibration;
-    @Column(name = "phasevibration")
+    @Column(name = "phasevibration", columnDefinition = "double default 0")
+    @NonNull
     private Double phasevibration;
-    @Column(name = "magweight")
+    @Column(name = "magweight", columnDefinition = "double default 0")
+    @NonNull
     private Double magweight;
-    @Column(name = "phaseweight")
+    @Column(name = "phaseweight", columnDefinition = "double default 0")
+    @NonNull
     private Double phaseweight;
     @Column(name = "reference", columnDefinition = "bigint default -1")
+    @NonNull
     private Long reference;
-    @Column(name = "stage")
-    private boolean stage;
+    @Column(name = "stage", columnDefinition = "boolean default true")
+    @NonNull
+    private Boolean stage;
+    @Transient
+    private Complex complexVibration;
+    @Transient
+    private Complex complexWeight;
+    @Transient
+    private Complex complexTotalWeight;
+    @Transient
+    private Double magTotalWeight;
+    @Transient
+    private Double phaseTotalWeight;
+    @Transient
+    private Complex complexTotalVibration;
+    @Transient
+    private Double magTotalVibration;
+    @Transient
+    private Double phaseTotalVibration;
 
     public Complex getComplexVibration() {
         return new Complex(this.magvibration * cos(Math.toRadians(this.phasevibration)),
@@ -44,6 +65,26 @@ public class Record implements IRecord{
                 this.magweight * sin(Math.toRadians(this.phaseweight)));
     }
 
+    public Double getMagTotalWeight() {
+        return roundAvoid(getComplexTotalWeight().abs(), 2);
+    }
+
+    public Double getPhaseTotalWeight() {
+        return roundAvoid(getComplexTotalWeight().phase(), 2);
+    }
+
+    public Double getMagTotalVibration() {
+        return roundAvoid(getComplexTotalVibration().abs(), 2);
+    }
+
+    public Double getPhaseTotalVibration() {
+        return roundAvoid(getComplexTotalVibration().phase(), 2);
+    }
+
+    private Double roundAvoid(Double value, Integer places) {
+        Double scale = Math.pow(10, places);
+        return Math.round(value * scale) / scale;
+    }
 
 }
 

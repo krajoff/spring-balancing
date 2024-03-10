@@ -8,32 +8,44 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/record")
 public class HtmlRecordController {
     @Autowired
     private RecordService recordService;
 
-    @GetMapping("/record/all")
+    @GetMapping("/all")
     public String getAllRecords(Model model) {
-        model.addAttribute("record", recordService.getAllRecords());
-        return "allrecords";
+        model.addAttribute("records", recordService.getAllRecords());
+        return "index-short";
     }
 
-    @PostMapping("/record/delete/{id}")
+    @GetMapping("/index")
+    public String getAllCompleteRecords(Model model) {
+        model.addAttribute("records", recordService.getAllCompleteRecords());
+        return "index";
+    }
+
+    @PostMapping("/delete/{id}")
     public String deleteRecord(@PathVariable Long id) {
         recordService.deleteRecord(id);
-        return "redirect:/record/all";
+        return "redirect:/record/index";
     }
 
-    @PostMapping("/record/create")
+    @PostMapping("/create")
     public String createRecord(Record record) {
         recordService.createRecord(record);
-        return "redirect:/record/all";
+        return "redirect:/record/index";
+    }
+    @GetMapping("/edit/{id}")
+    public String showUpdateForm(@PathVariable Long id, Model model) {
+        model.addAttribute("record", recordService.getRecordById(id));
+        return "update-record";
     }
 
-    @PostMapping("/record/edit/{id}")
+    @PostMapping("/update/{id}")
     public String updateRecord(@PathVariable Long id, Record record) {
         recordService.updateRecord(id, record);
-        return "redirect:/record/all";
+        return "redirect:/record/index";
     }
 
 }

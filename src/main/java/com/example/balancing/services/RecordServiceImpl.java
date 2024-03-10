@@ -1,5 +1,6 @@
 package com.example.balancing.services;
 
+import com.example.balancing.models.Complex;
 import com.example.balancing.models.Record;
 import com.example.balancing.repository.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,30 +13,25 @@ public class RecordServiceImpl implements RecordService {
     @Autowired
     private RecordRepository recordRepository;
 
-    @Override
     public List<Record> getAllRecords() {
         return recordRepository.findAll();
     }
 
-    @Override
     public Record getRecordById(Long id) {
         return recordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
     }
 
-    @Override
     public List<Record> getRecordsByMode(String mode) {
         return recordRepository.findByMode(mode);
     }
 
-    @Override
     public Record createRecord(Record record) {
         return recordRepository.save(record);
     }
 
-    @Override
     public Record updateRecord(Long id, Record record) {
         Record existingRecord = getRecordById(id);
-        existingRecord.setStage(record.isStage());
+        existingRecord.setStage(record.getStage());
         existingRecord.setMode(record.getMode());
         existingRecord.setMagweight(record.getMagweight());
         existingRecord.setPhaseweight(record.getPhaseweight());
@@ -45,8 +41,34 @@ public class RecordServiceImpl implements RecordService {
         return recordRepository.save(existingRecord);
     }
 
-    @Override
+
     public void deleteRecord(Long id) {
         recordRepository.deleteById(id);
+    }
+
+    public List<Record> getAllCompleteRecords() {
+        List<Record> records = getAllRecords();
+        for (Record record : records) {
+            Record tempRecord = record;
+            Complex totalComplexWeight = record.getComplexWeight();
+            Complex totalComplexVibration = record.getComplexVibration();
+            while (tempRecord.getReference() != -1) {
+                try {
+                    totalComplexWeight = totalComplexWeight.
+                            plus(getRecordById(tempRecord.getReference()).
+                                    getComplexWeight());
+                    totalComplexVibration = totalComplexVibration.
+                            plus(getRecordById(tempRecord.getReference()).getComplexVibration());
+                    tempRecord = getRecordById(tempRecord.getReference());
+                } catch (RuntimeException e) {
+                    tempRecord.setReference(-1L);
+                    updateRecord(tempRecord.getId(), tempRecord);
+                    System.out.println(e.getMessage());
+                }
+            }
+            record.setComplexTotalWeight(totalComplexWeight);
+            record.setComplexTotalVibration(totalComplexVibration);
+        }
+        return records;
     }
 }

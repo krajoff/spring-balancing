@@ -1,12 +1,14 @@
 package com.example.balancing.controllers.api;
 
 import com.example.balancing.models.Record;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.balancing.services.*;
 
 import java.util.List;
 
+@Tag(name = "User", description = "The User API")
 @RestController
 @RequestMapping("/api/records")
 public class ApiRecordController{

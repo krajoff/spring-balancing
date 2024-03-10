@@ -1,21 +1,25 @@
 h1 {
+  font-family: Tahoma, Geneva, sans-serif;
   color: #2e6c80;
   text-align: left;
   padding:0px 20px;
 
 }
 h2 {
+  font-family: Tahoma, Geneva, sans-serif;
   color: #2e6c80;
   text-align: left;
   padding:0px 20px;
 
 }
 ul {
+  font-family: Tahoma, Geneva, sans-serif;
   color: #2e6c80;
   padding:0px 20px;
 }
 
 ul li {
+  font-family: Tahoma, Geneva, sans-serif;
   color: #2e6c80;
   margin: 10px 20px;
 }
