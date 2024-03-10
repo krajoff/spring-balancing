@@ -1,6 +1,6 @@
-package com.example.balancing.services;
+package com.example.balancing.services.record;
 
-import com.example.balancing.models.Record;
+import com.example.balancing.models.record.Record;
 
 import java.util.List;
 

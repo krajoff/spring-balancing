@@ -1,5 +1,6 @@
-package com.example.balancing.models;
+package com.example.balancing.models.record;
 
+import com.example.balancing.models.complex.Complex;
 import jakarta.persistence.*;
 import lombok.*;
 

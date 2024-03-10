@@ -1,4 +1,4 @@
-package com.example.balancing.models;
+package com.example.balancing.models.complex;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

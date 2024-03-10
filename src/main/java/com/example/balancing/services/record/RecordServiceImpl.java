@@ -1,11 +1,13 @@
-package com.example.balancing.services;
+package com.example.balancing.services.record;
 
-import com.example.balancing.models.Complex;
-import com.example.balancing.models.Record;
+import com.example.balancing.models.complex.Complex;
+import com.example.balancing.models.record.Record;
 import com.example.balancing.repository.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -69,6 +71,7 @@ public class RecordServiceImpl implements RecordService {
             record.setComplexTotalWeight(totalComplexWeight);
             record.setComplexTotalVibration(totalComplexVibration);
         }
+        Collections.sort(records, Comparator.comparingLong(Record::getId));
         return records;
     }
 }

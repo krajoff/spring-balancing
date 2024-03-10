@@ -1,4 +1,6 @@
-package com.example.balancing.models;
+package com.example.balancing.models.complex;
+
+import com.example.balancing.models.complex.Complex;
 
 public interface IComplex {
     public Double abs();

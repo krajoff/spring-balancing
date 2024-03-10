@@ -1,7 +1,7 @@
 package com.example.balancing.controllers.html;
 
-import com.example.balancing.models.Record;
-import com.example.balancing.services.RecordService;
+import com.example.balancing.models.record.Record;
+import com.example.balancing.services.record.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
