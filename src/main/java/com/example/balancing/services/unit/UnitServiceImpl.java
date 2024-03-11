@@ -17,7 +17,7 @@ public class UnitServiceImpl implements UnitService {
     }
 
     public Unit getUnitById(Long id) {
-        return unitRepository.getReferenceById(id);
+        return unitRepository.findById(id).orElseThrow(() -> new RuntimeException("Unit not found"));
     }
 
     public Unit createUnit(Unit unit) {
@@ -25,7 +25,7 @@ public class UnitServiceImpl implements UnitService {
     }
 
     public Unit updateUnit(Long id, Unit unit) {
-        Unit existingUnit = unitRepository.getReferenceById(id);
+        Unit existingUnit = getUnitById(id);
         existingUnit.setType(unit.getType());
         existingUnit.setStation(unit.getStation());
         existingUnit.setNumber(unit.getNumber());
