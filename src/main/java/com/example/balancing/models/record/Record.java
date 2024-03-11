@@ -1,6 +1,7 @@
 package com.example.balancing.models.record;
 
 import com.example.balancing.models.complex.Complex;
+import com.example.balancing.models.unit.Unit;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -39,6 +40,9 @@ public class Record implements IRecord {
     @Column(name = "stage", columnDefinition = "boolean default true")
     @NonNull
     private Boolean stage;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "unit_id")
+    private Unit unit;
     @Transient
     private Complex complexVibration;
     @Transient

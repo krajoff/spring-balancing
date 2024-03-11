@@ -1,6 +1,7 @@
 package com.example.balancing.models.unit;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,15 +17,23 @@ public class Unit {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "type")
-    private String type;
-
-    @Column(name = "number")
-    private Integer number;
-
     @Column(name = "station")
+    @Size(max = 50)
     private String station;
 
+    @Column(name = "unitnumber")
+    @Size(max = 50)
+    private Integer unitnumber;
+
+    @Column(name = "type")
+    @Size(max = 50)
+    private String type;
+
+    @Column(name = "plate")
+    @Size(max = 20)
+    private Integer plate;
+
     @Column(name = "description")
+    @Size(max = 255)
     private String description;
 }

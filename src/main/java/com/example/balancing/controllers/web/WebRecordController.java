@@ -1,4 +1,4 @@
-package com.example.balancing.controllers.html;
+package com.example.balancing.controllers.web;
 
 import com.example.balancing.models.record.Record;
 import com.example.balancing.services.record.RecordService;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/record")
-public class HtmlRecordController {
+public class WebRecordController {
     @Autowired
     private RecordService recordService;
 
@@ -22,7 +22,7 @@ public class HtmlRecordController {
     @GetMapping("/index")
     public String getAllCompleteRecords(Model model) {
         model.addAttribute("records", recordService.getAllCompleteRecords());
-        return "index";
+        return "record/index";
     }
 
     @PostMapping("/delete/{id}")
@@ -39,7 +39,7 @@ public class HtmlRecordController {
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable Long id, Model model) {
         model.addAttribute("record", recordService.getRecordById(id));
-        return "update-record";
+        return "record/update-record";
     }
 
     @PostMapping("/update/{id}")

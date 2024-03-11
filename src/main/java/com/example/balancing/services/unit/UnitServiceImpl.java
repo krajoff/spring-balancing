@@ -28,7 +28,7 @@ public class UnitServiceImpl implements UnitService {
         Unit existingUnit = getUnitById(id);
         existingUnit.setType(unit.getType());
         existingUnit.setStation(unit.getStation());
-        existingUnit.setNumber(unit.getNumber());
+        existingUnit.setUnitnumber(unit.getUnitnumber());
         existingUnit.setDescription(unit.getDescription());
         return unit;
     }
