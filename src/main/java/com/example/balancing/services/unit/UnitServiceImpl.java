@@ -1,5 +1,6 @@
 package com.example.balancing.services.unit;
 
+import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.repository.RecordRepository;
@@ -8,6 +9,8 @@ import com.example.balancing.services.record.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -24,6 +27,13 @@ public class UnitServiceImpl implements UnitService {
 
     public Unit getUnitById(Long id) {
         return unitRepository.findById(id).orElseThrow(() -> new RuntimeException("Unit not found"));
+    }
+
+    public Unit getCompleteUnitById(Long id) {
+        Unit unit = unitRepository.findById(id).orElseThrow(() -> new RuntimeException("Unit not found"));
+        List<Record> records = recordService.getCompleteRecordsByUnit(unit.getRecords());
+        unit.setRecords(records);
+        return unit;
     }
 
     public Unit createUnit(Unit unit) {
@@ -50,4 +60,5 @@ public class UnitServiceImpl implements UnitService {
         existingUnit.addRecord(record);
         return unitRepository.save(existingUnit);
     }
+
 }

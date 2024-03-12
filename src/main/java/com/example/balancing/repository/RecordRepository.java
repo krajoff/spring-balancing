@@ -12,4 +12,6 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
 
     @Query(value = "select * from records r where r.mode = ?1",  nativeQuery = true)
     List<Record> findByMode(String mode);
+
+    List<Record> findByUnit(Unit unit);
 }

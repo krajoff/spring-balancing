@@ -27,9 +27,9 @@ public class WebUnitController {
         return "unit/index";
     }
 
-    @PostMapping("/delete/{id}")
-    public String deleteUnit(@PathVariable Long id) {
-        unitService.deleteUnit(id);
+    @PostMapping("/delete/{unit_id}")
+    public String deleteUnit(@PathVariable Long unit_id) {
+        unitService.deleteUnit(unit_id);
         return "redirect:/unit/index";
     }
 
@@ -39,27 +39,33 @@ public class WebUnitController {
         return "redirect:/unit/index";
     }
 
-    @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable Long id, Model model) {
-        model.addAttribute("unit", unitService.getUnitById(id));
+    @GetMapping("/{unit_id}/edit")
+    public String showUpdateForm(@PathVariable Long unit_id, Model model) {
+        model.addAttribute("unit", unitService.getUnitById(unit_id));
         return "unit/update-unit";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateUnit(@PathVariable Long id, Unit unit) {
-        unitService.updateUnit(id, unit);
+    @PostMapping("/{unit_id}/update")
+    public String updateUnit(@PathVariable Long unit_id, Unit unit) {
+        unitService.updateUnit(unit_id, unit);
         return "redirect:/unit/index";
     }
 
-    @GetMapping("/{id}/records")
-    public String getRecordsByUnit(@PathVariable Long id, Model model) {
-        model.addAttribute("unit", unitService.getUnitById(id));
+    @GetMapping("/{unit_id}/records")
+    public String getRecordsByUnit(@PathVariable Long unit_id, Model model) {
+        model.addAttribute("unit", unitService.getCompleteUnitById(unit_id));
         return "unit/unit-records";
     }
 
-    @PostMapping("/{id}/record/create")
-    public String addRecord(@PathVariable Long id, Record record) {
-        unitService.addRecord(id, record);
-        return "unit/{id}/records";
+    @PostMapping("/{unit_id}/record/create")
+    public String addRecord(@PathVariable Long unit_id, Record record) {
+        unitService.addRecord(unit_id, record);
+        return "redirect:/unit/{unit_id}/records";
+    }
+
+    @PostMapping("/{unit_id}/record/delete/{record_id}")
+    public String deleteRecord(@PathVariable Long unit_id, @PathVariable Long record_id) {
+        recordService.deleteRecord(record_id);
+        return "redirect:/unit/{unit_id}/records";
     }
 }

@@ -10,7 +10,7 @@ h2 {
   color: #2e6c80;
   text-align: left;
   padding:0px 20px;
-
+  font-size: 16px;
 }
 ul {
   font-family: Tahoma, Geneva, sans-serif;
@@ -97,7 +97,8 @@ div.blueTable {
 
 input[type=text], input[type=number] {
   width: 100%;
-  border: none;
+  border: 2px solid black;
+  border-radius: 4px;
   box-sizing: border-box;
   background-color: transparent;
   cursor: pointer;

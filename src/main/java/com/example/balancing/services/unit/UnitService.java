@@ -18,4 +18,6 @@ public interface UnitService {
 
     Unit addRecord(Long id, Record record);
 
+    Unit getCompleteUnitById(Long id);
+
 }

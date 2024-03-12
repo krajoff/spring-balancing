@@ -21,6 +21,10 @@
         account in the averaging of values when calculating the total load.
     </li>
 </ul>
+<h2 th:text="'Station: ' + ${unit.station} +
+             ', Unit number: ' + ${unit.unitnumber} +
+             ', Type: ' + ${unit.type} +
+             ', Plate: ' + ${unit.plate}"></h2>
 
 <div class="divTable blueTable">
 
@@ -34,6 +38,8 @@
             <div class="divTableHead">Weight <br> phase</div>
             <div class="divTableHead">Reference</div>
             <div class="divTableHead">State</div>
+            <div class="divTableHead">Total weight<br>magnitude</div>
+            <div class="divTableHead">Total weight<br>phase</div>
             <div class="divTableHead">Edit</div>
             <div class="divTableHead">Delete</div>
         </div>
@@ -49,31 +55,46 @@
             <div class="divTableCell" th:text=${record.phaseweight}></div>
             <div class="divTableCell" th:text=${record.reference}></div>
             <div class="divTableCell" th:text=${record.stage}></div>
+            <div class="divTableCell" th:text=${record.magTotalWeight}></div>
+            <div class="divTableCell" th:text=${record.phaseTotalWeight}></div>
             <div class="divTableCell">
                 <form th:action="@{'/record/edit/' + ${record.id}}" th:method="get">
                     <input type="submit" value="edit"/>
                 </form>
             </div>
             <div class="divTableCell">
-                <form th:action="@{'/record/delete/' + ${record.id}}" th:method="post">
+                <form th:action="@{'/unit/' + ${unit.id} + '/record/delete/' + ${record.id}}" th:method="post">
                     <input type="submit" value="delete"/>
                 </form>
             </div>
         </div>
     </div>
-
-    <form class="divTableRow" style="background: #78DBE2"
-          th:action="@{'/unit/' + ${unit.id} + '/record/create'}" method="post">
-        <div class="divTableCell">&#10060;</div>
-        <div class="divTableCell"><input type="text" name="mode"/></div>
-        <div class="divTableCell"><input type="number" name="magvibration"/></div>
-        <div class="divTableCell"><input type="number" name="phasevibration"/></div>
-        <div class="divTableCell"><input type="number" name="magweight"/></div>
-        <div class="divTableCell"><input type="number" name="phaseweight"/></div>
-        <div class="divTableCell"><input type="number" name="reference"/></div>
-        <div class="divTableCell"><input type="checkbox" name="stage"/></div>
-        <div class="divTableCell"><input type="submit" value="Add record"/></div>
-    </form>
+    <div class="divTableBody">
+        <form class="divTableRow" th:action="@{'/unit/' + ${unit.id} + '/record/create'}" method="post">
+            <div class="divTableCell">&#10060;</div>
+            <div class="divTableCell"><input type="text" name="mode"/></div>
+            <div class="divTableCell"><input type="number" name="magvibration"/></div>
+            <div class="divTableCell"><input type="number" name="phasevibration"/></div>
+            <div class="divTableCell"><input type="number" name="magweight"/></div>
+            <div class="divTableCell"><input type="number" name="phaseweight"/></div>
+            <div class="divTableCell"><input type="number" name="reference"/></div>
+            <div class="divTableCell"><input type="checkbox" name="stage"/></div>
+            <div class="divTableCell"><input type="submit" value="Add record"/></div>
+        </form>
+    </div>
+    <div class="divTableBody">
+        <form class="divTableRow" th:action="@{'/unit/' + ${unit.id} + '/calculate'}" method="get">
+            <div class="divTableCell"></div>
+            <div class="divTableCell"></div>
+            <div class="divTableCell"></div>
+            <div class="divTableCell"></div>
+            <div class="divTableCell"></div>
+            <div class="divTableCell"></div>
+            <div class="divTableCell"></div>
+            <div class="divTableCell"></div>
+            <div class="divTableCell"><input type="submit" value="Calculate"/></div>
+        </form>
+    </div>
 
 </div>
 </body>
