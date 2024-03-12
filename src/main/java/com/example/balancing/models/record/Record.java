@@ -40,7 +40,7 @@ public class Record implements IRecord {
     @Column(name = "stage", columnDefinition = "boolean default true")
     @NonNull
     private Boolean stage;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id")
     private Unit unit;
     @Transient

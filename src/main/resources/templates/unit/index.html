@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unit definition</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<h1>Unit definition</h1>
+<ul>
+    Enter the station data (the name is sufficient), <br>
+    the type of machine, its sequence number, the number of <br>
+    measuring planes and additional data for clarity. <br>
+</ul>
+
+<div class="divTable blueTable" th:switch="${units}">
+    <h2 th:case="null">No unit yet!</h2>
+    <div class="divTableHeading">
+        <div class="divTableRow">
+            <div class="divTableHead">id</div>
+            <div class="divTableHead">Station<br>name</div>
+            <div class="divTableHead">Unit<br>number</div>
+            <div class="divTableHead">Type</div>
+            <div class="divTableHead">Plate<br>number</div>
+            <div class="divTableHead">Additional<br>information</div>
+            <div class="divTableHead">Edit</div>
+            <div class="divTableHead">Delete</div>
+            <div class="divTableHead">Edit records</div>
+        </div>
+    </div>
+
+    <div class="divTableBody" th:each="unit:${units}">
+        <div class="divTableRow">
+            <div class="divTableCell" th:text=${unit.id}></div>
+            <div class="divTableCell" th:text=${unit.station}></div>
+            <div class="divTableCell" th:text=${unit.unitnumber}></div>
+            <div class="divTableCell" th:text=${unit.type}></div>
+            <div class="divTableCell" th:text=${unit.plate}></div>
+            <div class="divTableCell" th:text=${unit.description}></div>
+            <div class="divTableCell">
+                <form th:action="@{'/unit/edit/' + ${unit.id}}" th:method="get">
+                    <input type="submit" value="edit"/>
+                </form>
+            </div>
+            <div class="divTableCell">
+                <form th:action="@{'/unit/delete/' + ${unit.id}}" th:method="post">
+                    <input type="submit" value="delete"/>
+                </form>
+            </div>
+            <div class="divTableCell">
+                <form th:action="@{'/unit/' + ${unit.id} + '/records'}" th:method="get">
+                    <input type="submit" value="edit records"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <form class="divTableRow" style="background: #78DBE2" action="/unit/create" method="post">
+        <div class="divTableCell">&#10060;</div>
+        <div class="divTableCell"><input type="text" name="station"/></div>
+        <div class="divTableCell"><input type="number" name="unitnumber"/></div>
+        <div class="divTableCell"><input type="text" name="type"/></div>
+        <div class="divTableCell"><input type="number" name="plate"/></div>
+        <div class="divTableCell"><input type="text" name="description"/></div>
+        <div class="divTableCell"><input type="submit" value="Add unit"/></div>
+    </form>
+
+</div>
+</body>
+</html>

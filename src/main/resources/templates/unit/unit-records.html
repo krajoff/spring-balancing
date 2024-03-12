@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Single plane balancing</title>
+    <title>Add records</title>
     <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>
+<h1>How to use single plane balancing application</h1>
+<ul>Fill in the fields in the table:
+    <li>Mode is type of generator/motor load.</li>
+    <li>Magnitude and phase of vibration is a value and a phase of
+        vibration from peak to peak.
+    </li>
+    <li>Magnitude and phase of weight is a value and a phase of
+        weight installed on the shaft.
+    </li>
+    <li>The reference number is a measurement number as a
+        reference to the previous state of the machine.
+    </li>
+    <li>The state is an true/false switch. It is used to take into
+        account in the averaging of values when calculating the total load.
+    </li>
+</ul>
+
 <div class="divTable blueTable">
 
     <div class="divTableHeading">
@@ -18,10 +35,11 @@
             <div class="divTableHead">Reference</div>
             <div class="divTableHead">State</div>
             <div class="divTableHead">Edit</div>
+            <div class="divTableHead">Delete</div>
         </div>
     </div>
 
-    <div class="divTableBody">
+    <div class="divTableBody" th:each="record:${unit.records}">
         <div class="divTableRow">
             <div class="divTableCell" th:text=${record.id}></div>
             <div class="divTableCell" th:text=${record.mode}></div>
@@ -31,26 +49,30 @@
             <div class="divTableCell" th:text=${record.phaseweight}></div>
             <div class="divTableCell" th:text=${record.reference}></div>
             <div class="divTableCell" th:text=${record.stage}></div>
-            <div class="divTableCell"></div>
+            <div class="divTableCell">
+                <form th:action="@{'/record/edit/' + ${record.id}}" th:method="get">
+                    <input type="submit" value="edit"/>
+                </form>
+            </div>
+            <div class="divTableCell">
+                <form th:action="@{'/record/delete/' + ${record.id}}" th:method="post">
+                    <input type="submit" value="delete"/>
+                </form>
+            </div>
         </div>
     </div>
 
-    <form class="divTableRow" style="background: #78DBE2" th:action="@{'/record/update/' + ${record.id}}" method="post">
+    <form class="divTableRow" style="background: #78DBE2"
+          th:action="@{'/unit/' + ${unit.id} + '/record/create'}" method="post">
         <div class="divTableCell">&#10060;</div>
         <div class="divTableCell"><input type="text" name="mode"/></div>
-        <div class="divTableCell"><input class = "decimal"
-                                         type="number"
-                                         name="magvibration"
-                                         th:value="${record.magvibration}"/></div>
-        <div class="divTableCell"><input class = "decimal"
-                                         type="number"
-                                         name="phasevibration"
-                                         th:value="${record.phasevibration}"/></div>
+        <div class="divTableCell"><input type="number" name="magvibration"/></div>
+        <div class="divTableCell"><input type="number" name="phasevibration"/></div>
         <div class="divTableCell"><input type="number" name="magweight"/></div>
         <div class="divTableCell"><input type="number" name="phaseweight"/></div>
         <div class="divTableCell"><input type="number" name="reference"/></div>
         <div class="divTableCell"><input type="checkbox" name="stage"/></div>
-        <div class="divTableCell"><input type="submit" value="Edit record"/></div>
+        <div class="divTableCell"><input type="submit" value="Add record"/></div>
     </form>
 
 </div>

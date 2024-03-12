@@ -1,10 +1,13 @@
 package com.example.balancing.models.unit;
 
+import com.example.balancing.models.record.Record;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "units")
@@ -36,4 +39,12 @@ public class Unit {
     @Column(name = "description")
     @Size(max = 255)
     private String description;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit")
+    private List<Record> records;
+
+    public List<Record> addRecord(Record record) {
+        records.add(record);
+        return records;
+    }
 }

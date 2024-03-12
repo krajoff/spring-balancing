@@ -101,4 +101,10 @@ input[type=text], input[type=number] {
   box-sizing: border-box;
   background-color: transparent;
   cursor: pointer;
+  text-align: center;
+}
+
+.decimal{
+  inputmode: decimal;
+  pattern: "[0-9]*[.,]?[0-9]*"
 }
