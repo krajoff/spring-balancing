@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "User", description = "The User API")
+@Tag(name = "Record", description = "The Record API")
 @RestController
 @RequestMapping("/api/records")
-public class ApiRecordController{
+public class ApiRecordController {
     @Autowired
     private RecordService recordService;
 
     @GetMapping
-    public List<Record> getAllRecords() {
-        return recordService.getAllRecords();
+    public List<Record> getAllCompleteRecords() {
+        return recordService.getAllCompleteRecords();
     }
 
     @PostMapping

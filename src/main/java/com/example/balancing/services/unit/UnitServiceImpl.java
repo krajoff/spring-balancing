@@ -9,9 +9,7 @@ import com.example.balancing.services.record.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UnitServiceImpl implements UnitService {
@@ -35,8 +33,6 @@ public class UnitServiceImpl implements UnitService {
         unit.setRecords(records);
         return unit;
     }
-
-
 
     public Unit createUnit(Unit unit) {
         return unitRepository.save(unit);
@@ -63,4 +59,25 @@ public class UnitServiceImpl implements UnitService {
         return unitRepository.save(existingUnit);
     }
 
+    public Unit calculationTarget(Unit unit) {
+
+        Iterator<Record> record = unit.getRecords().iterator();
+        Set<String> sets = new HashSet<>();
+        while (record.hasNext()) {
+            String mode = record.next().getMode();
+            sets.add(mode);
+        }
+
+        Complex totalWeight;
+        Record tempRecord, phaseRecord;
+        List<Record> records;
+        List<Unit> units;
+        Integer BaseId;
+        Double pTotWgt;
+        Boolean initial;
+        for (String mode : sets) {
+            units = unitRepository.findByIdAndMode(unit.getId(), mode);
+        }
+        return unit;
+    }
 }

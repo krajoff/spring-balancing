@@ -66,6 +66,13 @@ public class WebUnitController {
         return "unit/unit-records";
     }
 
+    @PostMapping("/{unit_id}/target")
+    public String calculateTargetWeight(@PathVariable Long unit_id) {
+        unitService.getCompleteUnitById(unit_id);
+        return "redirect:/unit/index";
+    }
+
+
     @PostMapping("/{unit_id}/record/create")
     public String addRecord(@PathVariable Long unit_id, Record record) {
         unitService.addRecord(unit_id, record);
@@ -77,4 +84,5 @@ public class WebUnitController {
         recordService.deleteRecord(record_id);
         return "redirect:/unit/{unit_id}/records";
     }
+
 }

@@ -23,15 +23,16 @@ public class SpringDocConfig {
     }
 
     @Bean
-    public OpenAPI customOpenApi(@Value("шщзшщз")String appDescription,
-                                 @Value("пррпопро")String appVersion) {
-        return new OpenAPI().info(new Info().title("Application API")
+    public OpenAPI customOpenApi(@Value("Application for auto-calculation " +
+            "target weight of single plate units")String appDescription,
+                                 @Value("0.0.1")String appVersion) {
+        return new OpenAPI().info(new Info().title("Balancing application API")
                         .version(appVersion)
                         .description(appDescription)
                         .license(new License().name("Apache 2.0")
                                 .url("http://springdoc.org"))
                         .contact(new Contact().name("username")
-                                .email("test@gmail.com")))
+                                .email("uzu.mail@gmail.com")))
                 .servers(List.of(new Server().url("http://localhost:8080")
                                 .description("Dev service"),
                         new Server().url("http://localhost:8082")
