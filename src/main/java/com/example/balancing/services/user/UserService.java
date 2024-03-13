@@ -2,6 +2,7 @@ package com.example.balancing.services.user;
 
 import com.example.balancing.models.user.User;
 
+
 import java.util.List;
 
 public interface UserService {
@@ -14,4 +15,5 @@ public interface UserService {
     User updateUser(Long id, User user);
 
     void deleteUser(Long id);
+
 }

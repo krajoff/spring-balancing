@@ -1,5 +1,6 @@
 package com.example.balancing.controllers.web;
 
+import com.example.balancing.exception.UnitNotFoundException;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.services.record.RecordService;
@@ -29,7 +30,11 @@ public class WebUnitController {
 
     @PostMapping("/delete/{unit_id}")
     public String deleteUnit(@PathVariable Long unit_id) {
-        unitService.deleteUnit(unit_id);
+        try {
+            unitService.deleteUnit(unit_id);
+        } catch (UnitNotFoundException e) {
+            return "Unit not found";
+        }
         return "redirect:/unit/index";
     }
 
@@ -47,8 +52,12 @@ public class WebUnitController {
 
     @PostMapping("/{unit_id}/update")
     public String updateUnit(@PathVariable Long unit_id, Unit unit) {
-        unitService.updateUnit(unit_id, unit);
-        return "redirect:/unit/index";
+        try {
+            unitService.updateUnit(unit_id, unit);
+            return "redirect:/unit/index";
+        } catch (UnitNotFoundException e) {
+            return "Unit not found";
+        }
     }
 
     @GetMapping("/{unit_id}/records")

@@ -36,7 +36,6 @@ public class RecordServiceImpl implements RecordService {
         return recordRepository.save(record);
     }
 
-
     public Record updateRecord(Long id, Record record) {
         Record existingRecord = getRecordById(id);
         existingRecord.setStage(record.getStage());

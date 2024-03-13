@@ -1,6 +1,8 @@
 package com.example.balancing.models.unit;
 
 import com.example.balancing.models.record.Record;
+import com.example.balancing.models.target.Target;
+import com.example.balancing.models.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -42,6 +44,13 @@ public class Unit {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit")
     private List<Record> records;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit")
+    private List<Target> targets;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public List<Record> addRecord(Record record) {
         records.add(record);

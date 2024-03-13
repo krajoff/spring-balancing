@@ -22,16 +22,16 @@ public class Record implements IRecord {
     @Column(name = "mode", nullable = false)
     @NonNull
     private String mode;
-    @Column(name = "magvibration", columnDefinition = "double default 0")
+    @Column(name = "magvibration", nullable = false)
     @NonNull
     private Double magvibration;
-    @Column(name = "phasevibration", columnDefinition = "double default 0")
+    @Column(name = "phasevibration", nullable = false)
     @NonNull
     private Double phasevibration;
-    @Column(name = "magweight", columnDefinition = "double default 0")
+    @Column(name = "magweight", nullable = false)
     @NonNull
     private Double magweight;
-    @Column(name = "phaseweight", columnDefinition = "double default 0")
+    @Column(name = "phaseweight", nullable = false)
     @NonNull
     private Double phaseweight;
     @Column(name = "reference", columnDefinition = "bigint default -1")
