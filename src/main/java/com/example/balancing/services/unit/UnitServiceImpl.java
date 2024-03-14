@@ -42,9 +42,10 @@ public class UnitServiceImpl implements UnitService {
         Unit existingUnit = getUnitById(id);
         existingUnit.setType(unit.getType());
         existingUnit.setStation(unit.getStation());
+        existingUnit.setPlate(unit.getPlate());
         existingUnit.setUnitnumber(unit.getUnitnumber());
         existingUnit.setDescription(unit.getDescription());
-        return unit;
+        return unitRepository.save(existingUnit);
     }
 
     public void deleteUnit(Long id) {
