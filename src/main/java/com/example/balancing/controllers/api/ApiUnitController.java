@@ -24,7 +24,7 @@ public class ApiUnitController {
         return unitService.getAllUnits();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{unit_id}")
     public void deleteUnit(Long unit_id) {
         unitService.deleteUnit(unit_id);
     }
@@ -34,12 +34,12 @@ public class ApiUnitController {
         return unitService.createUnit(unit);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{unit_id}")
     public Unit updateUnit(@PathVariable Long unit_id, @RequestBody Unit unit) {
         return unitService.updateUnit(unit_id, unit);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{unit_id}")
     public Unit getRecordsByUnit(@PathVariable Long unit_id) {
         return unitService.getCompleteUnitById(unit_id);
     }

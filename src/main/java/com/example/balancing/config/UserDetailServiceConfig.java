@@ -8,7 +8,7 @@ package com.example.balancing.config;
 //import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 //@Configuration
-public class UserDetailServiceConfig {
+//public class UserDetailServiceConfig {
 
 //    @Bean
 //    public UserDetailsService userDetailsService(BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -31,4 +31,4 @@ public class UserDetailServiceConfig {
 //    public BCryptPasswordEncoder bCryptPasswordEncoder() {
 //        return new BCryptPasswordEncoder();
 //    }
-}
+//}

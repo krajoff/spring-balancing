@@ -12,6 +12,3 @@ spring:
         format_sql: true
     show-sql: true
 
-springdoc:
-  api-docs:
-    path=/api-docs:

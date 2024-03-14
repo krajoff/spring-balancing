@@ -25,17 +25,17 @@ public class ApiRecordController {
         return recordService.createRecord(record);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{record_id}")
     public Record getRecordById(@PathVariable Long id) {
         return recordService.getRecordById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{record_id}")
     public Record updateRecord(@PathVariable Long id, @RequestBody Record record) {
         return recordService.updateRecord(id, record);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{record_id}")
     public void deleteRecord(@PathVariable Long id) {
         recordService.deleteRecord(id);
     }
