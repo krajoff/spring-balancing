@@ -44,13 +44,13 @@ public class WebUnitController {
         return "redirect:/unit/index";
     }
 
-    @GetMapping("/{unit_id}/edit")
+    @GetMapping("/edit/{unit_id}")
     public String showUpdateForm(@PathVariable Long unit_id, Model model) {
         model.addAttribute("unit", unitService.getUnitById(unit_id));
         return "unit/update-unit";
     }
 
-    @PostMapping("/{unit_id}/update")
+    @PostMapping("/update/{unit_id}")
     public String updateUnit(@PathVariable Long unit_id, Unit unit) {
         try {
             unitService.updateUnit(unit_id, unit);

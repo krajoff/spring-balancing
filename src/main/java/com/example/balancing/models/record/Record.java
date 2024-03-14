@@ -38,7 +38,6 @@ public class Record implements IRecord {
     @NonNull
     private Long reference;
     @Column(name = "stage", columnDefinition = "boolean default true")
-    @NonNull
     private Boolean stage;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id")
@@ -70,6 +69,15 @@ public class Record implements IRecord {
                 this.magweight * sin(Math.toRadians(this.phaseweight)));
     }
 
+    public Boolean getStage() {
+        if (this.stage == null) {
+            setStage(false);
+            return this.stage;
+        } else {
+            return this.stage;
+        }
+    }
+
     public Double getMagTotalWeight() {
         return roundAvoid(getComplexTotalWeight().abs(), 2);
     }
@@ -90,6 +98,7 @@ public class Record implements IRecord {
         Double scale = Math.pow(10, places);
         return Math.round(value * scale) / scale;
     }
+
 
 }
 

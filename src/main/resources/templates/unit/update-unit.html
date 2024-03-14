@@ -30,27 +30,25 @@
         </div>
     </div>
 
-    <form class="divTableRow" th:action="@{'/record/update/' + ${record.id}}" method="post">
+    <form class="divTableRow" th:action="@{'/unit/update/'+ ${unit.id}}" method="post">
         <div class="divTableCell">&#10060;</div>
-        <div class="divTableCell"><input type="text" name="mode"/></div>
-        <div class="divTableCell"><input class = "decimal"
-                                         type="number"
-                                         name="magvibration"
-                                         th:value="${record.magvibration}"/></div>
-        <div class="divTableCell"><input class = "decimal"
-                                         type="number"
-                                         name="phasevibration"
-                                         th:value="${record.phasevibration}"/></div>
-        <div class="divTableCell"><input class = "decimal"
-                                         type="number"
-                                         name="magweight"
-                                         th:value="${record.magweight}"/></div>
-        <div class="divTableCell"><input type="number" name="phaseweight"/></div>
-        <div class="divTableCell"><input type="number" name="reference"/></div>
-        <div class="divTableCell"><input type="checkbox" name="stage"/></div>
-        <div class="divTableCell"><input type="submit" value="Edit record"/></div>
+        <div class="divTableCell"><input type="text"
+                                         name="station"
+                                         th:value="${unit.station}"/></div>
+        <div class="divTableCell"><input type="number"
+                                         name="unitnumber"
+                                         th:value="${unit.unitnumber}"/></div>
+        <div class="divTableCell"><input type="text"
+                                         name="type"
+                                         th:value="${unit.type}"/></div>
+        <div class="divTableCell"><input type="number"
+                                         name="plate"
+                                         th:value="${unit.plate}"/></div>
+        <div class="divTableCell"><input type = "text"
+                                         name="description"
+                                         th:value="${unit.description}"/></div>
+        <div class="divTableCell"><input type="submit" value="Edit unit"/></div>
     </form>
-
 </div>
 </body>
 </html>
