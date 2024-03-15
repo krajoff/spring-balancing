@@ -1,9 +1,7 @@
 package com.example.balancing.services.target;
 
 import com.example.balancing.models.target.Target;
-import com.example.balancing.repository.RecordRepository;
 import com.example.balancing.repository.TargetRepository;
-import com.example.balancing.services.record.RecordService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
