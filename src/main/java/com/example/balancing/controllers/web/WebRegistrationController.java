@@ -32,4 +32,9 @@ public class WebRegistrationController {
         }
         return "redirect:/unit/index";
     }
+
+    @GetMapping("/login")
+    String login() {
+        return "login";
+    }
 }

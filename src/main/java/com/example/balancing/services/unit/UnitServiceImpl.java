@@ -34,6 +34,10 @@ public class UnitServiceImpl implements UnitService {
         return unit;
     }
 
+    public List<Unit> getUnitsByUserId(Long id) {
+        return unitRepository.findByUserId(id);
+    }
+
     public Unit createUnit(Unit unit) {
         return unitRepository.save(unit);
     }

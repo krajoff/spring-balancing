@@ -20,4 +20,6 @@ public interface UnitService {
 
     Unit getCompleteUnitById(Long id);
 
+    List<Unit> getUnitsByUserId(Long Id);
+
 }

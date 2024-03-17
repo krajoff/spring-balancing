@@ -1,5 +1,7 @@
 package com.example.balancing.models.user;
 
+import com.example.balancing.models.record.Record;
+import com.example.balancing.models.unit.Unit;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -45,7 +47,6 @@ public class User implements UserDetails {
     @Column(name = "role")
     private Role role;
 
-
     @Email
     @Size(max = 255)
     @Column(name = "email", unique = true)
@@ -53,6 +54,9 @@ public class User implements UserDetails {
 
     @Column(name = "priority")
     private Integer priority;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Unit> units;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.name());

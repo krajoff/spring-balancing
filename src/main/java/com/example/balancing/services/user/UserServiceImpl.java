@@ -1,24 +1,25 @@
 package com.example.balancing.services.user;
 
+import com.example.balancing.models.record.Record;
 import com.example.balancing.models.user.Role;
 import com.example.balancing.models.user.User;
+import com.example.balancing.models.unit.Unit;
 import com.example.balancing.repository.UserRepository;
+import com.example.balancing.services.unit.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.sql.DataSource;
-import java.util.Collections;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    UnitService unitService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -33,12 +34,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        List<Unit> units = unitService.getUnitsByUserId(id);
+        user.setUnits(units);
+        return user;
+
     }
 
-//    public User getUserByUsername(String username){
-//        return userRepository.findByUsername(username);
-//    }
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 
     public User createUser(User user) {
         return userRepository.save(user);
