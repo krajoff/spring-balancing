@@ -3,9 +3,13 @@ package com.example.balancing.controllers.web;
 import com.example.balancing.exception.UnitNotFoundException;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.unit.Unit;
+import com.example.balancing.models.user.User;
 import com.example.balancing.services.record.RecordService;
 import com.example.balancing.services.unit.UnitService;
+import com.example.balancing.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +26,15 @@ public class WebUnitController {
     @Autowired
     private RecordService recordService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/index")
     public String getAllUnits(Model model) {
-        model.addAttribute("units", unitService.getAllUnits());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserByUsername(authentication.getName());
+        model.addAttribute("units", unitService.getUnitsByUserId(user.getId()));
+        model.addAttribute("username", authentication.getName());
         return "unit/index";
     }
 
@@ -40,6 +50,9 @@ public class WebUnitController {
 
     @PostMapping("/create")
     public String createUnit(Unit unit) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserByUsername(authentication.getName());
+        unit.setUser(user);
         unitService.createUnit(unit);
         return "redirect:/unit/index";
     }

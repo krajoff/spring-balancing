@@ -5,6 +5,10 @@
     <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="logout"/>
+</form>
+
 <h1>How to use single plane balancing application</h1>
 <ul>Fill in the fields in the table:
     <li>Mode is type of generator/motor load.</li>

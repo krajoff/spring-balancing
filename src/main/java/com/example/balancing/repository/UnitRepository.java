@@ -17,4 +17,5 @@ public interface UnitRepository extends JpaRepository<Unit, Long> {
 
     @Query(value = "select * from units u where u.user_id = ?1",  nativeQuery = true)
     List<Unit> findByUserId(Long id);
+
 }
