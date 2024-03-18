@@ -47,7 +47,7 @@ public class WebSecurityConfig {
         httpSecurity
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers("/", "/login", "/register", "/static/**").permitAll()
+                                .requestMatchers("/", "/login", "/register", "/static/**", "/css/**").permitAll()
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
                                 //.requestMatchers("/**").permitAll()
                                //.requestMatchers("/**").hasAuthority("ADMIN")
