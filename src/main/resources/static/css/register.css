@@ -9,6 +9,10 @@ body {
   background: #2980b9;
   height: 100vh;
 }
+.red{
+  text-align: center;
+  color: red;
+}
 .center {
   position: absolute;
   top: 50%;
