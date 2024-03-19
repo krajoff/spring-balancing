@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add records</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="logout"/>
+</form>
+
+<h1>How to use single plane balancing application</h1>
+<ul>Fill in the fields in the table:
+    <li>Mode is type of generator/motor load.</li>
+    <li>Magnitude and phase of vibration is a value and a phase of
+        vibration from peak to peak.
+    </li>
+    <li>Magnitude and phase of weight is a value and a phase of
+        weight installed on the shaft.
+    </li>
+    <li>The reference number is a measurement number as a
+        reference to the previous state of the machine.
+    </li>
+    <li>The state is an true/false switch. It is used to take into
+        account in the averaging of values when calculating the total load.
+    </li>
+</ul>
+<h2 th:text="'Station: ' + ${unit.station} +
+             ', Unit number: ' + ${unit.unitnumber} +
+             ', Type: ' + ${unit.type} +
+             ', Plate: ' + ${unit.plate}"></h2>
+
+<div class="divTable blueTable">
+
+
+</div>
+</body>
+</html>

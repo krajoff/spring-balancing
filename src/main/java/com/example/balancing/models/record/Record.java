@@ -99,6 +99,5 @@ public class Record implements IRecord {
         return Math.round(value * scale) / scale;
     }
 
-
 }
 

@@ -37,7 +37,9 @@
 
     <form class="divTableRow" style="background: #78DBE2" th:action="@{'/record/update/' + ${record.id}}" method="post">
         <div class="divTableCell">&#10060;</div>
-        <div class="divTableCell"><input type="text" name="mode"/></div>
+        <div class="divTableCell"><input type="text"
+                                         name="mode"
+                                         th:value="${record.mode}"/></div>
         <div class="divTableCell"><input class = "decimal"
                                          type="number"
                                          name="magvibration"
@@ -50,8 +52,14 @@
                                          type="number"
                                          name="magweight"
                                          th:value="${record.magweight}"/></div>
-        <div class="divTableCell"><input type="number" name="phaseweight"/></div>
-        <div class="divTableCell"><input type="number" name="reference"/></div>
+        <div class="divTableCell"><input class = "decimal"
+                                         type="number"
+                                         name="phaseweight"
+                                         th:value="${record.phaseweight}"/></div>
+        <div class="divTableCell"><input class = "decimal"
+                                         type="number"
+                                         name="reference"
+                                         th:value="${record.reference}"/></div>
         <div class="divTableCell"><input type="checkbox" name="stage"/></div>
         <div class="divTableCell"><input type="submit" value="Edit record"/></div>
     </form>

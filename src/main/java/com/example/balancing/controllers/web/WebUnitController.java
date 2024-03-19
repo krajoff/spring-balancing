@@ -98,4 +98,9 @@ public class WebUnitController {
         return "redirect:/unit/{unit_id}/records";
     }
 
+    @GetMapping("/{unit_id}/calculate")
+    public String getTargets(@PathVariable Long unit_id, Model model) {
+        model.addAttribute("unit", unitService.getCompleteUnitById(unit_id));
+        return "unit/calculate";
+    }
 }
