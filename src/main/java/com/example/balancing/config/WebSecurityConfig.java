@@ -51,6 +51,7 @@ public class WebSecurityConfig {
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
                                 //.requestMatchers("/**").permitAll()
                                //.requestMatchers("/**").hasAuthority("ADMIN")
+
                                 .requestMatchers("/unit").hasAuthority("USER")
                                 .anyRequest().authenticated())
                 .formLogin(

@@ -19,11 +19,8 @@ public class WebRegistrationController {
     @Autowired
     private UserService userService;
 
-    private Boolean isExist = false;
-
     @GetMapping("/register")
-    public String showRegisterForm(Model model) {
-        model.addAttribute("isExist", isExist);
+    public String showRegisterForm() {
         return "auth/register";
     }
 
@@ -36,8 +33,7 @@ public class WebRegistrationController {
             userService.saveUser(user);
             return "redirect:/login";
         }
-        isExist = true;
-        return "redirect:/register";
+        return "redirect:/register?error=true";
     }
 
     @GetMapping("/login")
