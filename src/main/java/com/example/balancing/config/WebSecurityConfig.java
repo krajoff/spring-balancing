@@ -47,12 +47,12 @@ public class WebSecurityConfig {
         httpSecurity
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers("/", "/login", "/register", "/static/**", "/css/**").permitAll()
+                                .requestMatchers("/", "/login", "/register", "/static/**", "/css/**", "/error").permitAll()
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
-                                //.requestMatchers("/**").permitAll()
-                               //.requestMatchers("/**").hasAuthority("ADMIN")
-
+                                .requestMatchers("/swagger-ui/*").hasAuthority("ADMIN")
+                                .requestMatchers("/api/*").hasAuthority("ADMIN")
                                 .requestMatchers("/unit").hasAuthority("USER")
+                                .requestMatchers("/record").hasAuthority("USER")
                                 .anyRequest().authenticated())
                 .formLogin(
                         formLogin -> formLogin

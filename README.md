@@ -8,7 +8,7 @@ improving machine performance, efficiency, and extending component life.
 ## Registration
 
 Before using the application, you need to register by providing 
-the following information:
+the following information (http://localhost:8080/register) :
 
 - username
 - password
