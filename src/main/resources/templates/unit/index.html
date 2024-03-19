@@ -74,7 +74,9 @@
         <div class="divTableCell"><input type="text" name="description"/></div>
         <div class="divTableCell"><input type="submit" value="Add unit"/></div>
     </form>
-
+    <div th:if="${param.error}" class="red">
+        Incorrect values
+    </div>
 </div>
 </body>
 </html>

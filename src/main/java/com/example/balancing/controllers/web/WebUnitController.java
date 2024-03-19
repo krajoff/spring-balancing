@@ -98,4 +98,9 @@ public class WebUnitController {
         return "redirect:/unit/{unit_id}/records";
     }
 
+    @GetMapping("/{unit_id}/calculate")
+    public String calculateTarget(@PathVariable Long unit_id, Model model) {
+        return "unit/calculate";
+    }
+
 }
