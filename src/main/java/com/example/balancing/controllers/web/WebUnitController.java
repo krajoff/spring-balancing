@@ -29,7 +29,7 @@ public class WebUnitController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/index")
+    @GetMapping({"/", "", "/index"})
     public String getAllUnits(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getUserByUsername(authentication.getName());
@@ -45,7 +45,7 @@ public class WebUnitController {
         } catch (UnitNotFoundException e) {
             return "Unit not found";
         }
-        return "redirect:/unit/index";
+        return "redirect:/unit/";
     }
 
     @PostMapping("/create")
@@ -54,7 +54,7 @@ public class WebUnitController {
         User user = userService.getUserByUsername(authentication.getName());
         unit.setUser(user);
         unitService.createUnit(unit);
-        return "redirect:/unit/index";
+        return "redirect:/unit/";
     }
 
     @GetMapping("/edit/{unit_id}")
@@ -67,40 +67,14 @@ public class WebUnitController {
     public String updateUnit(@PathVariable Long unit_id, Unit unit) {
         try {
             unitService.updateUnit(unit_id, unit);
-            return "redirect:/unit/index";
+            return "redirect:/unit/";
         } catch (UnitNotFoundException e) {
             return "Unit not found";
         }
     }
 
-    @GetMapping("/{unit_id}/records")
-    public String getRecordsByUnit(@PathVariable Long unit_id, Model model) {
-        model.addAttribute("unit", unitService.getCompleteUnitById(unit_id));
-        return "unit/unit-records";
-    }
-
-    @PostMapping("/{unit_id}/target")
-    public String calculateTargetWeight(@PathVariable Long unit_id) {
-        unitService.getCompleteUnitById(unit_id);
-        return "redirect:/unit/index";
-    }
-
-
-    @PostMapping("/{unit_id}/record/create")
-    public String addRecord(@PathVariable Long unit_id, Record record) {
-        unitService.addRecord(unit_id, record);
-        return "redirect:/unit/{unit_id}/records";
-    }
-
-    @PostMapping("/{unit_id}/record/delete/{record_id}")
-    public String deleteRecord(@PathVariable Long unit_id, @PathVariable Long record_id) {
-        recordService.deleteRecord(record_id);
-        return "redirect:/unit/{unit_id}/records";
-    }
-
-    @GetMapping("/{unit_id}/calculate")
-    public String getTargets(@PathVariable Long unit_id, Model model) {
-        model.addAttribute("unit", unitService.getCompleteUnitById(unit_id));
+    @GetMapping("/calculate/{unit_id}")
+    public String calculateTarget(@PathVariable Long unit_id, Model model) {
         return "unit/calculate";
     }
 }

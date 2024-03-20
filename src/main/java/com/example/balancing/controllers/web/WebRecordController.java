@@ -1,51 +1,67 @@
 package com.example.balancing.controllers.web;
 
 import com.example.balancing.models.record.Record;
+import com.example.balancing.models.user.User;
 import com.example.balancing.services.record.RecordService;
+import com.example.balancing.services.unit.UnitService;
+import com.example.balancing.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/record")
+@RequestMapping("/unit/{unit_id}/record")
 public class WebRecordController {
     @Autowired
     private RecordService recordService;
 
-    @GetMapping("/all")
-    public String getAllRecords(Model model) {
-        model.addAttribute("records", recordService.getAllRecords());
-        return "index-short";
-    }
+    @Autowired
+    private UnitService unitService;
 
-    @GetMapping("/index")
-    public String getAllCompleteRecords(Model model) {
-        model.addAttribute("records", recordService.getAllCompleteRecords());
-        return "record/index";
-    }
+    @Autowired
+    private UserService userService;
 
-    @PostMapping("/delete/{id}")
-    public String deleteRecord(@PathVariable Long id) {
-        recordService.deleteRecord(id);
-        return "redirect:/record/index";
+    @GetMapping({"/", ""})
+    public String getRecordsByUnit(@PathVariable Long unit_id, Model model) {
+        model.addAttribute("unit", unitService.getCompleteUnitById(unit_id));
+        return "unit/unit-records";
     }
 
     @PostMapping("/create")
-    public String createRecord(Record record) {
-        recordService.createRecord(record);
-        return "redirect:/record/index";
+    public String createRecord(@PathVariable Long unit_id, Record record) {
+        unitService.addRecord(unit_id, record);
+        return "redirect:/unit/{unit_id}/record";
     }
-    @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable Long id, Model model) {
-        model.addAttribute("record", recordService.getRecordById(id));
+
+    @GetMapping("/edit/{record_id}")
+    public String showUpdateForm(@PathVariable Long unit_id,
+                                 @PathVariable Long record_id,
+                                 Model model) {
+        model.addAttribute("record", recordService.getRecordById(record_id));
+        model.addAttribute("unit", unitService.getUnitById(unit_id));
         return "record/update-record";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateRecord(@PathVariable Long id, Record record) {
-        recordService.updateRecord(id, record);
-        return "redirect:/record/index";
+    @PostMapping("/update/{record_id}")
+    public String updateRecord(@PathVariable Long record_id, Record record) {
+        recordService.updateRecord(record_id, record);
+        return "redirect:/unit/{unit_id}/record";
     }
+
+    @PostMapping("/delete/{record_id}")
+    public String deleteRecord(@PathVariable Long unit_id,
+                               @PathVariable Long record_id) {
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        User user = userService.getUserByUsername(authentication.getName());
+        if (unitService.getUnitById(unit_id).getUser().equals(user)) {
+            recordService.deleteRecord(record_id);
+        }
+        return "redirect:/unit/{unit_id}/record";
+    }
+
 
 }

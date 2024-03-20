@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <form class="divTableRow" style="background: #78DBE2" th:action="@{'/record/update/' + ${record.id}}" method="post">
+    <form class="divTableRow" style="background: #78DBE2" th:action="@{'/unit/'+${unit.id}+'/record/update/'+${record.id}}" method="post">
         <div class="divTableCell">&#10060;</div>
         <div class="divTableCell"><input type="text"
                                          name="mode"
