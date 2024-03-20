@@ -27,13 +27,6 @@ public class UnitServiceImpl implements UnitService {
         return unitRepository.findById(id).orElseThrow(() -> new RuntimeException("Unit not found"));
     }
 
-    public Unit getCompleteUnitById(Long id) {
-        Unit unit = unitRepository.findById(id).orElseThrow(() -> new RuntimeException("Unit not found"));
-        List<Record> records = recordService.getCompleteRecordsByUnit(unit.getRecords());
-        unit.setRecords(records);
-        return unit;
-    }
-
     public List<Unit> getUnitsByUserId(Long id) {
         return unitRepository.findByUserId(id);
     }
@@ -64,24 +57,34 @@ public class UnitServiceImpl implements UnitService {
         return unitRepository.save(existingUnit);
     }
 
-    public Unit calculationTarget(Unit unit) {
-
-        Iterator<Record> record = unit.getRecords().iterator();
-        Set<String> sets = new HashSet<>();
-        while (record.hasNext()) {
-            String mode = record.next().getMode();
-            sets.add(mode);
+    public Unit calculateTotalWeight(Long id) {
+        Unit unit = unitRepository.findById(id).orElseThrow(() -> new RuntimeException("Unit not found"));
+        List<Record> records = unit.getRecords();
+        for (Record record : records) {
+            Record tempRecord = record;
+            Complex totalComplexWeight = record.getComplexWeight();
+            while (tempRecord.getReference() != -1) {
+                Long tempId = tempRecord.getReference();
+                try {
+                    totalComplexWeight = totalComplexWeight.
+                            plus(recordService.getRecordById(tempId).getComplexWeight());
+                    tempRecord = recordService.getRecordById(tempId);
+                } catch (RuntimeException e) {
+                    tempRecord.setReference(-1L);
+                    recordService.updateRecord(tempRecord.getId(), tempRecord);
+                    System.out.println(e.getMessage());
+                }
+            }
+            record.setComplexTotalWeight(totalComplexWeight);
         }
+        unit.setRecords(records);
+        return unit;
+    }
 
-        Complex totalWeight;
-        Record tempRecord, phaseRecord;
-        List<Record> records;
-        List<Unit> units;
-        Integer BaseId;
-        Double pTotWgt;
-        Boolean initial;
-        for (String mode : sets) {
-            units = unitRepository.findByIdAndMode(unit.getId(), mode);
+    public Unit calculateTarget(Long id) {
+        Unit unit = unitRepository.findById(id).orElseThrow(() -> new RuntimeException("Unit not found"));
+        List<Record> records = unit.getRecords();
+        for (Record record : records) {
         }
         return unit;
     }

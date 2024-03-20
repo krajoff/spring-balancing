@@ -62,7 +62,7 @@
             <div class="divTableCell" th:text=${record.magTotalWeight}></div>
             <div class="divTableCell" th:text=${record.phaseTotalWeight}></div>
             <div class="divTableCell">
-                <form th:action="@{'/record/edit/' + ${record.id}}" th:method="get">
+                <form th:action="@{'/unit/' + ${unit.id} + '/record/edit/' + ${record.id}}" th:method="get">
                     <input type="submit" value="edit"/>
                 </form>
             </div>

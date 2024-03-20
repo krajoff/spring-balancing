@@ -8,15 +8,11 @@ import java.util.List;
 public interface RecordService {
     List<Record> getAllRecords();
 
-    List<Record> getAllCompleteRecords();
-
     Record getRecordById(Long id);
 
     List<Record> getRecordsByMode(String mode);
 
     List<Record> getRecordsByUnit(Unit unit);
-
-    List<Record> getCompleteRecordsByUnit(List<Record> records);
 
     Record createRecord(Record record);
 

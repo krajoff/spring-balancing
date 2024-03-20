@@ -41,12 +41,12 @@ public class ApiUnitController {
 
     @GetMapping("/{unit_id}")
     public Unit getRecordsByUnit(@PathVariable Long unit_id) {
-        return unitService.getCompleteUnitById(unit_id);
+        return unitService.calculateTotalWeight(unit_id);
     }
 
     @PostMapping("/{unit_id}")
     public Unit calculateTargetWeight(@PathVariable Long unit_id) {
-        return unitService.getCompleteUnitById(unit_id);
+        return unitService.calculateTotalWeight(unit_id);
     }
 
     @DeleteMapping("/{unit_id}/{record_id}")

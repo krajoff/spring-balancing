@@ -58,6 +58,12 @@ public class Record implements IRecord {
     private Double magTotalVibration;
     @Transient
     private Double phaseTotalVibration;
+    @Transient
+    private Complex complexTargetWeight;
+    @Transient
+    private Double magTargetVibration;
+    @Transient
+    private Double phaseTargetVibration;
 
     public Complex getComplexVibration() {
         return new Complex(this.magvibration * cos(Math.toRadians(this.phasevibration)),
@@ -67,6 +73,10 @@ public class Record implements IRecord {
     public Complex getComplexWeight() {
         return new Complex(this.magweight * cos(Math.toRadians(this.phaseweight)),
                 this.magweight * sin(Math.toRadians(this.phaseweight)));
+    }
+
+    public void setPhaseTotalWeight(Double phaseTotalWeight) {
+        this.phaseTotalWeight = Math.toDegrees(phaseTotalWeight);
     }
 
     public Boolean getStage() {
@@ -98,7 +108,6 @@ public class Record implements IRecord {
         Double scale = Math.pow(10, places);
         return Math.round(value * scale) / scale;
     }
-
 
 }
 

@@ -17,7 +17,7 @@ public class ApiRecordController {
 
     @GetMapping
     public List<Record> getAllCompleteRecords() {
-        return recordService.getAllCompleteRecords();
+        return recordService.getAllRecords();
     }
 
     @PostMapping

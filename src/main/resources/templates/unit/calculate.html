@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html>
 <head>
-    <link rel="stylesheet" href="/css/error.css"/>
-    <title>Soon</title>
+    <title>Target</title>
+    <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>
-<div class="center">
-    <h1>The final calculation will be added soon</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="logout"/>
+</form>
+
+<h2 th:text="'Station: ' + ${unit.station} +
+             ', Unit number: ' + ${unit.unitnumber} +
+             ', Type: ' + ${unit.type} +
+             ', Plate: ' + ${unit.plate}"></h2>
+
+<div class="divTable blueTable">
 </div>
 </body>
 </html>
