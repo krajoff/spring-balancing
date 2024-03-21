@@ -3,7 +3,6 @@ package com.example.balancing.services.unit;
 import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.unit.Unit;
-import com.example.balancing.repository.RecordRepository;
 import com.example.balancing.repository.UnitRepository;
 import com.example.balancing.services.record.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
