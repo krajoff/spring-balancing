@@ -26,7 +26,7 @@ public class WebRecordController {
 
     @GetMapping({"/", ""})
     public String getRecordsByUnit(@PathVariable Long unit_id, Model model) {
-        model.addAttribute("unit", unitService.getCompleteUnitById(unit_id));
+        model.addAttribute("unit", unitService.calculateTotalWeight(unit_id));
         return "unit/unit-records";
     }
 

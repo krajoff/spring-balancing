@@ -18,7 +18,7 @@ public interface UnitService {
 
     Unit addRecord(Long id, Record record);
 
-    Unit getCompleteUnitById(Long id);
+    Unit calculateTotalWeight(Long id);
 
     List<Unit> getUnitsByUserId(Long Id);
 
