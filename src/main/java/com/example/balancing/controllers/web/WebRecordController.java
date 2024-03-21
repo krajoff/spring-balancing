@@ -1,6 +1,7 @@
 package com.example.balancing.controllers.web;
 
 import com.example.balancing.models.record.Record;
+import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.user.User;
 import com.example.balancing.services.record.RecordService;
 import com.example.balancing.services.unit.UnitService;
@@ -26,7 +27,8 @@ public class WebRecordController {
 
     @GetMapping({"/", ""})
     public String getRecordsByUnit(@PathVariable Long unit_id, Model model) {
-        model.addAttribute("unit", unitService.calculateTotalWeight(unit_id));
+        model.addAttribute("unit", unitService
+                .calculateTargetWeight(unit_id));
         return "unit/unit-records";
     }
 
@@ -40,8 +42,10 @@ public class WebRecordController {
     public String showUpdateForm(@PathVariable Long unit_id,
                                  @PathVariable Long record_id,
                                  Model model) {
-        model.addAttribute("record", recordService.getRecordById(record_id));
-        model.addAttribute("unit", unitService.getUnitById(unit_id));
+        model.addAttribute("record", recordService
+                .getRecordById(record_id));
+        model.addAttribute("unit", unitService
+                .getUnitById(unit_id));
         return "record/update-record";
     }
 

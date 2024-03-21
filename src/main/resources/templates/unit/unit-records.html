@@ -44,6 +44,8 @@
             <div class="divTableHead">State</div>
             <div class="divTableHead">Total weight<br>magnitude</div>
             <div class="divTableHead">Total weight<br>phase</div>
+            <div class="divTableHead">Target weight<br>magnitude</div>
+            <div class="divTableHead">Target weight<br>phase</div>
             <div class="divTableHead">Edit</div>
             <div class="divTableHead">Delete</div>
         </div>
@@ -61,20 +63,28 @@
             <div class="divTableCell" th:text=${record.stage}></div>
             <div class="divTableCell" th:text=${record.magTotalWeight}></div>
             <div class="divTableCell" th:text=${record.phaseTotalWeight}></div>
+            <div class="divTableCell" th:text=${record.magTargetWeight}></div>
+            <div class="divTableCell" th:text=${record.phaseTargetWeight}></div>
             <div class="divTableCell">
-                <form th:action="@{'/unit/' + ${unit.id} + '/record/edit/' + ${record.id}}" th:method="get">
+                <form th:action="@{'/unit/' + ${unit.id} +
+                '/record/edit/' + ${record.id}}"
+                      th:method="get">
                     <input type="submit" value="edit"/>
                 </form>
             </div>
             <div class="divTableCell">
-                <form th:action="@{'/unit/' + ${unit.id} + '/record/delete/' + ${record.id}}" th:method="post">
+                <form th:action="@{'/unit/' + ${unit.id} +
+                '/record/delete/' + ${record.id}}"
+                      th:method="post">
                     <input type="submit" value="delete"/>
                 </form>
             </div>
         </div>
     </div>
     <div class="divTableBody">
-        <form class="divTableRow" th:action="@{'/unit/' + ${unit.id} + '/record/create'}" method="post">
+        <form class="divTableRow"
+              th:action="@{'/unit/' + ${unit.id} + '/record/create'}"
+              method="post">
             <div class="divTableCell">&#10060;</div>
             <div class="divTableCell"><input type="text" name="mode"/></div>
             <div class="divTableCell"><input type="number" name="magvibration"/></div>
@@ -87,7 +97,9 @@
         </form>
     </div>
     <div class="divTableBody">
-        <form class="divTableRow" th:action="@{'/unit/' + ${unit.id} + '/calculate'}" method="get">
+        <form class="divTableRow"
+              th:action="@{'/unit/' + ${unit.id} + '/calculate'}"
+              method="get">
             <div class="divTableCell"></div>
             <div class="divTableCell"></div>
             <div class="divTableCell"></div>
@@ -96,7 +108,7 @@
             <div class="divTableCell"></div>
             <div class="divTableCell"></div>
             <div class="divTableCell"></div>
-            <div class="divTableCell"><input type="submit" value="Calculate"/></div>
+            <!--        <div class="divTableCell"><input type="submit" value="Calculate"/></div>-->
         </form>
     </div>
     <div th:if="${param.error}" class="red">

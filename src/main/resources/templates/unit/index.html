@@ -48,24 +48,28 @@
             <div class="divTableCell" th:text=${unit.plate}></div>
             <div class="divTableCell" th:text=${unit.description}></div>
             <div class="divTableCell">
-                <form th:action="@{'/unit/edit/' + ${unit.id}}" th:method="get">
+                <form th:action="@{'/unit/edit/' + ${unit.id}}"
+                      th:method="get">
                     <input type="submit" value="edit"/>
                 </form>
             </div>
             <div class="divTableCell">
-                <form th:action="@{'/unit/delete/' + ${unit.id}}" th:method="post">
+                <form th:action="@{'/unit/delete/' + ${unit.id}}"
+                      th:method="post">
                     <input type="submit" value="delete"/>
                 </form>
             </div>
             <div class="divTableCell">
-                <form th:action="@{'/unit/' + ${unit.id} + '/record'}" th:method="get">
+                <form th:action="@{'/unit/' + ${unit.id} + '/record'}"
+                      th:method="get">
                     <input type="submit" value="edit records"/>
                 </form>
             </div>
         </div>
     </div>
 
-    <form class="divTableRow" style="background: #78DBE2" action="/unit/create" method="post">
+    <form class="divTableRow" style="background: #78DBE2" action="/unit/create"
+          method="post">
         <div class="divTableCell">&#10060;</div>
         <div class="divTableCell"><input type="text" name="station"/></div>
         <div class="divTableCell"><input type="number" name="unitnumber"/></div>

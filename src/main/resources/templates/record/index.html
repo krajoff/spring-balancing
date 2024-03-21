@@ -54,19 +54,22 @@
             <div class="divTableCell" th:text=${record.magTotalWeight}></div>
             <div class="divTableCell" th:text=${record.phaseTotalWeight}></div>
             <div class="divTableCell">
-                <form th:action="@{'/record/edit/' + ${record.id}}" th:method="get">
+                <form th:action="@{'/record/edit/' + ${record.id}}"
+                      th:method="get">
                     <input type="submit" value="edit"/>
                 </form>
             </div>
             <div class="divTableCell">
-                <form th:action="@{'/record/delete/' + ${record.id}}" th:method="post">
+                <form th:action="@{'/record/delete/' + ${record.id}}"
+                      th:method="post">
                     <input type="submit" value="delete"/>
                 </form>
             </div>
         </div>
     </div>
 
-    <form class="divTableRow" style="background: #78DBE2" action="/record/create" method="post">
+    <form class="divTableRow" style="background: #78DBE2" action="/record/create"
+          method="post">
         <div class="divTableCell">&#10060;</div>
         <div class="divTableCell"><input type="text" name="mode"/></div>
         <div class="divTableCell"><input type="number" name="magvibration"/></div>

@@ -20,6 +20,8 @@ public interface UnitService {
 
     Unit calculateTotalWeight(Long id);
 
+    Unit calculateTargetWeight(Long id);
+
     List<Unit> getUnitsByUserId(Long Id);
 
 }

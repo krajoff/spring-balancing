@@ -30,7 +30,9 @@
         </div>
     </div>
 
-    <form class="divTableRow" th:action="@{'/unit/update/'+ ${unit.id}}" method="post">
+    <form class="divTableRow"
+          th:action="@{'/unit/update/'+ ${unit.id}}"
+          method="post">
         <div class="divTableCell">&#10060;</div>
         <div class="divTableCell"><input type="text"
                                          name="station"
@@ -47,7 +49,8 @@
         <div class="divTableCell"><input type = "text"
                                          name="description"
                                          th:value="${unit.description}"/></div>
-        <div class="divTableCell"><input type="submit" value="Edit unit"/></div>
+        <div class="divTableCell"><input type="submit"
+                                         value="Edit unit"/></div>
     </form>
 </div>
 </body>
