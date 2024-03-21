@@ -15,6 +15,7 @@ improving machine performance, efficiency, and extending component life.
 5. Containers: Docker
 6. Swagger: springdoc-openapi
 7. Front: thymeleaf
+8. Auth: Spring Security
 </details>
 
 <details open>
