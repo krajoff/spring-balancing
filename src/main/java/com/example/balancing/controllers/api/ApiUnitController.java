@@ -35,7 +35,8 @@ public class ApiUnitController {
     }
 
     @PutMapping("/{unit_id}")
-    public Unit updateUnit(@PathVariable Long unit_id, @RequestBody Unit unit) {
+    public Unit updateUnit(@PathVariable Long unit_id,
+                           @RequestBody Unit unit) {
         return unitService.updateUnit(unit_id, unit);
     }
 
@@ -50,7 +51,8 @@ public class ApiUnitController {
     }
 
     @DeleteMapping("/{unit_id}/{record_id}")
-    public void deleteRecord(@PathVariable Long unit_id, @PathVariable Long record_id) {
+    public void deleteRecord(@PathVariable Long unit_id,
+                             @PathVariable Long record_id) {
         recordService.deleteRecord(record_id);
     }
 }
