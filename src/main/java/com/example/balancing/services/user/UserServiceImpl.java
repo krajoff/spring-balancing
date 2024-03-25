@@ -56,16 +56,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return existingUser;
     }
 
+    public User updateByUsername(String username, User user) {
+        User existingUser = getUserByUsername(username);
+        existingUser.setEmail(user.getEmail());
+        existingUser.setPassword(user.getPassword());
+        return existingUser;
+    }
+
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
+    public void deleteUserByUsername(String username) {
+        userRepository.deleteByUsername(username);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) {
-//        User user = userRepository.findByUsername(username);
-//        List<GrantedAuthority> authorities = new java.util.ArrayList<>(Collections.emptyList());
-//        authorities.add((GrantedAuthority) () -> user.getRole().name());
-//        return new User(user.getUsername(), user.getPassword(), authorities);
         return userRepository.findByUsername(username);
     }
 
