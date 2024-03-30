@@ -42,10 +42,10 @@ public class Unit implements IUnit{
     @Size(max = 255)
     private String description;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Record> records;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Target> targets;
 
     @ManyToOne(fetch = FetchType.LAZY)
