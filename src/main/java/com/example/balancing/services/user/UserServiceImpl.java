@@ -62,10 +62,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-//        User user = userRepository.findByUsername(username);
-//        List<GrantedAuthority> authorities = new java.util.ArrayList<>(Collections.emptyList());
-//        authorities.add((GrantedAuthority) () -> user.getRole().name());
-//        return new User(user.getUsername(), user.getPassword(), authorities);
         return userRepository.findByUsername(username);
     }
 
@@ -74,7 +70,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             System.out.println("User already existed");
             return false;
         } else {
-            user.setRoles("USER");
             user.setRole(Role.USER);
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             userRepository.save(user);

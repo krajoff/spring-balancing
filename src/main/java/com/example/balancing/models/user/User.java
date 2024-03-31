@@ -40,9 +40,6 @@ public class User implements UserDetails {
     @Transient
     private String passwordConfirm;
 
-    @Column(name = "roles")
-    private String roles;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
