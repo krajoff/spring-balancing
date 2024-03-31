@@ -1,7 +1,6 @@
 package com.example.balancing.controllers.web;
 
 import com.example.balancing.exception.UnitNotFoundException;
-import com.example.balancing.models.record.Record;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.user.User;
 import com.example.balancing.services.record.RecordService;
@@ -31,7 +30,8 @@ public class WebUnitController {
 
     @GetMapping({"/", "", "/index"})
     public String getAllUnits(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder
+                .getContext().getAuthentication();
         User user = userService.getUserByUsername(authentication.getName());
         model.addAttribute("units", unitService.getUnitsByUserId(user.getId()));
         model.addAttribute("username", authentication.getName());

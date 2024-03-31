@@ -9,7 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "units")
@@ -17,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Unit implements IUnit{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -42,18 +45,16 @@ public class Unit implements IUnit{
     @Size(max = 255)
     private String description;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit",
+            cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Record> records;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit",
+            cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Target> targets;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    public List<Record> addRecord(Record record) {
-        records.add(record);
-        return records;
-    }
 }

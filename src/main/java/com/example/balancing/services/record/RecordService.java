@@ -20,4 +20,6 @@ public interface RecordService {
 
     void deleteRecord(Long id);
 
+    Record correctRecord(Record record);
+
 }

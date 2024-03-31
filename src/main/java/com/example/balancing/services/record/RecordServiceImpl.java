@@ -1,14 +1,11 @@
 package com.example.balancing.services.record;
 
-import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.repository.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -21,7 +18,8 @@ public class RecordServiceImpl implements RecordService {
     }
 
     public Record getRecordById(Long id) {
-        return recordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
+        return recordRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Record not found"));
     }
 
     public List<Record> getRecordsByMode(String mode) {
@@ -45,11 +43,19 @@ public class RecordServiceImpl implements RecordService {
         existingRecord.setMagvibration(record.getMagvibration());
         existingRecord.setPhasevibration(record.getPhasevibration());
         existingRecord.setReference(record.getReference());
-        return recordRepository.save(existingRecord);
+        return recordRepository.save(correctRecord(existingRecord));
     }
 
     public void deleteRecord(Long id) {
         recordRepository.deleteById(id);
+    }
+
+    public Record correctRecord(Record record) {
+        if (record.getId().equals(record.getReference())) {
+            record.setReference(-1L);
+            return record;
+        }
+        return record;
     }
 
 }

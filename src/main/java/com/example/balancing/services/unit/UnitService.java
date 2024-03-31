@@ -1,6 +1,5 @@
 package com.example.balancing.services.unit;
 
-import com.example.balancing.models.record.Record;
 import com.example.balancing.models.unit.Unit;
 
 import java.util.List;
@@ -16,9 +15,9 @@ public interface UnitService {
 
     void deleteUnit(Long id);
 
-    Unit addRecord(Long id, Record record);
-
     Unit calculateTotalWeight(Long id);
+
+    Unit calculateTargetWeight(Long id);
 
     List<Unit> getUnitsByUserId(Long Id);
 

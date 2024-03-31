@@ -26,13 +26,15 @@ public class WebRecordController {
 
     @GetMapping({"/", ""})
     public String getRecordsByUnit(@PathVariable Long unit_id, Model model) {
-        model.addAttribute("unit", unitService.calculateTotalWeight(unit_id));
+        model.addAttribute("unit", unitService
+                .calculateTargetWeight(unit_id));
         return "unit/unit-records";
     }
 
     @PostMapping("/create")
     public String createRecord(@PathVariable Long unit_id, Record record) {
-        unitService.addRecord(unit_id, record);
+        record.setUnit(unitService.getUnitById(unit_id));
+        recordService.createRecord(record);
         return "redirect:/unit/{unit_id}/record";
     }
 
@@ -40,8 +42,10 @@ public class WebRecordController {
     public String showUpdateForm(@PathVariable Long unit_id,
                                  @PathVariable Long record_id,
                                  Model model) {
-        model.addAttribute("record", recordService.getRecordById(record_id));
-        model.addAttribute("unit", unitService.getUnitById(unit_id));
+        model.addAttribute("record", recordService
+                .getRecordById(record_id));
+        model.addAttribute("unit", unitService
+                .getUnitById(unit_id));
         return "record/update-record";
     }
 

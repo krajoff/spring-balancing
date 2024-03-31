@@ -19,47 +19,64 @@ public class Record implements IRecord {
     @Column(name = "id")
     @NonNull
     private Long id;
+
     @Column(name = "mode", nullable = false)
     @NonNull
     private String mode;
+
     @Column(name = "magvibration", nullable = false)
     @NonNull
     private Double magvibration;
+
     @Column(name = "phasevibration", nullable = false)
     @NonNull
     private Double phasevibration;
+
     @Column(name = "magweight", nullable = false)
     @NonNull
     private Double magweight;
+
     @Column(name = "phaseweight", nullable = false)
     @NonNull
     private Double phaseweight;
+
     @Column(name = "reference", columnDefinition = "bigint default -1")
     @NonNull
     private Long reference;
+
     @Column(name = "stage", columnDefinition = "boolean default true")
     private Boolean stage;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id")
     private Unit unit;
+
     @Transient
     private Complex complexVibration;
     @Transient
     private Complex complexWeight;
     @Transient
     private Complex complexTotalWeight;
+
     @Transient
     private Double magTotalWeight;
     @Transient
     private Double phaseTotalWeight;
+
     @Transient
     private Complex complexTotalVibration;
     @Transient
     private Double magTotalVibration;
     @Transient
     private Double phaseTotalVibration;
+
     @Transient
     private Complex complexTargetWeight;
+    @Transient
+    private Double magTargetWeight;
+    @Transient
+    private Double phaseTargetWeight;
+
     @Transient
     private Double magTargetVibration;
     @Transient
@@ -75,33 +92,47 @@ public class Record implements IRecord {
                 this.magweight * sin(Math.toRadians(this.phaseweight)));
     }
 
+    public Boolean getStage() {
+        if (this.stage == null) {
+            setStage(false);
+        }
+        return this.stage;
+    }
+
+    public Double getMagTotalWeight() {
+        return roundAvoid(getComplexTotalWeight().abs(), 1);
+    }
+
+    public Double getPhaseTotalWeight() {
+        return roundAvoid(Math
+                .toDegrees(getComplexTotalWeight()
+                        .phase()), 0);
+    }
+
     public void setPhaseTotalWeight(Double phaseTotalWeight) {
         this.phaseTotalWeight = Math.toDegrees(phaseTotalWeight);
     }
 
-    public Boolean getStage() {
-        if (this.stage == null) {
-            setStage(false);
-            return this.stage;
-        } else {
-            return this.stage;
-        }
+    public Double getMagTargetWeight() {
+        return roundAvoid(getComplexTargetWeight().abs(), 1);
     }
 
-    public Double getMagTotalWeight() {
-        return roundAvoid(getComplexTotalWeight().abs(), 2);
+    public Double getPhaseTargetWeight() {
+        return roundAvoid(Math
+                .toDegrees(getComplexTargetWeight()
+                        .phase()), 0);
     }
 
-    public Double getPhaseTotalWeight() {
-        return roundAvoid(getComplexTotalWeight().phase(), 2);
+    public void setPhaseTargetWeight(Double phaseTargetWeight) {
+        this.phaseTargetWeight = Math.toDegrees(phaseTargetWeight);
     }
 
     public Double getMagTotalVibration() {
-        return roundAvoid(getComplexTotalVibration().abs(), 2);
+        return roundAvoid(getComplexTotalVibration().abs(), 1);
     }
 
     public Double getPhaseTotalVibration() {
-        return roundAvoid(getComplexTotalVibration().phase(), 2);
+        return roundAvoid(getComplexTotalVibration().phase(), 0);
     }
 
     private Double roundAvoid(Double value, Integer places) {

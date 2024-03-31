@@ -44,6 +44,8 @@
             <div class="divTableHead">State</div>
             <div class="divTableHead">Total weight<br>magnitude</div>
             <div class="divTableHead">Total weight<br>phase</div>
+            <div class="divTableHead">Target weight<br>magnitude</div>
+            <div class="divTableHead">Target weight<br>phase</div>
             <div class="divTableHead">Edit</div>
             <div class="divTableHead">Delete</div>
         </div>
@@ -61,6 +63,8 @@
             <div class="divTableCell" th:text=${record.stage}></div>
             <div class="divTableCell" th:text=${record.magTotalWeight}></div>
             <div class="divTableCell" th:text=${record.phaseTotalWeight}></div>
+            <div class="divTableCell" th:text=${record.magTargetWeight}></div>
+            <div class="divTableCell" th:text=${record.phaseTargetWeight}></div>
             <div class="divTableCell">
                 <form th:action="@{'/unit/' + ${unit.id} + '/record/edit/' + ${record.id}}" th:method="get">
                     <input type="submit" value="edit"/>
