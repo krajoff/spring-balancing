@@ -52,7 +52,7 @@ public class User implements UserDetails {
     @Column(name = "priority")
     private Integer priority;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Unit> units;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
