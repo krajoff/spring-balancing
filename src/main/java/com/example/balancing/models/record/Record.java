@@ -77,11 +77,6 @@ public class Record implements IRecord {
     @Transient
     private Double phaseTargetWeight;
 
-    @Transient
-    private Double magTargetVibration;
-    @Transient
-    private Double phaseTargetVibration;
-
     public Complex getComplexVibration() {
         return new Complex(this.magvibration * cos(Math.toRadians(this.phasevibration)),
                 this.magvibration * sin(Math.toRadians(this.phasevibration)));
@@ -115,7 +110,7 @@ public class Record implements IRecord {
 
     public Double getMagTargetWeight() {
         return roundAvoid(getComplexTargetWeight().abs(), 1);
-    }
+        }
 
     public Double getPhaseTargetWeight() {
         return roundAvoid(Math

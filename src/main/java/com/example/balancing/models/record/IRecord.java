@@ -15,4 +15,8 @@ public interface IRecord {
 
     public Double getPhaseTotalVibration();
 
+    public Double getMagTargetWeight();
+
+    public Double getPhaseTargetWeight();
+
 }

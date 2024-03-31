@@ -14,7 +14,11 @@ public interface UserService {
 
     User updateUser(Long id, User user);
 
+    User updateByUsername(String username, User user);
+
     void deleteUser(Long id);
+
+    void deleteUserByUsername(String username);
 
     boolean saveUser(User user);
 

@@ -50,7 +50,8 @@ public class WebUnitController {
 
     @PostMapping("/create")
     public String createUnit(Unit unit) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder
+                .getContext().getAuthentication();
         User user = userService.getUserByUsername(authentication.getName());
         unit.setUser(user);
         unitService.createUnit(unit);

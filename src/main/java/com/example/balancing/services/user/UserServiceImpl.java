@@ -56,8 +56,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return existingUser;
     }
 
+    public User updateByUsername(String username, User user) {
+        User existingUser = getUserByUsername(username);
+        existingUser.setEmail(user.getEmail());
+        existingUser.setPassword(user.getPassword());
+        return existingUser;
+    }
+
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public void deleteUserByUsername(String username) {
+        userRepository.deleteByUsername(username);
     }
 
     @Override
