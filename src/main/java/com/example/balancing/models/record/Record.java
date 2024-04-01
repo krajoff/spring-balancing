@@ -20,6 +20,10 @@ public class Record implements IRecord {
     @NonNull
     private Long id;
 
+    @Column(name = "insideid")
+    @NonNull
+    private Long insideid;
+
     @Column(name = "mode", nullable = false)
     @NonNull
     private String mode;

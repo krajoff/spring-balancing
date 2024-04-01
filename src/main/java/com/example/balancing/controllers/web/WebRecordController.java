@@ -34,7 +34,12 @@ public class WebRecordController {
 
     @PostMapping("/create")
     public String createRecord(@PathVariable Long unit_id, Record record) {
+        Unit unit = unitService.getUnitById(unit_id);
+        Long countRecord = unit.getRecordcount() + 1;
+        unit.setRecordcount(countRecord);
+        unitService.updateUnit(unit_id, unit);
         record.setUnit(unitService.getUnitById(unit_id));
+        record.setInsideid(countRecord);
         recordService.createRecord(record);
         return "redirect:/unit/{unit_id}/record";
     }
@@ -67,6 +72,4 @@ public class WebRecordController {
         }
         return "redirect:/unit/{unit_id}/record";
     }
-
-
 }

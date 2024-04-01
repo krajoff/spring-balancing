@@ -9,9 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Table(name = "units")
@@ -24,6 +22,9 @@ public class Unit implements IUnit{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @Column(name = "recordcount", columnDefinition = "bigint default 0")
+    private Long recordcount;
 
     @Column(name = "station")
     @Size(max = 50)
