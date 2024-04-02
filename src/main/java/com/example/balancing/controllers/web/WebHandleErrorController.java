@@ -15,13 +15,15 @@ public class WebHandleErrorController implements ErrorController {
     public String handleError(HttpServletRequest request, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         if (status != null) {
-            Integer statusCode = Integer.valueOf(status.toString());
+            int statusCode = Integer.parseInt(status.toString());
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 return "error/error-404";
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 return "error/error-500";
             } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
                 return "error/error-403";
+            } else if (statusCode == HttpStatus.BAD_REQUEST.value()) {
+                return "error/error-400";
             }
         }
         model.addAttribute("request", request.getAttribute(RequestDispatcher.ERROR_MESSAGE));
