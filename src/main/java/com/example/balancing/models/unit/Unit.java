@@ -16,14 +16,14 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Unit implements IUnit{
+public class Unit implements IUnit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "recordcount", columnDefinition = "bigint default 0")
+    @Column(name = "recordcount")
     private Long recordcount;
 
     @Column(name = "station")
@@ -57,5 +57,11 @@ public class Unit implements IUnit{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @PrePersist
+    void prePersist() {
+        if (this.recordcount == null)
+            this.recordcount = 0L;
+    }
 
 }
