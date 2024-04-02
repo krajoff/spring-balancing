@@ -54,6 +54,8 @@ public class WebUnitController {
                 .getContext().getAuthentication();
         User user = userService.getUserByUsername(authentication.getName());
         unit.setUser(user);
+        if (unit.getRecordcount() == null)
+            unit.setRecordcount(0L);
         unitService.createUnit(unit);
         return "redirect:/unit/";
     }
