@@ -25,4 +25,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "where u.username = ?1", nativeQuery = true)
     User updateByUsername(String username, User user)
             throws UsernameNotFoundException;
+
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
 }

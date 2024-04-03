@@ -7,6 +7,7 @@ import com.example.balancing.models.unit.Unit;
 import com.example.balancing.repository.UserRepository;
 import com.example.balancing.services.unit.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -87,4 +88,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return true;
         }
     }
+
+    public UserDetailsService userDetailsService() {
+        return this::getUserByUsername;
+    }
+
+    public User getCurrentUser() {
+        var username = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+        return getUserByUsername(username);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.balancing.services.user;
 
 import com.example.balancing.models.user.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 
 import java.util.List;
@@ -23,4 +24,8 @@ public interface UserService {
     boolean saveUser(User user);
 
     User getUserByUsername(String username);
+
+    UserDetailsService userDetailsService();
+
+    User getCurrentUser();
 }
