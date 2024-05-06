@@ -1,8 +1,11 @@
+server:
+  port: 8181
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/balancing
+    url: jdbc:postgresql://localhost:15432/balancing
     username: root
-    password: password
+    password: passwords
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,3 +14,4 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
+

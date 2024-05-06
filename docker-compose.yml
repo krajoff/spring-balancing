@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  psql-db:
+    image: postgres:13.2-alpine
+    container_name: psql-db
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=passwords
+      - POSTGRES_DB=balancing
+    ports:
+      - '15432:5432'
+
+  balancing:
+    container_name: balancing-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8181:8181'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://psql-db/balancing
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=passwords
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SERVER_PORT=8181
+    depends_on:
+      - psql-db
