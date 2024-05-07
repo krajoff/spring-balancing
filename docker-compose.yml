@@ -10,7 +10,12 @@ services:
       - POSTGRES_PASSWORD=passwords
       - POSTGRES_DB=balancing
     ports:
-      - '15432:5432'
+      - '5432:5433'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h psql-db"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
 
   balancing:
     container_name: balancing-app
@@ -18,12 +23,13 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '8181:8181'
+      - '8080:8080'
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://psql-db/balancing
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=passwords
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-      - SERVER_PORT=8181
+      - SERVER_PORT=8080
     depends_on:
-      - psql-db
+      psql-db:
+        condition: service_healthy
