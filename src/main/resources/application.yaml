@@ -1,11 +1,8 @@
-server:
-  port: 8080
-
 spring:
-#  datasource:
-#    url: jdbc:postgresql://127.0.0.1:5432/balancing
-#    username: root
-#    password: passwords
+  datasource:
+    url: jdbc:postgresql://balancing-postgres.internal:5432/balancing
+    username: postgres
+    password: *
   jpa:
     hibernate:
       ddl-auto: update
