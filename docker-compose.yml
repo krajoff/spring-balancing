@@ -17,7 +17,7 @@ services:
       timeout: 5s
       retries: 10
 
-  balancing:
+  webapp:
     container_name: balancing-app
     build:
       context: .
