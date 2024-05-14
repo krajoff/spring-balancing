@@ -47,10 +47,9 @@ public class WebSecurityConfig {
         httpSecurity
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers("/", "/login", "/register", "/static/**", "/css/**", "/error").permitAll()
+                                .requestMatchers("/", "/scripts/**", "/login", "/register", "/static/**", "/css/**", "/error").permitAll()
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
-                                .requestMatchers("/swagger-ui/*").hasAuthority("ADMIN")
-                                .requestMatchers("/api/*").hasAuthority("ADMIN")
+                                .requestMatchers("/**").hasAuthority("ADMIN")
                                 .requestMatchers("/unit").hasAuthority("USER")
                                 .requestMatchers("/record").hasAuthority("USER")
                                 .anyRequest().authenticated())
