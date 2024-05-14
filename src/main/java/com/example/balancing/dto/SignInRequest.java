@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-@Schema()
+@Schema(description = "Sign in request")
 public class SignInRequest {
 
     @Schema(description = "username", example = "Nikolay")

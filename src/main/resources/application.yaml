@@ -11,3 +11,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
+
+token:
+  signing:
+    key: 9e7b0b2034692a4abb645975c747949fcb09846b5c8807c101a7872a4b1625df

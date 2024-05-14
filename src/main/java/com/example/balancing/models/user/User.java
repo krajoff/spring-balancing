@@ -29,12 +29,12 @@ public class User implements UserDetails {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true, nullable = false)
     @Size()
     private String username;
 
     @Size()
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Transient
