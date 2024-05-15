@@ -1,5 +1,8 @@
 package com.example.balancing.controllers.web;
 
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,10 +26,11 @@ public class WebSliderController {
 
     @PostMapping("/slider/slider")
     @ResponseBody
-    public String updateSliderValue(@RequestBody String sliderValue) {
+    @CrossOrigin(origins = "http://localhost:8080")
+    public  HttpStatus updateSliderValue(@RequestBody String sliderValue) {
         // Здесь вы можете обработать полученное значение слайдера
         System.out.println("Получено значение слайдера: " + sliderValue);
         // Возвращаем ответ клиенту (в данном случае, можно вернуть просто сообщение об успешной обработке)
-        return "Значение слайдера успешно обновлено";
+        return HttpStatus.OK;
     }
 }

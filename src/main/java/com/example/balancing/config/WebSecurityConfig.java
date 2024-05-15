@@ -47,12 +47,13 @@ public class WebSecurityConfig {
         httpSecurity
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers("/", "/scripts/**", "/login", "/register", "/static/**", "/css/**", "/error").permitAll()
+                                .requestMatchers("/", "/js/**", "/login", "/register", "/static/**", "/css/**", "/error", "/slider/*").permitAll()
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
                                 .requestMatchers("/**").hasAuthority("ADMIN")
                                 .requestMatchers("/unit").hasAuthority("USER")
                                 .requestMatchers("/record").hasAuthority("USER")
                                 .anyRequest().authenticated())
+
                 .formLogin(
                         formLogin -> formLogin
                                 .loginPage("/login")

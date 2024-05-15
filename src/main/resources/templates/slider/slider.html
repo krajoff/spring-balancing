@@ -5,84 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slider Example</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="size.js"></script>
-
+    <script src="/js/slider.js"></script>
+    <link rel="stylesheet" href="slider.css"/>
 </head>
 <body>
-<input type="range" id="slider" name="slider" min="0" max="100" value="50">
-<div id="sliderValue"></div>
-<svg>
-    <line x1="220" y1="10" x2="20" y2="130"/>
-    <circle id="circuit" r="50" cx="50%" cy="50%" fill="yellowgreen"/>
+<div class="container">
+    <div class="polar">
+        <svg width="600" height="600" viewBox="-500 -500 1000 1000" xmlns="http://www.w3.org/2000/svg">
 
-</svg>
+            <!-- Оси координат -->
+            <line x1="-500" y1="0" x2="500" y2="0" stroke="black" stroke-width="1"/>
+            <line x1="0" y1="-500" x2="0" y2="500" stroke="black" stroke-width="1"/>
 
-<svg width="400" height="400" viewBox="-200 -200 400 400" xmlns="http://www.w3.org/2000/svg">
-    <!-- Оси координат -->
-    <line x1="-200" y1="0" x2="200" y2="0" stroke="black" stroke-width="1"/>
-    <line x1="0" y1="-200" x2="0" y2="200" stroke="black" stroke-width="1"/>
+            <!-- Рисуем круги-радиусы -->
+            <g stroke="gray" stroke-width="1" fill="none">
+                <circle cx="0" cy="0" r="50" stroke-dasharray="2"/>
+                <circle cx="0" cy="0" r="100" stroke-dasharray="2"/>
+                <circle cx="0" cy="0" r="200" stroke-dasharray="2"/>
+                <circle cx="0" cy="0" r="300" stroke-dasharray="2"/>
+                <circle cx="0" cy="0" r="400" stroke-dasharray="2"/>
+                <circle cx="0" cy="0" r="500" stroke-dasharray="2"/>
+            </g>
 
-    <!-- Рисуем круги-радиусы -->
-    <g stroke="gray" stroke-width="1" fill="none">
-        <circle cx="0" cy="0" r="50" stroke-dasharray="2"/>
-        <circle cx="0" cy="0" r="100" stroke-dasharray="2"/>
-        <circle cx="0" cy="0" r="150" stroke-dasharray="2"/>
-    </g>
+            <!-- Радиусные линии -->
+            <g stroke="gray" stroke-dasharray="2">
+                <line x1="-433" y1="-250" x2="433" y2="250"/>
+                <line x1="-250" y1="-433" x2="250" y2="433"/>
+                <line x1="250" y1="-433" x2="-250" y2="433"/>
+                <line x1="433" y1="-250" x2="-433" y2="250"/>
+            </g>
 
-    <!-- Радиусные линии -->
-    <g stroke="gray" stroke-dasharray="2">
-        <line x1="0" y1="0" x2="150" y2="0"/>
-        <line x1="0" y1="0" x2="106" y2="106"/>
-        <line x1="0" y1="0" x2="0" y2="150"/>
-    </g>
+            <!-- Разметка радиусных линий -->
+            <text x="160" y="15" font-size="12" fill="gray">50</text>
+            <text x="115" y="115" font-size="12" fill="gray">100</text>
+            <text x="-10" y="160" font-size="12" fill="gray">150</text>
 
-    <!-- Разметка радиусных линий -->
-    <text x="160" y="15" font-size="12" fill="gray">50</text>
-    <text x="115" y="115" font-size="12" fill="gray">100</text>
-    <text x="-10" y="160" font-size="12" fill="gray">150</text>
+            <!-- Линии полярной сетки -->
 
-    <!-- Линии полярной сетки -->
-    <g stroke="lightgray" stroke-dasharray="2">
-        <line x1="0" y1="0" x2="100" y2="86.6"/>
-        <line x1="0" y1="0" x2="-100" y2="86.6"/>
-        <line x1="0" y1="0" x2="-100" y2="-86.6"/>
-        <line x1="0" y1="0" x2="100" y2="-86.6"/>
-        <line x1="0" y1="0" x2="86.6" y2="100"/>
-        <line x1="0" y1="0" x2="-86.6" y2="100"/>
-        <line x1="0" y1="0" x2="-86.6" y2="-100"/>
-        <line x1="0" y1="0" x2="86.6" y2="-100"/>
-    </g>
-</svg>
+        </svg>
+    </div>
 
-<!--<script>-->
-<!--    var rangeSlider = document.getElementById("slider");-->
-<!--    var circle = document.getElementById("circuit");-->
-
-<!--    rangeSlider.addEventListener("input", function() {-->
-<!--      var radius = parseInt(rangeSlider.value);-->
-<!--      circle.setAttribute("r", radius);-->
-<!--    });-->
-<!--</script>-->
-
-<script>
-
-    $(document).ready(function(){
-    $("#slider").on("input", function(){
-    var sliderValue = $(this).val();
-    $("#sliderValue").text(sliderValue);
-    $.ajax({
-    url: "/slider/slider",
-    method: "POST",
-    data: {sliderValue: sliderValue},
-    success: function(response) {
-    console.log("Success");
-    },
-    error: function(xhr, status, error) {
-    console.error("Error", error);
-    }
-    });
-    });
-    });
-</script>
+    <div class="slider">
+        <span>Angle</span>
+        <input type="range" id="slider" name="slider" min="0" max="100"
+               value="50" onchange="sendMessage(this.value)">
+        <span id="angleValue">40</span>
+        <span>Weight</span>
+        <input type="range" min="0" max="100"
+               value="50" onchange="sendMessage(this.value)">
+        <span id="weightValue">40</span>
+    </div>
+</div>
 </body>
 </html>
