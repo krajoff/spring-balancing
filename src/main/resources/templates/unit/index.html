@@ -3,83 +3,93 @@
 <head>
     <title>Unit definition</title>
     <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/tables.css"/>
 </head>
 <body>
-<table>
-    <tr>
-        <td>
-            <h2 th:text="'Hello, '+${username}"></h2></td>
-        <td>
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" value="logout"/>
-            </form>
-        </td>
-    </tr>
-</table>
-<h1>Unit definition</h1>
-<ul>
-    Enter the station data (the name is sufficient), <br>
-    the type of machine, its sequence number, the number of <br>
-    measuring planes and additional data for clarity. <br>
-</ul>
-
-<div class="divTable blueTable" th:switch="${units}">
-    <h2 th:case="null">No unit yet!</h2>
-    <div class="divTableHeading">
-        <div class="divTableRow">
-            <div class="divTableHead">id</div>
-            <div class="divTableHead">Station<br>name</div>
-            <div class="divTableHead">Unit<br>number</div>
-            <div class="divTableHead">Type</div>
-            <div class="divTableHead">Plate<br>number</div>
-            <div class="divTableHead">Additional<br>information</div>
-            <div class="divTableHead">Edit</div>
-            <div class="divTableHead">Delete</div>
-            <div class="divTableHead">Edit records</div>
-        </div>
+<div class="container">
+    <div class="box">
+        <table class="greeting">
+            <tr>
+                <td>
+                    <h1 th:text="'Hello, '+${username}">hh, </h1>
+                </td>
+                <td>
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" value="logout"/>
+                    </form>
+                </td>
+            </tr>
+        </table>
     </div>
 
-    <div class="divTableBody" th:each="unit:${units}">
-        <div class="divTableRow">
-            <div class="divTableCell" th:text=${unit.id}></div>
-            <div class="divTableCell" th:text=${unit.station}></div>
-            <div class="divTableCell" th:text=${unit.unitnumber}></div>
-            <div class="divTableCell" th:text=${unit.type}></div>
-            <div class="divTableCell" th:text=${unit.plate}></div>
-            <div class="divTableCell" th:text=${unit.description}></div>
-            <div class="divTableCell">
-                <form th:action="@{'/unit/edit/' + ${unit.id}}"
-                      th:method="get">
-                    <input type="submit" value="edit"/>
-                </form>
-            </div>
-            <div class="divTableCell">
-                <form th:action="@{'/unit/delete/' + ${unit.id}}"
-                      th:method="post">
-                    <input type="submit" value="delete"/>
-                </form>
-            </div>
-            <div class="divTableCell">
-                <form th:action="@{'/unit/' + ${unit.id} + '/record'}"
-                      th:method="get">
-                    <input type="submit" value="edit records"/>
-                </form>
-            </div>
-        </div>
+    <div class="box">
+        <h1>Unit definition</h1>
+        <ul>
+            Please provide station data. If you're short on time, just the name
+            will do. However, for a more comprehensive entry, include details
+            such as the type of machine stationed, its serial number,
+            the count of measuring planes, and any additional relevant data for clarity.
+        </ul>
     </div>
 
-    <form class="divTableRow" style="background: #78DBE2" action="/unit/create"
-          method="post">
-        <div class="divTableCell">&#10060;</div>
-        <div class="divTableCell"><input type="text" name="station"/></div>
-        <div class="divTableCell"><input type="number" name="unitnumber"/></div>
-        <div class="divTableCell"><input type="text" name="type"/></div>
-        <div class="divTableCell"><input type="number" name="plate"/></div>
-        <div class="divTableCell"><input type="text" name="description"/></div>
-        <div class="divTableCell"><input type="submit" value="Add unit"/></div>
-    </form>
-    <div th:if="${param.error}" class="red">
-        Incorrect values
+    <div class="box">
+        <table class="bordered" th:switch="${units}">
+            <h2 th:case="null">No units yet.</h2>
+
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Station<br>name</th>
+                <th style="width:20px">Unit<br>number</th>
+                <th>Type</th>
+                <th style="width:20px">Plate<br>number</th>
+                <th>Additional<br>information</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>Edit records</th>
+            </tr>
+            </thead>
+
+            <tr th:each="unit:${units}">
+                <td th:text=${unit.id}></td>
+                <td th:text=${unit.station}></td>
+                <td th:text=${unit.unitnumber}></td>
+                <td th:text=${unit.type}></td>
+                <td th:text=${unit.plate}></td>
+                <td th:text=${unit.description}></td>
+                <td>
+                    <form th:action="@{'/unit/edit/'+${unit.id}}" th:method="get">
+                        <input type="submit" value="Edit"/>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{'/unit/delete/'+${unit.id}}" th:method="post">
+                        <input type="submit" value="Delete"/>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{'/unit/'+${unit.id}+'/record'}" th:method="get">
+                        <input type="submit" value="Edit records"/>
+                    </form>
+                </td>
+            </tr>
+
+            <tr>
+                <form style="background: #78DBE2" action="/unit/create" method="post">
+                    <td>&#10060;</td>
+                    <td><input type="text" name="station"/></td>
+                    <td><input type="number" name="unitnumber"/></td>
+                    <td><input type="text" name="type"/></td>
+                    <td><input type="number" name="plate"/></td>
+                    <td><input type="text" name="description"/></td>
+                    <td colspan="3"><input type="submit" value="Add unit"/></td>
+                </form>
+            </tr>
+
+            <tr th:if="${param.error}" class="red">
+                <h2>Incorrect values</h2>
+            </tr>
+        </table>
     </div>
 </div>
 </body>
