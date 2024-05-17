@@ -13,7 +13,6 @@
             <div class="divTableHead">Station</div>
             <div class="divTableHead">Unit<br>number</div>
             <div class="divTableHead">Type</div>
-            <div class="divTableHead">Plate</div>
             <div class="divTableHead">Description</div>
         </div>
     </div>
@@ -24,7 +23,6 @@
             <div class="divTableCell" th:text=${unit.station}></div>
             <div class="divTableCell" th:text=${unit.unitnumber}></div>
             <div class="divTableCell" th:text=${unit.type}></div>
-            <div class="divTableCell" th:text=${unit.plate}></div>
             <div class="divTableCell" th:text=${unit.description}></div>
             <div class="divTableCell"></div>
         </div>
@@ -43,9 +41,6 @@
         <div class="divTableCell"><input type="text"
                                          name="type"
                                          th:value="${unit.type}"/></div>
-        <div class="divTableCell"><input type="number"
-                                         name="plate"
-                                         th:value="${unit.plate}"/></div>
         <div class="divTableCell"><input type = "text"
                                          name="description"
                                          th:value="${unit.description}"/></div>

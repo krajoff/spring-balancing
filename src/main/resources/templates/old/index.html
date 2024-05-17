@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Plane balancing</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/tables.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="box">
+        <table class="greeting">
+            <tr>
+                <td>
+                    <h1 th:text="'Hello, '+${username}">hh, </h1>
+                </td>
+                <td>
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" value="logout"/>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="box">
+        <h1>How to use single plane balancing application</h1>
+        <ul>Fill in the fields in the table:
+            <li>Mode is type of generator/motor load.</li>
+            <li>Magnitude and phase of vibration is a value and a phase of
+                vibration from peak to peak.
+            </li>
+            <li>Magnitude and phase of weight is a value and a phase of
+                weight installed on the shaft.
+            </li>
+            <li>The reference number is a measurement number as a
+                reference to the previous state of the machine.
+            </li>
+            <li>The state is an true/false switch. It is used to take into
+                account in the averaging of values when calculating the total load.
+            </li>
+        </ul>
+    </div>
+
+    <div class="box">
+        <table class="bordered" th:switch="${records}">
+            <h2 th:case="null">No records yet.</h2>
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Mode</th>
+                <th>Plane</th>
+                <th>Vibration <br> magnitude</th>
+                <th>Vibration <br> phase</th>
+                <th>Weight <br> magnitude</th>
+                <th>Weight <br> phase</th>
+                <th>Reference</th>
+                <th>State</th>
+                <th>Total weight <br> magnitude</th>
+                <th>Total weight <br> phase</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+
+            <tr th:each="record:${records}">
+                <td th:text=${record.id}></td>
+                <td th:text=${record.mode}></td>
+                <td th:text=${record.plane}></td>
+                <td th:text=${record.magvibration}></td>
+                <td th:text=${record.phasevibration}></td>
+                <td th:text=${record.magweight}></td>
+                <td th:text=${record.phaseweight}></td>
+                <td th:text=${record.reference}></td>
+                <td th:text=${record.stage}></td>
+                <td th:text=${record.magTotalWeight}></td>
+                <td th:text=${record.phaseTotalWeight}></td>
+                <td class="divTableCell">
+                    <form th:action="@{'/record/edit/'+${record.id}}" th:method="get">
+                        <input type="submit" value="edit"/>
+                    </form>
+                </td>
+                <td class="divTableCell">
+                    <form th:action="@{'/record/delete/'+${record.id}}" th:method="post">
+                        <input type="submit" value="delete"/>
+                    </form>
+                </td>
+            </tr>
+
+            <tr>
+                <form style="background: #78DBE2" action="/record/create" method="post">
+                    <td>&#10060;</td>
+                    <td><input type="text" name="mode"/></td>
+                    <td><input type="number" name="plane"/></td>
+                    <td><input type="number" name="magvibration"/></td>
+                    <td><input type="number" name="phasevibration"/></td>
+                    <td><input type="number" name="magweight"/></td>
+                    <td><input type="number" name="phaseweight"/></td>
+                    <td><input type="number" name="reference"/></td>
+                    <td><input type="checkbox" name="stage"/></td>
+                    <td><input type="submit" value="Add record"/></td>
+                </form>
+            </tr>
+
+            <tr th:if="${param.error}" class="red">
+                <h2>Incorrect values</h2>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
