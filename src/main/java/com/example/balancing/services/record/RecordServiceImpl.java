@@ -38,6 +38,7 @@ public class RecordServiceImpl implements RecordService {
         Record existingRecord = getRecordById(id);
         existingRecord.setStage(record.getStage());
         existingRecord.setMode(record.getMode());
+        existingRecord.setPlane(record.getPlane());
         existingRecord.setMagweight(record.getMagweight());
         existingRecord.setPhaseweight(record.getPhaseweight());
         existingRecord.setMagvibration(record.getMagvibration());

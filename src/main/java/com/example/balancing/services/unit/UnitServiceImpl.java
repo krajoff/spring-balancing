@@ -23,7 +23,8 @@ public class UnitServiceImpl implements UnitService {
     }
 
     public Unit getUnitById(Long id) {
-        return unitRepository.findById(id).orElseThrow(() -> new RuntimeException("Unit not found"));
+        return unitRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Unit not found"));
     }
 
     public List<Unit> getUnitsByUserId(Long id) {
@@ -38,7 +39,6 @@ public class UnitServiceImpl implements UnitService {
         Unit existingUnit = getUnitById(id);
         existingUnit.setType(unit.getType());
         existingUnit.setStation(unit.getStation());
-        existingUnit.setPlate(unit.getPlate());
         existingUnit.setUnitnumber(unit.getUnitnumber());
         existingUnit.setDescription(unit.getDescription());
         return unitRepository.save(existingUnit);
@@ -46,6 +46,10 @@ public class UnitServiceImpl implements UnitService {
 
     public void deleteUnit(Long id) {
         unitRepository.deleteById(id);
+    }
+
+    public boolean checkLoop(){
+        return false;
     }
 
     public Unit calculateTotalWeight(Long id) {

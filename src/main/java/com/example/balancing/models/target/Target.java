@@ -11,16 +11,21 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Target implements ITarget{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "mode", nullable = false)
     private String mode;
+
     @Column(name = "magtargetweight", nullable = false)
     private Double magtargetweight;
+
     @Column(name = "phasetargetweight", nullable = false)
     private Double phasetargetweight;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id")
     private Unit unit;

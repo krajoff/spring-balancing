@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/balancing
     username: root
-    password: password
+    password: passwords
   jpa:
     hibernate:
       ddl-auto: update

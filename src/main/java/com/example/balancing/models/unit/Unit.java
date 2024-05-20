@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,7 @@ public class Unit implements IUnit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "recordcount")
@@ -38,13 +39,12 @@ public class Unit implements IUnit {
     @Size(max = 50)
     private String type;
 
-    @Column(name = "plate")
-    @Size(max = 20)
-    private Integer plate;
-
     @Column(name = "description")
     @Size(max = 255)
     private String description;
+
+    @Column(name = "created_date", updatable = false)
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit",
             cascade = CascadeType.ALL, orphanRemoval = true)

@@ -24,6 +24,10 @@ public class Record implements IRecord {
     @NonNull
     private Long insideid;
 
+    @Column(name = "plane", columnDefinition = "integer default -1")
+    @NonNull
+    private Integer plane;
+
     @Column(name = "mode", nullable = false)
     @NonNull
     private String mode;
@@ -49,6 +53,7 @@ public class Record implements IRecord {
     private Long reference;
 
     @Column(name = "stage", columnDefinition = "boolean default true")
+    @NonNull
     private Boolean stage;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -27,9 +27,13 @@ public class WebRecordController {
 
     @GetMapping({"/", ""})
     public String getRecordsByUnit(@PathVariable Long unit_id, Model model) {
+        Authentication authentication = SecurityContextHolder
+                .getContext().getAuthentication();
+        User user = userService.getUserByUsername(authentication.getName());
+        model.addAttribute("username", authentication.getName());
         model.addAttribute("unit", unitService
                 .calculateTargetWeight(unit_id));
-        return "unit/unit-records";
+        return "record/index";
     }
 
     @PostMapping("/create")
@@ -52,7 +56,7 @@ public class WebRecordController {
                 .getRecordById(record_id));
         model.addAttribute("unit", unitService
                 .getUnitById(unit_id));
-        return "record/update-record";
+        return "record/index";
     }
 
     @PostMapping("/update/{record_id}")
