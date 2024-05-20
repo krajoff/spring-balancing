@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete unit</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/tables.css"/>
+</head>
+<body>
+<div class="container">
+
+    <div class="box">
+        <table class="greeting">
+            <tr>
+                <td>
+                    <span class="inside" th:text="'Hello, '+${username}"></span>
+                </td>
+                <td>
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" value="logout"/>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <h1>Delete unit</h1>
+        <ul>
+            You are about to permanently delete the unit.
+            This action is irreversible. Once deleted, all data
+            associated with this unit, will be permanently
+            removed and cannot be recovered. Please type number / "No"
+            of the unit to confirm deletion.
+        </ul>
+    </div>
+
+    <div class="box">
+        <table>
+            <tr>
+                <form th:action="@{'/unit/delete/'+${unit.id}}" method="post">
+                    <td style="width:70px">
+                        <input type="number"
+                               name="unit_confirmation"
+                               th:value="${unit.id}"/>
+                    </td>
+                    <td style="text-align:left, width:150px">
+                        <button type="submit">Delete unit</button>
+                    </td>
+                </form>
+            </tr>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

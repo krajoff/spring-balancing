@@ -24,7 +24,7 @@ public class Record implements IRecord {
     @NonNull
     private Long insideid;
 
-    @Column(name = "plane", columnDefinition = "integer default -1")
+    @Column(name = "plane", columnDefinition = "integer default 1")
     @NonNull
     private Integer plane;
 

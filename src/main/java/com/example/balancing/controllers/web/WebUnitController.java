@@ -33,20 +33,37 @@ public class WebUnitController {
         Authentication authentication = SecurityContextHolder
                 .getContext().getAuthentication();
         User user = userService.getUserByUsername(authentication.getName());
-        model.addAttribute("units", unitService.getUnitsByUserId(user.getId()));
         model.addAttribute("username", authentication.getName());
+        model.addAttribute("units", unitService.getUnitsByUserId(user.getId()));
         return "unit/index";
     }
 
+    @GetMapping("/delete/{unit_id}")
+    public String showDeleteForm(@PathVariable Long unit_id, Model model) {
+        Authentication authentication = SecurityContextHolder
+                .getContext().getAuthentication();
+        User user = userService.getUserByUsername(authentication.getName());
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("unit", unitService.getUnitById(unit_id));
+        return "unit/delete";
+    }
+
     @PostMapping("/delete/{unit_id}")
-    public String deleteUnit(@PathVariable Long unit_id) {
+    public String deleteUnit(@PathVariable Long unit_id, Long unit_confirmation) {
         try {
-            unitService.deleteUnit(unit_id);
-        } catch (UnitNotFoundException e) {
-            return "Unit not found";
+            if (unit_confirmation.equals(unit_id)) {
+                try {
+                    unitService.deleteUnit(unit_id);
+                } catch (UnitNotFoundException e) {
+                    return "Unit not found";
+                }
+            }
+        } catch (NullPointerException e) {
+            throw new UnitNotFoundException("NullPointerEexception");
         }
         return "redirect:/unit/";
     }
+
 
     @PostMapping("/create")
     public String createUnit(Unit unit) {

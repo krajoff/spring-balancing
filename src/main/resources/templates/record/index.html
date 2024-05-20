@@ -132,20 +132,16 @@
                     <td><input type="number"
                                name="plane"
                                th:value="${record.plane}"/></td>
-                    <td><input class=decimal
-                               type="number"
+                    <td><input class=decimal type="number"
                                name="magvibration"
                                th:value="${record.magvibration}"/></td>
-                    <td><input class="decimal"
-                               type="number"
+                    <td><input class="decimal" type="number"
                                name="phasevibration"
                                th:value="${record.phasevibration}"/></td>
-                    <td><input class="decimal"
-                               type="number"
+                    <td><input class="decimal" type="number"
                                name="magweight"
                                th:value="${record.magweight}"/></td>
-                    <td><input class="decimal"
-                               type="number"
+                    <td><input class="decimal" type="number"
                                name="phaseweight"
                                th:value="${record.phaseweight}"/></td>
                     <td><input type="number"
@@ -171,13 +167,15 @@
                     <td>&#10060;</td>
                     <td><input type="text" name="mode"/></td>
                     <td><input type="number" name="plane"/></td>
-                    <td><input type="number" name="magvibration"/></td>
-                    <td><input type="number" name="phasevibration"/></td>
-                    <td><input type="number" name="magweight"/></td>
-                    <td><input type="number" name="phaseweight"/></td>
+                    <td><input type="number" step="any" name="magvibration"/></td>
+                    <td><input type="number" name="phasevibration"
+                               min="-360" max="360" step ="1"/></td>
+                    <td><input type="number" step="any" name="magweight"/></td>
+                    <td><input type="number" name="phaseweight"
+                               min="-360" max="360" step ="1"/></td>
                     <td><input type="number" name="reference"/></td>
                     <td><input type="checkbox" name="stage"/></td>
-                    <td colspan="6" style="text-align: left">
+                    <td colspan="6" style="text-align:left">
                         <input type="submit" value="Add record"/>
                     </td>
                 </form>

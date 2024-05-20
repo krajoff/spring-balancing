@@ -24,6 +24,9 @@ public class Unit implements IUnit {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "id_by_user")
+    private Long idByUser = 0L;
+
     @Column(name = "recordcount")
     private Long recordcount;
 
