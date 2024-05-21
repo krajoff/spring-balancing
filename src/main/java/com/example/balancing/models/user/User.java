@@ -54,6 +54,9 @@ public class User implements UserDetails {
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Unit> units;
 
+    @Column(name = "unit_counter")
+    private Long unitCounter;
+
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.name());
         return List.of(grantedAuthority);

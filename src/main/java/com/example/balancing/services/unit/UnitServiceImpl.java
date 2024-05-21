@@ -48,10 +48,6 @@ public class UnitServiceImpl implements UnitService {
         unitRepository.deleteById(id);
     }
 
-    public boolean checkLoop(){
-        return false;
-    }
-
     public Unit calculateTotalWeight(Long id) {
         Unit unit = unitRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Unit not found"));
@@ -115,7 +111,8 @@ public class UnitServiceImpl implements UnitService {
                                     new Complex(0d, 0d));
                 }
             } else {
-                firstRecord.setComplexTargetWeight(new Complex(0d, 0d));
+                firstRecord.
+                        setComplexTargetWeight(new Complex(0d, 0d));
             }
         }
         unit.setRecords(records);

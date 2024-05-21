@@ -1,6 +1,5 @@
 package com.example.balancing.services.user;
 
-import com.example.balancing.models.record.Record;
 import com.example.balancing.models.user.Role;
 import com.example.balancing.models.user.User;
 import com.example.balancing.models.unit.Unit;
@@ -71,7 +70,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userRepository.deleteByUsername(username);
     }
 
-    @Override
     public UserDetails loadUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }

@@ -23,4 +23,5 @@ public interface UserService {
     boolean saveUser(User user);
 
     User getUserByUsername(String username);
+
 }
