@@ -5,6 +5,7 @@ import com.example.balancing.models.record.Record;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.repository.UnitRepository;
 import com.example.balancing.services.record.RecordService;
+import com.example.balancing.services.weight.WeightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,9 @@ public class UnitServiceImpl implements UnitService {
 
     @Autowired
     private RecordService recordService;
+
+    @Autowired
+    private WeightService weightService;
 
     public List<Unit> getAllUnits() {
         return unitRepository.findAll();
@@ -39,7 +43,7 @@ public class UnitServiceImpl implements UnitService {
         Unit existingUnit = getUnitById(id);
         existingUnit.setType(unit.getType());
         existingUnit.setStation(unit.getStation());
-        existingUnit.setUnitnumber(unit.getUnitnumber());
+        existingUnit.setUnitNumber(unit.getUnitNumber());
         existingUnit.setDescription(unit.getDescription());
         return unitRepository.save(existingUnit);
     }

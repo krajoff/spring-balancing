@@ -1,6 +1,5 @@
 package com.example.balancing.models.target;
 
-import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.unit.Unit;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,11 +19,11 @@ public class Target implements ITarget{
     @Column(name = "mode", nullable = false)
     private String mode;
 
-    @Column(name = "magtargetweight", nullable = false)
-    private Double magtargetweight;
+    @Column(name = "mag_weight", nullable = false)
+    private Double magWeight;
 
-    @Column(name = "phasetargetweight", nullable = false)
-    private Double phasetargetweight;
+    @Column(name = "phase_weight", nullable = false)
+    private Double phaseWeight;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id")

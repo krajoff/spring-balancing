@@ -24,19 +24,19 @@ public class Unit implements IUnit {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "id_by_user")
-    private Long idByUser = 0L;
+    @Column(name = "inside_id")
+    private Long insideId = 0L;
 
-    @Column(name = "recordcount")
-    private Long recordcount;
+    @Column(name = "record_count")
+    private Long recordCount;
 
     @Column(name = "station")
     @Size(max = 50)
     private String station;
 
-    @Column(name = "unitnumber")
+    @Column(name = "unit_number")
     @Size(max = 50)
-    private Integer unitnumber;
+    private Integer unitNumber;
 
     @Column(name = "type")
     @Size(max = 50)
@@ -63,8 +63,8 @@ public class Unit implements IUnit {
 
     @PrePersist
     void prePersist() {
-        if (this.recordcount == null)
-            this.recordcount = 0L;
+        if (this.recordCount == null)
+            this.recordCount = 0L;
     }
 
 }

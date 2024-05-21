@@ -1,7 +1,7 @@
 package com.example.balancing.models.record;
 
 import com.example.balancing.models.complex.Complex;
-import com.example.balancing.models.unit.Unit;
+import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,129 +20,43 @@ public class Record implements IRecord {
     @NonNull
     private Long id;
 
-    @Column(name = "insideid")
+    @Column(name = "inside_id")
     @NonNull
-    private Long insideid;
+    private Long insideId;
 
-    @Column(name = "plane", columnDefinition = "integer default 1")
+    @Column(name = "place", columnDefinition = "integer default 1")
     @NonNull
-    private Integer plane;
+    private Integer place;
 
     @Column(name = "mode", nullable = false)
     @NonNull
     private String mode;
 
-    @Column(name = "magvibration", nullable = false)
+    @Column(name = "mag_vibration", nullable = false)
     @NonNull
-    private Double magvibration;
+    private Double magVibration;
 
-    @Column(name = "phasevibration", nullable = false)
+    @Column(name = "phase_vibration", nullable = false)
     @NonNull
-    private Double phasevibration;
+    private Double phaseVibration;
 
-    @Column(name = "magweight", nullable = false)
-    @NonNull
-    private Double magweight;
-
-    @Column(name = "phaseweight", nullable = false)
-    @NonNull
-    private Double phaseweight;
-
-    @Column(name = "reference", columnDefinition = "bigint default -1")
-    @NonNull
-    private Long reference;
-
+    @Getter
     @Column(name = "stage", columnDefinition = "boolean default true")
     @NonNull
     private Boolean stage;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "unit_id")
-    private Unit unit;
+    @JoinColumn(name = "weight_id")
+    private Weight weight;
 
     @Transient
     private Complex complexVibration;
-    @Transient
-    private Complex complexWeight;
-    @Transient
-    private Complex complexTotalWeight;
-
-    @Transient
-    private Double magTotalWeight;
-    @Transient
-    private Double phaseTotalWeight;
-
-    @Transient
-    private Complex complexTotalVibration;
-    @Transient
-    private Double magTotalVibration;
-    @Transient
-    private Double phaseTotalVibration;
-
-    @Transient
-    private Complex complexTargetWeight;
-    @Transient
-    private Double magTargetWeight;
-    @Transient
-    private Double phaseTargetWeight;
 
     public Complex getComplexVibration() {
-        return new Complex(this.magvibration * cos(Math.toRadians(this.phasevibration)),
-                this.magvibration * sin(Math.toRadians(this.phasevibration)));
+        return new Complex(this.magVibration *
+                cos(Math.toRadians(this.phaseVibration)),
+                this.magVibration *
+                        sin(Math.toRadians(this.phaseVibration)));
     }
-
-    public Complex getComplexWeight() {
-        return new Complex(this.magweight * cos(Math.toRadians(this.phaseweight)),
-                this.magweight * sin(Math.toRadians(this.phaseweight)));
-    }
-
-    public Boolean getStage() {
-        if (this.stage == null) {
-            setStage(false);
-        }
-        return this.stage;
-    }
-
-    public Double getMagTotalWeight() {
-        return roundAvoid(getComplexTotalWeight().abs(), 1);
-    }
-
-    public Double getPhaseTotalWeight() {
-        return roundAvoid(Math
-                .toDegrees(getComplexTotalWeight()
-                        .phase()), 0);
-    }
-
-    public void setPhaseTotalWeight(Double phaseTotalWeight) {
-        this.phaseTotalWeight = Math.toDegrees(phaseTotalWeight);
-    }
-
-    public Double getMagTargetWeight() {
-        return roundAvoid(getComplexTargetWeight().abs(), 1);
-        }
-
-    public Double getPhaseTargetWeight() {
-        return roundAvoid(Math
-                .toDegrees(getComplexTargetWeight()
-                        .phase()), 0);
-    }
-
-    public void setPhaseTargetWeight(Double phaseTargetWeight) {
-        this.phaseTargetWeight = Math.toDegrees(phaseTargetWeight);
-    }
-
-    public Double getMagTotalVibration() {
-        return roundAvoid(getComplexTotalVibration().abs(), 1);
-    }
-
-    public Double getPhaseTotalVibration() {
-        return roundAvoid(getComplexTotalVibration().phase(), 0);
-    }
-
-    private Double roundAvoid(Double value, Integer places) {
-        Double scale = Math.pow(10, places);
-        return Math.round(value * scale) / scale;
-    }
-
 }
 

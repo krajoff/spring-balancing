@@ -15,10 +15,13 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
+
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     UnitService unitService;
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -33,7 +36,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     public User getUserById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
         List<Unit> units = unitService.getUnitsByUserId(id);
         user.setUnits(units);
         return user;

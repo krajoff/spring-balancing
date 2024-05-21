@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public class RecordServiceImpl implements RecordService {
+
     @Autowired
     private RecordRepository recordRepository;
 
@@ -36,27 +37,16 @@ public class RecordServiceImpl implements RecordService {
 
     public Record updateRecord(Long id, Record record) {
         Record existingRecord = getRecordById(id);
-        existingRecord.setStage(record.getStage());
         existingRecord.setMode(record.getMode());
-        existingRecord.setPlane(record.getPlane());
-        existingRecord.setMagweight(record.getMagweight());
-        existingRecord.setPhaseweight(record.getPhaseweight());
-        existingRecord.setMagvibration(record.getMagvibration());
-        existingRecord.setPhasevibration(record.getPhasevibration());
-        existingRecord.setReference(record.getReference());
-        return recordRepository.save(correctRecord(existingRecord));
+        existingRecord.setPlace(record.getPlace());
+        existingRecord.setMagVibration(record.getMagVibration());
+        existingRecord.setPhaseVibration(record.getPhaseVibration());
+        existingRecord.setStage(record.getStage());
+        return recordRepository.save(existingRecord);
     }
 
     public void deleteRecord(Long id) {
         recordRepository.deleteById(id);
-    }
-
-    public Record correctRecord(Record record) {
-        if (record.getId().equals(record.getReference())) {
-            record.setReference(-1L);
-            return record;
-        }
-        return record;
     }
 
 }

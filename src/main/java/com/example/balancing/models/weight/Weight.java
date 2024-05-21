@@ -12,11 +12,11 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
 @Entity
-@Table(name = "weight")
+@Table(name = "weights")
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Weight {
+public class Weight implements IWeight{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,13 +32,13 @@ public class Weight {
     @NonNull
     private Integer plane;
 
-    @Column(name = "magweight", nullable = false)
+    @Column(name = "mag_weight", nullable = false)
     @NonNull
-    private Double magweight;
+    private Double magWeight;
 
-    @Column(name = "phaseweight", nullable = false)
+    @Column(name = "phase_weight", nullable = false)
     @NonNull
-    private Double phaseweight;
+    private Double phaseWeight;
 
     @Column(name = "reference", columnDefinition = "bigint default -1")
     @NonNull
@@ -54,8 +54,9 @@ public class Weight {
     private Double phaseTotalWeight;
 
     public Complex getComplexWeight() {
-        return new Complex(this.magweight * cos(Math.toRadians(this.phaseweight)),
-                this.magweight * sin(Math.toRadians(this.phaseweight)));
+        return new Complex(this.magWeight *
+                cos(Math.toRadians(this.phaseWeight)),
+                this.magWeight * sin(Math.toRadians(this.phaseWeight)));
     }
 
     private Double roundAvoid(Double value, Integer places) {
