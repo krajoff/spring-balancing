@@ -16,7 +16,7 @@ import static java.lang.Math.sin;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Weight implements IWeight{
+public class Weight implements IWeight {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,6 +44,9 @@ public class Weight implements IWeight{
     @NonNull
     private Long reference;
 
+    @Column(name = "system_information")
+    private String systemInformation;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id")
     private Unit unit;
@@ -52,12 +55,32 @@ public class Weight implements IWeight{
     private Double magTotalWeight;
     @Transient
     private Double phaseTotalWeight;
+    @Transient
+    private Complex complexTotalWeight;
+
+
 
     public Complex getComplexWeight() {
         return new Complex(this.magWeight *
                 cos(Math.toRadians(this.phaseWeight)),
                 this.magWeight * sin(Math.toRadians(this.phaseWeight)));
     }
+
+
+    public Double getMagTotalWeight() {
+        return roundAvoid(getComplexTotalWeight().abs(), 1);
+    }
+
+    public Double getPhaseTotalWeight() {
+        return roundAvoid(Math
+                .toDegrees(getComplexTotalWeight()
+                        .phase()), 0);
+    }
+
+    public void setPhaseTotalWeight(Double phaseTotalWeight) {
+        this.phaseTotalWeight = Math.toDegrees(phaseTotalWeight);
+    }
+
 
     private Double roundAvoid(Double value, Integer places) {
         Double scale = Math.pow(10, places);

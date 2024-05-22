@@ -15,10 +15,6 @@ public interface UnitService {
 
     void deleteUnit(Long id);
 
-    Unit calculateTotalWeight(Long id);
-
-    Unit calculateTargetWeight(Long id);
-
     List<Unit> getUnitsByUserId(Long Id);
 
 }

@@ -13,38 +13,33 @@ public class TotalWeightService {
     private WeightService weightService;
 
     public Weight getTotalWeight(Weight weight) {
-        List<Weight> weights = weightService.getWeightByUnit(weight.getUnit());
+        List<Weight> weights = weightService
+                .getWeightByUnit(weight.getUnit());
         long reference = weight.getReference();
-        long tempId;
-        Complex totalWeight = weight.getComplexWeight();
+        Complex complexTotalWeight = weight
+                .getComplexWeight();
         Optional<Weight> tempWeight;
         while (reference != -1) {
-            try {
-                tempWeight = weights.stream()
-                        .filter(w -> w.getInsideId() == reference)
-                        .findFirst();
-            totalWeight.plus(tempWeight.);
+            long finalReference = reference;
+            tempWeight = weights
+                    .stream()
+                    .filter(w -> w.getInsideId()
+                            == finalReference).findFirst();
+            if (tempWeight.isPresent()) {
+                complexTotalWeight = complexTotalWeight
+                        .plus(tempWeight.get()
+                                .getComplexWeight());
+                reference = tempWeight.get().getReference();
+            } else {
+                reference = -1;
+                weight.setSystemInformation("Invalid reference in a chain");
             }
-        } while (reference != -1) ;
-        Weight tempWeight = weight;
-        Complex totalComplexWeight = weight.getComplexWeight();
-        tempId = .getReference();
-        try {
-            totalComplexWeight = totalComplexWeight.
-                    plus(weights.
-                    . (tempId)
-                    .getComplexWeight());
-            tempRecord = recordService
-                    .getRecordById(tempId);
-        } catch (RuntimeException e) {
-            tempRecord.setReference(-1L);
-            recordService.updateRecord(tempRecord.getId(),
-                    tempRecord);
-            System.out.println(e.getMessage());
         }
-
-        record.setComplexTotalWeight(totalComplexWeight);
+        weight.setComplexTotalWeight(complexTotalWeight);
+        weight.setMagTotalWeight(complexTotalWeight.abs());
+        weight.setPhaseTotalWeight(complexTotalWeight.phase());
+        weightService.createWeight(weight);
+        return weight;
     }
-}
 
 }

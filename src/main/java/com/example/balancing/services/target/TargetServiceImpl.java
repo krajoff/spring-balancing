@@ -32,8 +32,8 @@ public class TargetServiceImpl implements TargetService {
     public Target updateTarget(Long id, Target target) {
         Target existingTarget = getTargetById(id);
         existingTarget.setMode(target.getMode());
-        existingTarget.setMagtargetweight(target.getMagtargetweight());
-        existingTarget.setPhasetargetweight(target.getPhasetargetweight());
+        existingTarget.setMagWeight(target.getMagWeight());
+        existingTarget.setPhaseWeight(target.getPhaseWeight());
         return targetRepository.save(existingTarget);
     }
 
