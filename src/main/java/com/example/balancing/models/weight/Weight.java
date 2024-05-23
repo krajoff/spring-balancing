@@ -24,7 +24,7 @@ public class Weight implements IWeight {
     @NonNull
     private Long id;
 
-    @Column(name = "inside_id")
+    @Column(name = "inside_id", unique = true, nullable = false)
     @NonNull
     private Long insideId;
 
@@ -44,26 +44,33 @@ public class Weight implements IWeight {
     @NonNull
     private Long reference;
 
-    @Column(name = "system_information")
-    private String systemInformation;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id")
     private Unit unit;
 
-    @Transient
+    @Column(name = "mag_total_weight")
     private Double magTotalWeight;
-    @Transient
+
+    @Column(name = "phase_total_weight")
     private Double phaseTotalWeight;
+
     @Transient
     private Complex complexTotalWeight;
 
+    @Column(name = "system_information")
+    private String systemInformation;
 
 
     public Complex getComplexWeight() {
         return new Complex(this.magWeight *
                 cos(Math.toRadians(this.phaseWeight)),
                 this.magWeight * sin(Math.toRadians(this.phaseWeight)));
+    }
+
+    public Complex getComplexTotalWeight() {
+        return new Complex(this.magTotalWeight *
+                cos(Math.toRadians(this.phaseTotalWeight)),
+                this.magTotalWeight * sin(Math.toRadians(this.phaseTotalWeight)));
     }
 
 

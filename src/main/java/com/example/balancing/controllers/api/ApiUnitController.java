@@ -5,7 +5,6 @@ import com.example.balancing.services.record.RecordService;
 import com.example.balancing.services.unit.UnitService;
 import com.example.balancing.services.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -57,18 +56,6 @@ public class ApiUnitController {
     public Unit updateUnit(@PathVariable Long unit_id,
                            @RequestBody Unit unit) {
         return unitService.updateUnit(unit_id, unit);
-    }
-
-    @GetMapping("/{unit_id}")
-    @Operation(summary = "Get records by an unit")
-    public Unit getRecordsByUnit(@PathVariable Long unit_id) {
-        return unitService.calculateTotalWeight(unit_id);
-    }
-
-    @PostMapping("/{unit_id}")
-    @Operation(summary = "Get unit by id")
-    public Unit calculateTargetWeight(@PathVariable Long unit_id) {
-        return unitService.calculateTotalWeight(unit_id);
     }
 
     @DeleteMapping("/{unit_id}/{record_id}")

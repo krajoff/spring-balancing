@@ -3,6 +3,7 @@ package com.example.balancing.models.unit;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.target.Target;
 import com.example.balancing.models.user.User;
+import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -51,11 +52,7 @@ public class Unit implements IUnit {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit",
             cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Record> records;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit",
-            cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Target> targets;
+    private List<Weight> weights;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

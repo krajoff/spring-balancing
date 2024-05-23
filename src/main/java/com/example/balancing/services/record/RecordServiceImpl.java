@@ -27,10 +27,6 @@ public class RecordServiceImpl implements RecordService {
         return recordRepository.findByMode(mode);
     }
 
-    public List<Record> getRecordsByUnit(Unit unit) {
-        return recordRepository.findByUnit(unit);
-    }
-
     public Record createRecord(Record record) {
         return recordRepository.save(record);
     }

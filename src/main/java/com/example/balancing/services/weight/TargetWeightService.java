@@ -3,12 +3,22 @@ package com.example.balancing.services.weight;
 import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.unit.Unit;
+import com.example.balancing.services.record.RecordService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class TargetWeightService {
 
-    public Unit calculateTargetWeight(Long id) {
+    @Autowired
+    private WeightService weightService;
+
+    @Autowired
+    private RecordService recordService;
+
+    public Weight calculateTargetWeight(Long id) {
+
         Unit unit = calculateTotalWeight(id);
         List<Record> records = unit.getRecords();
         Record secondRecord;

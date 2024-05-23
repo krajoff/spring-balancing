@@ -7,13 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface WeightRepository extends JpaRepository<Weight, Long> {
-    List<Weight> findByUnit(Unit unit);
+    Optional<List<Weight>> findByUnit(Unit unit);
 
-    @Query(value = "select * from weights w where w.unit = ?1 and w.inside = ?2",
-    nativeQuery = true)
-    Weight findByUnitAndInsideId(Unit unit, Long insideId);
+    @Query(value = "select * from weights w where w.unit = ?1 and w.inside_id = ?2",
+            nativeQuery = true)
+    Optional<Weight> findByUnitAndInsideId(Unit unit, Long insideId);
 }
 
 
