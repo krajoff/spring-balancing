@@ -20,13 +20,16 @@ public class Record implements IRecord {
     @NonNull
     private Long id;
 
+
+    @Column(name = "point_id", nullable = false)
+    @OneToOne
+    private Integer pointId;
+
     @Column(name = "inside_id")
     @NonNull
-    private Long insideId;
+    private String name;
 
-    @Column(name = "place", columnDefinition = "integer default 1")
-    @NonNull
-    private Integer place;
+
 
     @Column(name = "mode", nullable = false)
     @NonNull

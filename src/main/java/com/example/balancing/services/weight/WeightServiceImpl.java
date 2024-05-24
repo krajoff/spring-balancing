@@ -24,11 +24,7 @@ public class WeightServiceImpl implements WeightService {
     }
 
     public Weight createWeight(Weight weight) {
-        if (isValidReference(weight)) {
-            return weightRepository.save(weight);
-        }
-        weight.setReference(-1L);
-        return weightRepository.save(weight);
+        return weightRepository.save(getValidReference(weight));
     }
 
     public Weight updateWeight(Long id, Weight weight) {
@@ -39,7 +35,7 @@ public class WeightServiceImpl implements WeightService {
         exsistingWeight.setReference(weight.getReference());
         exsistingWeight.setMagTotalWeight(weight.getMagTotalWeight());
         exsistingWeight.setPhaseTotalWeight(weight.getPhaseTotalWeight());
-        return weightRepository.save(exsistingWeight);
+        return weightRepository.save(getValidReference(exsistingWeight));
     }
 
     public void deleteWeight(Long id) {
@@ -96,6 +92,14 @@ public class WeightServiceImpl implements WeightService {
             }
         }
         return false;
+    }
+
+    public Weight getValidReference(Weight weight) {
+        if (isValidReference(weight)) {
+            return weight;
+        }
+        weight.setReference(-1L);
+        return weight;
     }
 
     private boolean isValidReference(Weight weight) {
