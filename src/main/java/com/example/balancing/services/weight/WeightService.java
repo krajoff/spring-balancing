@@ -11,14 +11,12 @@ public interface WeightService {
 
     List<Weight> getWeightsByUnit(Unit unit);
 
-    Weight getWeightByUnitAndInsideId(Unit unit, Long id);
-
     Weight createWeight(Weight weight);
 
     Weight updateWeight(Long id, Weight weight);
 
     void deleteWeight(Long id);
 
-    Weight updateTotalValue(Long id, Weight weight);
+    Weight calculateTotalWeight(Long id, Weight weight);
 
 }

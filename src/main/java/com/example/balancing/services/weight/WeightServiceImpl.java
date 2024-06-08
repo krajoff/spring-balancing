@@ -44,20 +44,12 @@ public class WeightServiceImpl implements WeightService {
 
 
     public List<Weight> getWeightsByUnit(Unit unit) {
-        if (weightRepository.findByUnit(unit).isPresent()) {
+        if (weightRepository.findByUnit(unit).isPresent())
             return weightRepository.findByUnit(unit).get();
-        }
         return null;
     }
 
-    public Weight getWeightByUnitAndInsideId(Unit unit, Long insideId) {
-        if (weightRepository.findByUnitAndInsideId(unit, insideId).isPresent()) {
-            return weightRepository.findByUnitAndInsideId(unit, insideId).get();
-        }
-        return null;
-    }
-
-    public Weight updateTotalValue(Long id, Weight weight) {
+    public Weight calculateTotalWeight(Long id, Weight weight) {
         List<Weight> weights = getWeightsByUnit(weight.getUnit());
         long reference = weight.getReference();
         Complex complexTotalWeight = weight.getComplexWeight();
@@ -66,7 +58,7 @@ public class WeightServiceImpl implements WeightService {
             long finalReference = reference;
             tempWeight = weights
                     .stream()
-                    .filter(w -> w.getInsideId()
+                    .filter(w -> w.getNumberRun()
                             == finalReference).findFirst();
             if (tempWeight.isPresent()) {
                 complexTotalWeight = complexTotalWeight
@@ -98,22 +90,22 @@ public class WeightServiceImpl implements WeightService {
         if (isValidReference(weight)) {
             return weight;
         }
-        weight.setReference(-1L);
+        weight.setReference(-1);
         return weight;
     }
 
     private boolean isValidReference(Weight weight) {
-        Set<Long> visited = new HashSet<>();
+        Set<Integer> visited = new HashSet<>();
         var weights = getWeightsByUnit(weight.getUnit());
         if (weights != null) {
             while (weight.getReference() != -1) {
-                if (visited.contains(weight.getInsideId())) {
+                if (visited.contains(weight.getNumberRun())) {
                     return false;
                 }
-                visited.add(weight.getInsideId());
+                visited.add(weight.getNumberRun());
                 long finalReference = weight.getReference();
                 Optional<Weight> weightNext = weights.stream()
-                        .filter(w -> w.getInsideId() == finalReference).findFirst();
+                        .filter(w -> w.getNumberRun() == finalReference).findFirst();
                 if (weightNext.isEmpty()) {
                     return false;
                 }

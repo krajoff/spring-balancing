@@ -20,16 +20,10 @@ public class Record implements IRecord {
     @NonNull
     private Long id;
 
-
-    @Column(name = "point_id", nullable = false)
-    @OneToOne
-    private Integer pointId;
-
-    @Column(name = "inside_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "point_id")
     @NonNull
-    private String name;
-
-
+    private Integer pointId;
 
     @Column(name = "mode", nullable = false)
     @NonNull
@@ -43,6 +37,16 @@ public class Record implements IRecord {
     @NonNull
     private Double phaseVibration;
 
+    @Column(name = "is_manual_sensitivity", columnDefinition = "boolean default false")
+    @NonNull
+    private Boolean isManualSensitivity;
+
+    @Column(name = "mag_sensitivity")
+    private Double magSensitivity;
+
+    @Column(name = "phase_sensitivity")
+    private Double phaseSensitivity;
+
     @Getter
     @Column(name = "stage", columnDefinition = "boolean default true")
     @NonNull
@@ -54,6 +58,9 @@ public class Record implements IRecord {
 
     @Transient
     private Complex complexVibration;
+
+    @Transient
+    private Complex complexSensitivity;
 
     public Complex getComplexVibration() {
         return new Complex(this.magVibration *

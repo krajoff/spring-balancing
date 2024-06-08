@@ -1,7 +1,5 @@
 package com.example.balancing.models.unit;
 
-import com.example.balancing.models.record.Record;
-import com.example.balancing.models.target.Target;
 import com.example.balancing.models.user.User;
 import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;

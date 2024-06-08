@@ -1,5 +1,6 @@
 package com.example.balancing.services.record;
 
+import com.example.balancing.dto.RecordDto;
 import com.example.balancing.repository.RecordRepository;
 import com.example.balancing.models.record.Record;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +46,7 @@ public class RecordServiceTest {
         Record mockRecord = new Record();
         Long id = mockRecord.getId();
         when(recordRepository.findById(id)).thenReturn(Optional.of(mockRecord));
-        Record realRecord = recordService.getRecordById(id);
+        RecordDto realRecord = recordService.getRecordById(id);
         assertEquals(id, realRecord.getId());
     }
 

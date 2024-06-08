@@ -2,11 +2,14 @@ package com.example.balancing.models.weight;
 
 import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.unit.Unit;
+import com.example.balancing.models.record.Record;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -24,9 +27,9 @@ public class Weight implements IWeight {
     @NonNull
     private Long id;
 
-    @Column(name = "inside_id", unique = true, nullable = false)
+    @Column(name = "number_run", nullable = false, columnDefinition = "integer default 1")
     @NonNull
-    private Long insideId;
+    private Integer numberRun;
 
     @Column(name = "plane", columnDefinition = "integer default 1")
     @NonNull
@@ -42,11 +45,15 @@ public class Weight implements IWeight {
 
     @Column(name = "reference", columnDefinition = "bigint default -1")
     @NonNull
-    private Long reference;
+    private Integer reference;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id")
     private Unit unit;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "weight",
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Record> records;
 
     @Column(name = "mag_total_weight")
     private Double magTotalWeight;
@@ -82,6 +89,10 @@ public class Weight implements IWeight {
         return roundAvoid(Math
                 .toDegrees(getComplexTotalWeight()
                         .phase()), 0);
+    }
+
+    public Weight getWeight(){
+        return this;
     }
 
     public void setPhaseTotalWeight(Double phaseTotalWeight) {
