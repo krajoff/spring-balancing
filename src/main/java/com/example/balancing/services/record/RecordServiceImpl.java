@@ -42,7 +42,7 @@ public class RecordServiceImpl implements RecordService {
     public RecordDto updateRecord(Long id, Record record) {
         Record existingRecord = mappingUtils.mapToRecordEntity(getRecordById(id));
         existingRecord.setMode(record.getMode());
-        existingRecord.setPointId(record.getPointId());
+        existingRecord.setPoint(record.getPoint());
         existingRecord.setMagVibration(record.getMagVibration());
         existingRecord.setPhaseVibration(record.getPhaseVibration());
         existingRecord.setStage(record.getStage());

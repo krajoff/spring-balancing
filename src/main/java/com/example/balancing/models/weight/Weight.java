@@ -6,8 +6,6 @@ import com.example.balancing.models.record.Record;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
@@ -18,34 +16,39 @@ import static java.lang.Math.sin;
 @Table(name = "weights")
 @Data
 @NoArgsConstructor
-@RequiredArgsConstructor
-public class Weight implements IWeight {
+public class Weight {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @NonNull
     private Long id;
 
-    @Column(name = "number_run", nullable = false, columnDefinition = "integer default 1")
-    @NonNull
-    private Integer numberRun;
-
     @Column(name = "plane", columnDefinition = "integer default 1")
-    @NonNull
     private Integer plane;
 
-    @Column(name = "mag_weight", nullable = false)
-    @NonNull
+    @Column(name = "number_run")
+    private Integer numberRun;
+
+    @Column(name = "reference")
+    private Integer reference;
+
+    @Column(name = "mag_ref_weight")
+    private Double magRefWeight;
+
+    @Column(name = "phase_ref_weight")
+    private Double phaseRefWeight;
+
+    @Transient
+    private Complex complexRefWeight;
+
+    @Column(name = "mag_weight")
     private Double magWeight;
 
-    @Column(name = "phase_weight", nullable = false)
-    @NonNull
+    @Column(name = "phase_weight")
     private Double phaseWeight;
 
-    @Column(name = "reference", columnDefinition = "bigint default -1")
-    @NonNull
-    private Integer reference;
+    @Transient
+    private Complex complexWeight;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id")
@@ -55,18 +58,31 @@ public class Weight implements IWeight {
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Record> records;
 
-    @Column(name = "mag_total_weight")
-    private Double magTotalWeight;
-
-    @Column(name = "phase_total_weight")
-    private Double phaseTotalWeight;
-
-    @Transient
-    private Complex complexTotalWeight;
-
     @Column(name = "system_information")
     private String systemInformation;
 
+    @Column(name = "is_target", columnDefinition = "boolean default false")
+    private boolean isTarget;
+
+    public Complex getComplexRefWeight() {
+        return new Complex(this.magRefWeight *
+                cos(Math.toRadians(this.phaseRefWeight)),
+                this.magRefWeight * sin(Math.toRadians(this.phaseRefWeight)));
+    }
+
+    public Double getMagRefWeight() {
+        return roundAvoid(getComplexRefWeight().abs(), 1);
+    }
+
+    public Double getPhaseRefWeight() {
+        return roundAvoid(Math
+                .toDegrees(getComplexRefWeight()
+                        .phase()), 0);
+    }
+
+    public void setPhaseRefWeight(Double phaseRefWeight) {
+        this.phaseRefWeight = Math.toDegrees(phaseRefWeight);
+    }
 
     public Complex getComplexWeight() {
         return new Complex(this.magWeight *
@@ -74,35 +90,27 @@ public class Weight implements IWeight {
                 this.magWeight * sin(Math.toRadians(this.phaseWeight)));
     }
 
-    public Complex getComplexTotalWeight() {
-        return new Complex(this.magTotalWeight *
-                cos(Math.toRadians(this.phaseTotalWeight)),
-                this.magTotalWeight * sin(Math.toRadians(this.phaseTotalWeight)));
+    public Double getMagWeight() {
+        return roundAvoid(getComplexWeight().abs(), 1);
     }
 
-
-    public Double getMagTotalWeight() {
-        return roundAvoid(getComplexTotalWeight().abs(), 1);
-    }
-
-    public Double getPhaseTotalWeight() {
+    public Double getPhaseWeight() {
         return roundAvoid(Math
-                .toDegrees(getComplexTotalWeight()
+                .toDegrees(getComplexWeight()
                         .phase()), 0);
     }
 
-    public Weight getWeight(){
-        return this;
+    public void setPhaseWeight(Double phaseWeight) {
+        this.phaseWeight = Math.toDegrees(phaseWeight);
     }
-
-    public void setPhaseTotalWeight(Double phaseTotalWeight) {
-        this.phaseTotalWeight = Math.toDegrees(phaseTotalWeight);
-    }
-
 
     private Double roundAvoid(Double value, Integer places) {
         Double scale = Math.pow(10, places);
         return Math.round(value * scale) / scale;
+    }
+
+    public Weight getWeight() {
+        return this;
     }
 
 }

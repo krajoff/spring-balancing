@@ -24,24 +24,25 @@ public class WeightServiceImpl implements WeightService {
     }
 
     public Weight createWeight(Weight weight) {
-        return weightRepository.save(getValidReference(weight));
+        getValidReference(weight);
+        calculateWeight(weight);
+        return weightRepository.save(weight);
     }
 
     public Weight updateWeight(Long id, Weight weight) {
         Weight exsistingWeight = getWeightById(id);
-        exsistingWeight.setMagWeight(weight.getMagWeight());
-        exsistingWeight.setPhaseWeight(weight.getPhaseWeight());
+        exsistingWeight.setMagRefWeight(weight.getMagRefWeight());
+        exsistingWeight.setPhaseRefWeight(weight.getPhaseRefWeight());
         exsistingWeight.setPlane(weight.getPlane());
         exsistingWeight.setReference(weight.getReference());
-        exsistingWeight.setMagTotalWeight(weight.getMagTotalWeight());
-        exsistingWeight.setPhaseTotalWeight(weight.getPhaseTotalWeight());
-        return weightRepository.save(getValidReference(exsistingWeight));
+        getValidReference(exsistingWeight);
+        calculateWeight(exsistingWeight);
+        return weightRepository.save(exsistingWeight);
     }
 
     public void deleteWeight(Long id) {
         weightRepository.deleteById(id);
     }
-
 
     public List<Weight> getWeightsByUnit(Unit unit) {
         if (weightRepository.findByUnit(unit).isPresent())
@@ -49,10 +50,10 @@ public class WeightServiceImpl implements WeightService {
         return null;
     }
 
-    public Weight calculateTotalWeight(Long id, Weight weight) {
+    public Weight calculateWeight(Weight weight) {
         List<Weight> weights = getWeightsByUnit(weight.getUnit());
         long reference = weight.getReference();
-        Complex complexTotalWeight = weight.getComplexWeight();
+        Complex complexWeight = weight.getComplexRefWeight();
         Optional<Weight> tempWeight;
         while (reference != -1) {
             long finalReference = reference;
@@ -61,18 +62,17 @@ public class WeightServiceImpl implements WeightService {
                     .filter(w -> w.getNumberRun()
                             == finalReference).findFirst();
             if (tempWeight.isPresent()) {
-                complexTotalWeight = complexTotalWeight
-                        .plus(tempWeight.get().getComplexWeight());
+                complexWeight = complexWeight
+                        .plus(tempWeight.get().getComplexRefWeight());
                 reference = tempWeight.get().getReference();
             } else {
                 reference = -1;
                 weight.setSystemInformation("Invalid reference in a chain");
             }
         }
-        weight.setComplexTotalWeight(complexTotalWeight);
-        weight.setMagTotalWeight(complexTotalWeight.abs());
-        weight.setPhaseTotalWeight(complexTotalWeight.phase());
-        updateWeight(id, weight);
+        weight.setComplexWeight(complexWeight);
+        weight.setMagWeight(complexWeight.abs());
+        weight.setPhaseWeight(complexWeight.phase());
         return weight;
     }
 

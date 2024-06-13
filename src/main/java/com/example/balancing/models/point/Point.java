@@ -18,10 +18,11 @@ public class Point {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "point_id", nullable = false)
-    private Integer pointId;
+    @Column(name = "place_id", nullable = false)
+    private Integer placeId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "record")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "point",
+            cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Record> records;
 
     @Column(name = "name")

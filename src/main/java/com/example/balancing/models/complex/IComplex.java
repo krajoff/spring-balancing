@@ -1,37 +1,35 @@
 package com.example.balancing.models.complex;
 
-import com.example.balancing.models.complex.Complex;
-
 public interface IComplex {
-    public Double abs();
+    Double abs();
 
-    public Double phase();
+    Double phase();
 
-    public Complex plus(Complex that);
+    Complex plus(Complex that);
 
-    public Complex minus(Complex that);
+    Complex minus(Complex that);
 
-    public Complex times(Complex that);
+    Complex times(Complex that);
 
-    public Complex scale(Double alpha);
+    Complex scale(Double alpha);
 
-    public Complex conjugate();
+    Complex conjugate();
 
-    public Complex reciprocal();
+    Complex reciprocal();
 
-    public Double re();
+    Double re();
 
-    public Double im();
+    Double im();
 
-    public Complex divides(Complex that);
+    Complex divides(Complex that);
 
-    public Complex exp();
+    Complex exp();
 
-    public Complex sin();
+    Complex sin();
 
-    public Complex cos();
+    Complex cos();
 
-    public Complex tan();
+    Complex tan();
 
-    public Complex shift(Double that);
+    Complex shift(Double that);
 }

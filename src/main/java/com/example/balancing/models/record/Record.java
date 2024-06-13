@@ -1,6 +1,7 @@
 package com.example.balancing.models.record;
 
 import com.example.balancing.models.complex.Complex;
+import com.example.balancing.models.point.Point;
 import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,16 +17,16 @@ public class Record implements IRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     @NonNull
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "point_id")
     @NonNull
-    private Integer pointId;
+    private Point point;
 
-    @Column(name = "mode", nullable = false)
+    @Column(name = "mode")
     @NonNull
     private String mode;
 
@@ -37,15 +38,8 @@ public class Record implements IRecord {
     @NonNull
     private Double phaseVibration;
 
-    @Column(name = "is_manual_sensitivity", columnDefinition = "boolean default false")
-    @NonNull
-    private Boolean isManualSensitivity;
-
-    @Column(name = "mag_sensitivity")
-    private Double magSensitivity;
-
-    @Column(name = "phase_sensitivity")
-    private Double phaseSensitivity;
+    @Transient
+    private Complex complexVibration;
 
     @Getter
     @Column(name = "stage", columnDefinition = "boolean default true")
@@ -57,7 +51,18 @@ public class Record implements IRecord {
     private Weight weight;
 
     @Transient
-    private Complex complexVibration;
+    private Weight targetWeight;
+
+    @Column(name = "is_manual_sensitivity",
+            columnDefinition = "boolean default false")
+    @NonNull
+    private Boolean isManualSensitivity;
+
+    @Column(name = "mag_sensitivity")
+    private Double magSensitivity;
+
+    @Column(name = "phase_sensitivity")
+    private Double phaseSensitivity;
 
     @Transient
     private Complex complexSensitivity;
@@ -67,6 +72,35 @@ public class Record implements IRecord {
                 cos(Math.toRadians(this.phaseVibration)),
                 this.magVibration *
                         sin(Math.toRadians(this.phaseVibration)));
+    }
+
+    public void setPhaseSensitivity(Double phaseSensitivity) {
+        this.phaseSensitivity = Math.toDegrees(phaseSensitivity);
+    }
+
+    public Complex getComplexSensitivity() {
+        return new Complex(this.magSensitivity *
+                cos(Math.toRadians(this.phaseSensitivity)),
+                this.magSensitivity * sin(Math.toRadians(this.phaseSensitivity)));
+    }
+
+    public Double getMagSensitivity() {
+        return roundAvoid(getComplexSensitivity().abs(), 1);
+    }
+
+    public Double getPhaseSensitivity() {
+        return roundAvoid(Math
+                .toDegrees(getComplexSensitivity()
+                        .phase()), 0);
+    }
+
+    private Double roundAvoid(Double value, Integer places) {
+        Double scale = Math.pow(10, places);
+        return Math.round(value * scale) / scale;
+    }
+
+    public Record getRecord() {
+        return this;
     }
 }
 
