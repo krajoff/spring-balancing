@@ -22,7 +22,7 @@ public class TargetWeightService {
     /**
      *
      * @param firstRecord is reference record
-     * @param secondRecord is trial record and used to set fields for target waight
+     * @param secondRecord is trial record and used to set fields for target weight
      * @return Weight is target weight
      */
     public Weight calculateTargetWeight(RecordDto firstRecord, RecordDto secondRecord) {

@@ -1,14 +1,14 @@
 package com.example.balancing.dto;
 
 import com.example.balancing.models.complex.Complex;
-import com.example.balancing.models.point.Point;
+import com.example.balancing.models.place.Place;
 import com.example.balancing.models.weight.Weight;
 import lombok.Data;
 
 @Data
 public class RecordDto {
     private Long id;
-    private Point point;
+    private Place place;
     private String name;
     private String mode;
     private Double magVibration;
@@ -16,14 +16,11 @@ public class RecordDto {
     private Complex complexVibration;
     private Boolean stage;
     private Weight weight;
-
+    private Boolean isManualSensitivity;
     private Double magSensitivity;
     private Double phaseSensitivity;
     private Complex complexSensitivity;
     private Weight targetWeight;
-    private Double magTargetWeight;
-    private Double phaseTargetWeight;
-
     public Double getMagTargetWeight() {
         return this.targetWeight.getMagWeight();
     }

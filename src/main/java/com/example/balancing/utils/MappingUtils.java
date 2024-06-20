@@ -17,7 +17,7 @@ public class MappingUtils {
     public RecordDto mapToRecordDto(Record record) {
         RecordDto dto = new RecordDto();
         dto.setId(record.getId());
-        dto.setPoint(record.getPoint());
+        dto.setPlace(record.getPlace());
         dto.setMode(record.getMode());
         dto.setMagVibration(record.getMagVibration());
         dto.setPhaseVibration(record.getPhaseVibration());
@@ -38,7 +38,7 @@ public class MappingUtils {
     public Record mapToRecordEntity(RecordDto dto) {
         Record record = new Record();
         record.setId(dto.getId());
-        record.setPoint(dto.getPoint());
+        record.setPlace(dto.getPlace());
         record.setMode(dto.getMode());
         record.setMagVibration(dto.getMagVibration());
         record.setPhaseVibration(dto.getPhaseVibration());

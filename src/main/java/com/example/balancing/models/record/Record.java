@@ -1,7 +1,7 @@
 package com.example.balancing.models.record;
 
 import com.example.balancing.models.complex.Complex;
-import com.example.balancing.models.point.Point;
+import com.example.balancing.models.place.Place;
 import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,9 +22,9 @@ public class Record implements IRecord {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "point_id")
+    @JoinColumn(name = "place_id")
     @NonNull
-    private Point point;
+    private Place place;
 
     @Column(name = "mode")
     @NonNull
@@ -50,9 +50,6 @@ public class Record implements IRecord {
     @JoinColumn(name = "weight_id")
     private Weight weight;
 
-    @Transient
-    private Weight targetWeight;
-
     @Column(name = "is_manual_sensitivity",
             columnDefinition = "boolean default false")
     @NonNull
@@ -66,6 +63,9 @@ public class Record implements IRecord {
 
     @Transient
     private Complex complexSensitivity;
+
+    @Transient
+    private Weight targetWeight;
 
     public Complex getComplexVibration() {
         return new Complex(this.magVibration *
