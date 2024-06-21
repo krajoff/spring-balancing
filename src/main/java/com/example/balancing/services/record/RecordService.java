@@ -1,20 +1,19 @@
 package com.example.balancing.services.record;
 
-import com.example.balancing.dto.RecordDto;
 import com.example.balancing.models.record.Record;
 
 import java.util.List;
 
 public interface RecordService {
-    List<RecordDto> getAllRecords();
+    List<Record> getAllRecords();
 
-    RecordDto getRecordById(Long id);
+    Record getRecordById(Long id);
 
-    List<RecordDto> getRecordsByMode(String mode);
+    List<Record> getRecordsByMode(String mode);
 
-    RecordDto createRecord(Record record);
+    Record createRecord(Record record);
 
-    RecordDto updateRecord(Long id, Record record);
+    Record updateRecord(Long id, Record record);
 
     void deleteRecord(Long id);
 

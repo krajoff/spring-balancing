@@ -1,9 +1,11 @@
 package com.example.balancing.services.weight;
 
+import com.example.balancing.dto.WeightDto;
 import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.weight.Weight;
 import com.example.balancing.repository.WeightRepository;
+import com.example.balancing.utils.MappingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,14 +32,14 @@ public class WeightServiceImpl implements WeightService {
     }
 
     public Weight updateWeight(Long id, Weight weight) {
-        Weight exsistingWeight = getWeightById(id);
-        exsistingWeight.setMagRefWeight(weight.getMagRefWeight());
-        exsistingWeight.setPhaseRefWeight(weight.getPhaseRefWeight());
-        exsistingWeight.setPlane(weight.getPlane());
-        exsistingWeight.setReference(weight.getReference());
-        getValidReference(exsistingWeight);
-        calculateWeight(exsistingWeight);
-        return weightRepository.save(exsistingWeight);
+        Weight existingWeight = getWeightById(id);
+        existingWeight.setMagRefWeight(weight.getMagRefWeight());
+        existingWeight.setPhaseRefWeight(weight.getPhaseRefWeight());
+        existingWeight.setPlane(weight.getPlane());
+        existingWeight.setReference(weight.getReference());
+        getValidReference(existingWeight);
+        calculateWeight(existingWeight);
+        return weightRepository.save(existingWeight);
     }
 
     public void deleteWeight(Long id) {
@@ -78,12 +80,7 @@ public class WeightServiceImpl implements WeightService {
 
 
     public boolean fixCycles(Unit unit) {
-        for (Weight weight : unit.getWeights()) {
-            if (isValidReference(weight)) {
-                return true;
-            }
-        }
-        return false;
+        return unit.getWeights().stream().anyMatch(this::isValidReference);
     }
 
     public Weight getValidReference(Weight weight) {
@@ -97,21 +94,18 @@ public class WeightServiceImpl implements WeightService {
     private boolean isValidReference(Weight weight) {
         Set<Integer> visited = new HashSet<>();
         var weights = getWeightsByUnit(weight.getUnit());
-        if (weights != null) {
-            while (weight.getReference() != -1) {
-                if (visited.contains(weight.getNumberRun())) {
-                    return false;
-                }
-                visited.add(weight.getNumberRun());
-                long finalReference = weight.getReference();
-                Optional<Weight> weightNext = weights.stream()
-                        .filter(w -> w.getNumberRun() == finalReference).findFirst();
-                if (weightNext.isEmpty()) {
-                    return false;
-                }
-                weight = weightNext.get();
+        while (weight.getReference() != -1) {
+            if (visited.contains(weight.getNumberRun())) {
+                return false;
             }
-            return true;
+            visited.add(weight.getNumberRun());
+            long finalReference = weight.getReference();
+            Optional<Weight> weightNext = weights.stream()
+                    .filter(w -> w.getNumberRun() == finalReference).findFirst();
+            if (weightNext.isEmpty()) {
+                return false;
+            }
+            weight = weightNext.get();
         }
         return true;
     }

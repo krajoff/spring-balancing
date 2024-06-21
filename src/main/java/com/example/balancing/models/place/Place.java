@@ -30,8 +30,8 @@ public class Place {
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Record> records;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "place",
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "weight_id")
     private List<Weight> weights;
 
 }

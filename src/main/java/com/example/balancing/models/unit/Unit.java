@@ -45,6 +45,17 @@ public class Unit implements IUnit {
     @Size(max = 255)
     private String description;
 
+    @Column(name = "units_weight")
+    @Size(max = 10)
+    private String unitsWeight;
+
+    @Column(name = "units_vibration")
+    @Size(max = 10)
+    private String unitsVibration;
+
+    @Column(name = "weight_precision")
+    private Integer weightPrecision;
+
     @Column(name = "created_date", updatable = false)
     private LocalDateTime createdDate = LocalDateTime.now();
 

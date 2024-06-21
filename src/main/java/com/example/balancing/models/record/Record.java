@@ -1,6 +1,7 @@
 package com.example.balancing.models.record;
 
 import com.example.balancing.models.complex.Complex;
+import com.example.balancing.models.mode.Mode;
 import com.example.balancing.models.place.Place;
 import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
@@ -26,9 +27,9 @@ public class Record implements IRecord {
     @NonNull
     private Place place;
 
-    @Column(name = "mode")
-    @NonNull
-    private String mode;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mode_id")
+    private Mode mode;
 
     @Column(name = "mag_vibration", nullable = false)
     @NonNull
@@ -85,7 +86,7 @@ public class Record implements IRecord {
     }
 
     public Double getMagSensitivity() {
-        return roundAvoid(getComplexSensitivity().abs(), 1);
+        return getComplexSensitivity().abs();
     }
 
     public Double getPhaseSensitivity() {

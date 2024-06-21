@@ -1,5 +1,6 @@
 package com.example.balancing.controllers.web;
 
+import com.example.balancing.dto.RecordDto;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.user.User;
@@ -37,7 +38,7 @@ public class WebRecordController {
     }
 
     @PostMapping("/create")
-    public String createRecord(@PathVariable Long unit_id, Record record) {
+    public String createRecord(@PathVariable Long unit_id, RecordDto record) {
         Unit unit = unitService.getUnitById(unit_id);
         Long countRecord = unit.getRecordcount() + 1;
         unit.setRecordcount(countRecord);

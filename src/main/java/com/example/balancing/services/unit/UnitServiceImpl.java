@@ -1,9 +1,8 @@
 package com.example.balancing.services.unit;
 
-import com.example.balancing.dto.RecordDto;
-import com.example.balancing.dto.WeightDto;
 import com.example.balancing.models.place.Place;
 import com.example.balancing.models.unit.Unit;
+import com.example.balancing.models.record.Record;
 import com.example.balancing.models.weight.Weight;
 import com.example.balancing.repository.UnitRepository;
 import com.example.balancing.services.record.RecordService;
@@ -59,39 +58,38 @@ public class UnitServiceImpl implements UnitService {
         unitRepository.deleteById(id);
     }
 
-    public Unit getFullUnitById(Long id) {
+    public Unit getWholeUnitById(Long id) {
         Unit unit = getUnitById(id);
-        List<WeightDto> weights = unit.getWeights()
-                .stream()
-                .map(mappingUtils::mapToWeightDto).toList();
+        List<Weight> weights = unit.getWeights();
 
         if (weights.size() > 1) {
-            for (WeightDto weight : weights) {
+            for (Weight weight : weights) {
                 Integer reference = weight.getReference();
                 if (reference != -1) {
-                    Map<Place, RecordDto> initialRecords = weight.getRecords()
+                    Map<Place, Record> initialRecords = weight.getRecords()
                             .stream()
                             .collect(Collectors
-                                    .toMap(RecordDto::getPlace, RecordDto::getRecord));
+                                    .toMap(Record::getPlace, Record::getRecord));
 
-                    Optional<WeightDto> refWeight = unit.getWeights().stream()
+                    Optional<Weight> refWeight = unit.getWeights().stream()
                             .filter(w -> w.getNumberRun().equals(reference))
-                            .map(mappingUtils::mapToWeightDto)
                             .findFirst();
 
-                    Map<Place, RecordDto> refRecords = null;
+                    Map<Place, Record> refRecords = null;
 
                     if (refWeight.isPresent()) {
                         refRecords = refWeight.get()
                                 .getRecords().stream()
-                                .collect(Collectors.toMap(RecordDto::getPlace, RecordDto::getRecord));
+                                .collect(Collectors
+                                        .toMap(Record::getPlace, Record::getRecord));
                     }
 
                     if (refRecords != null) {
                         for (Place place : initialRecords.keySet()) {
                             try {
                                 Weight targetWeight = targetWeightService
-                                        .calculateTargetWeight(initialRecords.get(place), refRecords.get(point));
+                                        .calculateTargetWeight(initialRecords.get(place),
+                                                refRecords.get(place));
                                 initialRecords.get(place).setWeight(targetWeight);
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
@@ -99,10 +97,12 @@ public class UnitServiceImpl implements UnitService {
 
                         }
                     }
-                    weight.setRecords(initialRecords);
+                    weight.setRecords(new ArrayList<>(initialRecords.values()));
                 }
             }
-            unit.setWeights();
+            unit.setWeights(weights);
 
         }
         return unit;
+    }
+}

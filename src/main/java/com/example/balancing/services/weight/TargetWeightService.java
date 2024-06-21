@@ -25,7 +25,7 @@ public class TargetWeightService {
      * @param secondRecord is trial record and used to set fields for target weight
      * @return Weight is target weight
      */
-    public Weight calculateTargetWeight(RecordDto firstRecord, RecordDto secondRecord) {
+    public Weight calculateTargetWeight(Record firstRecord, Record secondRecord) {
         Complex zVib1, zVib2, zWgt1, zWgt2, dVib, dWgt, foo1, foo2;
         zVib1 = firstRecord.getComplexVibration();
         zVib2 = secondRecord.getComplexVibration();
@@ -40,7 +40,6 @@ public class TargetWeightService {
         Weight targetWeight = new Weight();
         targetWeight.setComplexWeight(zWgt1.minus(foo2));
         targetWeight.setTarget(true);
-        List<RecordDto> dd = Arrays.asList(firstRecord, secondRecord);
         targetWeight.setNumberRun(secondRecord.getWeight().getNumberRun());
         targetWeight.setPlane(secondRecord.getWeight().getPlane());
         targetWeight.setUnit(secondRecord.getWeight().getUnit());

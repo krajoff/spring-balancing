@@ -1,6 +1,7 @@
 package com.example.balancing.dto;
 
 import com.example.balancing.models.complex.Complex;
+import com.example.balancing.models.mode.Mode;
 import com.example.balancing.models.place.Place;
 import com.example.balancing.models.weight.Weight;
 import lombok.Data;
@@ -10,7 +11,7 @@ public class RecordDto {
     private Long id;
     private Place place;
     private String name;
-    private String mode;
+    private Mode mode;
     private Double magVibration;
     private Double phaseVibration;
     private Complex complexVibration;
