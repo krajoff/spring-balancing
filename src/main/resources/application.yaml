@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/balancing
     username: root
-    password: password
+    password: passwords
   jpa:
     hibernate:
       ddl-auto: update
@@ -15,3 +15,4 @@ spring:
 token:
   signing:
     key: 9e7b0b2034692a4abb645975c747949fcb09846b5c8807c101a7872a4b1625df
+    expiration-time: 3600000
