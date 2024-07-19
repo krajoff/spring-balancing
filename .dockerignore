@@ -39,4 +39,4 @@ nbdist
 # Default ignored files
 .idea\shelf
 .idea\workspace.xml
-fly.toml
+deploy/fly.toml

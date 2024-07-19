@@ -12,7 +12,6 @@ import java.util.List;
 @Table(name = "mode")
 @NoArgsConstructor
 @Data
-@RequiredArgsConstructor
 public class Mode {
 
     @Id

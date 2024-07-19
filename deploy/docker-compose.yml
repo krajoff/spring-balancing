@@ -20,7 +20,7 @@ services:
   webapp:
     container_name: balancing-app
     build:
-      context: .
+      context: ..
       dockerfile: Dockerfile
     ports:
       - '8080:8080'
