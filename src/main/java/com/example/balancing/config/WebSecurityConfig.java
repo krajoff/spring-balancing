@@ -14,98 +14,68 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
-@RequiredArgsConstructor
 public class WebSecurityConfig {
     //@Value("${spring.security.debug:false}")
    // boolean securityDebug;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final UserService userService;
+    private final AuthenticationProvider authenticationProvider;
 
-//    @Autowired
-//    private UserRepository userRepository;
-
-    @Bean(name = "passwordEncoder")
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder(12);
-    }
-
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        return new UserServiceImpl(userRepository, bCryptPasswordEncoder());
-//    }
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setPasswordEncoder(bCryptPasswordEncoder());
-        authProvider.setUserDetailsService(userService.userDetailsService());
-        return authProvider;
+    public WebSecurityConfig(
+            JwtAuthenticationFilter jwtAuthenticationFilter,
+            AuthenticationProvider authenticationProvider
+    ) {
+        this.authenticationProvider = authenticationProvider;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
     @Bean
-    public AuthenticationManager authenticationManager
-            (AuthenticationConfiguration config)
-            throws Exception {
-        return config.getAuthenticationManager();
-    }
-
-//    @Bean
-//    public AuthenticationProvider authenticationProvider() {
-//        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-//        authProvider.setUserDetailsService(userService.userDetailsService());
-//        authProvider.setPasswordEncoder(bCryptPasswordEncoder());
-//        return authProvider;
-//    }
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
                 .authorizeHttpRequests(
                         authorize -> authorize
                                 .requestMatchers("/", "/login",
-                                        "/register", "/static/**", "/css/**", "/error", "/auth/**").permitAll()
-                               // .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
+                                        "/register", "/static/**", "/css/**", "/error", "/api/auth/**").permitAll()
                                 .requestMatchers("/unit/**").hasAuthority("USER")
                                 .requestMatchers("/record/**").hasAuthority("USER")
                                 .requestMatchers("/swagger-ui/*").hasAuthority("ADMIN")
                                 .requestMatchers("/api/**").hasAuthority("ADMIN")
                                 .anyRequest().authenticated())
-//                .cors(cors -> cors.configurationSource(request -> {
-//                    var corsConfiguration = new CorsConfiguration();
-//                    corsConfiguration.setAllowedOriginPatterns(List.of("*"));
-//                    corsConfiguration.setAllowedMethods(
-//                            List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-//                    corsConfiguration.setAllowedHeaders(List.of("*"));
-//                    corsConfiguration.setAllowCredentials(true);
-//                    return corsConfiguration;
-//                }))
-//                .formLogin(
-//                        formLogin -> formLogin
-//                                .loginPage("/auth/sign-in")
-//                                .permitAll()
-//                                .defaultSuccessUrl("/unit/"))
-//                .logout(logout ->
-//                        logout
-//                                .logoutUrl("/logout")
-//                                .permitAll()
-//                                .logoutSuccessUrl("/"))
+                .cors(cors -> cors.configurationSource(request -> {
+                    var corsConfiguration = new CorsConfiguration();
+                    corsConfiguration.setAllowedOriginPatterns(List.of("*"));
+                    corsConfiguration.setAllowedMethods(
+                            List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                    corsConfiguration.setAllowedHeaders(List.of("*"));
+                    corsConfiguration.setAllowCredentials(true);
+                    return corsConfiguration;
+                }))
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
-                .authenticationProvider(authenticationProvider())
+                .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable);
-        return httpSecurity.build();
+        return http.build();
     }
-
 }

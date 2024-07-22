@@ -26,7 +26,7 @@ public class SpringDocConfig {
     public OpenAPI customOpenApi(@Value("Application for auto-calculation " +
             "target weight of single plate units")String appDescription,
                                  @Value("0.0.1")String appVersion) {
-        return new OpenAPI().info(new Info().title("Balancing application API")
+        return new OpenAPI().info(new Info().title("Balancing application")
                         .version(appVersion)
                         .description(appDescription)
                         .license(new License().name("Apache 2.0")
