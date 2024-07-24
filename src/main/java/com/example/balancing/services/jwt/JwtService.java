@@ -23,6 +23,9 @@ public class JwtService {
     @Value("${token.signing.key}")
     private String jwtSigningKey;
 
+    @Value("${security.jwt.expiration-time}")
+    private long jwtExpiration;
+
     /**
      * Извлечение имени пользователя из токена
      *
@@ -31,6 +34,20 @@ public class JwtService {
      */
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+
+
+    /**
+     * Извлечение данных из токена
+     *
+     * @param token           токен
+     * @param claimsResolvers функция извлечения данных
+     * @param <T>             тип данных
+     * @return данные
+     */
+    private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolvers.apply(claims);
     }
 
     /**
@@ -50,31 +67,6 @@ public class JwtService {
     }
 
     /**
-     * Проверка токена на валидность
-     *
-     * @param token       токен
-     * @param userDetails данные пользователя
-     * @return true, если токен валиден
-     */
-    public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String userName = extractUsername(token);
-        return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
-    }
-
-    /**
-     * Извлечение данных из токена
-     *
-     * @param token           токен
-     * @param claimsResolvers функция извлечения данных
-     * @param <T>             тип данных
-     * @return данные
-     */
-    private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolvers.apply(claims);
-    }
-
-    /**
      * Генерация токена
      *
      * @param extraClaims дополнительные данные
@@ -86,9 +78,22 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 100000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
+    }
+
+
+    /**
+     * Проверка токена на валидность
+     *
+     * @param token       токен
+     * @param userDetails данные пользователя
+     * @return true, если токен валиден
+     */
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        final String userName = extractUsername(token);
+        return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
 
     /**
@@ -133,5 +138,14 @@ public class JwtService {
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    /**
+     * Получение времени действия токена
+     *
+     * @return секунды
+     */
+    public long getExpirationTime() {
+        return jwtExpiration;
     }
 }
