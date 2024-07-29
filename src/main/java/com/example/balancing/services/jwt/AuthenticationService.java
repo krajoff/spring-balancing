@@ -1,11 +1,13 @@
 package com.example.balancing.services.jwt;
 
-import com.example.balancing.dtos.JwtAuthenticationResponse;
-import com.example.balancing.dtos.SignInRequest;
-import com.example.balancing.dtos.SignUpRequest;
+import com.example.balancing.responses.JwtAuthenticationResponse;
+import com.example.balancing.requests.SignInRequest;
+import com.example.balancing.requests.SignUpRequest;
 import com.example.balancing.models.user.Role;
 import com.example.balancing.models.user.User;
 import com.example.balancing.services.user.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -47,17 +49,40 @@ public class AuthenticationService {
      * @return токен
      */
     public JwtAuthenticationResponse signIn(SignInRequest request) {
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                request.getUsername(),
-                request.getPassword()
-        ));
+                        request.getUsername(),
+                        request.getPassword()
+                ));
 
         var user = userService
                 .userDetailsService()
                 .loadUserByUsername(request.getUsername());
 
         var jwt = jwtService.generateToken(user);
+
         return new JwtAuthenticationResponse(jwt);
     }
+
+    /**
+     * Аутентификация пользователя
+     *
+     * @param request  данные пользователя
+     * @param response ответ содержащий cookies
+     * @return токен
+     */
+    public JwtAuthenticationResponse signIn(SignInRequest request, HttpServletResponse response) {
+
+        var jwt = signIn(request);
+        Cookie cookie = new Cookie("jwt", jwt.getToken());
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge((int) jwtService.getExpirationTime() / 1000);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        return jwt;
+    }
+
+
 }

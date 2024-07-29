@@ -1,8 +1,8 @@
 package com.example.balancing.controllers.api;
 
-import com.example.balancing.dtos.JwtAuthenticationResponse;
-import com.example.balancing.dtos.SignInRequest;
-import com.example.balancing.dtos.SignUpRequest;
+import com.example.balancing.responses.JwtAuthenticationResponse;
+import com.example.balancing.requests.SignInRequest;
+import com.example.balancing.requests.SignUpRequest;
 import com.example.balancing.services.jwt.AuthenticationService;
 import com.example.balancing.services.jwt.JwtService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/api/auth")
 @RestController
-public class AuthenticationController {
+public class ApiAuthenticationController {
     private final JwtService jwtService;
 
     private final AuthenticationService authenticationService;
 
-    public AuthenticationController(JwtService jwtService,
+    public ApiAuthenticationController(JwtService jwtService,
                                     AuthenticationService authenticationService) {
         this.jwtService = jwtService;
         this.authenticationService = authenticationService;
