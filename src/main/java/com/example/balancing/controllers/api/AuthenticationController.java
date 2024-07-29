@@ -1,8 +1,8 @@
 package com.example.balancing.controllers.api;
 
-import com.example.balancing.dto.JwtAuthenticationResponse;
-import com.example.balancing.dto.SignInRequest;
-import com.example.balancing.dto.SignUpRequest;
+import com.example.balancing.dtos.JwtAuthenticationResponse;
+import com.example.balancing.dtos.SignInRequest;
+import com.example.balancing.dtos.SignUpRequest;
 import com.example.balancing.services.jwt.AuthenticationService;
 import com.example.balancing.services.jwt.JwtService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,12 +30,6 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public JwtAuthenticationResponse authenticate(@RequestBody SignInRequest request) {
-//        var authenticatedUser = authenticationService.signIn(request);
-//
-//        String jwtToken = jwtService.generateToken(authenticatedUser);
-//
-//        LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
-
         return authenticationService.signIn(request);
     }
 }

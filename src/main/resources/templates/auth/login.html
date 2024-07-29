@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="/css/register.css"/>
-    <title>Authorization</title>
+    <title>Login</title>
 </head>
 <body>
 <div class="center">
@@ -13,7 +13,7 @@
     <div th:if="${param.logout}" class="red">
         You have been logged out.
     </div>
-    <form th:action="@{/login}" method="post">
+    <form th:action="@{/auth/login}" method="post">
         <div class="txt_field">
             <input type="text" name="username"/>
             <span></span>
@@ -24,8 +24,8 @@
             <span></span>
             <label>Password</label>
         </div>
-        <input type="submit" value="Login"/>
-        <div class="signup_link">Not a member? <a href="/register">Signup</a></div>
+        <input type="submit" value="Sign in"/>
+        <div class="signup_link">Not a member? <a href="/auth/signup">Sign up</a></div>
     </form>
 </div>
 </body>

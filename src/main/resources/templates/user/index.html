@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>User profile</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<h1>User profile</h1>
+
+<div class="divTable blueTable">
+    <div class="divTableHeading">
+        <div class="divTableRow">
+            <div class="divTableHead">id</div>
+            <div class="divTableHead">E-mail</div>
+        </div>
+    </div>
+
+    <div class="divTableBody">
+        <div class="divTableRow">
+            <div class="divTableCell" th:text=${user.id}></div>
+            <div class="divTableCell" th:text=${user.email}></div>
+        </div>
+    </div>
+
+    <div th:if="${param.error}" class="red">
+        Incorrect values
+    </div>
+</div>
+</body>
+</html>

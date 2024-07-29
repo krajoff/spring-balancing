@@ -20,10 +20,10 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    @Value("${token.signing.key}")
+    @Value("${TOKEN_KEY}")
     private String jwtSigningKey;
 
-    @Value("${security.jwt.expiration-time}")
+    @Value("${TOKEN_EXPIRATION}")
     private long jwtExpiration;
 
     /**

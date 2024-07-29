@@ -1,4 +1,4 @@
-package com.example.balancing.controllers.web;
+package com.example.balancing.controllers.web.auth;
 
 import com.example.balancing.models.user.User;
 import com.example.balancing.services.user.UserService;
@@ -19,12 +19,12 @@ public class WebRegistrationController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/register")
+    @GetMapping("/signup")
     public String showRegisterForm() {
-        return "auth/register";
+        return "auth/signup";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/signup")
     public String registerUser(@RequestParam String username, @RequestParam String password) {
         if (userService.getUserByUsername(username) == null) {
             User user = new User();
@@ -33,7 +33,7 @@ public class WebRegistrationController {
             userService.saveUser(user);
             return "redirect:/login";
         }
-        return "redirect:/register?error=true";
+        return "redirect:/signup?error=true";
     }
 
     @GetMapping("/login")

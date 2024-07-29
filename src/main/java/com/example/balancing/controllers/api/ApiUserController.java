@@ -7,11 +7,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "User", description = "The Users API")
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/user")
 public class ApiUserController {
     @Autowired
     private UserService userService;
@@ -22,15 +24,12 @@ public class ApiUserController {
         return userService.createUser(user);
     }
 
-    @GetMapping("/{username}")
-    @Operation(summary = "Get an user by username")
-    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
-        try {
-            User user = userService.getUserByUsername(username);
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @GetMapping("/me")
+    @Operation(summary = "Get current user information")
+    public User getUserByUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        return userService.getUserById(user.getId());
     }
 
     @PutMapping("/{username}")

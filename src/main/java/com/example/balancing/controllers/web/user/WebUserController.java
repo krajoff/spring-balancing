@@ -1,8 +1,12 @@
-package com.example.balancing.controllers.web;
+package com.example.balancing.controllers.web.user;
 
 import com.example.balancing.models.user.User;
+import com.example.balancing.services.jwt.AuthenticationService;
+import com.example.balancing.services.jwt.JwtService;
 import com.example.balancing.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class WebUserController {
     @Autowired
     private UserService userService;
+
+    @GetMapping("/me")
+    public String getUser(Model model) {
+        Authentication authentication = SecurityContextHolder
+                .getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        model.addAttribute("user", user);
+        return "user/index";
+    }
 
     @GetMapping("/index")
     public String getAllUsers(Model model) {

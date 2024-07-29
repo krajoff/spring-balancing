@@ -2,30 +2,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="/css/register.css"/>
-    <title>Login</title>
+    <title>Registration</title>
 </head>
 <body>
 <div class="center">
-    <h1>Login</h1>
-    <div th:if="${param.error}" class="red">
-        Invalid username and password.
+    <h1>Registration</h1>
+    <div class="red" th:if="${param.error}">
+        Username already exists
     </div>
-    <div th:if="${param.logout}" class="red">
-        You have been logged out.
-    </div>
-    <form th:action="@{/auth/sign-in}" method="post">
+    <form th:action="@{/auth/signup}" method="post">
         <div class="txt_field">
             <input type="text" name="username"/>
             <span></span>
             <label>Username</label>
         </div>
         <div class="txt_field">
+            <input type="text" name="email"/>
+            <span></span>
+            <label>Email</label>
+        </div>
+        <div class="txt_field">
             <input type="password" name="password"/>
             <span></span>
             <label>Password</label>
         </div>
-        <input type="submit" value="Sign in"/>
-        <div class="signup_link">Not a member? <a href="/auth/sign-up">Sign up</a></div>
+        <input type="submit" value="Sign up"/>
+        <div class="signup_link">A member already? <a href="/auth/login">Log in</a></div>
     </form>
 </div>
 </body>

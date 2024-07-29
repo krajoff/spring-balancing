@@ -19,10 +19,12 @@ public class WebHandleErrorController implements ErrorController {
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 return "error/error-404";
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+                model.addAttribute("request",request.getAttribute(RequestDispatcher.ERROR_MESSAGE));
                 return "error/error-500";
             } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
                 return "error/error-403";
             } else if (statusCode == HttpStatus.BAD_REQUEST.value()) {
+                model.addAttribute("request",request.getAttribute(RequestDispatcher.ERROR_MESSAGE));
                 return "error/error-400";
             }
         }
