@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/balancing
-    username: root
-    password: passwords
+    url: ${DB_URL}?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,14 +11,3 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-
-<<<<<<< HEAD
-=======
-token:
-  signing:
-    key: 9e7b0b2034692a4abb645975c747949fcb09846b5c8807c101a7872a4b1625df
-<<<<<<< HEAD
->>>>>>> e1a94a2 (Fix some stuff but it not work properly)
-=======
-    expiration-time: 3600000
->>>>>>> 436d860 (Add jwtAuthFilter)
