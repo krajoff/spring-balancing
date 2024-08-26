@@ -68,6 +68,12 @@ public class Record implements IRecord {
     @Transient
     private Weight targetWeight;
 
+    @PrePersist
+    void prePersist() {
+        if (this.stage == null)
+            this.stage = true;
+    }
+
     public Complex getComplexVibration() {
         return new Complex(this.magVibration *
                 cos(Math.toRadians(this.phaseVibration)),
@@ -95,6 +101,35 @@ public class Record implements IRecord {
                         .phase()), 0);
     }
 
+<<<<<<< HEAD
+=======
+    public void setPhaseTotalWeight(Double phaseTotalWeight) {
+        this.phaseTotalWeight = Math.toDegrees(phaseTotalWeight);
+    }
+
+    public Double getMagTargetWeight() {
+        return roundAvoid(getComplexTargetWeight().abs(), 1);
+    }
+
+    public Double getPhaseTargetWeight() {
+        return roundAvoid(Math
+                .toDegrees(getComplexTargetWeight()
+                        .phase()), 0);
+    }
+
+    public void setPhaseTargetWeight(Double phaseTargetWeight) {
+        this.phaseTargetWeight = Math.toDegrees(phaseTargetWeight);
+    }
+
+    public Double getMagTotalVibration() {
+        return roundAvoid(getComplexTotalVibration().abs(), 1);
+    }
+
+    public Double getPhaseTotalVibration() {
+        return roundAvoid(getComplexTotalVibration().phase(), 0);
+    }
+
+>>>>>>> 0d50e1e (Jwt init)
     private Double roundAvoid(Double value, Integer places) {
         Double scale = Math.pow(10, places);
         return Math.round(value * scale) / scale;

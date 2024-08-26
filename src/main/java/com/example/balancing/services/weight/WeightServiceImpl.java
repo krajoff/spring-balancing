@@ -1,11 +1,9 @@
 package com.example.balancing.services.weight;
 
-import com.example.balancing.dto.WeightDto;
 import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.weight.Weight;
 import com.example.balancing.repository.WeightRepository;
-import com.example.balancing.utils.MappingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

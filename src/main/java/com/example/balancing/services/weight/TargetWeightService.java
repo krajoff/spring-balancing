@@ -1,18 +1,11 @@
 package com.example.balancing.services.weight;
 
-import com.example.balancing.dto.RecordDto;
 import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.record.Record;
-import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.weight.Weight;
-import com.example.balancing.services.record.RecordService;
-import com.example.balancing.services.unit.UnitService;
 import com.example.balancing.utils.MappingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class TargetWeightService {

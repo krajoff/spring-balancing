@@ -1,4 +1,4 @@
-package com.example.balancing.dto;
+package com.example.balancing.dtos;
 
 import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.mode.Mode;

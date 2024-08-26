@@ -1,6 +1,5 @@
 package com.example.balancing.services.weight;
 
-import com.example.balancing.dto.WeightDto;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.weight.Weight;
 

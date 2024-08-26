@@ -1,6 +1,6 @@
 package com.example.balancing.controllers.api;
 
-import com.example.balancing.dto.RecordDto;
+import com.example.balancing.dtos.RecordDto;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.services.record.RecordService;
 import com.example.balancing.utils.MappingUtils;

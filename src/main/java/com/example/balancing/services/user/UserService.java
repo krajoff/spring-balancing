@@ -1,6 +1,7 @@
 package com.example.balancing.services.user;
 
 import com.example.balancing.models.user.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 
 import java.util.List;
@@ -24,4 +25,10 @@ public interface UserService {
 
     User getUserByUsername(String username);
 
+<<<<<<< HEAD
+=======
+    UserDetailsService userDetailsService();
+
+    User getCurrentUser();
+>>>>>>> 0d50e1e (Jwt init)
 }

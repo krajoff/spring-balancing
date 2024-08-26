@@ -1,6 +1,6 @@
 package com.example.balancing.controllers.web;
 
-import com.example.balancing.dto.RecordDto;
+import com.example.balancing.dtos.RecordDto;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.user.User;

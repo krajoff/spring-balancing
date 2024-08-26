@@ -1,7 +1,6 @@
-package com.example.balancing.dto;
+package com.example.balancing.dtos;
 
 import com.example.balancing.models.complex.Complex;
-import com.example.balancing.models.record.Record;
 import com.example.balancing.models.unit.Unit;
 import lombok.Data;
 

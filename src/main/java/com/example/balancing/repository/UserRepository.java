@@ -3,7 +3,6 @@ package com.example.balancing.repository;
 import com.example.balancing.models.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
@@ -25,4 +24,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "where u.username = ?1", nativeQuery = true)
     User updateByUsername(String username, User user)
             throws UsernameNotFoundException;
+
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
 }
