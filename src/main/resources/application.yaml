@@ -12,3 +12,9 @@ spring:
         format_sql: true
     show-sql: true
 
+<<<<<<< HEAD
+=======
+token:
+  signing:
+    key: 9e7b0b2034692a4abb645975c747949fcb09846b5c8807c101a7872a4b1625df
+>>>>>>> e1a94a2 (Fix some stuff but it not work properly)

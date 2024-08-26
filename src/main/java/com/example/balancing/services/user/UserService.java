@@ -21,7 +21,7 @@ public interface UserService {
 
     void deleteUserByUsername(String username);
 
-    boolean saveUser(User user);
+    User saveUser(User user);
 
     User getUserByUsername(String username);
 

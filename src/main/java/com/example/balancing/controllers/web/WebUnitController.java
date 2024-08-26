@@ -6,6 +6,7 @@ import com.example.balancing.models.user.User;
 import com.example.balancing.services.record.RecordService;
 import com.example.balancing.services.unit.UnitService;
 import com.example.balancing.services.user.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/unit")
+@RequiredArgsConstructor
 public class WebUnitController {
     @Autowired
     private UnitService unitService;
@@ -25,8 +27,7 @@ public class WebUnitController {
     @Autowired
     private RecordService recordService;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping({"/", "", "/index"})
     public String getAllUnits(Model model) {

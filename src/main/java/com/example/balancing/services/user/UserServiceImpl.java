@@ -22,15 +22,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     UnitService unitService;
+<<<<<<< HEAD
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+=======
+//    @Autowired
+//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+>>>>>>> e1a94a2 (Fix some stuff but it not work properly)
 
-    public UserServiceImpl(UserRepository userRepository,
-                           BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+//    public UserServiceImpl(UserRepository userRepository,
+//                           BCryptPasswordEncoder bCryptPasswordEncoder) {
+//        this.userRepository = userRepository;
+//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+//    }
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -42,7 +47,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         List<Unit> units = unitService.getUnitsByUserId(id);
         user.setUnits(units);
         return user;
-
     }
 
     public User getUserByUsername(String username) {
@@ -50,7 +54,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     public User createUser(User user) {
-        return userRepository.save(user);
+        if (!userRepository.findByUsernameOrEmail
+                (user.getUsername(), user.getEmail()).isEmpty()) {
+            throw new RuntimeException("User already existed");
+        }
+        return saveUser(user);
     }
 
     public User updateUser(Long id, User user) {
@@ -79,16 +87,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
-    public boolean saveUser(User user) {
-        if (userRepository.findByUsername(user.getUsername()) != null) {
-            System.out.println("User already existed");
-            return false;
-        } else {
-            user.setRole(Role.USER);
-            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
-            return true;
-        }
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }
 
     public UserDetailsService userDetailsService() {
