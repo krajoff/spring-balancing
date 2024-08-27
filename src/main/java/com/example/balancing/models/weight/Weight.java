@@ -4,23 +4,31 @@ import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.record.Record;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
+/**
+ * Сущность балансировочного и расчетного грузов.
+ * Содержит информацию о номере плоскости, номере пуска,
+ * ссылку на референсный груз, если он есть,
+ */
 @Entity
+@EqualsAndHashCode
+@Setter
+@Getter
+@ToString
 @Table(name = "weights")
-@Data
 @NoArgsConstructor
 public class Weight {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @EqualsAndHashCode.Exclude
     private Long id;
 
     @Column(name = "plane", columnDefinition = "integer default 1")

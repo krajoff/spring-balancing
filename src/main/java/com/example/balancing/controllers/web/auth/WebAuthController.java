@@ -1,7 +1,7 @@
 package com.example.balancing.controllers.web.auth;
 
-import com.example.balancing.requests.SignInRequest;
-import com.example.balancing.requests.SignUpRequest;
+import com.example.balancing.dtos.requests.SignInRequest;
+import com.example.balancing.dtos.requests.SignUpRequest;
 import com.example.balancing.services.jwt.AuthenticationService;
 import com.example.balancing.services.jwt.JwtService;
 import io.swagger.v3.oas.annotations.tags.Tag;

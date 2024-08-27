@@ -1,8 +1,8 @@
 package com.example.balancing.services.jwt;
 
-import com.example.balancing.responses.JwtAuthenticationResponse;
-import com.example.balancing.requests.SignInRequest;
-import com.example.balancing.requests.SignUpRequest;
+import com.example.balancing.dtos.responses.JwtAuthenticationResponse;
+import com.example.balancing.dtos.requests.SignInRequest;
+import com.example.balancing.dtos.requests.SignUpRequest;
 import com.example.balancing.models.user.Role;
 import com.example.balancing.models.user.User;
 import com.example.balancing.services.user.UserService;

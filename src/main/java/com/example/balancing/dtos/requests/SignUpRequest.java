@@ -1,4 +1,4 @@
-package com.example.balancing.requests;
+package com.example.balancing.dtos.requests;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -7,6 +7,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+/**
+ * Объект передачи данных для запросов на регистрацию пользователей.
+ * <p>
+ * Этот класс инкапсулирует данные, необходимые новому пользователю для
+ * регистрации. Он включает ограничения валидации, чтобы убедиться,
+ * что предоставленные имя пользователя, электронная почта и пароль соответствуют
+ * требуемому формату и длине.
+ * </p>
+ */
 @Data
 @Schema(description = "Sign up request")
 public class SignUpRequest {
@@ -28,6 +37,7 @@ public class SignUpRequest {
 
     @JsonProperty("password")
     @Schema(description = "password")
-    @Size(max = 255, message = "Password length is at least 255 letters")
+    @Size(min = 5, max = 255,
+            message = "Minimum password length is 5 letters, maximum is 255")
     private String password;
 }

@@ -8,7 +8,6 @@ import lombok.Data;
 
 @Data
 public class RecordDto {
-    private Long id;
     private Place place;
     private String name;
     private Mode mode;

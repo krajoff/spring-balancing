@@ -5,9 +5,13 @@ import com.example.balancing.models.unit.Unit;
 import lombok.Data;
 
 import java.util.List;
+
+/**
+ * DTO весов, установленных или вычисленных для агрегата.
+ * Содержит информацию о весе
+ */
 @Data
 public class WeightDto {
-    private Long id;
     private Integer plane;
     private Integer numberRun;
     private Integer reference;

@@ -1,4 +1,4 @@
-package com.example.balancing.responses;
+package com.example.balancing.dtos.responses;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -6,6 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Объект ответа для аутентификации JWT.
+ * <p>
+ * Этот класс ответа, отправленный клиенту после успешной аутентификации,
+ * который включает токен доступа.
+ * </p>
+ */
 @Data
 @Builder
 @NoArgsConstructor
