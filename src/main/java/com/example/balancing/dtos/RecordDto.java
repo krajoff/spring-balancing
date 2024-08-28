@@ -2,7 +2,7 @@ package com.example.balancing.dtos;
 
 import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.mode.Mode;
-import com.example.balancing.models.place.Place;
+import com.example.balancing.models.plane.Place;
 import com.example.balancing.models.weight.Weight;
 import lombok.Data;
 

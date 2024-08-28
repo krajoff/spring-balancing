@@ -34,10 +34,11 @@ public class Weight {
     @Column(name = "plane", columnDefinition = "integer default 1")
     private Integer plane;
 
-    @Column(name = "number_run")
-    private Integer numberRun;
+    @Column(name = "run", nullable = false,
+            columnDefinition = "integer default 0")
+    private Integer run;
 
-    @Column(name = "reference")
+    @Column(name = "reference", columnDefinition = "integer default -1")
     private Integer reference;
 
     @Column(name = "mag_ref_weight")
@@ -49,10 +50,10 @@ public class Weight {
     @Transient
     private Complex complexRefWeight;
 
-    @Column(name = "mag_weight")
+    @Column(name = "mag_weight", nullable = false)
     private Double magWeight;
 
-    @Column(name = "phase_weight")
+    @Column(name = "phase_weight", nullable = false)
     private Double phaseWeight;
 
     @Transient

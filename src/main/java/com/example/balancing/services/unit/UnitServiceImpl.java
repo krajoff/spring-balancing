@@ -1,6 +1,6 @@
 package com.example.balancing.services.unit;
 
-import com.example.balancing.models.place.Place;
+import com.example.balancing.models.plane.Place;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.weight.Weight;

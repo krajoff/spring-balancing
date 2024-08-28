@@ -4,16 +4,19 @@ import com.example.balancing.models.user.User;
 import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Сущность агрегата. Содержит название станции, номер агрега, тип
+ */
 @Entity
 @Table(name = "units")
-@Data
+@EqualsAndHashCode
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Unit implements IUnit {
@@ -21,20 +24,16 @@ public class Unit implements IUnit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    @EqualsAndHashCode.Exclude
     private Long id;
 
-    @Column(name = "inside_id")
-    private Long insideId = 0L;
-
-    @Column(name = "record_count")
-    private Long recordCount;
-
-    @Column(name = "station")
+    @Column(name = "station",
+            columnDefinition = "varchar(50) default 'Station #1'")
     @Size(max = 50)
     private String station;
 
-    @Column(name = "unit_number")
-    @Size(max = 50)
+    @Column(name = "unit_number", columnDefinition = "integer default 1")
+    @Size(max = 3)
     private Integer unitNumber;
 
     @Column(name = "type")

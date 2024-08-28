@@ -2,16 +2,28 @@ package com.example.balancing.models.record;
 
 import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.mode.Mode;
-import com.example.balancing.models.place.Place;
+import com.example.balancing.models.point.Point;
 import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
 import lombok.*;
 
 import static java.lang.Math.*;
 
+/**
+ * Сущность вибрации в точке измерения. Содержит место измерение,
+ * режим, значения амплитуды и фазы в deg (комплексное значение инкапсулиется
+ * и вычисляется только при чтении), флаг участия в общем оптимизационном
+ * расчете, связанный балансировочный груз, значения амплитуды и
+ * фазы в deg чувствительности (комплексное значение инкапсулиется
+ * и вычисляется только при чтении), а также балансировочный
+ * груз компенсирующий данную вибрацию.
+ */
+
 @Entity
 @Table(name = "records")
-@Data
+@EqualsAndHashCode
+@Getter
+@Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Record implements IRecord {
@@ -19,24 +31,21 @@ public class Record implements IRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    @NonNull
+    @EqualsAndHashCode.Exclude
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id")
-    @NonNull
-    private Place place;
+    @JoinColumn(name = "point_id")
+    private Point point;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mode_id")
     private Mode mode;
 
     @Column(name = "mag_vibration", nullable = false)
-    @NonNull
     private Double magVibration;
 
     @Column(name = "phase_vibration", nullable = false)
-    @NonNull
     private Double phaseVibration;
 
     @Transient
@@ -44,16 +53,14 @@ public class Record implements IRecord {
 
     @Getter
     @Column(name = "stage", columnDefinition = "boolean default true")
-    @NonNull
     private Boolean stage;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "weight_id")
+    @JoinColumn(name = "weight_id", nullable = false)
     private Weight weight;
 
     @Column(name = "is_manual_sensitivity",
             columnDefinition = "boolean default false")
-    @NonNull
     private Boolean isManualSensitivity;
 
     @Column(name = "mag_sensitivity")
@@ -74,6 +81,7 @@ public class Record implements IRecord {
             this.stage = true;
     }
 
+
     public Complex getComplexVibration() {
         return new Complex(this.magVibration *
                 cos(Math.toRadians(this.phaseVibration)),
@@ -81,58 +89,11 @@ public class Record implements IRecord {
                         sin(Math.toRadians(this.phaseVibration)));
     }
 
-    public void setPhaseSensitivity(Double phaseSensitivity) {
-        this.phaseSensitivity = Math.toDegrees(phaseSensitivity);
-    }
-
     public Complex getComplexSensitivity() {
         return new Complex(this.magSensitivity *
                 cos(Math.toRadians(this.phaseSensitivity)),
-                this.magSensitivity * sin(Math.toRadians(this.phaseSensitivity)));
-    }
-
-    public Double getMagSensitivity() {
-        return getComplexSensitivity().abs();
-    }
-
-    public Double getPhaseSensitivity() {
-        return roundAvoid(Math
-                .toDegrees(getComplexSensitivity()
-                        .phase()), 0);
-    }
-
-<<<<<<< HEAD
-=======
-    public void setPhaseTotalWeight(Double phaseTotalWeight) {
-        this.phaseTotalWeight = Math.toDegrees(phaseTotalWeight);
-    }
-
-    public Double getMagTargetWeight() {
-        return roundAvoid(getComplexTargetWeight().abs(), 1);
-    }
-
-    public Double getPhaseTargetWeight() {
-        return roundAvoid(Math
-                .toDegrees(getComplexTargetWeight()
-                        .phase()), 0);
-    }
-
-    public void setPhaseTargetWeight(Double phaseTargetWeight) {
-        this.phaseTargetWeight = Math.toDegrees(phaseTargetWeight);
-    }
-
-    public Double getMagTotalVibration() {
-        return roundAvoid(getComplexTotalVibration().abs(), 1);
-    }
-
-    public Double getPhaseTotalVibration() {
-        return roundAvoid(getComplexTotalVibration().phase(), 0);
-    }
-
->>>>>>> 0d50e1e (Jwt init)
-    private Double roundAvoid(Double value, Integer places) {
-        Double scale = Math.pow(10, places);
-        return Math.round(value * scale) / scale;
+                this.magSensitivity *
+                        sin(Math.toRadians(this.phaseSensitivity)));
     }
 
     public Record getRecord() {
