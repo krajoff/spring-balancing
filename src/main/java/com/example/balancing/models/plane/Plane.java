@@ -4,7 +4,10 @@ import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,28 +16,67 @@ import java.util.List;
  * сторона возбудителя, просто цифра и т.д.) и список грузов в данной
  * плоскости агрегата
  */
-@Entity
+@Entity(name = "Plane")
 @Table(name = "planes")
 @Getter
 @Setter
 @ToString
+@Builder
 @EqualsAndHashCode
+@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 public class Plane {
 
+    /**
+     * Уникальный идентификатор.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     @EqualsAndHashCode.Exclude
-    private Long id;
+    @ToString.Exclude private Long id;
 
+    /**
+     * Название плоскости. Максимальная длина — 20 символов.
+     */
     @Column(name = "name", nullable = false)
     @Size(max = 20)
-    private String name;
+    @NonNull private String name;
 
+    /**
+     * Список весов, связанных с данной плоскостью.
+     * Отношение один ко многим с каскадными операциями
+     * и удалением орфанных записей.
+     */
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,
             mappedBy = "plane", orphanRemoval = true)
     @ToString.Exclude
     private List<Weight> weights;
+
+
+    /**
+     * Дата создания. Поле автоматически заполняется
+     * при создании и не может быть обновлено.
+     */
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
+
+    /**
+     * Дата последнего обновления. Поле автоматически
+     * обновляется при изменении записи.
+     */
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+    /**
+     * Версия.
+     */
+    @Version
+    @Builder.Default
+    @Column(name = "version")
+    private Long version = 1L;
 
 }

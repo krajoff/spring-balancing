@@ -1,13 +1,11 @@
 package com.example.balancing.models.user;
 
+import com.example.balancing.models.station.Station;
 import com.example.balancing.models.unit.Unit;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,60 +16,102 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-
-@Entity
-@Builder
+/**
+ * Сущность пользователя. Хранит информацию о пользователе системы,
+ * включая его учетные данные, роль, и связанный список станций.
+ */
+@Entity(name = "User")
 @Table(name = "users")
-@Data
+@Builder
+@ToString
+@EqualsAndHashCode
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedEntityGraph(name = "user_entity-graph",
+        attributeNodes = @NamedAttributeNode("stations"))
 public class User implements UserDetails {
 
+    /**
+     * Уникальный идентификатор пользователя.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Long id;
 
+    /**
+     * Имя пользователя. Должно быть уникальным и не может быть пустым.
+     */
     @Column(name = "username", unique = true, nullable = false)
-    @Size()
+    @Size(max = 50)
     private String username;
 
-    @Size()
+    /**
+     * Пароль пользователя. Не может быть пустым.
+     */
+    @Size(max = 255)
     @Column(name = "password", nullable = false)
     private String password;
 
+    /**
+     * Подтверждение пароля. Это временное поле и не сохраняется в базе данных.
+     */
     @Transient
     private String passwordConfirm;
 
+    /**
+     * Роль пользователя в системе.
+     */
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
 
+    /**
+     * Электронная почта пользователя. Должна быть уникальной.
+     */
     @Email
     @Size(max = 255)
     @Column(name = "email", unique = true)
     private String email;
 
+    /**
+     * Приоритет пользователя. Опциональное поле.
+     */
     @Column(name = "priority")
     private Integer priority;
 
+    /**
+     * Дата создания учетной записи пользователя. Поле автоматически заполняется
+     * при создании и не может быть обновлено.
+     */
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
     private Date createdAt;
 
+    /**
+     * Дата последнего обновления учетной записи пользователя.
+     * Поле автоматически обновляется при каждом изменении записи.
+     */
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Date updatedAt;
 
+    /**
+     * Список станций, связанных с данным пользователем.
+     * Отношение один ко многим с каскадными операциями и
+     * удалением орфанных записей.
+     */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",
             cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Unit> units;
-
-    @Column(name = "unit_counter")
-    private Long unitCounter;
+    private List<Station> stations;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.name());
+        SimpleGrantedAuthority grantedAuthority =
+                new SimpleGrantedAuthority(role.name());
         return List.of(grantedAuthority);
     }
 

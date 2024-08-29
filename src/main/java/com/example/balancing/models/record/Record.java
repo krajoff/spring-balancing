@@ -6,6 +6,10 @@ import com.example.balancing.models.point.Point;
 import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.util.Date;
 
 import static java.lang.Math.*;
 
@@ -19,61 +23,128 @@ import static java.lang.Math.*;
  * груз компенсирующий данную вибрацию.
  */
 
-@Entity
+@Entity(name = "Record")
 @Table(name = "records")
 @EqualsAndHashCode
 @Getter
 @Setter
+@ToString
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @RequiredArgsConstructor
 public class Record implements IRecord {
 
+    /**
+     * Уникальный идентификатор записи вибрации.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Long id;
 
+    /**
+     * Точка измерения вибрации.
+     */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "point_id")
+    @JoinColumn(name = "point_id", referencedColumnName = "id")
     private Point point;
 
+    /**
+     * Режим работы, при котором проводится измерение вибрации.
+     */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mode_id")
+    @JoinColumn(name = "mode_id", referencedColumnName = "id")
     private Mode mode;
 
+    /**
+     * Амплитуда вибрации.
+     */
     @Column(name = "mag_vibration", nullable = false)
     private Double magVibration;
 
+    /**
+     * Фаза вибрации в градусах.
+     */
     @Column(name = "phase_vibration", nullable = false)
     private Double phaseVibration;
 
+    /**
+     * Комплексное значение вибрации, рассчитываемое на основе амплитуды и фазы.
+     * Не хранится в базе данных.
+     */
     @Transient
     private Complex complexVibration;
 
+    /**
+     * Флаг участия в общем оптимизационном расчете.
+     * Значение по умолчанию — true.
+     */
     @Getter
     @Column(name = "stage", columnDefinition = "boolean default true")
     private Boolean stage;
 
+    /**
+     * Балансировочный груз, связанный с вибрацией.
+     */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "weight_id", nullable = false)
+    @JoinColumn(name = "weight_id", nullable = false,
+            referencedColumnName = "id")
     private Weight weight;
 
+    /**
+     * Флаг ручной настройки чувствительности.
+     * Значение по умолчанию — false.
+     */
     @Column(name = "is_manual_sensitivity",
             columnDefinition = "boolean default false")
     private Boolean isManualSensitivity;
 
+    /**
+     * Амплитуда чувствительности вибрации.
+     */
     @Column(name = "mag_sensitivity")
     private Double magSensitivity;
 
+    /**
+     * Фаза чувствительности вибрации в градусах.
+     */
     @Column(name = "phase_sensitivity")
     private Double phaseSensitivity;
 
+    /**
+     * Комплексное значение чувствительности,
+     * рассчитываемое на основе амплитуды и фазы.
+     * Не хранится в базе данных.
+     */
     @Transient
     private Complex complexSensitivity;
 
-    @Transient
-    private Weight targetWeight;
+    /**
+     * Дата создания. Поле автоматически заполняется
+     * при создании и не может быть обновлено.
+     */
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
+
+    /**
+     * Дата последнего обновления. Поле автоматически
+     * обновляется при изменении записи.
+     */
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+    /**
+     * Версия.
+     */
+    @Version
+    @Builder.Default
+    @Column(name = "version")
+    private Long version = 1L;
 
     @PrePersist
     void prePersist() {
@@ -81,7 +152,12 @@ public class Record implements IRecord {
             this.stage = true;
     }
 
-
+    /**
+     * Возвращает комплексное значение вибрации, вычисленное на основе
+     * амплитуды и фазы.
+     *
+     * @return Комплексное значение вибрации.
+     */
     public Complex getComplexVibration() {
         return new Complex(this.magVibration *
                 cos(Math.toRadians(this.phaseVibration)),
@@ -89,6 +165,12 @@ public class Record implements IRecord {
                         sin(Math.toRadians(this.phaseVibration)));
     }
 
+    /**
+     * Возвращает комплексное значение чувствительности, вычисленное на основе
+     * амплитуды и фазы.
+     *
+     * @return Комплексное значение чувствительности.
+     */
     public Complex getComplexSensitivity() {
         return new Complex(this.magSensitivity *
                 cos(Math.toRadians(this.phaseSensitivity)),
@@ -96,6 +178,11 @@ public class Record implements IRecord {
                         sin(Math.toRadians(this.phaseSensitivity)));
     }
 
+    /**
+     * Возвращает текущую запись.
+     *
+     * @return Объект Record.
+     */
     public Record getRecord() {
         return this;
     }

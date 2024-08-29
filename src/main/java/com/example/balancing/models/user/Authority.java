@@ -1,13 +1,13 @@
 package com.example.balancing.models.user;
 
-import com.example.balancing.models.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity
+@Entity(name = "Authority")
 @Table(name = "authorities")
 @Data
 public class Authority {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -17,7 +17,7 @@ public class Authority {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column
+    @Column(name = "authority")
     private String authority;
 
 }
