@@ -1,7 +1,7 @@
 package com.example.balancing.services.record;
 
 import com.example.balancing.dtos.RecordDto;
-import com.example.balancing.repository.RecordRepository;
+import com.example.balancing.repository.record.RecordRepository;
 import com.example.balancing.models.record.Record;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

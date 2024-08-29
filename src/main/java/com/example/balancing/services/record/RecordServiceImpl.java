@@ -1,7 +1,7 @@
 package com.example.balancing.services.record;
 
 import com.example.balancing.models.record.Record;
-import com.example.balancing.repository.RecordRepository;
+import com.example.balancing.repository.record.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -4,7 +4,7 @@ import com.example.balancing.models.plane.Place;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.weight.Weight;
-import com.example.balancing.repository.UnitRepository;
+import com.example.balancing.repository.unit.UnitRepository;
 import com.example.balancing.services.record.RecordService;
 import com.example.balancing.services.weight.TargetWeightService;
 import com.example.balancing.services.weight.WeightService;

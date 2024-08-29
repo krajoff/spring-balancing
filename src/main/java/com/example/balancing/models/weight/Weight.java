@@ -1,6 +1,7 @@
 package com.example.balancing.models.weight;
 
 import com.example.balancing.models.complex.Complex;
+import com.example.balancing.models.plane.Plane;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.record.Record;
 import jakarta.persistence.*;
@@ -13,85 +14,99 @@ import static java.lang.Math.sin;
 
 /**
  * Сущность балансировочного и расчетного грузов.
- * Содержит информацию о номере плоскости, номере пуска,
- * ссылку на референсный груз, если он есть,
+ * <p>
+ * Этот класс содержит информацию о плоскости, номере пуска,
+ * ссылке на референсный груз (если он есть), и других атрибутах веса.
+ * </p>
+ * <p>
+ * Включает методы для получения и установки различных параметров веса,
+ * а также расчета комплексного веса на основе магнитного и фазового значений.
  */
-@Entity
+@Entity(name = "Weight")
+@Table(name = "weights")
 @EqualsAndHashCode
 @Setter
 @Getter
 @ToString
-@Table(name = "weights")
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Weight {
 
+    /**
+     * Идентификатор веса.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Long id;
 
-    @Column(name = "plane", columnDefinition = "integer default 1")
-    private Integer plane;
+    /**
+     * Плоскость установки груза.
+     */
+    @Column(name = "plane", nullable = false)
+    @NonNull private Plane plane;
 
+    /**
+     * Номер пуска. Не может быть null, по умолчанию равен 0.
+     */
     @Column(name = "run", nullable = false,
             columnDefinition = "integer default 0")
-    private Integer run;
+    @NonNull private Integer run;
 
+    /**
+     * Ссылка на референсный груз. По умолчанию равен -1, т.е. без ссылки.
+     */
     @Column(name = "reference", columnDefinition = "integer default -1")
-    private Integer reference;
+    @NonNull private Integer reference;
 
-    @Column(name = "mag_ref_weight")
-    private Double magRefWeight;
+    /**
+     * Значение веса. По умолчанию равно 0.
+     */
+    @Column(name = "mag_weight", columnDefinition = "double default 0")
+    @NonNull private Double magWeight;
 
-    @Column(name = "phase_ref_weight")
-    private Double phaseRefWeight;
+    /**
+     * Значение фазы веса. По умолчанию равно 0.
+     */
+    @Column(name = "phase_weight", columnDefinition = "double default 0")
+    @NonNull private Double phaseWeight;
 
-    @Transient
-    private Complex complexRefWeight;
-
-    @Column(name = "mag_weight", nullable = false)
-    private Double magWeight;
-
-    @Column(name = "phase_weight", nullable = false)
-    private Double phaseWeight;
-
+    /**
+     * Вес в комплексных числах. Не сохраняется в базе данных.
+     */
     @Transient
     private Complex complexWeight;
 
+    /**
+     * Связь c агрегатом.
+      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "unit_id")
+    @JoinColumn(name = "unit_id", referencedColumnName = "id")
     private Unit unit;
 
+    /**
+     * Список записей вибрации, связанных с этим весом.
+     */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "weight",
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Record> records;
 
+    /**
+     * Системная информация о весе.
+     */
     @Column(name = "system_information")
     private String systemInformation;
 
+    /**
+     * Флаг, указывающий, является ли данный вес целевым.
+     * По умолчанию равен false.
+     */
     @Column(name = "is_target", columnDefinition = "boolean default false")
     private boolean isTarget;
-
-    public Complex getComplexRefWeight() {
-        return new Complex(this.magRefWeight *
-                cos(Math.toRadians(this.phaseRefWeight)),
-                this.magRefWeight * sin(Math.toRadians(this.phaseRefWeight)));
-    }
-
-    public Double getMagRefWeight() {
-        return roundAvoid(getComplexRefWeight().abs(), 1);
-    }
-
-    public Double getPhaseRefWeight() {
-        return roundAvoid(Math
-                .toDegrees(getComplexRefWeight()
-                        .phase()), 0);
-    }
-
-    public void setPhaseRefWeight(Double phaseRefWeight) {
-        this.phaseRefWeight = Math.toDegrees(phaseRefWeight);
-    }
 
     public Complex getComplexWeight() {
         return new Complex(this.magWeight *

@@ -1,4 +1,4 @@
-package com.example.balancing.repository;
+package com.example.balancing.repository.user;
 
 import com.example.balancing.models.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

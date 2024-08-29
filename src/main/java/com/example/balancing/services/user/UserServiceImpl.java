@@ -1,9 +1,8 @@
 package com.example.balancing.services.user;
 
-import com.example.balancing.models.user.Role;
 import com.example.balancing.models.user.User;
 import com.example.balancing.models.unit.Unit;
-import com.example.balancing.repository.UserRepository;
+import com.example.balancing.repository.user.UserRepository;
 import com.example.balancing.services.unit.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

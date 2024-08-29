@@ -1,4 +1,4 @@
-package com.example.balancing.repository;
+package com.example.balancing.repository.unit;
 
 import com.example.balancing.models.unit.Unit;
 import org.springframework.data.jpa.repository.JpaRepository;
