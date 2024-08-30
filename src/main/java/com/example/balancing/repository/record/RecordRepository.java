@@ -1,7 +1,5 @@
 package com.example.balancing.repository.record;
 
-import com.example.balancing.models.unit.Unit;
-import com.example.balancing.models.weight.Weight;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.balancing.models.record.Record;
 import org.springframework.data.jpa.repository.Query;
