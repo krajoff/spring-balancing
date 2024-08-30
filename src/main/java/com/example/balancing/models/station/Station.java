@@ -41,11 +41,11 @@ public class Station {
     private Long id;
 
     /**
-     * Название станции. Значение по умолчанию — 'No name station'.
+     * Название станции. Значение по умолчанию — 'Без станции'.
      * Максимальная длина — 50 символов.
      */
     @Column(name = "name",
-            columnDefinition = "varchar(50) default 'No name station'")
+            columnDefinition = "varchar(50) default 'Без станции'")
     @Size(max = 50)
     @NonNull private String name;
 

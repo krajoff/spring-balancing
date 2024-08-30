@@ -62,13 +62,15 @@ public class Record implements IRecord {
     /**
      * Амплитуда вибрации.
      */
-    @Column(name = "mag_vibration", nullable = false)
+    @Column(name = "mag_vibration", nullable = false,
+            columnDefinition = "double default 0")
     private Double magVibration;
 
     /**
      * Фаза вибрации в градусах.
      */
-    @Column(name = "phase_vibration", nullable = false)
+    @Column(name = "phase_vibration", nullable = false,
+            columnDefinition = "double default 0")
     private Double phaseVibration;
 
     /**
@@ -83,8 +85,8 @@ public class Record implements IRecord {
      * Значение по умолчанию — true.
      */
     @Getter
-    @Column(name = "stage", columnDefinition = "boolean default true")
-    private Boolean stage;
+    @Column(name = "is_used", columnDefinition = "boolean default true")
+    private Boolean isUsed;
 
     /**
      * Балансировочный груз, связанный с вибрацией.
@@ -148,8 +150,8 @@ public class Record implements IRecord {
 
     @PrePersist
     void prePersist() {
-        if (this.stage == null)
-            this.stage = true;
+        if (this.isUsed == null)
+            this.isUsed = true;
     }
 
     /**

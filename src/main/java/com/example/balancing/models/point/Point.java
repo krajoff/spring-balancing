@@ -1,5 +1,6 @@
 package com.example.balancing.models.point;
 
+import com.example.balancing.models.unit.Unit;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -39,15 +40,23 @@ public class Point {
      * Название точки измерения. Обязательное поле.
      * Максимальная длина — 10 символов.
      */
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false,
+            columnDefinition = "varchar(10) default 'ГП'")
     @Size(max = 10)
     @NonNull private String name;
+
+    /**
+     * Связанный агрегат.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "unit_id", referencedColumnName = "id")
+    @NonNull private Unit unit;
 
     /**
      * Список записей вибрации, связанных с данной точкой.
      * Отношение один ко многим с каскадными операциями.
      */
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,
+    @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "point", orphanRemoval = true)
     @ToString.Exclude private List<Record> records;
 

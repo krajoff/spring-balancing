@@ -1,5 +1,6 @@
 package com.example.balancing.models.plane;
 
+import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -38,22 +39,28 @@ public class Plane {
     @ToString.Exclude private Long id;
 
     /**
-     * Название плоскости. Максимальная длина — 20 символов.
+     * Номер плоскости. Максимальная длина — 1 символов.
      */
-    @Column(name = "name", nullable = false)
-    @Size(max = 20)
-    @NonNull private String name;
+    @Column(name = "number", nullable = false,
+            columnDefinition = "integer default 1")
+    @Size(max = 1)
+    @NonNull private Integer number;
 
     /**
      * Список весов, связанных с данной плоскостью.
      * Отношение один ко многим с каскадными операциями
      * и удалением орфанных записей.
      */
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,
-            mappedBy = "plane", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "plane", orphanRemoval = true)
     @ToString.Exclude
     private List<Weight> weights;
 
+    /**
+     * Ссылка на агрегат.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "unit_id", referencedColumnName = "id")
+    private Unit unit;
 
     /**
      * Дата создания. Поле автоматически заполняется

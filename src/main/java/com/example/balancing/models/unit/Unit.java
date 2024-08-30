@@ -47,11 +47,11 @@ public class Unit {
     private Integer unitNumber;
 
     /**
-     * Тип агрегата. Значение по умолчанию — 'No name type'.
+     * Тип агрегата. Значение по умолчанию — 'Без типа'.
      * Максимальная длина — 50 символов.
      */
     @Column(name = "type",
-            columnDefinition = "varchar(50) default 'No name type'")
+            columnDefinition = "varchar(50) default 'Без типа'")
     @Size(max = 50)
     private String type;
 
@@ -59,15 +59,16 @@ public class Unit {
      * Количество знаков после запятой при отображении значений грузов.
      * Максимальное значение — 2 знака.
      */
-    @Column(name = "weight_precision")
+    @Column(name = "weight_precision", columnDefinition = "integer default 0")
     @Size(max = 2)
     private Integer weightPrecision;
 
     /**
      * Единица измерения грузов (г, кг, т). Максимальная длина — 2 символа.
      */
-    @Column(name = "weight_unit_measure")
-    @Size(max = 2)
+    @Column(name = "weight_unit_measure",
+            columnDefinition = "varchar(5) default 'кг'")
+    @Size(max = 5)
     private String weightUnitMeasure;
 
     /**
@@ -77,6 +78,14 @@ public class Unit {
     @Column(name = "vibration_precision")
     @Size(max = 2)
     private Integer vibrationPrecision;
+
+    /**
+     * Единица измерения вибрации (мкм, мм/с). Максимальная длина — 5 символа.
+     */
+    @Column(name = "vibration_unit_measure",
+            columnDefinition = "varchar(5) default 'мкм'")
+    @Size(max = 5)
+    private String vibrationUnitMeasure;
 
     /**
      * Дополнительное описание.
