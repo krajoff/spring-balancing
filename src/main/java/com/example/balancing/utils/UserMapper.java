@@ -7,9 +7,9 @@ import org.mapstruct.Mapping;
 
 /**
  * Маппер для преобразования между сущностями User и UserDto:
- * UserDto содержит unitDto, email.
+ * UserDto содержит stationsDto, email.
  */
-@Mapper(componentModel = "spring", uses = UnitMapper.class)
+@Mapper(componentModel = "spring", uses = StationMapper.class)
 public abstract class UserMapper {
 
     /**
@@ -18,7 +18,7 @@ public abstract class UserMapper {
      * @param user сущность User
      * @return объект UserDto
      */
-    @Mapping(source = "units", target = "units")
+    @Mapping(source = "stations", target = "stations")
     public abstract UserDto userToUserDto(User user);
 
     /**
@@ -33,8 +33,7 @@ public abstract class UserMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "version", ignore = true)
-    @Mapping(target = "authoredTasks", ignore = true)
-    @Mapping(source = "units", target = "units")
+    @Mapping(source = "stations", target = "stations")
     public abstract User userDtoToUser(UserDto userDto);
 
 }
