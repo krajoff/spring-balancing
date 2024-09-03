@@ -51,9 +51,8 @@ public class Plane {
      * Отношение один ко многим с каскадными операциями
      * и удалением орфанных записей.
      */
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "plane", orphanRemoval = true)
-    @ToString.Exclude
-    private List<Weight> weights;
+    @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude private List<Weight> weights;
 
     /**
      * Ссылка на агрегат.

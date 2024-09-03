@@ -53,7 +53,7 @@ public class Station {
      * Список агрегатов, привязанных к станции.
      * Отношение один ко многим с каскадными операциями.
      */
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "station")
+    @OneToMany(mappedBy = "station", cascade = CascadeType.ALL)
     private List<Unit> units;
 
     /**

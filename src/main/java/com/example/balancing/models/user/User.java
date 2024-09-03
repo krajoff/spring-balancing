@@ -105,7 +105,7 @@ public class User implements UserDetails {
      * Отношение один ко многим с каскадными операциями и
      * удалением орфанных записей.
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Station> stations;
 

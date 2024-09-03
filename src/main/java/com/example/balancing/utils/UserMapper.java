@@ -1,6 +1,6 @@
 package com.example.balancing.utils;
 
-import com.example.balancing.dtos.UserDto;
+import com.example.balancing.dtos.user.UserDto;
 import com.example.balancing.models.user.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

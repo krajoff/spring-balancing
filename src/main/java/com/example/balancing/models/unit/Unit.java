@@ -39,7 +39,7 @@ public class Unit {
     private Long id;
 
     /**
-     * Номер агрегата. Значение по умолчанию — 1.
+     * Номер агрегата на станции. Значение по умолчанию — 1.
      * Максимальная длина — 3 цифры.
      */
     @Column(name = "unit_number", columnDefinition = "integer default 1")
@@ -96,9 +96,8 @@ public class Unit {
 
     /**
      * Список грузов, относящихся к агрегату.
-     * Отношение один ко многим с каскадными операциями удаления и вставки.
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit",
+    @OneToMany(mappedBy = "unit", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Weight> weights;
 

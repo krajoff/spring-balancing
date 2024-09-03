@@ -48,8 +48,7 @@ public class Mode {
      * Отношение один ко многим с каскадными операциями.
      */
     @OneToMany(mappedBy = "mode", cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
-    private List<Record> records;
+    @ToString.Exclude private List<Record> records;
 
     /**
      * Ссылка на агрегат

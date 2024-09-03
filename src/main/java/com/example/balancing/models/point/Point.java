@@ -56,8 +56,8 @@ public class Point {
      * Список записей вибрации, связанных с данной точкой.
      * Отношение один ко многим с каскадными операциями.
      */
-    @OneToMany(cascade = CascadeType.ALL,
-            mappedBy = "point", orphanRemoval = true)
+    @OneToMany(mappedBy = "point", cascade = CascadeType.ALL,
+             orphanRemoval = true)
     @ToString.Exclude private List<Record> records;
 
     /**

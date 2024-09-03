@@ -39,7 +39,7 @@ import static java.lang.Math.sin;
 public class Weight implements IWeight {
 
     /**
-     * Идентификатор веса.
+     * Уникальный идентификатор веса.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,29 +60,25 @@ public class Weight implements IWeight {
      */
     @Column(name = "run", nullable = false,
             columnDefinition = "integer default 0")
-    @NonNull
-    private Integer run;
+    @NonNull private Integer run;
 
     /**
      * Ссылка на референсный груз. По умолчанию равен -1, т.е. без ссылки.
      */
     @Column(name = "reference", columnDefinition = "long default -1")
-    @NonNull
-    private Long reference;
+    @NonNull private Long reference;
 
     /**
      * Значение веса. По умолчанию равно 0.
      */
     @Column(name = "mag_weight", columnDefinition = "double default 0")
-    @NonNull
-    private Double magWeight;
+    @NonNull private Double magWeight;
 
     /**
      * Значение фазы веса. По умолчанию равно 0.
      */
     @Column(name = "phase_weight", columnDefinition = "double default 0")
-    @NonNull
-    private Double phaseWeight;
+    @NonNull private Double phaseWeight;
 
     /**
      * Вес в комплексных числах. Не сохраняется в базе данных.
@@ -109,8 +105,7 @@ public class Weight implements IWeight {
      */
     @Column(name = "system_information")
     @Size(max = 255)
-    @NonNull
-    private String systemInformation;
+    @NonNull private String systemInformation;
 
     /**
      * Флаг, указывающий, является ли данный вес целевым.
@@ -118,8 +113,7 @@ public class Weight implements IWeight {
      */
     @Column(name = "is_target", nullable = false,
             columnDefinition = "boolean default false")
-    @NonNull
-    private boolean isTarget;
+    @NonNull private boolean isTarget;
 
     /**
      * Дата создания. Поле автоматически заполняется

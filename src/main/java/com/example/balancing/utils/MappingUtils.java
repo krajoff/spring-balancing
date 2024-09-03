@@ -1,7 +1,7 @@
 package com.example.balancing.utils;
 
-import com.example.balancing.dtos.RecordDto;
-import com.example.balancing.dtos.WeightDto;
+import com.example.balancing.dtos.record.RecordDto;
+import com.example.balancing.dtos.weight.WeightDto;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.weight.Weight;
 import org.springframework.stereotype.Service;
