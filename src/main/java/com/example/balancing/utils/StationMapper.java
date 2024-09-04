@@ -5,6 +5,7 @@ import com.example.balancing.models.station.Station;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+
 /**
  * Маппер для преобразования между сущностями Station и StationDto:
  */
@@ -12,19 +13,24 @@ import org.mapstruct.Mapping;
 public abstract class StationMapper {
 
     /**
+     * Преобразование сущности Station в StationDto
      *
-     * @param station
-     * @return
+     * @param station сущность Station
+     * @return StationDto
      */
-    @Mapping(source = "units", target = "units")
+    @Mapping(source = "units", target = "units", qualifiedByName = "mapToUnitIds")
     public abstract StationDto stationToStationDto(Station station);
 
     /**
+     * Преобразование сущности StationDto в Station
      *
-     * @param stationDto
-     * @return
+     * @param stationDto сущность StationDto
+     * @return Station
      */
-    @Mapping(target = )
-    @Mapping(source = "units", target = "units.id")
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "units", ignore = true)
+    @Mapping(target = "user", ignore = true)
     public abstract Station stationDtoToStation(StationDto stationDto);
+
 }

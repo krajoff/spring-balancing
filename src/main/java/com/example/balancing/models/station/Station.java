@@ -22,7 +22,6 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -50,11 +49,17 @@ public class Station {
     @NonNull private String name;
 
     /**
-     * Список агрегатов, привязанных к станции.
-     * Отношение один ко многим с каскадными операциями.
+     * Список агрегатов, привязанных к станции. Агрегаты каскадно удаляются
+     * при удалении станции.
      */
-    @OneToMany(mappedBy = "station", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "station", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Unit> units;
+
+    /**
+     * Число агрегатов, привязанных к станции.
+     */
+    @Transient
+    private Integer counter = units.size();
 
     /**
      * Пользователь, с которым связана станция.
@@ -83,7 +88,6 @@ public class Station {
      * Версия.
      */
     @Version
-    @Builder.Default
     @Column(name = "version")
     private Long version = 1L;
 }
