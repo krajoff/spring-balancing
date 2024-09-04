@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 /**
  * Маппер для преобразования между сущностями Station и StationDto:
  */
-@Mapper(componentModel = "spring", uses = UnitMapper.class)
+@Mapper(componentModel = "spring")
 public abstract class StationMapper {
 
     /**
@@ -18,7 +18,6 @@ public abstract class StationMapper {
      * @param station сущность Station
      * @return StationDto
      */
-    @Mapping(source = "units", target = "units", qualifiedByName = "mapToUnitIds")
     public abstract StationDto stationToStationDto(Station station);
 
     /**

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,7 +28,6 @@ import java.util.List;
  *   <li><b>vibrationPrecision:</b> Количество знаков после запятой при отображении вибрации (максимум 2 символа).</li>
  *   <li><b>vibrationUnitMeasure:</b> Единица измерения вибрации (например, мкм, мм/с) (максимум 5 символов).</li>
  *   <li><b>description:</b> Дополнительное описание агрегата (максимум 255 символов).</li>
- *   <li><b>weights:</b> Список грузов, относящихся к агрегату.</li>
  *   <li><b>station:</b> Название станции.</li>
  * </ul>
  */
@@ -64,14 +64,18 @@ public class UnitDto {
     @Size(max = 5)
     private String vibrationUnitMeasure;
 
-    @Schema(description = "Дополнительное описание", example = "Измерения после ремонта")
+    @Schema(description = "Дополнительное описание",
+            example = "Измерения после ремонта")
     @Size(max = 255)
     private String description;
 
-    @Schema(description = "Список грузов, относящихся к агрегату")
-    private List<WeightDto> weights;
+    @Schema(description = "Число грузов, установленных на агрегат")
+    private Integer counterWeight;
 
-    @Schema(description = "Название станции", example = "Саяно-Шушенская ГЭС")
-    private String station;
+    @Schema(description = "Дата создания")
+    private Date createdAt;
+
+    @Schema(description = "Дата последнего обновления")
+    private Date updatedAt;
 
 }

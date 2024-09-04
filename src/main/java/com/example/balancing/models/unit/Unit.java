@@ -101,6 +101,9 @@ public class Unit {
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Weight> weights;
 
+    @Transient
+    private Integer counterWeights = weights.size();
+
     /**
      * Станция, с которой связан агрегат.
      */
