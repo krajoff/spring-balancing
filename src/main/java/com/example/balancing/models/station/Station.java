@@ -34,7 +34,7 @@ public class Station {
      */
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Long id;

@@ -19,23 +19,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    UnitService unitService;
-<<<<<<< HEAD
-
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-=======
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
->>>>>>> e1a94a2 (Fix some stuff but it not work properly)
-
-//    public UserServiceImpl(UserRepository userRepository,
-//                           BCryptPasswordEncoder bCryptPasswordEncoder) {
-//        this.userRepository = userRepository;
-//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-//    }
-
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }

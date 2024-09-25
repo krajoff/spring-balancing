@@ -28,6 +28,7 @@ public abstract class UserMapper {
      * @return объект User
      */
     @Mapping(target = "password", ignore = true)
+    @Mapping(target = "passwordConfirm", ignore = true)
     @Mapping(target = "role", ignore = true)
     @Mapping(target = "priority", ignore = true)
     @Mapping(target = "createdAt", ignore = true)

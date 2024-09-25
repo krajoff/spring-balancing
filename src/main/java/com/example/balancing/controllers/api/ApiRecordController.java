@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/records")
 public class ApiRecordController {
+
     @Autowired
     private RecordService recordService;
 

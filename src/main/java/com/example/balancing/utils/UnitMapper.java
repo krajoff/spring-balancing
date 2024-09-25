@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 /**
  * Маппер для преобразования между сущностями Unit и UnitDto:
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = WeightMapper.class)
 public abstract class UnitMapper {
 
     /**
@@ -26,7 +26,6 @@ public abstract class UnitMapper {
      * @return Unit
      */
     @Mapping(target = "version", ignore = true)
-    @Mapping(target = "weights", ignore = true)
     @Mapping(target = "station", ignore = true)
     public abstract Unit unitDtoToUnit(UnitDto unitDto);
 

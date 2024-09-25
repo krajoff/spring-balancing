@@ -1,6 +1,7 @@
 package com.example.balancing.dtos.unit;
 
 import com.example.balancing.dtos.weight.WeightDto;
+import com.example.balancing.models.weight.Weight;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -64,10 +65,12 @@ public class UnitDto {
     @Size(max = 5)
     private String vibrationUnitMeasure;
 
-    @Schema(description = "Дополнительное описание",
-            example = "Измерения после ремонта")
+    @Schema(description = "Дополнительное описание", example = "Измерения после ремонта")
     @Size(max = 255)
     private String description;
+
+    @Schema(description = "Список грузов, относящихся к агрегату")
+    private List<WeightDto> weights;
 
     @Schema(description = "Число грузов, установленных на агрегат")
     private Integer counterWeight;

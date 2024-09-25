@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  postgres_db_balancing:
+    image: postgres:13.2-alpine
+    container_name: postgres_db_balancing
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - .:/var/lib/postgresql/data
+    ports:
+      - '5432:5433'
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -h psql-db"]
+#      interval: 1s
+#      timeout: 5s
+#      retries: 10
+    networks:
+      - postgres_db_balancing
+
+#  webapp:
+#    container_name: balancing-app
+#    build:
+#      context: ../..
+#      dockerfile: Dockerfile
+#    ports:
+#      - '8080:8080'
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://psql-db/balancing
+#      - SPRING_DATASOURCE_USERNAME=root
+#      - SPRING_DATASOURCE_PASSWORD=passwords
+#      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+#      - SERVER_PORT=8080
+#    depends_on:
+#      psql-db:
+#        condition: service_healthy
+
+  pgadmin:
+    container_name: pgadmin_balancing
+    image: dpage/pgadmin4:6.19
+    depends_on:
+      - postgres_db_balancing
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@example.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+    ports:
+      - ${PGADMIN_PORT:-5050}:80
+    networks:
+      - postgres_db_balancing
+    restart: unless-stopped
+
+networks:
+  postgres_db_balancing:
+    driver: bridge

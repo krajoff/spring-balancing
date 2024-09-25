@@ -25,10 +25,10 @@ public interface UserService {
 
     User getUserByUsername(String username);
 
-<<<<<<< HEAD
-=======
+    User getUserByEmail(String email);
+
     UserDetailsService userDetailsService();
 
     User getCurrentUser();
->>>>>>> 0d50e1e (Jwt init)
+
 }

@@ -3,7 +3,6 @@ package com.example.balancing.controllers.web.auth;
 import com.example.balancing.dtos.requests.SignInRequest;
 import com.example.balancing.dtos.requests.SignUpRequest;
 import com.example.balancing.services.jwt.AuthenticationService;
-import com.example.balancing.services.jwt.JwtService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Authentication")
 public class WebAuthController {
 
-    private final JwtService jwtService;
     private final AuthenticationService authenticationService;
 
     @GetMapping("/signup")

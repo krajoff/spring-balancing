@@ -33,7 +33,7 @@ public class Plane {
      * Уникальный идентификатор.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude private Long id;
