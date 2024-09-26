@@ -12,16 +12,15 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - .:/var/lib/postgresql/data
     ports:
-      - '5432:5433'
-#    healthcheck:
-#      test: ["CMD-SHELL", "pg_isready -h psql-db"]
-#      interval: 1s
-#      timeout: 5s
-#      retries: 10
-    networks:
-      - postgres_db_balancing
+      - '5432:5432'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h psql-db"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+#    networks:
+#      - postgres_db_balancing
 
 #  webapp:
 #    container_name: balancing-app
@@ -40,23 +39,23 @@ services:
 #      psql-db:
 #        condition: service_healthy
 
-  pgadmin:
-    container_name: pgadmin_balancing
-    image: dpage/pgadmin4:6.19
-    depends_on:
-      - postgres_db_balancing
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@example.com}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-    volumes:
-      - ./pgadmin:/var/lib/pgadmin
-    ports:
-      - ${PGADMIN_PORT:-5050}:80
-    networks:
-      - postgres_db_balancing
-    restart: unless-stopped
-
-networks:
-  postgres_db_balancing:
-    driver: bridge
+#  pgadmin:
+#    container_name: pgadmin_balancing
+#    image: dpage/pgadmin4:7
+#    depends_on:
+#      - postgres_db_balancing
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@example.com}
+#      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+#      PGADMIN_CONFIG_SERVER_MODE: 'False'
+#    volumes:
+#      - ./pgadmin:/var/lib/pgadmin
+#    ports:
+#      - ${PGADMIN_PORT:-5050}:80
+#    networks:
+#      - postgres_db_balancing
+#    restart: unless-stopped
+#
+#networks:
+#  postgres_db_balancing:
+#    driver: bridge
