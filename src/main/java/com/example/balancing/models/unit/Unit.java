@@ -98,7 +98,7 @@ public class Unit {
      * Список грузов, относящихся к агрегату.
      */
     @OneToMany(mappedBy = "unit", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL, orphanRemoval = true)
+            cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true)
     private List<Weight> weights;
 
     @Transient
@@ -117,6 +117,7 @@ public class Unit {
      */
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
+    @EqualsAndHashCode.Exclude
     private Date createdAt;
 
     /**
@@ -125,6 +126,7 @@ public class Unit {
      */
     @UpdateTimestamp
     @Column(name = "updated_at")
+    @EqualsAndHashCode.Exclude
     private Date updatedAt;
 
     /**
@@ -133,6 +135,7 @@ public class Unit {
     @Version
     @Builder.Default
     @Column(name = "version")
+    @EqualsAndHashCode.Exclude
     private Long version = 1L;
 
 }

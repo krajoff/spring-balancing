@@ -47,11 +47,12 @@ public class Plane {
     @NonNull private Integer number;
 
     /**
-     * Список весов, связанных с данной плоскостью.
+     * Список грузов, связанных с данной плоскостью.
      * Отношение один ко многим с каскадными операциями
      * и удалением орфанных записей.
      */
-    @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "plane", cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
+            orphanRemoval = true)
     @ToString.Exclude private List<Weight> weights;
 
     /**
@@ -67,6 +68,7 @@ public class Plane {
      */
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
+    @EqualsAndHashCode.Exclude
     private Date createdAt;
 
     /**
@@ -75,6 +77,7 @@ public class Plane {
      */
     @UpdateTimestamp
     @Column(name = "updated_at")
+    @EqualsAndHashCode.Exclude
     private Date updatedAt;
 
     /**
@@ -83,6 +86,7 @@ public class Plane {
     @Version
     @Builder.Default
     @Column(name = "version")
+    @EqualsAndHashCode.Exclude
     private Long version = 1L;
 
 }

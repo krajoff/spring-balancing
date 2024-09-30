@@ -1,4 +1,4 @@
-package com.example.balancing.repository.weight;
+package com.example.balancing.repositories.weight;
 
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.weight.Weight;

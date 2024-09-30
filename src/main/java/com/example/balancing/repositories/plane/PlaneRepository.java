@@ -1,4 +1,4 @@
-package com.example.balancing.repository.plane;
+package com.example.balancing.repositories.plane;
 
 import com.example.balancing.models.plane.Plane;
 import org.springframework.data.jpa.repository.JpaRepository;

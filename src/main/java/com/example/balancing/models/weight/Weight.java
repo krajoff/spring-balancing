@@ -69,19 +69,19 @@ public class Weight implements IWeight {
     @NonNull private Long reference;
 
     /**
-     * Значение веса. По умолчанию равно 0.
+     * Значение веса груза. По умолчанию равно 0.
      */
     @Column(name = "mag_weight", columnDefinition = "double default 0")
     @NonNull private Double magWeight;
 
     /**
-     * Значение фазы веса. По умолчанию равно 0.
+     * Значение фазы груза. По умолчанию равно 0.
      */
     @Column(name = "phase_weight", columnDefinition = "double default 0")
     @NonNull private Double phaseWeight;
 
     /**
-     * Вес в комплексных числах. Не сохраняется в базе данных.
+     * Груз в комплексных числах. Не сохраняется в базе данных.
      */
     @Transient
     private Complex complexWeight;
@@ -96,8 +96,8 @@ public class Weight implements IWeight {
     /**
      * Список записей вибрации, связанных с этим весом.
      */
-    @OneToMany(mappedBy = "weight", cascade = CascadeType.ALL,
-            orphanRemoval = true)
+    @OneToMany(mappedBy = "weight", cascade = {CascadeType.REMOVE,
+            CascadeType.REFRESH}, orphanRemoval = true)
     private List<Record> records;
 
     /**
@@ -121,6 +121,7 @@ public class Weight implements IWeight {
      */
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
+    @EqualsAndHashCode.Exclude
     private Date createdAt;
 
     /**
@@ -129,6 +130,7 @@ public class Weight implements IWeight {
      */
     @UpdateTimestamp
     @Column(name = "updated_at")
+    @EqualsAndHashCode.Exclude
     private Date updatedAt;
 
     /**
@@ -137,6 +139,7 @@ public class Weight implements IWeight {
     @Version
     @Builder.Default
     @Column(name = "version")
+    @EqualsAndHashCode.Exclude
     private Long version = 1L;
 
     /**

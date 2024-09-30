@@ -90,6 +90,7 @@ public class User implements UserDetails {
      */
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
+    @EqualsAndHashCode.Exclude
     private Date createdAt;
 
     /**
@@ -98,6 +99,7 @@ public class User implements UserDetails {
      */
     @UpdateTimestamp
     @Column(name = "updated_at")
+    @EqualsAndHashCode.Exclude
     private Date updatedAt;
 
     /**

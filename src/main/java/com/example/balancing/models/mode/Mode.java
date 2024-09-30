@@ -47,11 +47,12 @@ public class Mode {
      * Список записей вибрации, связанных с данным режимом.
      * Отношение один ко многим с каскадными операциями.
      */
-    @OneToMany(mappedBy = "mode", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "mode", cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
+            orphanRemoval = true)
     @ToString.Exclude private List<Record> records;
 
     /**
-     * Ссылка на агрегат
+     * Ссылка на агрегат.
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id", referencedColumnName = "id")
@@ -63,6 +64,7 @@ public class Mode {
      */
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
+    @EqualsAndHashCode.Exclude
     private Date createdAt;
 
     /**
@@ -71,6 +73,7 @@ public class Mode {
      */
     @UpdateTimestamp
     @Column(name = "updated_at")
+    @EqualsAndHashCode.Exclude
     private Date updatedAt;
 
     /**
@@ -79,5 +82,6 @@ public class Mode {
     @Version
     @Builder.Default
     @Column(name = "version")
+    @EqualsAndHashCode.Exclude
     private Long version = 1L;
 }

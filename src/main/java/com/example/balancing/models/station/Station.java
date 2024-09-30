@@ -46,13 +46,15 @@ public class Station {
     @Column(name = "name",
             columnDefinition = "varchar(50) default 'Без станции'")
     @Size(max = 50)
-    @NonNull private String name;
+    @NonNull
+    private String name;
 
     /**
      * Список агрегатов, привязанных к станции. Агрегаты каскадно удаляются
      * при удалении станции.
      */
-    @OneToMany(mappedBy = "station", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "station", cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
+            orphanRemoval = true)
     private List<Unit> units;
 
     /**
@@ -74,6 +76,7 @@ public class Station {
      */
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
+    @EqualsAndHashCode.Exclude
     private Date createdAt;
 
     /**
@@ -82,6 +85,7 @@ public class Station {
      */
     @UpdateTimestamp
     @Column(name = "updated_at")
+    @EqualsAndHashCode.Exclude
     private Date updatedAt;
 
     /**
@@ -89,5 +93,6 @@ public class Station {
      */
     @Version
     @Column(name = "version")
+    @EqualsAndHashCode.Exclude
     private Long version = 1L;
 }

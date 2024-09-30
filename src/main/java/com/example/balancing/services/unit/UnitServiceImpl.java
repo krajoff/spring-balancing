@@ -4,7 +4,7 @@ import com.example.balancing.models.plane.Place;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.weight.Weight;
-import com.example.balancing.repository.unit.UnitRepository;
+import com.example.balancing.repositories.unit.UnitRepository;
 import com.example.balancing.services.record.RecordService;
 import com.example.balancing.services.weight.TargetWeightService;
 import com.example.balancing.services.weight.WeightService;
@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class UnitServiceImpl implements UnitService {
+
     @Autowired
     private UnitRepository unitRepository;
     @Autowired
@@ -27,10 +28,6 @@ public class UnitServiceImpl implements UnitService {
     private TargetWeightService targetWeightService;
     @Autowired
     private MappingUtils mappingUtils;
-
-    public List<Unit> getAllUnits() {
-        return unitRepository.findAll();
-    }
 
     public Unit getUnitById(Long id) {
         return unitRepository.findById(id)

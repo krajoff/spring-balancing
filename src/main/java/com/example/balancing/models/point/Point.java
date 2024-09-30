@@ -12,8 +12,8 @@ import java.util.List;
 
 /**
  * Сущность точки измерения вибрации. Содержит название точки,
- * список связанных записей, а также метаданные, такие как
- * даты создания и обновления.
+ * список связанных записей, id связанного агрегата, а также
+ * метаданные, такие как даты создания и обновления.
  */
 @Entity(name = "Point")
 @Table(name = "points")
@@ -56,7 +56,7 @@ public class Point {
      * Список записей вибрации, связанных с данной точкой.
      * Отношение один ко многим с каскадными операциями.
      */
-    @OneToMany(mappedBy = "point", cascade = CascadeType.ALL,
+    @OneToMany(mappedBy = "point", cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
              orphanRemoval = true)
     @ToString.Exclude private List<Record> records;
 
@@ -66,6 +66,7 @@ public class Point {
      */
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
+    @EqualsAndHashCode.Exclude
     private Date createdAt;
 
     /**
@@ -74,6 +75,7 @@ public class Point {
      */
     @UpdateTimestamp
     @Column(name = "updated_at")
+    @EqualsAndHashCode.Exclude
     private Date updatedAt;
 
     /**
@@ -82,6 +84,7 @@ public class Point {
     @Version
     @Builder.Default
     @Column(name = "version")
+    @EqualsAndHashCode.Exclude
     private Long version = 1L;
 
 }

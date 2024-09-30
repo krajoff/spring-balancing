@@ -89,11 +89,10 @@ public class Record implements IRecord {
     private Boolean isUsed;
 
     /**
-     * Балансировочный груз, связанный с вибрацией.
+     * Груз, связанный с вибрацией.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "weight_id", nullable = false,
-            referencedColumnName = "id")
+    @JoinColumn(name = "weight_id", nullable = false, referencedColumnName = "id")
     private Weight weight;
 
     /**
@@ -130,6 +129,7 @@ public class Record implements IRecord {
      */
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
+    @EqualsAndHashCode.Exclude
     private Date createdAt;
 
     /**
@@ -138,6 +138,7 @@ public class Record implements IRecord {
      */
     @UpdateTimestamp
     @Column(name = "updated_at")
+    @EqualsAndHashCode.Exclude
     private Date updatedAt;
 
     /**
@@ -146,6 +147,7 @@ public class Record implements IRecord {
     @Version
     @Builder.Default
     @Column(name = "version")
+    @EqualsAndHashCode.Exclude
     private Long version = 1L;
 
     @PrePersist
