@@ -87,13 +87,6 @@ public class Weight implements IWeight {
     private Complex complexWeight;
 
     /**
-     * Связь c агрегатом.
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "unit_id", referencedColumnName = "id")
-    private Unit unit;
-
-    /**
      * Список записей вибрации, связанных с этим весом.
      */
     @OneToMany(mappedBy = "weight", cascade = {CascadeType.REMOVE,
@@ -113,7 +106,7 @@ public class Weight implements IWeight {
      */
     @Column(name = "is_target", nullable = false,
             columnDefinition = "boolean default false")
-    @NonNull private boolean isTarget;
+    @NonNull private Boolean isTarget;
 
     /**
      * Дата создания. Поле автоматически заполняется

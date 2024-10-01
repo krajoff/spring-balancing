@@ -1,5 +1,6 @@
 package com.example.balancing.models.token;
 
+import com.example.balancing.models.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -46,6 +46,14 @@ public class Plane {
     @Size(max = 1)
     @NonNull private Integer number;
 
+//    /**
+//    * Название плоскости. Максимальная длина — 15 символов.
+//     */
+//    @Column(name = "name", columnDefinition =
+//            "varchar(10) default 'Без названия'")
+//    @Size(max = 15)
+//    private String name;
+
     /**
      * Список грузов, связанных с данной плоскостью.
      * Отношение один ко многим с каскадными операциями
