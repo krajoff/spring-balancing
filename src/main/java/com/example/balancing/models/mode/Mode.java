@@ -44,19 +44,17 @@ public class Mode {
     @NonNull private String name;
 
     /**
-     * Список записей вибрации, связанных с данным режимом.
-     * Отношение один ко многим с каскадными операциями.
-     */
-    @OneToMany(mappedBy = "mode", cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
-            orphanRemoval = true)
-    @ToString.Exclude private List<Record> records;
-
-    /**
      * Ссылка на агрегат.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "unit_id", referencedColumnName = "id")
     @NonNull private Unit unit;
+
+    /**
+     * Список записей вибрации, связанных с данным режимом.
+     */
+    @OneToMany(mappedBy = "mode", cascade = {CascadeType.REFRESH})
+    @ToString.Exclude private List<Record> records;
 
     /**
      * Дата создания. Поле автоматически заполняется

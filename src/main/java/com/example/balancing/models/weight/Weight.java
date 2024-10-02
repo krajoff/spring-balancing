@@ -51,7 +51,7 @@ public class Weight implements IWeight {
     /**
      * Плоскость установки груза.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "plane_id", referencedColumnName = "id")
     private Plane plane;
 

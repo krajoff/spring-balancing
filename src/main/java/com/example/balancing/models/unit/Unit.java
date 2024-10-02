@@ -1,5 +1,8 @@
 package com.example.balancing.models.unit;
 
+import com.example.balancing.models.mode.Mode;
+import com.example.balancing.models.plane.Plane;
+import com.example.balancing.models.point.Point;
 import com.example.balancing.models.station.Station;
 import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
@@ -56,6 +59,27 @@ public class Unit {
     private String type;
 
     /**
+     * Список плоскостей, относящихся к агрегату.
+     */
+    @OneToMany(mappedBy = "unit",
+            cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true)
+    private List<Plane> planes;
+
+    /**
+     * Список режимов, относящихся к агрегату.
+     */
+    @OneToMany(mappedBy = "unit",
+            cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true)
+    private List<Mode> modes;
+
+    /**
+     * Список точек измерения вибрации, относящихся к агрегату.
+     */
+    @OneToMany(mappedBy = "unit",
+            cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true)
+    private List<Point> points;
+
+    /**
      * Количество знаков после запятой при отображении значений грузов.
      * Максимальное значение — 2 знака.
      */
@@ -93,16 +117,6 @@ public class Unit {
     @Column(name = "description")
     @Size(max = 255)
     private String description;
-
-    /**
-     * Список грузов, относящихся к агрегату.
-     */
-    @OneToMany(mappedBy = "unit", fetch = FetchType.LAZY,
-            cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true)
-    private List<Weight> weights;
-
-    @Transient
-    private Integer counterWeights = weights.size();
 
     /**
      * Станция, с которой связан агрегат.

@@ -1,6 +1,7 @@
 package com.example.balancing.models.user;
 
 import com.example.balancing.models.station.Station;
+import com.example.balancing.models.token.RefreshToken;
 import com.example.balancing.models.unit.Unit;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -85,6 +86,22 @@ public class User implements UserDetails {
     private Integer priority;
 
     /**
+     * Рефреш-токен.
+     */
+    @OneToOne(mappedBy = "user", cascade =
+            CascadeType.REMOVE, optional = false)
+    private RefreshToken refreshToken;
+
+    /**
+     * Список станций, связанных с данным пользователем.
+     * Отношение один ко многим с каскадными операциями и
+     * удалением орфанных записей.
+     */
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Station> stations;
+
+    /**
      * Дата создания учетной записи пользователя. Поле автоматически заполняется
      * при создании и не может быть обновлено.
      */
@@ -102,14 +119,6 @@ public class User implements UserDetails {
     @EqualsAndHashCode.Exclude
     private Date updatedAt;
 
-    /**
-     * Список станций, связанных с данным пользователем.
-     * Отношение один ко многим с каскадными операциями и
-     * удалением орфанных записей.
-     */
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Station> stations;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority grantedAuthority =
