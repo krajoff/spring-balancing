@@ -1,30 +1,44 @@
-package com.example.balancing.services.jwt;
+package com.example.balancing.services.tokens.access;
 
 import com.example.balancing.models.user.User;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * Сервисный класс для обработки операций JWT (JSON Web Token)
+ * таких, как генерация токена, извлечение требований
+ * (например, имя пользователя, дата истечения срока действия) и валидация.
+ * <p>
+ * Эта служба отвечает за:
+ * - Генерацию JWT-токенов для аутентифицированных пользователей.
+ * - Извлечение из токена определенных утверждений, таких как имя пользователя
+ * или дата истечения срока действия.
+ * - Проверка токена, чтобы убедиться, что он все еще действителен и соответствует
+ * данные пользователя.
+ * - Обработка подписания и истечения срока действия токена.
+ */
 @Service
-public class JwtService {
-    @Value("${token.signing.key}")
-    private String jwtSigningKey;
+@Getter
+@Slf4j
+public class AccessTokenService {
 
-    @Value("${security.jwt.expiration-time}")
-    private long jwtExpiration;
+    @Value("${SECRET_KEY}")
+    private String secretKey;
+
+    @Value("${ACCESS_TOKEN_EXPIRATION}")
+    private long accessTokenExpiration;
 
     /**
      * Извлечение имени пользователя из токена
@@ -51,38 +65,36 @@ public class JwtService {
     }
 
     /**
-     * Генерация токена
+     * Генерация токенов
      *
      * @param userDetails данные пользователя
      * @return токен
      */
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        if (userDetails instanceof User customUserDetails) {
-            claims.put("id", customUserDetails.getId());
-            claims.put("email", customUserDetails.getEmail());
-            claims.put("role", customUserDetails.getRole());
-        }
-        return generateToken(claims, userDetails);
-    }
-
-    /**
-     * Генерация токена
-     *
-     * @param extraClaims дополнительные данные
-     * @param userDetails данные пользователя
-     * @return токен
-     */
-    private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+        var claims = generateClaims(userDetails);
         return Jwts.builder()
-                .setClaims(extraClaims)
+                .setClaims(claims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .setExpiration(new Date(System.currentTimeMillis()
+                        + getAccessTokenExpiration()))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
+    /**
+     * @param userDetails данные пользователя
+     * @return необходимые утверждения, связанные с пользователем
+     */
+    private Map<String, Object> generateClaims(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        if (userDetails instanceof User customUserDetails) {
+            claims.put("id", customUserDetails.getId());
+            claims.put("username", customUserDetails.getUsername());
+            claims.put("role", customUserDetails.getRole());
+        }
+        return claims;
+    }
 
     /**
      * Проверка токена на валидность
@@ -136,16 +148,8 @@ public class JwtService {
      * @return ключ
      */
     private Key getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    /**
-     * Получение времени действия токена
-     *
-     * @return секунды
-     */
-    public long getExpirationTime() {
-        return jwtExpiration;
-    }
 }

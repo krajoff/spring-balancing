@@ -1,6 +1,6 @@
 package com.example.balancing.config;
 
-import com.example.balancing.services.jwt.JwtAuthenticationFilter;
+import com.example.balancing.filters.AccessAuthenticationFilter;
 import com.example.balancing.services.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -35,11 +35,11 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityConfig {
 
     private final UserService userService;
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final AccessAuthenticationFilter accessAuthenticationFilter;
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return userService::getUserByEmail;
+        return userService::getUserByUsername;
     }
 
     /**
@@ -75,7 +75,7 @@ public class SecurityConfig {
                 }))
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtAuthenticationFilter,
+                .addFilterBefore(accessAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable);
         return http.build();

@@ -60,31 +60,53 @@ public class Weight implements IWeight {
      */
     @Column(name = "run", nullable = false,
             columnDefinition = "integer default 0")
-    @NonNull private Integer run;
+    @NonNull
+    private Integer run;
 
     /**
      * Ссылка на референсный груз. По умолчанию равен -1, т.е. без ссылки.
      */
     @Column(name = "reference", columnDefinition = "long default -1")
-    @NonNull private Long reference;
+    @NonNull
+    private Long reference;
 
     /**
-     * Значение веса груза. По умолчанию равно 0.
+     * Значение массы груза. По умолчанию равно 0.
      */
     @Column(name = "mag_weight", columnDefinition = "double default 0")
-    @NonNull private Double magWeight;
+    @NonNull
+    private Double magWeight;
 
     /**
      * Значение фазы груза. По умолчанию равно 0.
      */
     @Column(name = "phase_weight", columnDefinition = "double default 0")
-    @NonNull private Double phaseWeight;
+    @NonNull
+    private Double phaseWeight;
 
     /**
      * Груз в комплексных числах. Не сохраняется в базе данных.
      */
     @Transient
     private Complex complexWeight;
+
+    /**
+     * Значение общей массы груза. Не сохраняется в базе данных.
+     */
+    @Transient
+    private Double magTotalWeight;
+
+    /**
+     * Значение фазы груза. Не сохраняется в базе данных.
+     */
+    @Transient
+    private Double phaseTotalWeight;
+
+    /**
+     * Общий груз в комплексных числах. Не сохраняется в базе данных.
+     */
+    @Transient
+    private Complex complexTotalWeight;
 
     /**
      * Список записей вибрации, связанных с этим весом.
@@ -98,7 +120,8 @@ public class Weight implements IWeight {
      */
     @Column(name = "system_information")
     @Size(max = 255)
-    @NonNull private String systemInformation;
+    @NonNull
+    private String systemInformation;
 
     /**
      * Флаг, указывающий, является ли данный вес целевым.
@@ -106,7 +129,8 @@ public class Weight implements IWeight {
      */
     @Column(name = "is_target", nullable = false,
             columnDefinition = "boolean default false")
-    @NonNull private Boolean isTarget;
+    @NonNull
+    private Boolean isTarget;
 
     /**
      * Дата создания. Поле автоматически заполняется
@@ -145,6 +169,13 @@ public class Weight implements IWeight {
         return new Complex(this.magWeight *
                 cos(Math.toRadians(this.phaseWeight)),
                 this.magWeight * sin(Math.toRadians(this.phaseWeight)));
+    }
+
+    public Complex getComplexTotalWeight() {
+        return new Complex(this.magTotalWeight *
+                cos(Math.toRadians(this.phaseTotalWeight)),
+                this.magTotalWeight *
+                        sin(Math.toRadians(this.phaseTotalWeight)));
     }
 
     public Weight getWeight() {

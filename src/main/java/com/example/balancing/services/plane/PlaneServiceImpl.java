@@ -29,6 +29,6 @@ public class PlaneServiceImpl implements PlaneService {
 
     @Override
     public void deletePlane(Long id) {
-
+        planeRepository.deleteById(id);
     }
 }

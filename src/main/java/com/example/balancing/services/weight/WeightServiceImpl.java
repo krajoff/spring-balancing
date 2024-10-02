@@ -1,5 +1,6 @@
 package com.example.balancing.services.weight;
 
+import com.example.balancing.exception.WeightNotFoundException;
 import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.weight.Weight;
@@ -20,34 +21,26 @@ public class WeightServiceImpl implements WeightService {
 
     public Weight getWeightById(Long id) {
         return weightRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Weight not found"));
+                .orElseThrow(WeightNotFoundException::new);
     }
 
     public Weight createWeight(Weight weight) {
-        getValidReference(weight);
-        calculateWeight(weight);
         return weightRepository.save(weight);
     }
 
     public Weight updateWeight(Long id, Weight weight) {
         Weight existingWeight = getWeightById(id);
-        existingWeight.setMagRefWeight(weight.getMagRefWeight());
-        existingWeight.setPhaseRefWeight(weight.getPhaseRefWeight());
         existingWeight.setPlane(weight.getPlane());
+        existingWeight.setRun(weight.getRun());
         existingWeight.setReference(weight.getReference());
-        getValidReference(existingWeight);
-        calculateWeight(existingWeight);
+        existingWeight.setMagWeight(weight.getMagWeight());
+        existingWeight.setPhaseWeight(weight.getPhaseWeight());
+        existingWeight.setSystemInformation(weight.getSystemInformation());
         return weightRepository.save(existingWeight);
     }
 
     public void deleteWeight(Long id) {
         weightRepository.deleteById(id);
-    }
-
-    public List<Weight> getWeightsByUnit(Unit unit) {
-        if (weightRepository.findByUnit(unit).isPresent())
-            return weightRepository.findByUnit(unit).get();
-        return null;
     }
 
     public Weight calculateWeight(Weight weight) {
@@ -85,7 +78,7 @@ public class WeightServiceImpl implements WeightService {
         if (isValidReference(weight)) {
             return weight;
         }
-        weight.setReference(-1);
+        weight.setReference(-1L);
         return weight;
     }
 

@@ -1,4 +1,4 @@
-package com.example.balancing.services.jwt;
+package com.example.balancing.services.auth;
 
 import com.example.balancing.dtos.responses.JwtAuthenticationResponse;
 import com.example.balancing.dtos.requests.SignInRequest;

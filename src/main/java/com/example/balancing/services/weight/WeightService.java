@@ -1,15 +1,10 @@
 package com.example.balancing.services.weight;
 
-import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.weight.Weight;
-
-import java.util.List;
 
 public interface WeightService {
 
     Weight getWeightById(Long id);
-
-    List<Weight> getWeightsByUnit(Unit unit);
 
     Weight createWeight(Weight weight);
 
@@ -18,6 +13,5 @@ public interface WeightService {
     void deleteWeight(Long id);
 
     Weight calculateWeight(Weight weight);
-
 
 }
