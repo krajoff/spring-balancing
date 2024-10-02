@@ -1,18 +1,18 @@
 package com.example.balancing.services.unit;
 
-import com.example.balancing.models.plane.Place;
-import com.example.balancing.models.unit.Unit;
+import com.example.balancing.exception.UnitNotFoundException;
+import com.example.balancing.models.plane.Plane;
 import com.example.balancing.models.record.Record;
+import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.weight.Weight;
 import com.example.balancing.repositories.unit.UnitRepository;
-import com.example.balancing.services.record.RecordService;
-import com.example.balancing.services.weight.TargetWeightService;
-import com.example.balancing.services.weight.WeightService;
-import com.example.balancing.utils.MappingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,22 +20,10 @@ public class UnitServiceImpl implements UnitService {
 
     @Autowired
     private UnitRepository unitRepository;
-    @Autowired
-    private RecordService recordService;
-    @Autowired
-    private WeightService weightService;
-    @Autowired
-    private TargetWeightService targetWeightService;
-    @Autowired
-    private MappingUtils mappingUtils;
 
     public Unit getUnitById(Long id) {
         return unitRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Unit not found"));
-    }
-
-    public List<Unit> getUnitsByUserId(Long id) {
-        return unitRepository.findByUserId(id);
+                .orElseThrow(UnitNotFoundException::new);
     }
 
     public Unit createUnit(Unit unit) {
@@ -45,10 +33,15 @@ public class UnitServiceImpl implements UnitService {
     public Unit updateUnit(Long id, Unit unit) {
         Unit existingUnit = getUnitById(id);
         existingUnit.setType(unit.getType());
-        existingUnit.setStation(unit.getStation());
-        existingUnit.setUnitNumber(unit.getUnitNumber());
+        existingUnit.setPlanes(unit.getPlanes());
+        existingUnit.setModes(unit.getModes());
+        existingUnit.setPoints(unit.getPoints());
         existingUnit.setDescription(unit.getDescription());
-        return unitRepository.save(existingUnit);
+        existingUnit.setVibrationPrecision(unit.getVibrationPrecision());
+        existingUnit.setVibrationUnitMeasure(unit.getVibrationUnitMeasure());
+        existingUnit.setWeightPrecision(unit.getWeightPrecision());
+        existingUnit.setWeightUnitMeasure(unit.getWeightUnitMeasure());
+        return createUnit(existingUnit);
     }
 
     public void deleteUnit(Long id) {
@@ -57,7 +50,8 @@ public class UnitServiceImpl implements UnitService {
 
     public Unit getWholeUnitById(Long id) {
         Unit unit = getUnitById(id);
-        List<Weight> weights = unit.getWeights();
+        List<Plane> planes = unit.getPlanes();
+
 
         if (weights.size() > 1) {
             for (Weight weight : weights) {

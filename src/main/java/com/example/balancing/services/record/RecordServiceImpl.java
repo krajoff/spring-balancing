@@ -1,5 +1,6 @@
 package com.example.balancing.services.record;
 
+import com.example.balancing.exception.RecordNotFoundException;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.repositories.record.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +14,9 @@ public class RecordServiceImpl implements RecordService {
     @Autowired
     private RecordRepository recordRepository;
 
-    public List<Record> getAllRecords() {
-        return recordRepository.findAll();
-    }
-
     public Record getRecordById(Long id) {
         return recordRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Record not found"));
-    }
-
-    public List<Record> getRecordsByMode(String mode) {
-        return recordRepository.findByMode(mode);
+                .orElseThrow(RecordNotFoundException::new);
     }
 
     public Record createRecord(Record record) {
@@ -33,15 +26,17 @@ public class RecordServiceImpl implements RecordService {
     public Record updateRecord(Long id, Record record) {
         Record existingRecord = getRecordById(id);
         existingRecord.setMode(record.getMode());
-        existingRecord.setPlace(record.getPlace());
-        existingRecord.setMagVibration(record.getMagVibration());
-        existingRecord.setPhaseVibration(record.getPhaseVibration());
-        existingRecord.setStage(record.getStage());
+        existingRecord.setPoint(record.getPoint());
+        existingRecord.setIsUsed(record.getIsUsed());
         if (record.getIsManualSensitivity()) {
+            existingRecord.setIsManualSensitivity(Boolean.TRUE);
             existingRecord.setMagSensitivity(record.getMagSensitivity());
             existingRecord.setPhaseSensitivity(record.getPhaseSensitivity());
+        } else {
+            existingRecord.setMagVibration(record.getMagVibration());
+            existingRecord.setPhaseVibration(record.getPhaseVibration());
         }
-        return recordRepository.save(existingRecord);
+        return createRecord(existingRecord);
     }
 
     public void deleteRecord(Long id) {

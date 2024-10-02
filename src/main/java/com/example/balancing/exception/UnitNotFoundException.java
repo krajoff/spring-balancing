@@ -8,4 +8,8 @@ public class UnitNotFoundException extends RuntimeException {
     public UnitNotFoundException(String message) {
         super(message);
     }
+
+    public UnitNotFoundException() {
+        super("Агрегат не найден");
+    }
 }

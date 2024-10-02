@@ -8,8 +8,6 @@ public interface StationService {
 
     Station getStationById(Long id);
 
-    List<Station> getStationsByUserId(Long id);
-
     Station createStation(Station Station);
 
     Station updateStation(Long id, Station Station);

@@ -1,5 +1,6 @@
 package com.example.balancing.repositories.token;
 
+import com.example.balancing.exception.RefreshTokenException;
 import com.example.balancing.models.token.RefreshToken;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;

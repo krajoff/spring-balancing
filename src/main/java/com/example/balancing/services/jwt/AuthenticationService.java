@@ -72,7 +72,8 @@ public class AuthenticationService {
      * @param response ответ содержащий cookies
      * @return токен
      */
-    public JwtAuthenticationResponse signIn(SignInRequest request, HttpServletResponse response) {
+    public JwtAuthenticationResponse signIn(SignInRequest request,
+                                            HttpServletResponse response) {
 
         var jwt = signIn(request);
         Cookie cookie = new Cookie("jwt", jwt.getToken());

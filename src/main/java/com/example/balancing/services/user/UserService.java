@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.List;
 
 public interface UserService {
-    List<User> getAllUsers();
 
     User getUserById(Long id);
 
@@ -21,11 +20,7 @@ public interface UserService {
 
     void deleteUserByUsername(String username);
 
-    User saveUser(User user);
-
     User getUserByUsername(String username);
-
-    User getUserByEmail(String email);
 
     UserDetailsService userDetailsService();
 
