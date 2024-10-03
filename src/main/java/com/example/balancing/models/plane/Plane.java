@@ -64,6 +64,14 @@ public class Plane {
     @ToString.Exclude private List<Weight> weights;
 
     /**
+     * Список расчетных балансировочных грузов, связанных с
+     * данной плоскостью. Они не хранятся в базе данных и вычисляются каждый раз
+     * при обращении.
+     */
+    @Transient
+    @ToString.Exclude private List<Weight> targetWeights;
+
+    /**
      * Ссылка на агрегат.
      */
     @ManyToOne(fetch = FetchType.LAZY)

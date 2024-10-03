@@ -3,27 +3,23 @@ package com.example.balancing.services.weight;
 import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.weight.Weight;
-import com.example.balancing.utils.MappingUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TargetWeightService {
-    @Autowired
-    private MappingUtils mappingUtils;
+public interface TargetWeightService {
 
     /**
      *
-     * @param firstRecord is reference record
-     * @param secondRecord is trial record and used to set fields for target weight
-     * @return Weight is target weight
+     * @param beforeRecord запись до изменения веса
+     * @param afterRecord запись после изменения веса
+     * @return Weight балансировочный груз
      */
-    public Weight calculateTargetWeight(Record firstRecord, Record secondRecord) {
+    public Weight calculateTargetWeight(Record beforeRecord, Record afterRecord) {
         Complex zVib1, zVib2, zWgt1, zWgt2, dVib, dWgt, foo1, foo2;
-        zVib1 = firstRecord.getComplexVibration();
-        zVib2 = secondRecord.getComplexVibration();
-        zWgt1 = firstRecord.getWeight().getComplexWeight();
-        zWgt2 = secondRecord.getWeight().getComplexWeight();
+        zVib1 = beforeRecord.getComplexVibration();
+        zVib2 = afterRecord.getComplexVibration();
+        zWgt1 = beforeRecord.getWeight().getComplexWeight();
+        zWgt2 = afterRecord.getWeight().getComplexWeight();
         dVib = zVib2.minus(zVib1);
         dWgt = zWgt2.minus(zWgt1);
         Double magSensitivity = dVib.divides(dWgt).abs();
@@ -33,9 +29,9 @@ public class TargetWeightService {
         Weight targetWeight = new Weight();
         targetWeight.setComplexWeight(zWgt1.minus(foo2));
         targetWeight.setTarget(true);
-        targetWeight.setNumberRun(secondRecord.getWeight().getNumberRun());
-        targetWeight.setPlane(secondRecord.getWeight().getPlane());
-        targetWeight.setUnit(secondRecord.getWeight().getUnit());
+        targetWeight.setNumberRun(afterRecord.getWeight().getNumberRun());
+        targetWeight.setPlane(afterRecord.getWeight().getPlane());
+        targetWeight.setUnit(afterRecord.getWeight().getUnit());
         return targetWeight;
     }
 

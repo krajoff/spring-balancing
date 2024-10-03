@@ -43,31 +43,7 @@ public class WeightServiceImpl implements WeightService {
         weightRepository.deleteById(id);
     }
 
-    public Weight calculateWeight(Weight weight) {
-        List<Weight> weights = getWeightsByUnit(weight.getUnit());
-        long reference = weight.getReference();
-        Complex complexWeight = weight.getComplexRefWeight();
-        Optional<Weight> tempWeight;
-        while (reference != -1) {
-            long finalReference = reference;
-            tempWeight = weights
-                    .stream()
-                    .filter(w -> w.getNumberRun()
-                            == finalReference).findFirst();
-            if (tempWeight.isPresent()) {
-                complexWeight = complexWeight
-                        .plus(tempWeight.get().getComplexRefWeight());
-                reference = tempWeight.get().getReference();
-            } else {
-                reference = -1;
-                weight.setSystemInformation("Invalid reference in a chain");
-            }
-        }
-        weight.setComplexWeight(complexWeight);
-        weight.setMagWeight(complexWeight.abs());
-        weight.setPhaseWeight(complexWeight.phase());
-        return weight;
-    }
+
 
 
     public boolean fixCycles(Unit unit) {
