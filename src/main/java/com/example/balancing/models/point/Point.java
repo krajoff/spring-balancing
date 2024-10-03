@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,9 +57,9 @@ public class Point {
      * Список записей вибрации, связанных с данной точкой.
      * Отношение один ко многим с каскадными операциями.
      */
-    @OneToMany(mappedBy = "point", cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
+    @OneToMany(mappedBy = "point", cascade = CascadeType.ALL,
              orphanRemoval = true)
-    @ToString.Exclude private List<Record> records;
+    @ToString.Exclude private List<Record> records = new ArrayList<>();
 
     /**
      * Дата создания. Поле автоматически заполняется

@@ -50,17 +50,20 @@ public class Run {
     /**
      * Связь пусков со всеми плоскостями
      */
-    @ManyToMany()
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     @JoinTable(name = "run_plane",
-            joinColumns = {@JoinColumn(name = "fk_run")},
-            inverseJoinColumns = {@JoinColumn(name = "fk_plane")})
+            joinColumns = {@JoinColumn(name = "run_id")},
+            inverseJoinColumns = {@JoinColumn(name = "plane_id")})
     private Set<Plane> planes = new HashSet<Plane>();
 
     /**
      * Ссылка на предыдущий пуск
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reference_run_id")
+    @JoinColumn(name = "reference_run_id", referencedColumnName = "id")
     private Run referenceRun;
 
     /**

@@ -29,6 +29,6 @@ public class PointServiceImpl implements PointService {
 
     @Override
     public void deletePoint(Long id) {
-
+        pointRepository.deleteById(id);
     }
 }

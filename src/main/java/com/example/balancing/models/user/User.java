@@ -13,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -88,8 +89,7 @@ public class User implements UserDetails {
     /**
      * Рефреш-токен.
      */
-    @OneToOne(mappedBy = "user", cascade =
-            CascadeType.REMOVE, optional = false)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private RefreshToken refreshToken;
 
     /**
@@ -98,8 +98,8 @@ public class User implements UserDetails {
      * удалением орфанных записей.
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
-            cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Station> stations;
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Station> stations = new ArrayList<>();
 
     /**
      * Дата создания учетной записи пользователя. Поле автоматически заполняется
@@ -119,6 +119,13 @@ public class User implements UserDetails {
     @EqualsAndHashCode.Exclude
     private Date updatedAt;
 
+    public void addStation(Station station){
+        this.stations.add(station);
+    }
+
+    public void removeStation(Station station){
+        this.stations.remove(station);
+    }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority grantedAuthority =

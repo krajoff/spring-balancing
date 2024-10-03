@@ -3,6 +3,7 @@ package com.example.balancing.models.unit;
 import com.example.balancing.models.mode.Mode;
 import com.example.balancing.models.plane.Plane;
 import com.example.balancing.models.point.Point;
+import com.example.balancing.models.run.Run;
 import com.example.balancing.models.station.Station;
 import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
@@ -11,6 +12,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
@@ -59,24 +61,31 @@ public class Unit {
     private String type;
 
     /**
+     * Список пусков, относящихся к агрегату.
+     */
+    @OneToMany(mappedBy = "unit",
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Run> runs = new ArrayList<>();
+
+    /**
      * Список плоскостей, относящихся к агрегату.
      */
     @OneToMany(mappedBy = "unit",
-            cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true)
-    private List<Plane> planes;
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Plane> planes = new ArrayList<>();
 
     /**
      * Список режимов, относящихся к агрегату.
      */
     @OneToMany(mappedBy = "unit",
-            cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true)
-    private List<Mode> modes;
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Mode> modes = new ArrayList<>();
 
     /**
      * Список точек измерения вибрации, относящихся к агрегату.
      */
     @OneToMany(mappedBy = "unit",
-            cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true)
+            cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Point> points;
 
     /**

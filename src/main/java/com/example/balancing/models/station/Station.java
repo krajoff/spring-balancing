@@ -8,6 +8,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -53,9 +54,9 @@ public class Station {
      * Список агрегатов, привязанных к станции. Агрегаты каскадно удаляются
      * при удалении станции.
      */
-    @OneToMany(mappedBy = "station", cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
-            orphanRemoval = true)
-    private List<Unit> units;
+    @OneToMany(mappedBy = "station",
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Unit> units = new ArrayList<>();
 
     /**
      * Число агрегатов, привязанных к станции.

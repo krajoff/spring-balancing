@@ -1,5 +1,6 @@
 package com.example.balancing.models.plane;
 
+import com.example.balancing.models.run.Run;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
@@ -8,8 +9,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Сущность плоскости установки груза, как реального, так и вычисленного.
@@ -46,30 +46,11 @@ public class Plane {
     @Size(max = 1)
     @NonNull private Integer number;
 
-//    /**
-//    * Название плоскости. Максимальная длина — 15 символов.
-//     */
-//    @Column(name = "name", columnDefinition =
-//            "varchar(10) default 'Без названия'")
-//    @Size(max = 15)
-//    private String name;
-
     /**
-     * Список грузов, связанных с данной плоскостью.
-     * Отношение один ко многим с каскадными операциями
-     * и удалением орфанных записей.
+     * Связь пусков со всеми плоскостями
      */
-    @OneToMany(mappedBy = "plane", cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
-            orphanRemoval = true)
-    @ToString.Exclude private List<Weight> weights;
-
-    /**
-     * Список расчетных балансировочных грузов, связанных с
-     * данной плоскостью. Они не хранятся в базе данных и вычисляются каждый раз
-     * при обращении.
-     */
-    @Transient
-    @ToString.Exclude private List<Weight> targetWeights;
+    @ManyToMany(mappedBy = "planes")
+    private Set<Run> runs = new HashSet<>();
 
     /**
      * Ссылка на агрегат.
@@ -77,6 +58,23 @@ public class Plane {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id", referencedColumnName = "id")
     private Unit unit;
+
+    /**
+     * Список грузов, связанных с данной плоскостью.
+     * Отношение один ко многим с каскадными операциями
+     * и удалением орфанных записей.
+     */
+    @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @ToString.Exclude private List<Weight> weights = new ArrayList<>();
+
+    /**
+     * Список расчетных балансировочных грузов, связанных с
+     * данной плоскостью. Они не хранятся в базе данных и вычисляются каждый раз
+     * при обращении.
+     */
+    @Transient
+    @ToString.Exclude private List<Weight> targetWeights = new ArrayList<>();
 
     /**
      * Дата создания. Поле автоматически заполняется

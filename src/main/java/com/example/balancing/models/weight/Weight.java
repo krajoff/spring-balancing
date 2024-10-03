@@ -10,6 +10,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -111,9 +112,9 @@ public class Weight implements IWeight {
     /**
      * Список записей вибрации, связанных с этим весом.
      */
-    @OneToMany(mappedBy = "weight", cascade = {CascadeType.REMOVE,
-            CascadeType.REFRESH}, orphanRemoval = true)
-    private List<Record> records;
+    @OneToMany(mappedBy = "weight", cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Record> records = new ArrayList<>();
 
     /**
      * Системная информация о весе.
