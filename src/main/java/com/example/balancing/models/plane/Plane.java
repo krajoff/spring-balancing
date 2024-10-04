@@ -47,10 +47,10 @@ public class Plane {
     @NonNull private Integer number;
 
     /**
-     * Связь пусков со всеми плоскостями
+     * Связь плоскости со всеми пусками
      */
-    @ManyToMany(mappedBy = "planes")
-    private Set<Run> runs = new HashSet<>();
+    @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Run> runs = new ArrayList<>();
 
     /**
      * Ссылка на агрегат.
@@ -102,5 +102,15 @@ public class Plane {
     @Column(name = "version")
     @EqualsAndHashCode.Exclude
     private Long version = 1L;
+
+    public void addWeight(Weight weight){
+        weights.add(weight);
+        weight.setPlane(this);
+    }
+
+    public void removeWeight(Weight weight){
+        weights.remove(weight);
+        weight.setPlane(null);
+    }
 
 }

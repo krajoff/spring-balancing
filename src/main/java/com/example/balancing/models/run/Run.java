@@ -2,6 +2,7 @@ package com.example.balancing.models.run;
 
 import com.example.balancing.models.plane.Plane;
 import com.example.balancing.models.unit.Unit;
+import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -35,7 +36,7 @@ public class Run {
     private Long id;
 
     /**
-     * Номер порядкового пуска
+     * Порядковый номер пуска
      */
     @Column(name = "number")
     private Integer number;
@@ -48,16 +49,19 @@ public class Run {
     private Unit unit;
 
     /**
-     * Связь пусков со всеми плоскостями
+     * Связь пуска с плоскостью. Связь многие пуски к одной плоскости.
+     * Один пуск не может быть связан с несколькими плоскостями.
      */
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(name = "run_plane",
-            joinColumns = {@JoinColumn(name = "run_id")},
-            inverseJoinColumns = {@JoinColumn(name = "plane_id")})
-    private Set<Plane> planes = new HashSet<Plane>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "plane_id", referencedColumnName = "id")
+    private Plane plane;
+
+    /**
+     * Связь пуска и груза, который добавлен в этот пуск
+     */
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "weight_id", referencedColumnName = "id")
+    private Weight weight;
 
     /**
      * Ссылка на предыдущий пуск
@@ -92,4 +96,13 @@ public class Run {
     @Column(name = "version")
     @EqualsAndHashCode.Exclude
     private Long version = 1L;
+
+    public void addWeight(Weight weight){
+         plane.addWeight(weight);
+    }
+
+    public void removeWeight(Weight weight){
+        plane.removeWeight(weight);
+    }
+
 }

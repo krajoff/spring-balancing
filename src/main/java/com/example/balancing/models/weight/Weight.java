@@ -2,6 +2,7 @@ package com.example.balancing.models.weight;
 
 import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.plane.Plane;
+import com.example.balancing.models.run.Run;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.record.Record;
 import jakarta.persistence.*;
@@ -57,12 +58,11 @@ public class Weight implements IWeight {
     private Plane plane;
 
     /**
-     * Номер пуска. Не может быть null, по умолчанию равен 0.
+     * Ссылка на пуск.
      */
-    @Column(name = "run", nullable = false,
-            columnDefinition = "integer default 0")
-    @NonNull
-    private Integer run;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "run_id", referencedColumnName = "id")
+    private Run run;
 
     /**
      * Ссылка на референсный груз. По умолчанию равен -1, т.е. без ссылки.
