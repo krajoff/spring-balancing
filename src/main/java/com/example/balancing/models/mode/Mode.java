@@ -53,7 +53,8 @@ public class Mode {
     /**
      * Список записей вибрации, связанных с данным режимом.
      */
-    @OneToMany(mappedBy = "mode", cascade = {CascadeType.REFRESH})
+    @OneToMany(mappedBy = "mode", cascade = {CascadeType.REFRESH, CascadeType.MERGE,
+    CascadeType.DETACH})
     @ToString.Exclude private List<Record> records;
 
     /**

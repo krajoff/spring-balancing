@@ -47,17 +47,17 @@ public class Plane {
     @NonNull private Integer number;
 
     /**
-     * Связь плоскости со всеми пусками
-     */
-    @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Run> runs = new ArrayList<>();
-
-    /**
      * Ссылка на агрегат.
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id", referencedColumnName = "id")
     private Unit unit;
+
+    /**
+     * Связь плоскости со всеми пусками
+     */
+    @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Run> runs = new ArrayList<>();
 
     /**
      * Список грузов, связанных с данной плоскостью.

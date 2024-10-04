@@ -65,13 +65,6 @@ public class Weight implements IWeight {
     private Run run;
 
     /**
-     * Ссылка на референсный груз. По умолчанию равен -1, т.е. без ссылки.
-     */
-    @Column(name = "reference", columnDefinition = "long default -1")
-    @NonNull
-    private Long reference;
-
-    /**
      * Значение массы груза. По умолчанию равно 0.
      */
     @Column(name = "mag_weight", columnDefinition = "double default 0")
