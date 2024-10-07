@@ -22,7 +22,6 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -34,7 +33,6 @@ public class Point {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-    @EqualsAndHashCode.Exclude
     @ToString.Exclude private Long id;
 
     /**
@@ -67,7 +65,6 @@ public class Point {
      */
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
-    @EqualsAndHashCode.Exclude
     private Date createdAt;
 
     /**
@@ -76,7 +73,6 @@ public class Point {
      */
     @UpdateTimestamp
     @Column(name = "updated_at")
-    @EqualsAndHashCode.Exclude
     private Date updatedAt;
 
     /**
@@ -85,8 +81,22 @@ public class Point {
     @Version
     @Builder.Default
     @Column(name = "version")
-    @EqualsAndHashCode.Exclude
     private Long version = 1L;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Point point)) return false;
+
+        if (!getName().equals(point.getName())) return false;
+        return getUnit().equals(point.getUnit());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getName().hashCode();
+        result = 31 * result + getUnit().hashCode();
+        return result;
+    }
 }
 

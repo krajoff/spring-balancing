@@ -23,7 +23,6 @@ import java.util.*;
 @Setter
 @ToString
 @Builder
-@EqualsAndHashCode
 @RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,8 +34,8 @@ public class Plane {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude private Long id;
+    @ToString.Exclude
+    private Long id;
 
     /**
      * Номер плоскости. Максимальная длина — 1 символов.
@@ -44,7 +43,8 @@ public class Plane {
     @Column(name = "number", nullable = false,
             columnDefinition = "integer default 1")
     @Size(max = 1)
-    @NonNull private Integer number;
+    @NonNull
+    private Integer number;
 
     /**
      * Ссылка на агрегат.
@@ -54,10 +54,14 @@ public class Plane {
     private Unit unit;
 
     /**
-     * Связь плоскости со всеми пусками
+     * Связь плоскости со всеми пусками и грузами
      */
     @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Run> runs = new ArrayList<>();
+    @JoinTable(name = "plane_run_weight",
+            joinColumns = {@JoinColumn(name = "plane_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "weight_id", referencedColumnName = "id")})
+    @MapKeyJoinColumn(name = "run_id")
+    private Map<Run, Weight> runWeightMap = new HashMap<>();
 
     /**
      * Список грузов, связанных с данной плоскостью.
@@ -66,7 +70,8 @@ public class Plane {
      */
     @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL,
             orphanRemoval = true)
-    @ToString.Exclude private List<Weight> weights = new ArrayList<>();
+    @ToString.Exclude
+    private List<Weight> weights = new ArrayList<>();
 
     /**
      * Список расчетных балансировочных грузов, связанных с
@@ -74,7 +79,8 @@ public class Plane {
      * при обращении.
      */
     @Transient
-    @ToString.Exclude private List<Weight> targetWeights = new ArrayList<>();
+    @ToString.Exclude
+    private List<Weight> targetWeights = new ArrayList<>();
 
     /**
      * Дата создания. Поле автоматически заполняется
@@ -82,7 +88,6 @@ public class Plane {
      */
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
-    @EqualsAndHashCode.Exclude
     private Date createdAt;
 
     /**
@@ -91,7 +96,6 @@ public class Plane {
      */
     @UpdateTimestamp
     @Column(name = "updated_at")
-    @EqualsAndHashCode.Exclude
     private Date updatedAt;
 
     /**
@@ -100,17 +104,31 @@ public class Plane {
     @Version
     @Builder.Default
     @Column(name = "version")
-    @EqualsAndHashCode.Exclude
     private Long version = 1L;
 
-    public void addWeight(Weight weight){
+    public void addWeight(Weight weight) {
         weights.add(weight);
         weight.setPlane(this);
     }
 
-    public void removeWeight(Weight weight){
+    public void removeWeight(Weight weight) {
         weights.remove(weight);
         weight.setPlane(null);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Plane plane)) return false;
+
+        if (!getNumber().equals(plane.getNumber())) return false;
+        return getUnit().equals(plane.getUnit());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getNumber().hashCode();
+        result = 31 * result + getUnit().hashCode();
+        return result;
+    }
 }

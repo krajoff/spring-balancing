@@ -1,8 +1,8 @@
 package com.example.balancing.controllers.api;
 
-import com.example.balancing.dtos.responses.JwtAuthenticationResponse;
-import com.example.balancing.dtos.requests.SignInRequest;
-import com.example.balancing.dtos.requests.SignUpRequest;
+import com.example.balancing.payloads.responses.JwtAuthenticationResponse;
+import com.example.balancing.payloads.requests.SignInRequest;
+import com.example.balancing.payloads.requests.SignUpRequest;
 import com.example.balancing.services.auth.AuthenticationService;
 import com.example.balancing.services.tokens.jwt.JwtService;
 import org.springframework.web.bind.annotation.PostMapping;

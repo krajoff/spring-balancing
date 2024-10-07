@@ -1,7 +1,7 @@
 package com.example.balancing.controllers.web;
 
-import com.example.balancing.dto.SignInRequest;
-import com.example.balancing.dto.SignUpRequest;
+import com.example.balancing.payloads.requests.SignInRequest;
+import com.example.balancing.payloads.requests.SignUpRequest;
 import com.example.balancing.services.auth.AuthenticationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

@@ -1,4 +1,4 @@
-package com.example.balancing.dtos.requests;
+package com.example.balancing.payloads.requests;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;

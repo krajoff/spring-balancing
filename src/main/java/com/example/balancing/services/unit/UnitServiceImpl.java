@@ -1,18 +1,17 @@
 package com.example.balancing.services.unit;
 
 import com.example.balancing.exception.UnitNotFoundException;
+import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.plane.Plane;
 import com.example.balancing.models.record.Record;
+import com.example.balancing.models.run.Run;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.weight.Weight;
 import com.example.balancing.repositories.unit.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,11 +47,34 @@ public class UnitServiceImpl implements UnitService {
         unitRepository.deleteById(id);
     }
 
-    public Unit getWholeUnitById(Long id) {
+    private Unit calculateTotalWeights(Unit unit) {
+
+        List<Run> runs = unit.getRuns().stream()
+                .sorted(Comparator.comparing(Run::getNumber)).toList();
+
+        Complex totalWeight = new Complex(0d, 0d);
+
+        for (Run run : runs) {
+            Run refRun = run.getReferenceRun();
+            if (refRun != null) {
+                totalWeight.plus(refRun.getWeight().getComplexWeight());
+            } else {
+                Weight weight = run.getWeight();
+                totalWeight.plus(run.getWeight().getComplexWeight());
+                weight.setComplexTotalWeight(totalWeight);
+                run.setWeight(weight);
+            }
+        }
+
+        unit.setRuns(runs);
+        return unit;
+    }
+
+    public Unit calculateUnitById(Long id) {
         Unit unit = getUnitById(id);
         List<Plane> planes = unit.getPlanes();
-
-
+        calculateTotalWeights(unit);
+;
         if (weights.size() > 1) {
             for (Weight weight : weights) {
                 Integer reference = weight.getReference();

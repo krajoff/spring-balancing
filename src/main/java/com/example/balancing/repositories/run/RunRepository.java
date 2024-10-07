@@ -12,4 +12,9 @@ import java.util.List;
 public interface RunRepository extends JpaRepository<Run, Long> {
     @Query(value = "SELECT * FROM runs r WHERE r.unit_id = ?", nativeQuery = true)
     List<Run> findByUnitId(Long id);
+
+    @Query(value = "UPDATE Run r SET r.reference_run_id = NULL " +
+            "WHERE r.reference_run_id = ?", nativeQuery = true)
+    void setNullReference(Long id);
+
 }

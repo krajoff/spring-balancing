@@ -16,7 +16,6 @@ import java.util.List;
  */
 @Entity(name = "Mode")
 @Table(name = "modes")
-@EqualsAndHashCode
 @Builder
 @ToString
 @Getter
@@ -32,9 +31,7 @@ public class Mode {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Long id;
+    @ToString.Exclude private Long id;
 
     /**
      * Название режима. Максимальная длина — 10 символов.
@@ -63,7 +60,6 @@ public class Mode {
      */
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
-    @EqualsAndHashCode.Exclude
     private Date createdAt;
 
     /**
@@ -72,7 +68,6 @@ public class Mode {
      */
     @UpdateTimestamp
     @Column(name = "updated_at")
-    @EqualsAndHashCode.Exclude
     private Date updatedAt;
 
     /**
@@ -81,6 +76,21 @@ public class Mode {
     @Version
     @Builder.Default
     @Column(name = "version")
-    @EqualsAndHashCode.Exclude
     private Long version = 1L;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Mode mode)) return false;
+
+        if (!getName().equals(mode.getName())) return false;
+        return getUnit().equals(mode.getUnit());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getName().hashCode();
+        result = 31 * result + getUnit().hashCode();
+        return result;
+    }
 }

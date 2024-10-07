@@ -1,4 +1,4 @@
-package com.example.balancing.dtos.responses;
+package com.example.balancing.payloads.responses;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

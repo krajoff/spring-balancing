@@ -15,7 +15,6 @@ import java.util.Set;
 
 @Entity(name = "Run")
 @Table(name = "runs")
-@EqualsAndHashCode
 @Getter
 @Setter
 @ToString
@@ -31,7 +30,6 @@ public class Run {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-    @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Long id;
 
@@ -76,7 +74,6 @@ public class Run {
      */
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
-    @EqualsAndHashCode.Exclude
     private Date createdAt;
 
     /**
@@ -85,7 +82,6 @@ public class Run {
      */
     @UpdateTimestamp
     @Column(name = "updated_at")
-    @EqualsAndHashCode.Exclude
     private Date updatedAt;
 
     /**
@@ -94,7 +90,6 @@ public class Run {
     @Version
     @Builder.Default
     @Column(name = "version")
-    @EqualsAndHashCode.Exclude
     private Long version = 1L;
 
     public void addWeight(Weight weight){
@@ -105,4 +100,29 @@ public class Run {
         plane.removeWeight(weight);
     }
 
+    public Run getRun(){
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Run run)) return false;
+
+        if (!getNumber().equals(run.getNumber())) return false;
+        if (!getUnit().equals(run.getUnit())) return false;
+        if (getPlane() != null ? !getPlane().equals(run.getPlane()) : run.getPlane() != null) return false;
+        if (getWeight() != null ? !getWeight().equals(run.getWeight()) : run.getWeight() != null) return false;
+        return getReferenceRun() != null ? getReferenceRun().equals(run.getReferenceRun()) : run.getReferenceRun() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getNumber().hashCode();
+        result = 31 * result + getUnit().hashCode();
+        result = 31 * result + (getPlane() != null ? getPlane().hashCode() : 0);
+        result = 31 * result + (getWeight() != null ? getWeight().hashCode() : 0);
+        result = 31 * result + (getReferenceRun() != null ? getReferenceRun().hashCode() : 0);
+        return result;
+    }
 }
