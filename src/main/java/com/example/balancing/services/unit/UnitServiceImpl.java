@@ -2,7 +2,6 @@ package com.example.balancing.services.unit;
 
 import com.example.balancing.exception.UnitNotFoundException;
 import com.example.balancing.models.complex.Complex;
-import com.example.balancing.models.plane.Plane;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.run.Run;
 import com.example.balancing.models.unit.Unit;
@@ -11,8 +10,8 @@ import com.example.balancing.repositories.unit.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class UnitServiceImpl implements UnitService {
@@ -47,6 +46,10 @@ public class UnitServiceImpl implements UnitService {
         unitRepository.deleteById(id);
     }
 
+    public Unit getFilledUnitById(Long id){
+        return calculateSensitivities(getUnitById(id));
+    }
+
     private Unit calculateTotalWeights(Unit unit) {
 
         List<Run> runs = unit.getRuns().stream()
@@ -70,52 +73,29 @@ public class UnitServiceImpl implements UnitService {
         return unit;
     }
 
-    public Unit calculateUnitById(Long id) {
-        Unit unit = getUnitById(id);
-        List<Plane> planes = unit.getPlanes();
+    private Unit calculateSensitivities(Unit unit) {
+
         calculateTotalWeights(unit);
-;
-        if (weights.size() > 1) {
-            for (Weight weight : weights) {
-                Integer reference = weight.getReference();
-                if (reference != -1) {
-                    Map<Place, Record> initialRecords = weight.getRecords()
-                            .stream()
-                            .collect(Collectors
-                                    .toMap(Record::getPlace, Record::getRecord));
+        var runs = unit.getRuns();
+        for (Run run : runs) {
 
-                    Optional<Weight> refWeight = unit.getWeights().stream()
-                            .filter(w -> w.getNumberRun().equals(reference))
+            var refRun = run.getReferenceRun();
+            if (refRun != null) {
+                var currentRecords = run.getWeight().getRecords();
+
+                for (Record record : currentRecords) {
+                    var refRecord = refRun.getWeight().getRecords().stream()
+                            .filter(r -> r.getPoint().equals(record.getPoint()))
+                            .filter(r -> r.getMode().equals(record.getMode()))
                             .findFirst();
-
-                    Map<Place, Record> refRecords = null;
-
-                    if (refWeight.isPresent()) {
-                        refRecords = refWeight.get()
-                                .getRecords().stream()
-                                .collect(Collectors
-                                        .toMap(Record::getPlace, Record::getRecord));
-                    }
-
-                    if (refRecords != null) {
-                        for (Place place : initialRecords.keySet()) {
-                            try {
-                                Weight targetWeight = targetWeightService
-                                        .calculateTargetWeight(initialRecords.get(place),
-                                                refRecords.get(place));
-                                initialRecords.get(place).setWeight(targetWeight);
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-
-                        }
-                    }
-                    weight.setRecords(new ArrayList<>(initialRecords.values()));
+                    refRecord.ifPresent(value -> record.setComplexSensitivity
+                            (record.calculateComplexSensitivity(value)));
                 }
-            }
-            unit.setWeights(weights);
 
+            }
         }
+
         return unit;
     }
+
 }

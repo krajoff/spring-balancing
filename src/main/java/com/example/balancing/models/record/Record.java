@@ -190,5 +190,23 @@ public class Record implements IRecord {
     public Record getRecord() {
         return this;
     }
+
+    /**
+     * Определяет чувствительность данной записи к предыдущей по изменению веса.
+     *
+     * @param previousRecord предыдущая запись вибрационного состояния агрегата.
+     * @return комплексное значение чувствительности.
+     */
+    public Complex calculateComplexSensitivity(Record previousRecord) {
+        Complex sensitivity = previousRecord
+                .getComplexVibration()
+                .minus(this.getComplexVibration())
+                .divides(this.weight.getComplexWeight());
+        setComplexSensitivity(sensitivity);
+        setMagSensitivity(sensitivity.abs());
+        setPhaseSensitivity(sensitivity.phase());
+        return sensitivity;
+    }
+
 }
 
