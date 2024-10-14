@@ -201,8 +201,4 @@ insert into records (POINT_ID, MODE_ID, WEIGHT_ID, MAG_VIBRATION,
     (1, 9, 15, 196, 177),
     (1, 1, 5, 228, 208),
     (1, 8, 5, 273, 204),
-    (1, 9, 5, 259, 207),
-
-
-
-    ;
+    (1, 9, 5, 259, 207);

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UnitServiceImpl implements UnitService {
@@ -46,7 +47,7 @@ public class UnitServiceImpl implements UnitService {
         unitRepository.deleteById(id);
     }
 
-    public Unit getFilledUnitById(Long id){
+    public Unit getFilledUnitById(Long id) {
         return calculateSensitivities(getUnitById(id));
     }
 
@@ -80,18 +81,20 @@ public class UnitServiceImpl implements UnitService {
         for (Run run : runs) {
 
             var refRun = run.getReferenceRun();
+
             if (refRun != null) {
                 var currentRecords = run.getWeight().getRecords();
 
                 for (Record record : currentRecords) {
-                    var refRecord = refRun.getWeight().getRecords().stream()
+                    var matchedRefRecords = refRun.getWeight().getRecords().stream()
                             .filter(r -> r.getPoint().equals(record.getPoint()))
                             .filter(r -> r.getMode().equals(record.getMode()))
-                            .findFirst();
-                    refRecord.ifPresent(value -> record.setComplexSensitivity
-                            (record.calculateComplexSensitivity(value)));
-                }
+                            .toList();
 
+                    matchedRefRecords.forEach(r ->
+                            r.setComplexSensitivity(
+                            record.calculateComplexSensitivity(r.getRecord())));
+                }
             }
         }
 

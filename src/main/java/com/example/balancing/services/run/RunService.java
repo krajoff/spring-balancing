@@ -9,5 +9,5 @@ public interface RunService {
 
     Run updateRun(Long id, Run run);
 
-    void deleteRun(Long id);
+    void deleteRunById(Long id);
 }

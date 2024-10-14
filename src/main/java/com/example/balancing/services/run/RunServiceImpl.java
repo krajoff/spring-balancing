@@ -23,8 +23,6 @@ public class RunServiceImpl implements RunService {
         List<Run> runs = runRepository.findByUnitId(run.getUnit().getId());
         int number = runs == null ? 0 : runs.size();
         run.setNumber(number);
-
-        Run run = runRepository.findById(run.getReferenceRun().getId()).or(null);
         if (!isValidReferencePlane(run) || number == 0)
             run.setReferenceRun(null);
         return runRepository.save(run);
@@ -41,13 +39,16 @@ public class RunServiceImpl implements RunService {
 
     @Override
     @Transactional
-    public void deleteRun(Long id) {
+    public void deleteRunById(Long id) {
+        Run run = getRunById(id);
         runRepository.deleteById(id);
         runRepository.setNullReference(id);
+        runRepository.alterNumberRun(run.getNumber());
     }
 
-    private  isValidReferencePlane(Run run) {
-        return runRepository.findById(run.getReferenceRun().getId()).or(null);
+
+    private boolean isValidReferencePlane(Run run) {
+        return runRepository.findById(run.getReferenceRun().getId()).isPresent();
     }
 
 }
