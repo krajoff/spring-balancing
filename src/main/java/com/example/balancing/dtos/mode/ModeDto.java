@@ -1,10 +1,7 @@
 package com.example.balancing.dtos.mode;
 
-import com.example.balancing.dtos.record.RecordDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * DTO режима работы агрегата. Этот класс инкапсулирует данные о режиме,
@@ -12,10 +9,8 @@ import java.util.List;
  *
  * <p><b>Поля:</b></p>
  * <ul>
- *   <li><b>id:</b> Уникальный идентификатор режима.</li>
+ *   <li><b>id:</b> Уникальный идентификатор.</li>
  *   <li><b>name:</b> Название режима.</li>
- *   <li><b>records:</b> Список записей (вибраций, измерений и т.д.),
- *   связанных с точкой.</li>
  * </ul>
  */
 @Data
@@ -28,6 +23,4 @@ public class ModeDto {
     @Schema(description = "Название режима", example = "Точка 1")
     private String name;
 
-    @Schema(description = "Список записей, связанных с режимом")
-    private List<RecordDto> records;
 }

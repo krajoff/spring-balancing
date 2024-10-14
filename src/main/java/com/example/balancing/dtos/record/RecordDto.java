@@ -1,15 +1,15 @@
 package com.example.balancing.dtos.record;
 
-import com.example.balancing.dtos.weight.WeightDto;
+import com.example.balancing.dtos.point.SimplifiedPointDto;
 import com.example.balancing.dtos.mode.SimplifiedModeDto;
 import com.example.balancing.models.complex.Complex;
-import com.example.balancing.models.point.Point;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
 /**
  * DTO записи вибрации.
  * Этот класс инкапсулирует данные о вибрационных измерениях, включая
- * параметры вибрации, чувствительность, режим работы агрегата и связанную нагрузку.
+ * параметры вибрации, чувствительность, режим работы агрегата.
  *
  * <p><b>Поля:</b></p>
  * <ul>
@@ -19,7 +19,6 @@ import lombok.Data;
  *   <li><b>phaseVibration:</b> Значение фазы вибрации в градусах.</li>
  *   <li><b>complexVibration:</b> Комплексное значение вибрации (в форме реальной и мнимой частей).</li>
  *   <li><b>isUsed:</b> Флаг использования записи в оптимизационном расчете.</li>
- *   <li><b>weightDto:</b> Груз, при котором было выполнено измерение вибрации.</li>
  *   <li><b>isManualSensitivity:</b> Флаг использования ручного задания чувствительности.</li>
  *   <li><b>magSensitivity:</b> Значение амплитуды чувствительности.</li>
  *   <li><b>phaseSensitivity:</b> Значение фазы чувствительности в градусах.</li>
@@ -30,11 +29,11 @@ import lombok.Data;
 @Schema(description = "DTO записи вибрации")
 public class RecordDto {
 
-    @Schema(description = "Место измерения вибрации", example = "ВГП или 1")
-    private Point point;
+    @Schema(description = "Название места измерения вибрации в упрощенном " +
+            "представлении", example = "ВГП или 1")
+    private SimplifiedPointDto point;
 
-    @Schema(description = "Режима работы агрегата в упрощенном предсталении," +
-            " в котором выполнено измерение")
+    @Schema(description = "Режима работы агрегата в упрощенном представлении")
     private SimplifiedModeDto mode;
 
     @Schema(description = "Значение амплитуды вибрации", example = "123.1")
@@ -51,10 +50,7 @@ public class RecordDto {
             example = "true")
     private Boolean isUsed;
 
-    @Schema(description = "Груз, при котором выполнено измерение")
-    private WeightDto weightDto;
-
-    @Schema(description = "Флаг использования ручного задчания чувствительности",
+    @Schema(description = "Флаг использования ручного задания чувствительности",
             example = "false")
     private Boolean isManualSensitivity;
 
@@ -64,7 +60,7 @@ public class RecordDto {
     @Schema(description = "Значение фазы чувствительности", example = "181.1")
     private Double phaseSensitivity;
 
-    @Schema(description = "Комплесное значение чувствительности",
+    @Schema(description = "Комплексное значение чувствительности",
             example = "181.1+10i")
     private Complex complexSensitivity;
 
