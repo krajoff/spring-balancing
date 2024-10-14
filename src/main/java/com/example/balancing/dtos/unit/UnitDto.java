@@ -1,11 +1,19 @@
 package com.example.balancing.dtos.unit;
 
+import com.example.balancing.dtos.mode.ModeDto;
+import com.example.balancing.dtos.plane.PlaneDto;
+import com.example.balancing.dtos.point.PointDto;
+import com.example.balancing.dtos.run.RunDto;
 import com.example.balancing.dtos.weight.WeightDto;
+import com.example.balancing.models.mode.Mode;
+import com.example.balancing.models.plane.Plane;
+import com.example.balancing.models.run.Run;
 import com.example.balancing.models.weight.Weight;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,6 +55,18 @@ public class UnitDto {
     @Size(max = 50)
     private String type;
 
+    @Schema(description = "Список пусков")
+    private List<RunDto> runs;
+
+    @Schema(description = "Список плоскостей установки грузов")
+    private List<PlaneDto> planes;
+
+    @Schema(description = "Список режимов")
+    private List<ModeDto> modes;
+
+    @Schema(description = "Список точек измерения")
+    private List<PointDto> points;
+
     @Schema(description = "Количество знаков после запятой при " +
             "отображении значений грузов", example = "0")
     @Size(max = 2)
@@ -68,9 +88,6 @@ public class UnitDto {
     @Schema(description = "Дополнительное описание", example = "Измерения после ремонта")
     @Size(max = 255)
     private String description;
-
-    @Schema(description = "Список грузов, относящихся к агрегату")
-    private List<WeightDto> weights;
 
     @Schema(description = "Число грузов, установленных на агрегат")
     private Integer counterWeight;
