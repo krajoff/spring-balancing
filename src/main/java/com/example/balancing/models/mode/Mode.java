@@ -41,13 +41,6 @@ public class Mode {
     @NonNull private String name;
 
     /**
-     * Ссылка на агрегат.
-     */
-    @ManyToOne
-    @JoinColumn(name = "unit_id", referencedColumnName = "id")
-    @NonNull private Unit unit;
-
-    /**
      * Список записей вибрации, связанных с данным режимом.
      */
     @OneToMany(mappedBy = "mode", cascade = {CascadeType.REFRESH, CascadeType.MERGE,
@@ -84,13 +77,14 @@ public class Mode {
         if (!(o instanceof Mode mode)) return false;
 
         if (!getName().equals(mode.getName())) return false;
-        return getUnit().equals(mode.getUnit());
+        return getVersion() != null ? getVersion()
+                .equals(mode.getVersion()) : mode.getVersion() == null;
     }
 
     @Override
     public int hashCode() {
         int result = getName().hashCode();
-        result = 31 * result + getUnit().hashCode();
+        result = 31 * result + (getVersion() != null ? getVersion().hashCode() : 0);
         return result;
     }
 }

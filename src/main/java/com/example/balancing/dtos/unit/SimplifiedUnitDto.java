@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -66,5 +67,11 @@ public class SimplifiedUnitDto {
     @Schema(description = "Дополнительное описание", example = "Измерения после ремонта")
     @Size(max = 255)
     private String description;
+
+    @Schema(description = "Дата создания")
+    private Date createdAt;
+
+    @Schema(description = "Дата последнего обновления")
+    private Date updatedAt;
 
 }

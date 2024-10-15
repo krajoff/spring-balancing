@@ -31,9 +31,6 @@ public class StationDto {
     @Schema(description = "Название станции", example = "Саяно-Шушенская ГЭС")
     private String name;
 
-    @Schema(description = "Число агрегатов входящих в состав станции")
-    private Integer counter;
-
     @Schema(description = "Дата создания")
     private Date createdAt;
 

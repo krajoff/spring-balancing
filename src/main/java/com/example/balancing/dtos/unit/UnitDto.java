@@ -89,9 +89,6 @@ public class UnitDto {
     @Size(max = 255)
     private String description;
 
-    @Schema(description = "Число грузов, установленных на агрегат")
-    private Integer counterWeight;
-
     @Schema(description = "Дата создания")
     private Date createdAt;
 

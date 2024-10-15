@@ -1,7 +1,7 @@
 package com.example.balancing.dtos.record;
 
+import com.example.balancing.dtos.mode.ModeDto;
 import com.example.balancing.dtos.point.SimplifiedPointDto;
-import com.example.balancing.dtos.mode.SimplifiedModeDto;
 import com.example.balancing.models.complex.Complex;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -34,7 +34,7 @@ public class RecordDto {
     private SimplifiedPointDto point;
 
     @Schema(description = "Режима работы агрегата в упрощенном представлении")
-    private SimplifiedModeDto mode;
+    private ModeDto mode;
 
     @Schema(description = "Значение амплитуды вибрации", example = "123.1")
     private Double magVibration;

@@ -1,9 +1,18 @@
-# How to use single plane balancing application
+# Multiplanes balancing application
 
-Single plane balancing application is a tool used for balancing rotating
-machinery by adding or removing weights on a single correction plane.
-It helps reduce vibrations caused by unbalanced rotating components,
-improving machine performance, efficiency, and extending component life.
+A multi-plane balancing application is a tool used for balancing rotating machinery by adding or removing weights on 
+multiple correction planes. It helps reduce vibrations caused by unbalanced rotating components across different planes, 
+improving machine performance, efficiency, and extending the life of various components.
+
+<details open>
+<summary><b>UML</b></summary>
+
+<div style="text-align: center;">
+  <img src="pictures/User_Vibration.drawio.png" 
+   alt="UML" style="width: 50%;">
+</div>
+
+</details>
 
 <details open>
 <summary><b>Technology stack</b></summary>
@@ -11,7 +20,7 @@ improving machine performance, efficiency, and extending component life.
 1. Framework: Spring boot
 2. Build: Gradle
 3. ORM: Hibernate
-4. DB: postgres
+4. DB: Postgres
 5. Containers: Docker
 6. Swagger: springdoc-openapi
 7. Front: thymeleaf
@@ -21,20 +30,10 @@ improving machine performance, efficiency, and extending component life.
 <details open>
 <summary><b>Run guide</b></summary>
 
-1. docker build -t balancingdb . <br>
-2. docker run --name balancingdb -p 5432:5432 -d balancingdb
-3. frontend address by default is http://localhost:8080/
-4. backend swagger is available at http://localhost:8080/swagger-ui/index.html
-5. no default pre-cofigurated users
+1. docker-compose up
+2. frontend address by default is http://localhost:8080/
+3. backend swagger is available at http://localhost:8080/swagger-ui/index.html
 
-Optional to check DB:
-
-- docker exec -it balancingdb bash <br>
-- psql -l <br>
-- psql -d balancing <br>
-- SELECT * FROM balancing; <br>
-- INSERT INTO users (username, role, roles, password)
-  VALUES ('admin', 'ADMIN', 'ADMIN', 'insert your bcrypt with strength by 12');
 </details>
 
 
@@ -84,18 +83,18 @@ machinery, reducing vibrations and extending its operational life.
 <details open>
 <summary><b>Deploy at fly.io</b></summary>
 
-According to https://renanfranca.github.io/deploy-jhipster-monolithic-angularjs-and-spring-boot-at-fly.io.html, 
+According to https://renanfranca.github.io/deploy-jhipster-monolithic-angularjs-and-spring-boot-at-fly.io.html,
 https://medium.com/@vergil333/deploy-spring-boot-to-fly-iof-d54d5ca05243 and
 https://coder.com/blog/remote-developer-environments-on-fly-io
 
-1. Install fly: https://fly.io/docs/hands-on/install-flyctl/. 
-PowerShell script: pwsh -Command "iwr https://fly.io/install.ps1 -useb | iex"
+1. Install fly: https://fly.io/docs/hands-on/install-flyctl/.
+   PowerShell script: pwsh -Command "iwr https://fly.io/install.ps1 -useb | iex"
 2. Run signup script: fly auth signup.
 3. Run signing script: fly auth login.
 4. Run script: fly apps create --name balancing-app
-5. Run script to create postgres database: 
-fly postgres create --name balancing-postgres. After the postgres app was 
-created you will receive an output:
+5. Run script to create postgres database:
+   fly postgres create --name balancing-postgres. After the postgres app was
+   created you will receive an output:
    - username: postgres
    - password: password
    - hostname: balancing-postgres.internal
