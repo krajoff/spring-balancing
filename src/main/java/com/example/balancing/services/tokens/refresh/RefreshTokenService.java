@@ -15,6 +15,8 @@ public interface RefreshTokenService {
 
     boolean isValidExpiration(RefreshToken refreshToken);
 
+    long getRefreshTokenExpiration();
+
     RefreshToken update(String token);
 
     RefreshToken update(User user);

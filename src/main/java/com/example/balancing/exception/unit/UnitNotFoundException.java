@@ -1,4 +1,4 @@
-package com.example.balancing.exception;
+package com.example.balancing.exception.unit;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

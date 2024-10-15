@@ -1,13 +1,12 @@
 package com.example.balancing.services.tokens.refresh;
 
-import com.example.balancing.exception.RefreshTokenException;
-import com.example.balancing.exception.RefreshTokenNotFoundException;
+import com.example.balancing.exception.token.RefreshTokenNotFoundException;
 import com.example.balancing.models.token.RefreshToken;
 import com.example.balancing.models.user.User;
 import com.example.balancing.repositories.token.RefreshTokenRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,11 +15,11 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
-@Slf4j
 @Service
 @AllArgsConstructor
 public class RefreshTokenServiceImpl implements RefreshTokenService {
 
+    @Getter
     @Value("${REFRESH_TOKEN_EXPIRATION}")
     private long RefreshTokenExpiration;
 

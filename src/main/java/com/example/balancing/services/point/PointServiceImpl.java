@@ -1,6 +1,6 @@
 package com.example.balancing.services.point;
 
-import com.example.balancing.exception.PointNotFoundException;
+import com.example.balancing.exception.point.PointNotFoundException;
 import com.example.balancing.models.point.Point;
 import com.example.balancing.repositories.point.PointRepository;
 import org.springframework.beans.factory.annotation.Autowired;

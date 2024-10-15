@@ -1,4 +1,4 @@
-package com.example.balancing.exception;
+package com.example.balancing.exception.mode;
 
 public class ModeNotFoundException extends RuntimeException{
     public ModeNotFoundException() {

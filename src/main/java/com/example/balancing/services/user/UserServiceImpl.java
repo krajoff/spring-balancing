@@ -1,6 +1,6 @@
 package com.example.balancing.services.user;
 
-import com.example.balancing.exception.UserNotFoundException;
+import com.example.balancing.exception.user.UserNotFoundException;
 import com.example.balancing.models.user.User;
 import com.example.balancing.repositories.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

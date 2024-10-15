@@ -1,6 +1,6 @@
 package com.example.balancing.services.plane;
 
-import com.example.balancing.exception.PlaneNotFoundException;
+import com.example.balancing.exception.plane.PlaneNotFoundException;
 import com.example.balancing.models.plane.Plane;
 import com.example.balancing.repositories.plane.PlaneRepository;
 import org.springframework.beans.factory.annotation.Autowired;

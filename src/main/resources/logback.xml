@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
+    <!-- Консольный аппендер для вывода логов в консоль -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!-- Файловый аппендер для записи логов в файл -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>logs/app.log</file>
         <append>true</append>
@@ -10,6 +19,12 @@
     </appender>
 
     <root level="debug">
+        <appender-ref ref="FILE" />
+    </root>
+
+    <!-- Логирование на уровне INFO и выше -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </root>
 

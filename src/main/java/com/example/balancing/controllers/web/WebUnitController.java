@@ -1,6 +1,6 @@
 package com.example.balancing.controllers.web;
 
-import com.example.balancing.exception.UnitNotFoundException;
+import com.example.balancing.exception.unit.UnitNotFoundException;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.user.User;
 import com.example.balancing.services.record.RecordService;

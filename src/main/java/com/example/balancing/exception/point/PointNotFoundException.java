@@ -1,4 +1,4 @@
-package com.example.balancing.exception;
+package com.example.balancing.exception.point;
 
 public class PointNotFoundException extends RuntimeException{
     public PointNotFoundException() {

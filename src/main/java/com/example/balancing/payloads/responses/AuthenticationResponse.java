@@ -17,7 +17,7 @@ import lombok.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Schema(description = "Access and refresh tokens response")
-public class AuthResponse {
+public class AuthenticationResponse {
 
     @Schema(description = "Token access")
     @NotNull private String accessToken;

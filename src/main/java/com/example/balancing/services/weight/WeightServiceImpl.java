@@ -1,7 +1,6 @@
 package com.example.balancing.services.weight;
 
-import com.example.balancing.exception.WeightNotFoundException;
-import com.example.balancing.models.complex.Complex;
+import com.example.balancing.exception.weight.WeightNotFoundException;
 import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.weight.Weight;
 import com.example.balancing.repositories.weight.WeightRepository;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Optional;
-import java.util.List;
 import java.util.Set;
 
 @Service

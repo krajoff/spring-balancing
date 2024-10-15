@@ -1,4 +1,4 @@
-package com.example.balancing.exception;
+package com.example.balancing.exception.plane;
 
 public class PlaneNotCorrectException extends RuntimeException{
     public PlaneNotCorrectException() {

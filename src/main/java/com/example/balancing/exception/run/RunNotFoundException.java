@@ -1,4 +1,4 @@
-package com.example.balancing.exception;
+package com.example.balancing.exception.run;
 
 public class RunNotFoundException extends RuntimeException{
     public RunNotFoundException() {

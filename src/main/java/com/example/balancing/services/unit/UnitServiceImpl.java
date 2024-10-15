@@ -1,6 +1,6 @@
 package com.example.balancing.services.unit;
 
-import com.example.balancing.exception.UnitNotFoundException;
+import com.example.balancing.exception.unit.UnitNotFoundException;
 import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.record.Record;
 import com.example.balancing.models.run.Run;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UnitServiceImpl implements UnitService {

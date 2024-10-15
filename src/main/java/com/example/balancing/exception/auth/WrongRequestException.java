@@ -1,4 +1,4 @@
-package com.example.balancing.exception;
+package com.example.balancing.exception.auth;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class WrongRequestException extends RuntimeException {
     public WrongRequestException(String message) {
         super(message);
+    }
+
+    public WrongRequestException() {
+        this("Ошибка: некорректные данные, проверьте поля запроса.");
     }
 
 }

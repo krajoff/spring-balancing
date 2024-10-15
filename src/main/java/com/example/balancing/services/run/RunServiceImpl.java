@@ -1,6 +1,6 @@
 package com.example.balancing.services.run;
 
-import com.example.balancing.exception.RunNotFoundException;
+import com.example.balancing.exception.run.RunNotFoundException;
 import com.example.balancing.models.run.Run;
 import com.example.balancing.repositories.run.RunRepository;
 import jakarta.transaction.Transactional;
