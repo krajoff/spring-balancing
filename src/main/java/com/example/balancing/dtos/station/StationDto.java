@@ -1,5 +1,6 @@
 package com.example.balancing.dtos.station;
 
+import com.example.balancing.dtos.unit.SimplifiedUnitDto;
 import com.example.balancing.models.user.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -30,6 +31,9 @@ public class StationDto {
 
     @Schema(description = "Название станции", example = "Саяно-Шушенская ГЭС")
     private String name;
+
+    @Schema(description = "Агрегаты, относящиеся к станции")
+    private List<SimplifiedUnitDto> units;
 
     @Schema(description = "Дата создания")
     private Date createdAt;

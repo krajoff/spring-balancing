@@ -15,7 +15,7 @@ import lombok.Data;
  */
 
 @Data
-@Schema(description = "Sign in request")
+@Schema(description = "Запрос на аутентификацию")
 public class SignInRequest {
 
     @Schema(description = "username", example = "Nikolay_Petrovich")

@@ -1,9 +1,11 @@
 package com.example.balancing.dtos.user;
 
+import com.example.balancing.dtos.station.SimplifiedStationDto;
 import com.example.balancing.dtos.station.StationDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -36,6 +38,12 @@ public class UserDto {
     private String email;
 
     @Schema(description = "Список станций пользователя")
-    private List<StationDto> stations;
+    private List<SimplifiedStationDto> stations;
+
+    @Schema(description = "Дата создания")
+    private Date createdAt;
+
+    @Schema(description = "Дата последнего обновления")
+    private Date updatedAt;
 }
 

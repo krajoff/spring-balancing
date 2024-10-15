@@ -26,7 +26,6 @@ public abstract class ModeMapper {
      * @param modeDto сущность ModeDto
      * @return объект Mode
      */
-    @Mapping(target = "unit", ignore = true)
     @Mapping(target = "records", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)

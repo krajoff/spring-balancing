@@ -3,6 +3,8 @@ package com.example.balancing.dtos.station;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * DTO станции. Этот класс инкапсулирует данные о станции, включая ее уникальный
  * идентификатор и название
@@ -22,5 +24,11 @@ public class SimplifiedStationDto {
 
     @Schema(description = "Название станции", example = "Саяно-Шушенская ГЭС")
     private String name;
+
+    @Schema(description = "Дата создания")
+    private Date createdAt;
+
+    @Schema(description = "Дата последнего обновления")
+    private Date updatedAt;
 
 }

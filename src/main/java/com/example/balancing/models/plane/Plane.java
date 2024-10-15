@@ -47,13 +47,6 @@ public class Plane {
     private Integer number;
 
     /**
-     * Ссылка на агрегат.
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "unit_id", referencedColumnName = "id")
-    private Unit unit;
-
-    /**
      * Связь плоскости со всеми пусками и грузами
      */
     @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -122,13 +115,13 @@ public class Plane {
         if (!(o instanceof Plane plane)) return false;
 
         if (!getNumber().equals(plane.getNumber())) return false;
-        return getUnit().equals(plane.getUnit());
+        return getRunWeightMap() != null ? getRunWeightMap().equals(plane.getRunWeightMap()) : plane.getRunWeightMap() == null;
     }
 
     @Override
     public int hashCode() {
         int result = getNumber().hashCode();
-        result = 31 * result + getUnit().hashCode();
+        result = 31 * result + (getRunWeightMap() != null ? getRunWeightMap().hashCode() : 0);
         return result;
     }
 }
