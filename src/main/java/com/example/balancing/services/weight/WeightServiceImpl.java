@@ -30,9 +30,9 @@ public class WeightServiceImpl implements WeightService {
         Weight existingWeight = getWeightById(id);
         existingWeight.setPlane(weight.getPlane());
         existingWeight.setRun(weight.getRun());
-        existingWeight.setReference(weight.getReference());
         existingWeight.setMagWeight(weight.getMagWeight());
         existingWeight.setPhaseWeight(weight.getPhaseWeight());
+        existingWeight.setRecords(weight.getRecords());
         existingWeight.setSystemInformation(weight.getSystemInformation());
         return weightRepository.save(existingWeight);
     }
@@ -41,37 +41,4 @@ public class WeightServiceImpl implements WeightService {
         weightRepository.deleteById(id);
     }
 
-
-
-
-    public boolean fixCycles(Unit unit) {
-        return unit.getWeights().stream().anyMatch(this::isValidReference);
-    }
-
-    public Weight getValidReference(Weight weight) {
-        if (isValidReference(weight)) {
-            return weight;
-        }
-        weight.setReference(-1L);
-        return weight;
-    }
-
-    private boolean isValidReference(Weight weight) {
-        Set<Integer> visited = new HashSet<>();
-        var weights = getWeightsByUnit(weight.getUnit());
-        while (weight.getReference() != -1) {
-            if (visited.contains(weight.getNumberRun())) {
-                return false;
-            }
-            visited.add(weight.getNumberRun());
-            long finalReference = weight.getReference();
-            Optional<Weight> weightNext = weights.stream()
-                    .filter(w -> w.getNumberRun() == finalReference).findFirst();
-            if (weightNext.isEmpty()) {
-                return false;
-            }
-            weight = weightNext.get();
-        }
-        return true;
-    }
 }

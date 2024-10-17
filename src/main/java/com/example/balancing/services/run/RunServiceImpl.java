@@ -7,8 +7,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class RunServiceImpl implements RunService {
@@ -18,16 +19,29 @@ public class RunServiceImpl implements RunService {
 
     @Override
     public Run getRunById(Long id) {
-        return runRepository.findById(id).orElseThrow(RunNotFoundException::new);
+        return runRepository.findById(id)
+                .orElseThrow(RunNotFoundException::new);
+    }
+
+    @Override
+    public Run getRunByWeightId(Long id) {
+        return runRepository.findByWeightId(id)
+                .orElseThrow(RunNotFoundException::new);
+    }
+
+    @Override
+    public List<Run> getRunsByUnitId(Long id) {
+        return runRepository.findByUnitId(id)
+                .orElseThrow(RunNotFoundException::new);
     }
 
     @Override
     public Run createRun(Run run) {
-        List<Run> runs = runRepository.findByUnitId(run.getUnit().getId());
+        List<Run> runs = getRunsByUnitId(run.getUnit().getId());
         int number = runs == null ? 0 : runs.size();
         run.setNumber(number);
-        if (!isValidReferencePlane(run) || number == 0)
-            run.setReferenceRun(null);
+        if (!isValidReferenceRun(run) || number == 0)
+            run.setReferenceRunId(null);
         return runRepository.save(run);
     }
 
@@ -36,7 +50,8 @@ public class RunServiceImpl implements RunService {
         Run existingRun = getRunById(id);
         existingRun.setPlane(run.getPlane());
         existingRun.setWeight(run.getWeight());
-        existingRun.setReferenceRun(run.getReferenceRun());
+        if (isValidReferenceRun(run))
+            existingRun.setReferenceRunId(run.getReferenceRunId());
         return createRun(existingRun);
     }
 
@@ -49,14 +64,29 @@ public class RunServiceImpl implements RunService {
         runRepository.alterNumberRun(run.getNumber());
     }
 
-    @Override
-    public Run findByWeightId(Long id) {
-        return runRepository.findByWeightId(id).orElseThrow(RunNotFoundException::new);
+
+    private boolean isValidReferenceRun(Run run) {
+        return runRepository.findById(run.getReferenceRunId()).isPresent();
     }
 
+    private boolean isCyclicReference(Run run) {
+        List<Run> runs = getRunsByUnitId(run.getUnit().getId());
+        Set<Long> numbersVisitedRuns = new HashSet<>();
+        numbersVisitedRuns.add(run.getId());
 
-    private boolean isValidReferencePlane(Run run) {
-        return runRepository.findById(run.getReferenceRun().getId()).isPresent();
+        Run currentRun = run.getReferenceRun();
+        Long currentReferenceId = currentRun.getId();
+
+        while (currentRun != null) {
+            if (numbersVisitedRuns.contains(currentReferenceId))
+                return true;
+
+            numbersVisitedRuns.add(currentReferenceId);
+            currentRun = runs.stream()
+                    .filter(r->r.getId().equals(currentReferenceId))
+                    .findFirst().get();
+        }
+        return false;
     }
 
 }

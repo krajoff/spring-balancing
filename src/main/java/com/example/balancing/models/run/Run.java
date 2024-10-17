@@ -63,9 +63,8 @@ public class Run {
     /**
      * Ссылка на предыдущий пуск
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reference_run_id", referencedColumnName = "id")
-    private Run referenceRun;
+    @Column(name = "reference_run_id")
+    private Long referenceRunId;
 
     /**
      * Дата создания. Поле автоматически заполняется
@@ -110,18 +109,18 @@ public class Run {
 
         if (!getNumber().equals(run.getNumber())) return false;
         if (!getUnit().equals(run.getUnit())) return false;
-        if (getPlane() != null ? !getPlane().equals(run.getPlane()) : run.getPlane() != null) return false;
+        if (!getPlane().equals(run.getPlane())) return false;
         if (getWeight() != null ? !getWeight().equals(run.getWeight()) : run.getWeight() != null) return false;
-        return getReferenceRun() != null ? getReferenceRun().equals(run.getReferenceRun()) : run.getReferenceRun() == null;
+        return getReferenceRunId() != null ? getReferenceRunId().equals(run.getReferenceRunId()) : run.getReferenceRunId() == null;
     }
 
     @Override
     public int hashCode() {
         int result = getNumber().hashCode();
         result = 31 * result + getUnit().hashCode();
-        result = 31 * result + (getPlane() != null ? getPlane().hashCode() : 0);
+        result = 31 * result + getPlane().hashCode();
         result = 31 * result + (getWeight() != null ? getWeight().hashCode() : 0);
-        result = 31 * result + (getReferenceRun() != null ? getReferenceRun().hashCode() : 0);
+        result = 31 * result + (getReferenceRunId() != null ? getReferenceRunId().hashCode() : 0);
         return result;
     }
 }

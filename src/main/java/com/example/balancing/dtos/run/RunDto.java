@@ -22,6 +22,6 @@ public class RunDto {
     private WeightDto weight;
 
     @Schema(description = "Ссылка на номер предыдущего пуска", example = "0")
-    private SimplifiedRunDto referenceRun;
+    private Long referenceRunId;
 
 }

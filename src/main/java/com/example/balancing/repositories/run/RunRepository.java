@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface RunRepository extends JpaRepository<Run, Long> {
     @Query(value = "SELECT * FROM runs r WHERE r.unit_id = ?", nativeQuery = true)
-    List<Run> findByUnitId(Long id);
+    Optional<List<Run>> findByUnitId(Long id);
 
     @Query(value = "SELECT * FROM runs r WHERE r.weight_id = ?", nativeQuery = true)
     Optional<Run> findByWeightId(Long id);

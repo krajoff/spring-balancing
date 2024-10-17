@@ -13,4 +13,7 @@ public class SimplifiedRunDto {
     @Schema(description = "Номер пуска", example = "1")
     private Integer number;
 
+    @Schema(description = "Ссылка на номер предыдущего пуска", example = "0")
+    private Long referenceRunId;
+
 }

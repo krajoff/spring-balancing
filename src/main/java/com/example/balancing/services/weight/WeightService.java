@@ -12,6 +12,5 @@ public interface WeightService {
 
     void deleteWeight(Long id);
 
-    Weight calculateWeight(Weight weight);
 
 }
