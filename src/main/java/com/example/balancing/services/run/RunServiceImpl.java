@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -70,21 +71,33 @@ public class RunServiceImpl implements RunService {
     }
 
     private boolean isCyclicReference(Run run) {
+        // Получаем пуски данного агрегата
         List<Run> runs = getRunsByUnitId(run.getUnit().getId());
-        Set<Long> numbersVisitedRuns = new HashSet<>();
-        numbersVisitedRuns.add(run.getId());
+        Set<Long> visitedRunIds = new HashSet<>();
+        Long referenceRunId = run.getReferenceRunId();
+        visitedRunIds.add(run.getId());
 
-        Run currentRun = run.getReferenceRun();
-        Long currentReferenceId = currentRun.getId();
-
-        while (currentRun != null) {
-            if (numbersVisitedRuns.contains(currentReferenceId))
+        // Проверка на null для начального пуска
+        while (referenceRunId != null) {
+            // Проверка на наличие текущего пуска в множестве посещённых
+            if (visitedRunIds.contains(referenceRunId))
                 return true;
 
-            numbersVisitedRuns.add(currentReferenceId);
-            currentRun = runs.stream()
-                    .filter(r->r.getId().equals(currentReferenceId))
-                    .findFirst().get();
+            // Добавляем текущий id пуска в посещённые
+            visitedRunIds.add(referenceRunId);
+
+            // Находим текущий пуск по его id
+            Long finalReferenceRunId = referenceRunId;
+            Optional<Run> currentRun = runs.stream()
+                    .filter(r -> r.getId().equals(finalReferenceRunId))
+                    .findFirst();
+
+            // Если текущий пуск не найден, выходим из цикла
+            if (currentRun.isEmpty())
+                break;
+
+            // Обновляем referenceRunId для следующей итерации
+            referenceRunId = currentRun.get().getReferenceRunId();
         }
         return false;
     }
