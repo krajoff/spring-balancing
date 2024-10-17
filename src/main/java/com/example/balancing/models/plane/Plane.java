@@ -1,7 +1,6 @@
 package com.example.balancing.models.plane;
 
 import com.example.balancing.models.run.Run;
-import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -22,7 +21,6 @@ import java.util.*;
 @Getter
 @Setter
 @ToString
-@Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
@@ -95,7 +93,6 @@ public class Plane {
      * Версия.
      */
     @Version
-    @Builder.Default
     @Column(name = "version")
     private Long version = 1L;
 

@@ -24,8 +24,8 @@ import java.util.List;
  */
 @Entity(name = "User")
 @Table(name = "users")
-@Builder
 @ToString
+@Builder
 @EqualsAndHashCode
 @Setter
 @Getter

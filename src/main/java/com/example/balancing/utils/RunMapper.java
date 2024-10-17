@@ -3,9 +3,16 @@ package com.example.balancing.utils;
 import com.example.balancing.dtos.run.SimplifiedRunDto;
 import com.example.balancing.dtos.run.RunDto;
 import com.example.balancing.models.run.Run;
+import com.example.balancing.services.run.RunService;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
+@Mapper(componentModel = "spring", uses = {PlaneMapper.class, WeightMapper.class})
 public abstract class RunMapper {
+
+    private final RunService runService;
+    public RunMapper(RunService runService) {
+        this.runService = runService;
+    }
 
     /**
      * Преобразование сущности Run в RunDto
@@ -51,5 +58,10 @@ public abstract class RunMapper {
     @Mapping(target = "version", ignore = true)
     public abstract Run
     simplifiedRunDtoToRun(SimplifiedRunDto runDto);
+
+    public abstract Run getRunByWeightId(Long id){
+        return runService.findRunByWeightId(id);
+    }
+
 
 }

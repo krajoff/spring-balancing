@@ -25,13 +25,11 @@ import java.util.Date;
 @Entity(name = "Unit")
 @Table(name = "units")
 @EqualsAndHashCode
-@Builder
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Unit {
 
     /**
@@ -156,7 +154,6 @@ public class Unit {
      * Версия.
      */
     @Version
-    @Builder.Default
     @Column(name = "version")
     @EqualsAndHashCode.Exclude
     private Long version = 1L;

@@ -5,9 +5,12 @@ import com.example.balancing.models.run.Run;
 import com.example.balancing.repositories.run.RunRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class RunServiceImpl implements RunService {
 
     @Autowired
@@ -44,6 +47,11 @@ public class RunServiceImpl implements RunService {
         runRepository.deleteById(id);
         runRepository.setNullReference(id);
         runRepository.alterNumberRun(run.getNumber());
+    }
+
+    @Override
+    public Run findByWeightId(Long id) {
+        return runRepository.findByWeightId(id).orElseThrow(RunNotFoundException::new);
     }
 
 

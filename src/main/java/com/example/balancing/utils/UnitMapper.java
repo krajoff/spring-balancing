@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
  * Маппер для преобразования между сущностями Unit, UnitDto
  * и SimplifiedUnitDto:
  */
-@Mapper(componentModel = "spring", uses = WeightMapper.class)
+@Mapper(componentModel = "spring", uses = {WeightMapper.class, RecordMapper.class, PointMapper.class})
 public abstract class UnitMapper {
 
     /**

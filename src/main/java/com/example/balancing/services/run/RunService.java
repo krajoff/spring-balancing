@@ -10,4 +10,6 @@ public interface RunService {
     Run updateRun(Long id, Run run);
 
     void deleteRunById(Long id);
+
+    Run findByWeightId(Long id);
 }

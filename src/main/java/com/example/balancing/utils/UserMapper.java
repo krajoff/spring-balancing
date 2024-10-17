@@ -33,7 +33,6 @@ public abstract class UserMapper {
     @Mapping(target = "priority", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "version", ignore = true)
     @Mapping(source = "stations", target = "stations")
     public abstract User userDtoToUser(UserDto userDto);
 

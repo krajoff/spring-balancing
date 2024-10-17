@@ -32,7 +32,6 @@ import static java.lang.Math.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Record implements IRecord {
 
     /**

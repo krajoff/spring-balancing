@@ -2,12 +2,14 @@ package com.example.balancing.utils;
 
 import com.example.balancing.dtos.point.*;
 import com.example.balancing.models.point.Point;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 /**
  * Маппер для преобразования между сущностями Point, PointDto и
  * SimplifiedPointDto
  */
+@Mapper(componentModel = "spring", uses = RecordMapper.class)
 public abstract class PointMapper {
 
     /**
@@ -16,6 +18,8 @@ public abstract class PointMapper {
      * @param point сущность Point
      * @return объект PointDto
      */
+    @Mapping(source = "records", target = "records",
+            qualifiedByName = "mapRecordsToRecordsDto")
     public abstract PointDto pointToPlateDto(Point point);
 
     /**

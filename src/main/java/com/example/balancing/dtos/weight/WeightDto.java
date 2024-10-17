@@ -70,6 +70,6 @@ public class WeightDto {
     private String systemInformation;
 
     @Schema(description = "Флаг, указывающий является ли данный вес целевым")
-    private boolean isTarget;
+    private Boolean isTarget;
 
 }

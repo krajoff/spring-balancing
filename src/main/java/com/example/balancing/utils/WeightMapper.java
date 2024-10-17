@@ -1,8 +1,5 @@
 package com.example.balancing.utils;
 
-import com.example.balancing.dtos.plane.PlaneDto;
-import com.example.balancing.dtos.record.RecordDto;
-import com.example.balancing.dtos.run.RunDto;
 import com.example.balancing.dtos.weight.WeightDto;
 import com.example.balancing.models.weight.Weight;
 import org.mapstruct.Mapper;
@@ -21,7 +18,11 @@ public abstract class WeightMapper {
      * @param weight сущность Weight
      * @return WeightDto
      */
+    @Mapping(source = "records", target = "records",
+            qualifiedByName = "mapRecordsToRecordsDto")
+    @Mapping(source = "run.number", target = "run")
     public abstract WeightDto weightToWeightDto(Weight weight);
+
 
     /**
      * Преобразование сущности WeightDto в Weight
@@ -32,6 +33,7 @@ public abstract class WeightMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "version", ignore = true)
+    @Mapping(source = "run", target = "run", qualifiedByName = "getRunByNumber")
     public abstract Weight weightDtoToWeight(WeightDto weightDto);
 
 }

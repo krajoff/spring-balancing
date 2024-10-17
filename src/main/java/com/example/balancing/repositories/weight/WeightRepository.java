@@ -13,9 +13,10 @@ import java.util.Optional;
 public interface WeightRepository extends JpaRepository<Weight, Long> {
     Optional<List<Weight>> findByUnit(Unit unit);
 
-    @Query(value = "select * from weights w where w.unit = ?1 and w.number_run = ?2",
+    @Query(value = "SELECT * FROM weights w WHERE w.unit = ?1 AND w.number_run = ?2",
             nativeQuery = true)
     Optional<Weight> findByUnitAndNumberRun(Unit unit, Integer numberRun);
+
 }
 
 

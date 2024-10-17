@@ -18,7 +18,6 @@ import java.util.List;
  */
 @Entity(name = "Point")
 @Table(name = "points")
-@Builder
 @Getter
 @Setter
 @ToString
@@ -79,7 +78,6 @@ public class Point {
      * Версия.
      */
     @Version
-    @Builder.Default
     @Column(name = "version")
     private Long version = 1L;
 

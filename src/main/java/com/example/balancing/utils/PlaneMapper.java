@@ -2,12 +2,14 @@ package com.example.balancing.utils;
 
 import com.example.balancing.dtos.plane.PlaneDto;
 import com.example.balancing.models.plane.Plane;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 /**
  * Маппер для преобразования между сущностями Plane и PlaneDto:
  * PlaneDto содержит id и number.
  */
+@Mapper(componentModel = "spring")
 public abstract class PlaneMapper {
 
     /**

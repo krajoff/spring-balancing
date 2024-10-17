@@ -34,7 +34,6 @@ import static java.lang.Math.sin;
 @Setter
 @Getter
 @ToString
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -148,7 +147,6 @@ public class Weight implements IWeight {
      * Версия.
      */
     @Version
-    @Builder.Default
     @Column(name = "version")
     @EqualsAndHashCode.Exclude
     private Long version = 1L;

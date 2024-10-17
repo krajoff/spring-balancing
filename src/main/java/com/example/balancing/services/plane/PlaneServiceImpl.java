@@ -4,7 +4,9 @@ import com.example.balancing.exception.plane.PlaneNotFoundException;
 import com.example.balancing.models.plane.Plane;
 import com.example.balancing.repositories.plane.PlaneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PlaneServiceImpl implements PlaneService {
 
     @Autowired
