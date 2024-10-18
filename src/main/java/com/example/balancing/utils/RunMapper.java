@@ -6,13 +6,15 @@ import com.example.balancing.models.run.Run;
 import com.example.balancing.services.run.RunService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Mapper(componentModel = "spring", uses = {PlaneMapper.class, WeightMapper.class})
+@Mapper(componentModel = "spring", uses = {PlaneMapper.class,
+        WeightMapper.class})
 public abstract class RunMapper {
 
     @Autowired
-    private final RunService runService;
+    protected RunService runService;
 
     /**
      * Преобразование сущности Run в RunDto
@@ -40,8 +42,7 @@ public abstract class RunMapper {
      * @param run сущность Run
      * @return SimplifiedRunDto
      */
-    public abstract SimplifiedRunDto
-    runToSimplifiedRunDto(Run run);
+    public abstract SimplifiedRunDto runToSimplifiedRunDto(Run run);
 
     /**
      * Преобразование сущности RunDto в Run
@@ -57,9 +58,9 @@ public abstract class RunMapper {
     @Mapping(target = "version", ignore = true)
     public abstract Run simplifiedRunDtoToRun(SimplifiedRunDto runDto);
 
-    public Run getRunByWeightId(Long id) {
-        return runService.getRunByWeightId(id);
+    @Named("getRunById")
+    public Run getRunById(Long id) {
+        return runService.getRunById(id);
     }
-
 
 }

@@ -11,7 +11,7 @@ import org.mapstruct.Mapping;
  * Маппер для преобразования между сущностями Station, StationDto и
  * SimplifiedStationDto
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",uses = UnitMapper.class)
 public abstract class StationMapper {
 
     /**
@@ -30,6 +30,7 @@ public abstract class StationMapper {
      */
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "version", ignore = true)
+    @Mapping(source = "units", target = "units")
     public abstract Station stationDtoToStation(StationDto stationDto);
 
     /**

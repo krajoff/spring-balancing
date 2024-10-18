@@ -54,4 +54,20 @@ public abstract class RecordMapper {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Преобразует список RecordDto в список Record.
+     *
+     * @param records список RecordDto
+     * @return список Record
+     */
+    @Named("mapRecordsDtoToRecords")
+    public List<Record> mapRecordsDtoToRecords(List<RecordDto> records) {
+        return Optional.ofNullable(records)
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(this::recordDtoToRecord)
+                .collect(Collectors.toList());
+    }
+
+
 }

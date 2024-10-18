@@ -20,7 +20,7 @@ public abstract class WeightMapper {
      */
     @Mapping(source = "records", target = "records",
             qualifiedByName = "mapRecordsToRecordsDto")
-    @Mapping(source = "run.number", target = "run")
+    @Mapping(source = "run.id", target = "runId")
     public abstract WeightDto weightToWeightDto(Weight weight);
 
 
@@ -33,7 +33,7 @@ public abstract class WeightMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "version", ignore = true)
-    @Mapping(source = "run", target = "run", qualifiedByName = "getRunByNumber")
+    @Mapping(source = "runId", target = "run", qualifiedByName = "getRunById")
     public abstract Weight weightDtoToWeight(WeightDto weightDto);
 
 }

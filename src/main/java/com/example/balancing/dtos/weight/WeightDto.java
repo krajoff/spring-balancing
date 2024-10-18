@@ -40,8 +40,8 @@ public class WeightDto {
             example = "1, 2 и т.д.")
     private PlaneDto plane;
 
-    @Schema(description = "Номер пуска", example = "1, 2, и т.д.")
-    private Integer run;
+    @Schema(description = "Уникальный идентификатор пуска", example = "1, 2, и т.д.")
+    private Long runId;
 
     @Schema(description = "Значение веса", example = "100.0")
     private Double magWeight;

@@ -59,12 +59,6 @@ public class Station {
     private List<Unit> units = new ArrayList<>();
 
     /**
-     * Число агрегатов, привязанных к станции.
-     */
-    @Transient
-    private Integer counter = units.size();
-
-    /**
      * Пользователь, с которым связана станция.
      */
     @ManyToOne(fetch = FetchType.LAZY)

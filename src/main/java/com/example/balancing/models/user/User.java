@@ -99,6 +99,7 @@ public class User implements UserDetails {
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Station> stations = new ArrayList<>();
 
     /**
