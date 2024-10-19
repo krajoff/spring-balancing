@@ -10,10 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/auth")
+@RequestMapping("/aut00h")
 @RequiredArgsConstructor
 @Tag(name = "Authentication")
-public class WebAuthController {
+public class WebAuthController00 {
     private final AuthenticationService authenticationService;
 
     @GetMapping("/sign-up")

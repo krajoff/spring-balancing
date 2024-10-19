@@ -108,10 +108,12 @@ public class AuthenticationService {
             return new AuthenticationResponse(accessToken, refreshToken);
 
         } catch (AuthenticationException ex) {
-            log.error("Authentication failed for user: {}", request.getUsername(), ex);
+            log.error("Authentication failed for user: {}",
+                    request.getUsername(), ex);
             throw new AuthException();
         } catch (WrongRequestException ex) {
-            log.error("Sign-in request contains invalid data for user: {}", request.getUsername(), ex);
+            log.error("Sign-in request contains invalid data for user: {}",
+                    request.getUsername(), ex);
             throw new WrongRequestException();
         } catch (Exception ex) {
             log.error("An unexpected error occurred during sign-in for user: {}", request.getUsername(), ex);
