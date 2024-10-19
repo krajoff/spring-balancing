@@ -3,7 +3,6 @@ package com.example.balancing.models.weight;
 import com.example.balancing.models.complex.Complex;
 import com.example.balancing.models.plane.Plane;
 import com.example.balancing.models.run.Run;
-import com.example.balancing.models.unit.Unit;
 import com.example.balancing.models.record.Record;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;

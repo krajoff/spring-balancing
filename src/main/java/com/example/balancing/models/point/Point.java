@@ -1,6 +1,7 @@
 package com.example.balancing.models.point;
 
 import com.example.balancing.models.unit.Unit;
+import com.example.balancing.models.record.Record;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -56,7 +57,7 @@ public class Point {
      */
     @OneToMany(mappedBy = "point", cascade = CascadeType.ALL,
              orphanRemoval = true)
-    @ToString.Exclude private List<Record> records = new ArrayList<>();
+    private List<Record> records = new ArrayList<>();
 
     /**
      * Дата создания. Поле автоматически заполняется

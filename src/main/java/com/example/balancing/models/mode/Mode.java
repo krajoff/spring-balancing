@@ -1,6 +1,6 @@
 package com.example.balancing.models.mode;
 
-import com.example.balancing.models.unit.Unit;
+import com.example.balancing.models.record.Record;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
