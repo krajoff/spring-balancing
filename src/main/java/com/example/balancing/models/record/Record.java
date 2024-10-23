@@ -61,15 +61,13 @@ public class Record implements IRecord {
     /**
      * Амплитуда вибрации.
      */
-    @Column(name = "mag_vibration", nullable = false,
-            columnDefinition = "double default 0")
+    @Column(name = "mag_vibration", nullable = false)
     private Double magVibration;
 
     /**
      * Фаза вибрации в градусах.
      */
-    @Column(name = "phase_vibration", nullable = false,
-            columnDefinition = "double default 0")
+    @Column(name = "phase_vibration", nullable = false)
     private Double phaseVibration;
 
     /**
@@ -84,7 +82,7 @@ public class Record implements IRecord {
      * Значение по умолчанию — true.
      */
     @Getter
-    @Column(name = "is_used", columnDefinition = "boolean default true")
+    @Column(name = "is_used")
     private Boolean isUsed;
 
     /**
@@ -98,8 +96,7 @@ public class Record implements IRecord {
      * Флаг ручной настройки чувствительности.
      * Значение по умолчанию — false.
      */
-    @Column(name = "is_manual_sensitivity",
-            columnDefinition = "boolean default false")
+    @Column(name = "is_manual_sensitivity")
     private Boolean isManualSensitivity;
 
     /**

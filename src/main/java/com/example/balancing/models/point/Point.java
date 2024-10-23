@@ -39,8 +39,7 @@ public class Point {
      * Название точки измерения. Обязательное поле.
      * Максимальная длина — 10 символов.
      */
-    @Column(name = "name", nullable = false,
-            columnDefinition = "varchar(10) default 'ГП'")
+    @Column(name = "name", nullable = false)
     @Size(max = 10)
     @NonNull private String name;
 

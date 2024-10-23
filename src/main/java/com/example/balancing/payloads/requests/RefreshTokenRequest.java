@@ -16,7 +16,7 @@ public class RefreshTokenRequest {
     @JsonProperty("refreshToken")
     @Schema(description = "Рефреш-токен",
             example = "7175bda0-6ce0-48f4-a072-397a90ccef48")
-    @NotBlank(message = "Рефреш-токен не может быть пустым")
+    @NotBlank(message = "[Refresh Token] Рефреш-токен не может быть пустым")
     private String refreshToken;
 
 }

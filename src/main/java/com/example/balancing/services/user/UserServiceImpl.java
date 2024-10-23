@@ -1,5 +1,6 @@
 package com.example.balancing.services.user;
 
+import com.example.balancing.exception.user.UserAlreadyExistedException;
 import com.example.balancing.exception.user.UserNotFoundException;
 import com.example.balancing.models.user.User;
 import com.example.balancing.repositories.user.UserRepository;
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User createUser(User user) {
         if (!userRepository.findByUsernameOrEmail
                 (user.getUsername(), user.getEmail()).isEmpty()) {
-            throw new RuntimeException("Такой пользователь уже существует");
+            throw new UserAlreadyExistedException();
         }
         return userRepository.save(user);
     }
@@ -55,7 +56,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     public UserDetails loadUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return getUserByUsername(username);
     }
 
     public UserDetailsService userDetailsService() {

@@ -2,6 +2,7 @@ package com.example.balancing.services.auth;
 
 import com.example.balancing.exception.auth.AuthException;
 import com.example.balancing.exception.auth.WrongRequestException;
+import com.example.balancing.exception.user.UserAlreadyExistedException;
 import com.example.balancing.payloads.requests.RefreshTokenRequest;
 import com.example.balancing.payloads.responses.AuthenticationResponse;
 import com.example.balancing.payloads.requests.SignInRequest;
@@ -13,6 +14,7 @@ import com.example.balancing.services.tokens.refresh.RefreshTokenService;
 import com.example.balancing.services.user.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -63,11 +65,11 @@ public class AuthenticationService {
 
             return new AuthenticationResponse(accessToken, refreshToken);
 
-        } catch (AuthenticationException ex) {
-            log.error("Authentication failed for user: {}", request.getUsername(), ex);
-            throw new AuthException();
+        } catch (UserAlreadyExistedException ex) {
+            log.error("User has already existed: {}", request.getUsername(), ex);
+            throw new UserAlreadyExistedException();
         } catch (WrongRequestException ex) {
-            log.error("Sign-in request contains invalid data for user: {}", request.getUsername(), ex);
+            log.error("Sign-up request contains invalid data for user: {}", request.getUsername(), ex);
             throw new WrongRequestException();
         } catch (Exception ex) {
             log.error("An unexpected error occurred during sign-in for user: {}", request.getUsername(), ex);

@@ -2,6 +2,7 @@ package com.example.balancing.payloads.requests;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -23,21 +24,21 @@ public class SignUpRequest {
     @JsonProperty("username")
     @Schema(description = "username", example = "Nikolay")
     @Size(min = 5, max = 30,
-            message = "Minimum username length is 5 letters, maximum is 30")
-    @NotBlank(message = "Username can not be blank ")
+            message = "[Username] Минимальная длина — 5 символов, максимальная — 30")
+    @NotBlank(message = "[Username] Не может быть пустым")
     private String username;
 
     @JsonProperty("email")
     @Schema(description = "email", example = "nikolay@gmail.com")
     @Size(min = 5, max = 255,
-            message = "Minimum email length is 5 letters, maximum is 255")
-    @NotBlank(message = "Email can not be blank")
-    @Email(message = "Email address should be in the format user@example.com")
+            message = "[Email] Минимальная длина username — 5 символов, максимальная — 255")
+    @NotBlank(message = "[Email] Не может быть пустым")
+    @Email(message = "[Email] Формат должен соответствовать паттерну user@example.com")
     private String email;
 
     @JsonProperty("password")
     @Schema(description = "password")
     @Size(min = 5, max = 255,
-            message = "Minimum password length is 5 letters, maximum is 255")
+            message = "[Password] Минимальная длина username — 5 символов, максимальная — 255")
     private String password;
 }

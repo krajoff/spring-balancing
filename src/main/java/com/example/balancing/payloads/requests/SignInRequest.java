@@ -20,13 +20,13 @@ public class SignInRequest {
 
     @Schema(description = "username", example = "Nikolay_Petrovich")
     @Size(min = 5, max = 30,
-            message = "Minimum username length is 5 letters, maximum is 30")
-    @NotBlank(message = "Username can not be blank ")
+            message = "[Username] Минимальная длина — 5 символов, максимальная — 30")
+    @NotBlank(message = "[Username] Не может быть пустым")
     private String username;
 
     @Schema(description = "password")
-    @NotBlank(message = "Password can not be blank ")
+    @NotBlank(message = "[Password] Не может быть пустым")
     @Size(min = 5, max = 255,
-            message = "Minimum password length is 5 letters, maximum is 255")
+            message = "[Password] Минимальная длина username — 5 символов, максимальная — 255")
     private String password;
 }

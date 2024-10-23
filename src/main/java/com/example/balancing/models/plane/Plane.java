@@ -37,8 +37,7 @@ public class Plane {
     /**
      * Номер плоскости. Максимальная длина — 1 символов.
      */
-    @Column(name = "number", nullable = false,
-            columnDefinition = "integer default 1")
+    @Column(name = "number", nullable = false)
     @Size(max = 1)
     @NonNull
     private Integer number;

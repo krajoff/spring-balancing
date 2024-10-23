@@ -39,7 +39,7 @@ public class User implements UserDetails {
      * Уникальный идентификатор пользователя.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
     @Column(name = "id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

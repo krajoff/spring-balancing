@@ -20,12 +20,14 @@ import lombok.*;
 public class AuthenticationResponse {
 
     @Schema(description = "Token access")
-    @NotNull private String accessToken;
+    @NotNull(message = "[Access token] Не может быть пустым")
+    private String accessToken;
 
     @Schema(description = "Type")
     private final String type = "Bearer";
 
     @Schema(description = "Token refresh")
-    @NotNull private String refreshToken;
+    @NotNull(message = "[Refresh token] Не может быть пустым")
+    private String refreshToken;
 
 }

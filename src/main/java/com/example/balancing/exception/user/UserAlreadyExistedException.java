@@ -7,6 +7,6 @@ public class UserAlreadyExistedException extends RuntimeException {
     }
 
     public UserAlreadyExistedException() {
-        this("Такой пользователь уже существует");
+        this("[User] Пользователь с таким логином или почтой уже существует");
     }
 }

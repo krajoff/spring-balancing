@@ -86,7 +86,7 @@ public class SecurityConfig {
 
                 // Отключаем сессию, так как работаем в stateless режиме с токенами
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
-//                .authenticationProvider(authenticationProvider())
+                .authenticationProvider(authenticationProvider())
 
                 // Фильтр для работы с access токенами
                 .addFilterBefore(accessAuthenticationFilter,
@@ -128,8 +128,8 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager
     (AuthenticationConfiguration config) throws Exception {
-        return new ProviderManager(List.of(authenticationProvider()));
-       // return config.getAuthenticationManager();
+       // return new ProviderManager(List.of(authenticationProvider()));
+        return config.getAuthenticationManager();
     }
 
     /**

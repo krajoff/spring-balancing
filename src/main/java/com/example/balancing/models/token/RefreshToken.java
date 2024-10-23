@@ -27,7 +27,7 @@ public class RefreshToken {
     private long id;
 
     /**
-     * Пользователь связанный с токеном.
+     * Пользователь связанный с рефреш-токеном.
      */
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -40,7 +40,7 @@ public class RefreshToken {
     private String token;
 
     /**
-     * Время действия токена.
+     * Время действия рефреш-токена.
      */
     @Column(name = "expiration", nullable = false)
     private Date expiration;

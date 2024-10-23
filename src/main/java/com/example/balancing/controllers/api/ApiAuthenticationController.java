@@ -4,6 +4,7 @@ import com.example.balancing.payloads.requests.SignInRequest;
 import com.example.balancing.payloads.requests.SignUpRequest;
 import com.example.balancing.payloads.responses.AuthenticationResponse;
 import com.example.balancing.services.auth.AuthenticationService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +21,12 @@ public class ApiAuthenticationController {
     }
 
     @PostMapping("/signup")
-    public AuthenticationResponse register(@RequestBody SignUpRequest request) {
+    public AuthenticationResponse register(@Valid @RequestBody SignUpRequest request) {
         return authenticationService.signUp(request);
     }
 
     @PostMapping("/login")
-    public AuthenticationResponse authenticate(@RequestBody SignInRequest request) {
+    public AuthenticationResponse authenticate(@Valid @RequestBody SignInRequest request) {
         return authenticationService.signIn(request);
     }
 
