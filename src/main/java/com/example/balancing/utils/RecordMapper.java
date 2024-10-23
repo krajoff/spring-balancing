@@ -25,6 +25,7 @@ public abstract class RecordMapper {
      * @param record сущность Record
      * @return объект RecordDto
      */
+    @Mapping(target = "point", source = "point.name")
     public abstract RecordDto recordToRecordDto(Record record);
 
     /**
@@ -37,6 +38,7 @@ public abstract class RecordMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "version", ignore = true)
+    @Mapping(target = "point", ignore = true)
     public abstract Record recordDtoToRecord(RecordDto recordDto);
 
     /**
@@ -54,20 +56,6 @@ public abstract class RecordMapper {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Преобразует список RecordDto в список Record.
-     *
-     * @param records список RecordDto
-     * @return список Record
-     */
-    @Named("mapRecordsDtoToRecords")
-    public List<Record> mapRecordsDtoToRecords(List<RecordDto> records) {
-        return Optional.ofNullable(records)
-                .orElse(Collections.emptyList())
-                .stream()
-                .map(this::recordDtoToRecord)
-                .collect(Collectors.toList());
-    }
 
 
 }

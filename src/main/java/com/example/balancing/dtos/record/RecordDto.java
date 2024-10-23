@@ -30,11 +30,11 @@ import lombok.Data;
 public class RecordDto {
 
     @Schema(description = "Уникальный идентификатор", example = "1, 2 и т.д.")
-    private  Long id;
+    private Long id;
 
     @Schema(description = "Название места измерения вибрации в упрощенном " +
             "представлении", example = "ВГП или 1")
-    private SimplifiedPointDto point;
+    private String point;
 
     @Schema(description = "Режима работы агрегата в упрощенном представлении")
     private ModeDto mode;

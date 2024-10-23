@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -30,12 +31,16 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
  */
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
-@AllArgsConstructor
 public class SecurityConfig {
 
     private final UserService userService;
     private final AccessAuthenticationFilter accessAuthenticationFilter;
+
+    public SecurityConfig(UserService userService,
+                          AccessAuthenticationFilter accessAuthenticationFilter) {
+        this.userService = userService;
+        this.accessAuthenticationFilter = accessAuthenticationFilter;
+    }
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -53,17 +58,22 @@ public class SecurityConfig {
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        // Делаем аутентификацию через токены обязательной для всех URL, кроме публичных
         http.authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/**", "/js/**", "/login", "/signup",
-                                "/static/**", "/css/**", "/errors").permitAll()
+                                "/refresh-token", "/static/**", "/css/**", "/errors").permitAll()
                         .anyRequest().authenticated())
-                .formLogin(formLogin -> formLogin
-                        .loginPage("/login")
-                        .permitAll()
-                        .defaultSuccessUrl("/stations"))
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .permitAll())
+                // Настройка формы логина для логина/пароля
+//                .formLogin(formLogin -> formLogin
+//                        .loginPage("/login")
+//                        .permitAll()
+//                        .defaultSuccessUrl("/stations"))
+//                .logout(logout -> logout
+//                        .logoutUrl("/logout")
+//                        .permitAll())
+
+                // Кросс-доменная политика
                 .cors(cors -> cors.configurationSource(request -> {
                     var corsConfiguration = new CorsConfiguration();
                     corsConfiguration.setAllowedOriginPatterns(List.of("*"));
@@ -73,13 +83,21 @@ public class SecurityConfig {
                     corsConfiguration.setAllowCredentials(true);
                     return corsConfiguration;
                 }))
+
+                // Отключаем сессию, так как работаем в stateless режиме с токенами
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
-                .authenticationProvider(authenticationProvider())
+//                .authenticationProvider(authenticationProvider())
+
+                // Фильтр для работы с access токенами
                 .addFilterBefore(accessAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class)
+
+                // Отключаем CSRF (не нужно для stateless-приложений)
                 .csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
+
+
 
     /**
      * Создает бин AuthenticationProvider для настройки процесса аутентификации.
@@ -88,14 +106,15 @@ public class SecurityConfig {
      * и PasswordEncoder для проверки учетных данных пользователей.
      */
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
         authProvider.setPasswordEncoder(bCryptPasswordEncoder());
-        authProvider.setUserDetailsService(userService.userDetailsService());
+        authProvider.setUserDetailsService(userDetailsService());
 
         return authProvider;
     }
+
 
     /**
      * Создает бин AuthenticationManager для управления процессом аутентификации.
@@ -109,7 +128,8 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager
     (AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
+        return new ProviderManager(List.of(authenticationProvider()));
+       // return config.getAuthenticationManager();
     }
 
     /**

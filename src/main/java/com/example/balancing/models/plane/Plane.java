@@ -32,7 +32,6 @@ public class Plane {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-    @ToString.Exclude
     private Long id;
 
     /**
@@ -48,10 +47,10 @@ public class Plane {
      * Связь плоскости со всеми пусками и грузами
      */
     @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinTable(name = "plane_run_weight",
-            joinColumns = {@JoinColumn(name = "plane_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "weight_id", referencedColumnName = "id")})
-    @MapKeyJoinColumn(name = "run_id")
+//    @JoinTable(name = "plane_run_weight",
+//            joinColumns = {@JoinColumn(name = "plane_id", referencedColumnName = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "weight_id", referencedColumnName = "id")})
+//    @MapKeyJoinColumn(name = "run_id")
     private Map<Run, Weight> runWeightMap = new HashMap<>();
 
     /**
@@ -61,7 +60,6 @@ public class Plane {
      */
     @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL,
             orphanRemoval = true)
-    @ToString.Exclude
     private List<Weight> weights = new ArrayList<>();
 
     /**
@@ -70,7 +68,6 @@ public class Plane {
      * при обращении.
      */
     @Transient
-    @ToString.Exclude
     private List<Weight> targetWeights = new ArrayList<>();
 
     /**

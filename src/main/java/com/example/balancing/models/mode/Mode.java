@@ -1,6 +1,7 @@
 package com.example.balancing.models.mode;
 
 import com.example.balancing.models.record.Record;
+import com.example.balancing.models.unit.Unit;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -36,7 +37,7 @@ public class Mode {
     /**
      * Название режима. Максимальная длина — 10 символов.
      */
-    @Column(name = "name", columnDefinition = "varchar(20) default 'no mode'")
+    @Column(name = "name")
     @Size(max = 20)
     @NonNull private String name;
 

@@ -45,7 +45,7 @@ public class Unit {
      * Номер агрегата на станции. Значение по умолчанию — 1.
      * Максимальная длина — 3 цифры.
      */
-    @Column(name = "unit_number", columnDefinition = "integer default 1")
+    @Column(name = "unit_number")
     @Size(max = 3)
     private Integer unitNumber;
 
@@ -53,8 +53,7 @@ public class Unit {
      * Тип агрегата. Значение по умолчанию — 'Без типа'.
      * Максимальная длина — 50 символов.
      */
-    @Column(name = "type",
-            columnDefinition = "varchar(50) default 'Без типа'")
+    @Column(name = "type")
     @Size(max = 50)
     private String type;
 
@@ -66,39 +65,35 @@ public class Unit {
     private List<Run> runs = new ArrayList<>();
 
     /**
-     * Список плоскостей, относящихся к агрегату.
+     * Список плоскостей, относящихся к агрегату. Односторонняя связь.
      */
-    @OneToMany(mappedBy = "unit",
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Plane> planes = new ArrayList<>();
 
     /**
      * Список режимов, относящихся к агрегату.
      */
-    @OneToMany(mappedBy = "unit",
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mode> modes = new ArrayList<>();
 
     /**
      * Список точек измерения вибрации, относящихся к агрегату.
      */
-    @OneToMany(mappedBy = "unit",
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Point> points;
 
     /**
      * Количество знаков после запятой при отображении значений грузов.
      * Максимальное значение — 2 знака.
      */
-    @Column(name = "weight_precision", columnDefinition = "integer default 0")
+    @Column(name = "weight_precision")
     @Size(max = 2)
     private Integer weightPrecision;
 
     /**
      * Единица измерения грузов (г, кг, т). Максимальная длина — 2 символа.
      */
-    @Column(name = "weight_unit_measure",
-            columnDefinition = "varchar(5) default 'кг'")
+    @Column(name = "weight_unit_measure")
     @Size(max = 5)
     private String weightUnitMeasure;
 
@@ -113,8 +108,7 @@ public class Unit {
     /**
      * Единица измерения вибрации (мкм, мм/с). Максимальная длина — 5 символа.
      */
-    @Column(name = "vibration_unit_measure",
-            columnDefinition = "varchar(5) default 'мкм'")
+    @Column(name = "vibration_unit_measure")
     @Size(max = 5)
     private String vibrationUnitMeasure;
 

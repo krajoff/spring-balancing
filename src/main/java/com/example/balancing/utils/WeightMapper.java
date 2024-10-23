@@ -33,7 +33,7 @@ public abstract class WeightMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "version", ignore = true)
-    @Mapping(source = "runId", target = "run", qualifiedByName = "getRunById")
+    @Mapping(target = "run", ignore = true)
     public abstract Weight weightDtoToWeight(WeightDto weightDto);
 
 }
