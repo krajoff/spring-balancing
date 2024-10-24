@@ -30,8 +30,6 @@ public class SignUpRequest {
 
     @JsonProperty("email")
     @Schema(description = "email", example = "nikolay@gmail.com")
-    @Size(min = 5, max = 255,
-            message = "[Email] Минимальная длина username — 5 символов, максимальная — 255")
     @NotBlank(message = "[Email] Не может быть пустым")
     @Email(message = "[Email] Формат должен соответствовать паттерну user@example.com")
     private String email;
@@ -39,6 +37,6 @@ public class SignUpRequest {
     @JsonProperty("password")
     @Schema(description = "password")
     @Size(min = 5, max = 255,
-            message = "[Password] Минимальная длина username — 5 символов, максимальная — 255")
+            message = "[Password] Минимальная длина пароля — 5 символов, максимальная — 255")
     private String password;
 }
