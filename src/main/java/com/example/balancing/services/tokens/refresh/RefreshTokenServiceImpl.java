@@ -58,6 +58,10 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         return refreshToken.getExpiration().after(new Date());
     }
 
+    public boolean isValidExpiration(String refreshToken) {
+        return findByToken(refreshToken).getExpiration().after(new Date());
+    }
+
     @Transactional
     public RefreshToken update(String token) {
         RefreshToken existingToken = findByToken(token);

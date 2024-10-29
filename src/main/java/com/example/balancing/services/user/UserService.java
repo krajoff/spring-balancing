@@ -1,5 +1,6 @@
 package com.example.balancing.services.user;
 
+import com.example.balancing.dtos.user.UserDto;
 import com.example.balancing.models.user.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -25,5 +26,7 @@ public interface UserService {
     UserDetailsService userDetailsService();
 
     User getCurrentUser();
+
+    UserDto getCurrentUserDto();
 
 }

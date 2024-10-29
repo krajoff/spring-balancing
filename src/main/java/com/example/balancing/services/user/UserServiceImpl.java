@@ -1,9 +1,11 @@
 package com.example.balancing.services.user;
 
+import com.example.balancing.dtos.user.UserDto;
 import com.example.balancing.exception.user.UserAlreadyExistedException;
 import com.example.balancing.exception.user.UserNotFoundException;
 import com.example.balancing.models.user.User;
 import com.example.balancing.repositories.user.UserRepository;
+import com.example.balancing.utils.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,8 +15,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
+    }
 
     public User getUserById(Long id) {
         return userRepository.findById(id)
@@ -69,6 +76,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .getAuthentication()
                 .getName();
         return getUserByUsername(username);
+    }
+
+    public UserDto getCurrentUserDto() {
+        var username = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+        return userMapper.userToUserDto(getUserByUsername(username));
     }
 
 }

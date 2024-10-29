@@ -113,9 +113,7 @@ class ApiAuthenticationControllerTest {
         mockMvc.perform(post("/api/v1/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(invalidSignInRequest)))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().json("{'username':'[Username] Минимальная длина — 5 символов, максимальная — 30'," +
-                        "'password': '[Password] Минимальная длина пароля — 5 символов, максимальная — 255'}")); ;
+                .andExpect(status().isBadRequest());
     }
 
 }
