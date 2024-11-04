@@ -9,7 +9,9 @@ public interface AccessTokenService {
 
     String generateToken(UserDetails userDetails);
 
-    boolean isTokenValid(String token, UserDetails userDetails);
+    boolean isValidAccessToken(String token, UserDetails userDetails);
+
+    boolean isValidAccessToken(String token);
 
     Key getSigningKey();
 

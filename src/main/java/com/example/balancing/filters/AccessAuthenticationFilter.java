@@ -62,7 +62,7 @@ public class AccessAuthenticationFilter extends OncePerRequestFilter {
                 UserDetails userDetails = userService.userDetailsService()
                         .loadUserByUsername(username);
 
-                if (accessTokenService.isTokenValid(jwt, userDetails)) {
+                if (accessTokenService.isValidAccessToken(jwt, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken =
                             new UsernamePasswordAuthenticationToken(
                                     userDetails, null, userDetails.getAuthorities()

@@ -6,7 +6,6 @@ import com.example.balancing.exception.user.UserNotFoundException;
 import com.example.balancing.models.user.User;
 import com.example.balancing.repositories.user.UserRepository;
 import com.example.balancing.utils.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

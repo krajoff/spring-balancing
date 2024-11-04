@@ -2,9 +2,11 @@ package com.example.balancing.repositories.token;
 
 import com.example.balancing.exception.token.RefreshTokenException;
 import com.example.balancing.models.token.RefreshToken;
+import com.example.balancing.models.user.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 

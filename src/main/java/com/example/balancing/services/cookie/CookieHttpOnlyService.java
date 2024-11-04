@@ -66,7 +66,7 @@ public class CookieHttpOnlyService {
     }
 
     public boolean isValidAccessToken(String accessToken) {
-        return accessTokenService.isTokenValid(accessToken);
+        return accessTokenService.isValidAccessToken(accessToken);
     }
 
     public boolean isValidAccessToken(HttpServletRequest request) {
@@ -99,6 +99,14 @@ public class CookieHttpOnlyService {
     public void clearCookies(HttpServletResponse response) {
         addCookie(response, ACCESS_COOKIE_NAME, null, "", 0);
         addCookie(response, REFRESH_COOKIE_NAME, null, "", 0);
+    }
+
+    public String getUsernameFromAccessToken(String accessToken) {
+        return accessTokenService.extractUsername(accessToken);
+    }
+
+    public String getUsernameFromRefreshToken(String refreshToken) {
+        return refreshTokenService.findByToken(refreshToken).getUser().getUsername();
     }
 
 }
