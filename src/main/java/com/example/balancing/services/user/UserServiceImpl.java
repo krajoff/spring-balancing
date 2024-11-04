@@ -24,19 +24,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     public User getUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(UserNotFoundException::new);
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
     public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
+    }
+
+    public User getUserByRefreshToken(String refreshToken) {
+        return userRepository.findByRefreshToken_Token(refreshToken).orElseThrow(UserNotFoundException::new);
     }
 
     public User createUser(User user) {
-        if (!userRepository.findByUsernameOrEmail
-                (user.getUsername(), user.getEmail()).isEmpty()) {
+        if (!userRepository.findByUsernameOrEmail(user.getUsername(), user.getEmail()).isEmpty())
             throw new UserAlreadyExistedException();
-        }
         return userRepository.save(user);
     }
 

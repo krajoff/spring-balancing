@@ -30,6 +30,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-logging'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'ch.qos.logback:logback-classic'
+    implementation 'com.github.gavlyukovskiy:datasource-proxy-spring-boot-starter:1.9.2'
+    implementation 'org.liquibase:liquibase-core'
 
     implementation group: 'org.springdoc',
             name: 'springdoc-openapi-starter-webmvc-ui', version: '2.0.3'

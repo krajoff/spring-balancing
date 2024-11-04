@@ -23,6 +23,8 @@ public interface UserService {
 
     User getUserByUsername(String username);
 
+    User getUserByRefreshToken(String refreshToken);
+
     UserDetailsService userDetailsService();
 
     User getCurrentUser();

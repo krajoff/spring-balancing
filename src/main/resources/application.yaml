@@ -5,8 +5,18 @@ spring:
     password: ${DB_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     properties:
       hibernate:
         format_sql: true
     show-sql: true
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog.yaml
+
+logging:
+  level:
+    net:
+      ttddyy:
+        dsproxy:
+          listener: debug
+

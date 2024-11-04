@@ -1,6 +1,6 @@
 package com.example.balancing.services.cookie;
 
-import com.example.balancing.exception.token.RefreshTokenNotFoundException;
+import com.example.balancing.models.token.RefreshToken;
 import com.example.balancing.payloads.requests.SignInRequest;
 import com.example.balancing.payloads.requests.SignUpRequest;
 import com.example.balancing.services.auth.AuthenticationService;
@@ -12,21 +12,21 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 @Service
 public class CookieHttpOnlyService {
 
-    private final String accessCookieName = "accessToken";
-    private final String accessCookiePath = "/";
-    private final String refreshCookieName = "refreshToken";
-    private final String refreshCookiePath = "/";
+    private final String ACCESS_COOKIE_NAME = "accessToken";
+    private final String ACCESS_COOKIE_PATH = "/";
+    private final String REFRESH_COOKIE_NAME = "refreshToken";
+    private final String REFRESH_COOKIE_PATH = "/";
     private final RefreshTokenService refreshTokenService;
     private final AccessTokenService accessTokenService;
     private final AuthenticationService authenticationService;
 
-    public CookieHttpOnlyService(RefreshTokenService refreshTokenService, AccessTokenService accessTokenService, AuthenticationService authenticationService) {
+    public CookieHttpOnlyService(RefreshTokenService refreshTokenService, AccessTokenService accessTokenService,
+                                 AuthenticationService authenticationService) {
         this.refreshTokenService = refreshTokenService;
         this.accessTokenService = accessTokenService;
         this.authenticationService = authenticationService;
@@ -34,22 +34,22 @@ public class CookieHttpOnlyService {
 
     public void signUp(SignUpRequest request, HttpServletResponse response) {
         var authResponse = authenticationService.signUp(request);
-        addTokensCookie(response, authResponse.getAccessToken(),
+        addAuthCookies(response, authResponse.getAccessToken(),
                 authResponse.getRefreshToken());
     }
 
     public void signIn(SignInRequest request, HttpServletResponse response) {
         var authResponse = authenticationService.signIn(request);
-        addTokensCookie(response, authResponse.getAccessToken(),
+        addAuthCookies(response, authResponse.getAccessToken(),
                 authResponse.getRefreshToken());
     }
 
     public Optional<String> getAccessToken(HttpServletRequest request) {
-        return getCookieValueByName(request, accessCookieName);
+        return getCookieValueByName(request, ACCESS_COOKIE_NAME);
     }
 
     public Optional<String> getRefreshToken(HttpServletRequest request) {
-        return getCookieValueByName(request, refreshCookieName);
+        return getCookieValueByName(request, REFRESH_COOKIE_NAME);
     }
 
     private Optional<String> getCookieValueByName(HttpServletRequest request, String name) {
@@ -57,46 +57,48 @@ public class CookieHttpOnlyService {
         return Optional.ofNullable(cookie).map(Cookie::getValue);
     }
 
-    public boolean isValidToken(String refreshToken){
+    public boolean isValidRefreshToken(String refreshToken) {
         return refreshTokenService.isValidExpiration(refreshToken);
     }
 
+    public boolean isValidRefreshToken(HttpServletRequest request) {
+        return getRefreshToken(request).map(this::isValidRefreshToken).orElse(false);
+    }
+
+    public boolean isValidAccessToken(String accessToken) {
+        return accessTokenService.isTokenValid(accessToken);
+    }
+
+    public boolean isValidAccessToken(HttpServletRequest request) {
+        return getAccessToken(request).map(this::isValidAccessToken).orElse(false);
+    }
+
+    private void addCookie(HttpServletResponse response, String name, String value, String path, int maxAge) {
+        Cookie cookie = new Cookie(name, value);
+        cookie.setHttpOnly(true);
+        cookie.setPath(path);
+        cookie.setMaxAge(maxAge);
+        response.addCookie(cookie);
+    }
+
     public void addAccessTokenCookie(HttpServletResponse response, String accessToken) {
-        Cookie accessCookie = new Cookie(accessCookieName, accessToken);
-        accessCookie.setHttpOnly(true);
-        accessCookie.setPath(accessCookiePath);
-        accessCookie.setMaxAge((int) (accessTokenService.getAccessTokenExpiration() / 1000));
-        response.addCookie(accessCookie);
+        addCookie(response, ACCESS_COOKIE_NAME, accessToken, ACCESS_COOKIE_PATH,
+                (int) (accessTokenService.getAccessTokenExpiration() / 1000));
     }
 
     public void addRefreshTokenCookie(HttpServletResponse response, String refreshToken) {
-        Cookie refreshCookie = new Cookie(refreshCookieName, refreshToken);
-        refreshCookie.setHttpOnly(true);
-        refreshCookie.setPath(refreshCookiePath);
-        refreshCookie.setMaxAge((int) (refreshTokenService.getRefreshTokenExpiration() / 1000));
-        response.addCookie(refreshCookie);
+        addCookie(response, REFRESH_COOKIE_NAME, refreshToken, REFRESH_COOKIE_PATH,
+                (int) (refreshTokenService.getRefreshTokenExpiration() / 1000));
     }
 
-    private void addTokensCookie(HttpServletResponse response,
-                                 String accessToken, String refreshToken) {
+    private void addAuthCookies(HttpServletResponse response, String accessToken, String refreshToken) {
         addAccessTokenCookie(response, accessToken);
         addRefreshTokenCookie(response, refreshToken);
     }
 
-
-
     public void clearCookies(HttpServletResponse response) {
-        Cookie accessCookie = new Cookie("accessToken", null);
-        accessCookie.setHttpOnly(true);
-        accessCookie.setPath("/");
-        accessCookie.setMaxAge(0);
-        response.addCookie(accessCookie);
-
-        Cookie refreshCookie = new Cookie("refreshToken", null);
-        refreshCookie.setHttpOnly(true);
-        refreshCookie.setPath("/");
-        refreshCookie.setMaxAge(0);
-        response.addCookie(refreshCookie);
+        addCookie(response, ACCESS_COOKIE_NAME, null, "", 0);
+        addCookie(response, REFRESH_COOKIE_NAME, null, "", 0);
     }
 
 }
