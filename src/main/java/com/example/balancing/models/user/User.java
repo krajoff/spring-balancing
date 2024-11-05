@@ -2,7 +2,6 @@ package com.example.balancing.models.user;
 
 import com.example.balancing.models.station.Station;
 import com.example.balancing.models.token.RefreshToken;
-import com.example.balancing.models.unit.Unit;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;

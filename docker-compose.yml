@@ -63,24 +63,3 @@ volumes:
 #    depends_on:
 #      psql-db:
 #        condition: service_healthy
-
-#  pgadmin:
-#    container_name: pgadmin_balancing
-#    image: dpage/pgadmin4:7
-#    depends_on:
-#      - postgres_db_balancing
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@example.com}
-#      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-#      PGADMIN_CONFIG_SERVER_MODE: 'False'
-#    volumes:
-#      - ./pgadmin:/var/lib/pgadmin
-#    ports:
-#      - ${PGADMIN_PORT:-5050}:80
-#    networks:
-#      - postgres_db_balancing
-#    restart: unless-stopped
-#
-#networks:
-#  postgres_db_balancing:
-#    driver: bridge

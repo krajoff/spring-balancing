@@ -5,7 +5,6 @@ import com.example.balancing.models.plane.Plane;
 import com.example.balancing.models.point.Point;
 import com.example.balancing.models.run.Run;
 import com.example.balancing.models.station.Station;
-import com.example.balancing.models.weight.Weight;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -13,8 +12,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Сущность агрегата. Представляет данные о конкретном агрегате,
