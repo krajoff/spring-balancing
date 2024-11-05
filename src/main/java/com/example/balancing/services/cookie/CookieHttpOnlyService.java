@@ -9,6 +9,7 @@ import com.example.balancing.services.tokens.refresh.RefreshTokenService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
 
@@ -94,6 +95,10 @@ public class CookieHttpOnlyService {
     private void addAuthCookies(HttpServletResponse response, String accessToken, String refreshToken) {
         addAccessTokenCookie(response, accessToken);
         addRefreshTokenCookie(response, refreshToken);
+    }
+
+    public String generateToken(UserDetails userDetails) {
+        return accessTokenService.generateToken(userDetails);
     }
 
     public void clearCookies(HttpServletResponse response) {

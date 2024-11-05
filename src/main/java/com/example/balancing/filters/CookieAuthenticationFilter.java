@@ -37,49 +37,52 @@ public class CookieAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        Optional<String> accessTokenOpt = cookieService.getAccessToken(request);
-        Optional<String> refreshTokenOpt = cookieService.getRefreshToken(request);
 
-        if (isValidAccessToken(accessTokenOpt, request)) {
-        } else if (isValidRefreshToken(refreshTokenOpt, response)) {
+        boolean isAuthenticated = authenticate(request, response);
+        if (isAuthenticated) {
+            filterChain.doFilter(request, response);
         } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-            return;
+            handleUnauthorized(response);
         }
-
-        // Continue with the filter chain
-        filterChain.doFilter(request, response);
     }
 
-    private boolean isValidAccessToken(Optional<String> accessTokenOpt, HttpServletRequest request) {
-        if (accessTokenOpt.isPresent() && cookieService.isValidAccessToken(accessTokenOpt.get())) {
-            String accessToken = accessTokenOpt.get();
-            String username = cookieService.getUsernameFromAccessToken(accessToken);
-            UserDetails userDetails = userService.userDetailsService().loadUserByUsername(username);
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                    userDetails, null, userDetails.getAuthorities());
-            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authToken);
+    private boolean authenticate(HttpServletRequest request, HttpServletResponse response) {
+        return cookieService.getAccessToken(request)
+                .filter(token -> authenticateUsingAccessToken(request, token))
+                .or(() -> cookieService.getRefreshToken(request)
+                        .filter(token -> authenticateUsingRefreshToken(request, response, token)))
+                .isPresent();
+    }
+
+    private void setAuthentication(HttpServletRequest request, String username) {
+        UserDetails userDetails = userService.userDetailsService().loadUserByUsername(username);
+        var authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authToken);
+    }
+
+    private boolean authenticateUsingAccessToken(HttpServletRequest request, String accessToken) {
+        if (cookieService.isValidAccessToken(accessToken) && SecurityContextHolder.getContext().getAuthentication() == null) {
+            setAuthentication(request, cookieService.getUsernameFromAccessToken(accessToken));
             return true;
         }
         return false;
     }
 
-    private boolean isValidRefreshToken(Optional<String> refreshTokenOpt, HttpServletResponse response) {
-        if (refreshTokenOpt.isPresent() && cookieService.isValidRefreshToken(refreshTokenOpt.get())) {
-            String refreshToken = refreshTokenOpt.get();
+    private boolean authenticateUsingRefreshToken(HttpServletRequest request, HttpServletResponse response, String refreshToken) {
+        if (cookieService.isValidRefreshToken(refreshToken) && SecurityContextHolder.getContext().getAuthentication() == null) {
             String username = cookieService.getUsernameFromRefreshToken(refreshToken);
             UserDetails userDetails = userService.userDetailsService().loadUserByUsername(username);
+            setAuthentication(request, username);
 
-            // Re-issue access token or perform additional logic to refresh the session
-            String newAccessToken = cookieService.refreshAccessToken(refreshToken); // Implement this method to refresh the access token
-            cookieService.addAccessTokenCookie(response, newAccessToken); // Add new access token cookie
-
-            // Create an authentication token and set it in the SecurityContext
-            BasicAuthenticationToken auth = new BasicAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(auth);
-            return true; // Refresh token is valid
+            String accessToken = cookieService.generateToken(userDetails);
+            cookieService.addAccessTokenCookie(response, accessToken);
+            return true;
         }
-        return false; // Refresh token is invalid
+        return false;
+    }
+
+    private void handleUnauthorized(HttpServletResponse response) throws IOException {
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: Invalid or missing token");
     }
 }
