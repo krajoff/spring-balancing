@@ -18108,3 +18108,1575 @@ Caused by: org.hibernate.tool.schema.spi.SchemaManagementException: Schema-valid
 	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
 	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
 	... 110 common frames omitted
+2024-11-05 18:36:43 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-11-05 18:36:43 INFO  c.e.balancing.BalancingApplication - Starting BalancingApplication using Java 17.0.6 with PID 21160 (D:\JAVA\spring-balancing\build\classes\java\main started by kraj in D:\JAVA\spring-balancing)
+2024-11-05 18:36:43 INFO  c.e.balancing.BalancingApplication - No active profile set, falling back to 1 default profile: "default"
+2024-11-05 18:36:43 INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-11-05 18:36:43 INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-11-05 18:36:44 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-05 18:36:44 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 78 ms. Found 10 JPA repository interfaces.
+2024-11-05 18:36:45 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-11-05 18:36:45 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-11-05 18:36:45 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-11-05 18:36:45 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-11-05 18:36:45 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-11-05 18:36:45 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1688 ms
+2024-11-05 18:36:45 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-11-05 18:36:45 INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6337e3ae
+2024-11-05 18:36:45 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-11-05 18:36:45 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:4, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["select version()"]
+Params:[]
+2024-11-05 18:36:45 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["select version()"]
+Params:[]
+2024-11-05 18:36:45 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["select setting from pg_settings where name = 'edb_redwood_date'"]
+Params:[]
+2024-11-05 18:36:45 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Callable, Batch:False, QuerySize:1, BatchSize:0
+Query:["select current_schema()"]
+Params:[()]
+2024-11-05 18:36:45 INFO  liquibase.database - Set default schema name to public
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL"]
+Params:[]
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangelog"]
+Params:[]
+2024-11-05 18:36:46 INFO  liquibase.changelog - Reading from public.databasechangelog
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC"]
+Params:[]
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangeloglock"]
+Params:[]
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:0, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangeloglock"]
+Params:[]
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SET SEARCH_PATH TO public, "$user","public""]
+Params:[]
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SET SEARCH_PATH TO public, "$user","public""]
+Params:[]
+2024-11-05 18:36:46 INFO  liquibase.ui - Database is up to date, no changesets to execute
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:0, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangelog"]
+Params:[]
+2024-11-05 18:36:46 INFO  liquibase.changelog - Reading from public.databasechangelog
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC"]
+Params:[]
+2024-11-05 18:36:46 INFO  liquibase.util - UPDATE SUMMARY
+2024-11-05 18:36:46 INFO  liquibase.util - Run:                          0
+2024-11-05 18:36:46 INFO  liquibase.util - Previously run:               1
+2024-11-05 18:36:46 INFO  liquibase.util - Filtered out:                 0
+2024-11-05 18:36:46 INFO  liquibase.util - -------------------------------
+2024-11-05 18:36:46 INFO  liquibase.util - Total change sets:            1
+2024-11-05 18:36:46 INFO  liquibase.util - Update summary generated
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SET SEARCH_PATH TO public, "$user","public""]
+Params:[]
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["UPDATE public.databasechangeloglock SET LOCKED = FALSE, LOCKEDBY = NULL, LOCKGRANTED = NULL WHERE ID = 1"]
+Params:[]
+2024-11-05 18:36:46 INFO  liquibase.lockservice - Successfully released change log lock
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 18:36:46 INFO  liquibase.command - Command execution complete
+2024-11-05 18:36:46 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-05 18:36:46 INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-05 18:36:46 INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-11-05 18:36:46 INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-05 18:36:46 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:3, Time:4, Success:True
+Type:Prepared, Batch:False, QuerySize:1, BatchSize:0
+Query:["select * from information_schema.sequences"]
+Params:[()]
+2024-11-05 18:36:47 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-05 18:36:47 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Prepared, Batch:False, QuerySize:1, BatchSize:0
+Query:["select * from information_schema.sequences"]
+Params:[()]
+2024-11-05 18:36:47 ERROR o.s.o.j.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing table [units_modes]
+2024-11-05 18:36:47 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'accessAuthenticationFilter' defined in file [D:\JAVA\spring-balancing\build\classes\java\main\com\example\balancing\filters\AccessAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userServiceImpl' defined in file [D:\JAVA\spring-balancing\build\classes\java\main\com\example\balancing\services\user\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.example.balancing.repositories.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+2024-11-05 18:36:47 INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2024-11-05 18:36:47 WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2024-11-05 18:36:47 WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [pool-2-thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2024-11-05 18:36:47 WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [HikariPool-1 connection adder] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:460)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2024-11-05 18:36:47 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+2024-11-05 18:36:47 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-11-05 18:36:47 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-11-05 18:36:47 INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-11-05 18:36:47 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:165)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:619)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.example.balancing.BalancingApplication.main(BalancingApplication.java:9)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:147)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:107)
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:516)
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:222)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:188)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:162)
+	... 13 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accessAuthenticationFilter' defined in file [D:\JAVA\spring-balancing\build\classes\java\main\com\example\balancing\filters\AccessAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userServiceImpl' defined in file [D:\JAVA\spring-balancing\build\classes\java\main\com\example\balancing\services\user\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.example.balancing.repositories.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:211)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:174)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:169)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:154)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:87)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:266)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:240)
+	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:52)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4414)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1203)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1193)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:749)
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:772)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1203)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1193)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:749)
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:203)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:415)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:874)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:437)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:128)
+	... 18 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userServiceImpl' defined in file [D:\JAVA\spring-balancing\build\classes\java\main\com\example\balancing\services\user\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.example.balancing.repositories.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
+	... 59 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userRepository' defined in com.example.balancing.repositories.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1705)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1454)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
+	... 73 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaSharedEM_entityManagerFactory': Cannot resolve reference to bean 'entityManagerFactory' while setting constructor argument
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:682)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:509)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
+	... 87 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing table [units_modes]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1806)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
+	... 99 common frames omitted
+Caused by: jakarta.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing table [units_modes]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:421)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802)
+	... 106 common frames omitted
+Caused by: org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing table [units_modes]
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.validateTable(AbstractSchemaValidator.java:135)
+	at org.hibernate.tool.schema.internal.GroupedSchemaValidatorImpl.validateTables(GroupedSchemaValidatorImpl.java:46)
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.performValidation(AbstractSchemaValidator.java:98)
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.doValidation(AbstractSchemaValidator.java:76)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:289)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:322)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:457)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1506)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	... 110 common frames omitted
+2024-11-05 19:08:06 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-11-05 19:08:06 INFO  c.e.balancing.BalancingApplication - Starting BalancingApplication using Java 17.0.6 with PID 968 (D:\JAVA\spring-balancing\build\classes\java\main started by kraj in D:\JAVA\spring-balancing)
+2024-11-05 19:08:06 INFO  c.e.balancing.BalancingApplication - No active profile set, falling back to 1 default profile: "default"
+2024-11-05 19:08:06 INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-11-05 19:08:06 INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-11-05 19:08:07 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-05 19:08:07 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 102 ms. Found 10 JPA repository interfaces.
+2024-11-05 19:08:09 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-11-05 19:08:09 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-11-05 19:08:09 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-11-05 19:08:09 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-11-05 19:08:09 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-11-05 19:08:09 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2556 ms
+2024-11-05 19:08:09 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-11-05 19:08:09 INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4a28d9a4
+2024-11-05 19:08:09 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-11-05 19:08:09 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:5, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["select version()"]
+Params:[]
+2024-11-05 19:08:09 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["select version()"]
+Params:[]
+2024-11-05 19:08:09 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["select setting from pg_settings where name = 'edb_redwood_date'"]
+Params:[]
+2024-11-05 19:08:09 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Callable, Batch:False, QuerySize:1, BatchSize:0
+Query:["select current_schema()"]
+Params:[()]
+2024-11-05 19:08:09 INFO  liquibase.database - Set default schema name to public
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT MD5SUM FROM public.databasechangelog WHERE MD5SUM IS NOT NULL"]
+Params:[]
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:0, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangelog"]
+Params:[]
+2024-11-05 19:08:10 INFO  liquibase.changelog - Reading from public.databasechangelog
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC"]
+Params:[]
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangeloglock"]
+Params:[]
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:0, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangeloglock"]
+Params:[]
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:0, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SET SEARCH_PATH TO public, "$user","public""]
+Params:[]
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:0, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:0, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SET SEARCH_PATH TO public, "$user","public""]
+Params:[]
+2024-11-05 19:08:10 INFO  liquibase.ui - Database is up to date, no changesets to execute
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangelog"]
+Params:[]
+2024-11-05 19:08:10 INFO  liquibase.changelog - Reading from public.databasechangelog
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC"]
+Params:[]
+2024-11-05 19:08:10 INFO  liquibase.util - UPDATE SUMMARY
+2024-11-05 19:08:10 INFO  liquibase.util - Run:                          0
+2024-11-05 19:08:10 INFO  liquibase.util - Previously run:               1
+2024-11-05 19:08:10 INFO  liquibase.util - Filtered out:                 0
+2024-11-05 19:08:10 INFO  liquibase.util - -------------------------------
+2024-11-05 19:08:10 INFO  liquibase.util - Total change sets:            1
+2024-11-05 19:08:10 INFO  liquibase.util - Update summary generated
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SET SEARCH_PATH TO public, "$user","public""]
+Params:[]
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["UPDATE public.databasechangeloglock SET LOCKED = FALSE, LOCKEDBY = NULL, LOCKGRANTED = NULL WHERE ID = 1"]
+Params:[]
+2024-11-05 19:08:10 INFO  liquibase.lockservice - Successfully released change log lock
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:08:10 INFO  liquibase.command - Command execution complete
+2024-11-05 19:08:10 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-05 19:08:10 INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-05 19:08:10 INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-11-05 19:08:10 INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-05 19:08:10 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:3, Time:4, Success:True
+Type:Prepared, Batch:False, QuerySize:1, BatchSize:0
+Query:["select * from information_schema.sequences"]
+Params:[()]
+2024-11-05 19:08:11 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Prepared, Batch:False, QuerySize:1, BatchSize:0
+Query:["select * from information_schema.sequences"]
+Params:[()]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:12, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists points 
+       alter column name set data type varchar(10)"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    create table units_modes (
+        unit_id bigint not null,
+        modes_id bigint not null
+    )"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    create table units_planes (
+        unit_id bigint not null,
+        planes_id bigint not null
+    )"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:12, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists users 
+       alter column username set data type varchar(50)"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists weights 
+       add column run_id bigint"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists weights 
+       add column run_weight_map_key bigint"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists units_modes 
+       drop constraint if exists UKm2mgoglc14shbsf2bxu8t6mxi"]
+Params:[]
+2024-11-05 19:08:11 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2024-11-05 19:08:11 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - constraint "ukm2mgoglc14shbsf2bxu8t6mxi" of relation "units_modes" does not exist, skipping
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:5, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists units_modes 
+       add constraint UKm2mgoglc14shbsf2bxu8t6mxi unique (modes_id)"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists units_planes 
+       drop constraint if exists UK2ee7h8egfk2fwvob2hbrg80jp"]
+Params:[]
+2024-11-05 19:08:11 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2024-11-05 19:08:11 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - constraint "uk2ee7h8egfk2fwvob2hbrg80jp" of relation "units_planes" does not exist, skipping
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:5, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists units_planes 
+       add constraint UK2ee7h8egfk2fwvob2hbrg80jp unique (planes_id)"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists weights 
+       drop constraint if exists UKb2jppqxxmfciu83c6hyio5ibu"]
+Params:[]
+2024-11-05 19:08:11 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2024-11-05 19:08:11 WARN  o.h.e.jdbc.spi.SqlExceptionHelper - constraint "ukb2jppqxxmfciu83c6hyio5ibu" of relation "weights" does not exist, skipping
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:5, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists weights 
+       add constraint UKb2jppqxxmfciu83c6hyio5ibu unique (run_id)"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    create sequence authorities_seq start with 1 increment by 50"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    create sequence modes_seq start with 1 increment by 50"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    create sequence planes_seq start with 1 increment by 50"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    create sequence points_seq start with 1 increment by 50"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    create sequence records_seq start with 1 increment by 50"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    create sequence runs_seq start with 1 increment by 50"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    create sequence stations_seq start with 1 increment by 50"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    create sequence units_seq start with 1 increment by 50"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    create sequence users_seq start with 1 increment by 50"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    create sequence weights_seq start with 1 increment by 50"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:4, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists authorities 
+       add constraint FKk91upmbueyim93v469wj7b2qh 
+       foreign key (user_id) 
+       references users"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:4, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists points 
+       add constraint FK36p9pf23gdqij0np2y00qp0jg 
+       foreign key (unit_id) 
+       references units"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:4, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists records 
+       add constraint FKkm0y6idvelrps2vjpsl1a295d 
+       foreign key (mode_id) 
+       references modes"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists records 
+       add constraint FKd1km5oy049wnlbcqsdxs6lbbu 
+       foreign key (point_id) 
+       references points"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists records 
+       add constraint FKfw4npq1nh771cdbqg7ts15fes 
+       foreign key (weight_id) 
+       references weights"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists refresh_tokens 
+       add constraint FK1lih5y2npsf8u5o3vhdb9y0os 
+       foreign key (user_id) 
+       references users"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:4, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists runs 
+       add constraint FK51cyp86qwd1we8aa60ihtv8qq 
+       foreign key (plane_id) 
+       references planes"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists runs 
+       add constraint FKq1ncdtuxkixy688ovb06ax5k3 
+       foreign key (unit_id) 
+       references units"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists runs 
+       add constraint FKbkl1sxhx5vmfvwg3iwyw4rtcx 
+       foreign key (weight_id) 
+       references weights"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists stations 
+       add constraint FK9qs1lewralq91jmofgv1p7qi2 
+       foreign key (user_id) 
+       references users"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists units 
+       add constraint FKex1v98y1kq02550j82b13r564 
+       foreign key (station_id) 
+       references stations"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists units_modes 
+       add constraint FKe7a6iaafauyyupvmliibwhqgk 
+       foreign key (modes_id) 
+       references modes"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:4, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists units_modes 
+       add constraint FK2wxr1we01q5bnyhrs3efvsgk4 
+       foreign key (unit_id) 
+       references units"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists units_planes 
+       add constraint FKry1ec32ho3f363m2w1i79a81b 
+       foreign key (planes_id) 
+       references planes"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists units_planes 
+       add constraint FK92w0qtb2amf2bmxdrpkgnhyyq 
+       foreign key (unit_id) 
+       references units"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:4, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists weights 
+       add constraint FKlrpwytcuowex70fvakab1c2c9 
+       foreign key (plane_id) 
+       references planes"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists weights 
+       add constraint FK91k8m7j53xogw8nf09nt2lfvr 
+       foreign key (run_id) 
+       references runs"]
+Params:[]
+2024-11-05 19:08:11 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["
+    alter table if exists weights 
+       add constraint FK4k01jqebbg60q333c3l28viau 
+       foreign key (run_weight_map_key) 
+       references runs"]
+Params:[]
+2024-11-05 19:08:11 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-05 19:08:12 INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-11-05 19:08:12 INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-11-05 19:08:12 WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-11-05 19:08:12 WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-05 19:08:14 INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2024-11-05 19:08:14 INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-11-05 19:08:14 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2024-11-05 19:08:14 INFO  c.e.balancing.BalancingApplication - Started BalancingApplication in 7.715 seconds (process running for 8.112)
+2024-11-05 19:15:29 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-11-05 19:15:29 INFO  c.e.balancing.BalancingApplication - Starting BalancingApplication using Java 17.0.6 with PID 21700 (D:\JAVA\spring-balancing\build\classes\java\main started by kraj in D:\JAVA\spring-balancing)
+2024-11-05 19:15:29 INFO  c.e.balancing.BalancingApplication - No active profile set, falling back to 1 default profile: "default"
+2024-11-05 19:15:29 INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-11-05 19:15:29 INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-11-05 19:15:30 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-05 19:15:30 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 69 ms. Found 10 JPA repository interfaces.
+2024-11-05 19:15:31 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-11-05 19:15:31 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-11-05 19:15:31 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-11-05 19:15:31 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-11-05 19:15:31 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-11-05 19:15:31 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1473 ms
+2024-11-05 19:15:31 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-11-05 19:15:32 INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7d30e72d
+2024-11-05 19:15:32 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-11-05 19:15:32 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:4, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["select version()"]
+Params:[]
+2024-11-05 19:15:32 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["select version()"]
+Params:[]
+2024-11-05 19:15:32 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["select setting from pg_settings where name = 'edb_redwood_date'"]
+Params:[]
+2024-11-05 19:15:32 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Callable, Batch:False, QuerySize:1, BatchSize:0
+Query:["select current_schema()"]
+Params:[()]
+2024-11-05 19:15:32 INFO  liquibase.database - Set default schema name to public
+2024-11-05 19:15:32 INFO  liquibase.changelog - Creating database history table with name: public.databasechangelog
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:879, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["CREATE TABLE public.databasechangelog (ID VARCHAR(255) NOT NULL, AUTHOR VARCHAR(255) NOT NULL, FILENAME VARCHAR(255) NOT NULL, DATEEXECUTED TIMESTAMP WITHOUT TIME ZONE NOT NULL, ORDEREXECUTED INTEGER NOT NULL, EXECTYPE VARCHAR(10) NOT NULL, MD5SUM VARCHAR(35), DESCRIPTION VARCHAR(255), COMMENTS VARCHAR(255), TAG VARCHAR(255), LIQUIBASE VARCHAR(20), CONTEXTS VARCHAR(255), LABELS VARCHAR(255), DEPLOYMENT_ID VARCHAR(10))"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangelog"]
+Params:[]
+2024-11-05 19:15:33 INFO  liquibase.changelog - Reading from public.databasechangelog
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:3, Success:False
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangeloglock"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:0, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SET SEARCH_PATH TO public, "$user","public""]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:147, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["CREATE TABLE public.databasechangeloglock (ID INTEGER NOT NULL, LOCKED BOOLEAN NOT NULL, LOCKGRANTED TIMESTAMP WITHOUT TIME ZONE, LOCKEDBY VARCHAR(255), CONSTRAINT databasechangeloglock_pkey PRIMARY KEY (ID))"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangeloglock"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["DELETE FROM public.databasechangeloglock"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["INSERT INTO public.databasechangeloglock (ID, LOCKED) VALUES (1, FALSE)"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:0, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangeloglock"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangeloglock"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:0, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["UPDATE public.databasechangeloglock SET LOCKED = TRUE, LOCKEDBY = 'DESKTOP-A4RTJQM (192.168.0.105)', LOCKGRANTED = NOW() WHERE ID = 1 AND LOCKED = FALSE"]
+Params:[]
+2024-11-05 19:15:33 INFO  liquibase.lockservice - Successfully acquired change log lock
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:15:33 INFO  liquibase.command - Using deploymentId: 0823333790
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangelog"]
+Params:[]
+2024-11-05 19:15:33 INFO  liquibase.changelog - Reading from public.databasechangelog
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC"]
+Params:[]
+2024-11-05 19:15:33 INFO  liquibase.ui - Running Changeset: db/changelog/db.changelog.yaml::initial_setup::krajoff
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:15:33 INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog.yaml::initial_setup::krajoff ran successfully in 3ms
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT MAX(ORDEREXECUTED) FROM public.databasechangelog"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('initial_setup', 'krajoff', 'db/changelog/db.changelog.yaml', NOW(), 1, '9:d41d8cd98f00b204e9800998ecf8427e', 'empty', '', 'EXECUTED', NULL, NULL, '4.27.0', '0823333790')"]
+Params:[]
+2024-11-05 19:15:33 INFO  liquibase.util - UPDATE SUMMARY
+2024-11-05 19:15:33 INFO  liquibase.util - Run:                          1
+2024-11-05 19:15:33 INFO  liquibase.util - Previously run:               0
+2024-11-05 19:15:33 INFO  liquibase.util - Filtered out:                 0
+2024-11-05 19:15:33 INFO  liquibase.util - -------------------------------
+2024-11-05 19:15:33 INFO  liquibase.util - Total change sets:            1
+2024-11-05 19:15:33 INFO  liquibase.util - Update summary generated
+2024-11-05 19:15:33 INFO  liquibase.command - Update command completed successfully.
+2024-11-05 19:15:33 INFO  liquibase.ui - Liquibase: Update has been successful. Rows affected: 1
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["UPDATE public.databasechangeloglock SET LOCKED = FALSE, LOCKEDBY = NULL, LOCKGRANTED = NULL WHERE ID = 1"]
+Params:[]
+2024-11-05 19:15:33 INFO  liquibase.lockservice - Successfully released change log lock
+2024-11-05 19:15:33 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:15:33 INFO  liquibase.command - Command execution complete
+2024-11-05 19:15:34 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-05 19:15:34 INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-05 19:15:34 INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-11-05 19:15:34 INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-05 19:15:34 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:3, Time:4, Success:True
+Type:Prepared, Batch:False, QuerySize:1, BatchSize:0
+Query:["select * from information_schema.sequences"]
+Params:[()]
+2024-11-05 19:15:35 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-05 19:15:35 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Prepared, Batch:False, QuerySize:1, BatchSize:0
+Query:["select * from information_schema.sequences"]
+Params:[()]
+2024-11-05 19:15:35 ERROR o.s.o.j.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing column [run_id] in table [weights]
+2024-11-05 19:15:35 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'accessAuthenticationFilter' defined in file [D:\JAVA\spring-balancing\build\classes\java\main\com\example\balancing\filters\AccessAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userServiceImpl' defined in file [D:\JAVA\spring-balancing\build\classes\java\main\com\example\balancing\services\user\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.example.balancing.repositories.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+2024-11-05 19:15:35 INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2024-11-05 19:15:35 WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2024-11-05 19:15:35 WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [pool-2-thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2024-11-05 19:15:35 WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [HikariPool-1 connection adder] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:460)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2024-11-05 19:15:35 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+2024-11-05 19:15:35 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-11-05 19:15:35 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-11-05 19:15:35 INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-11-05 19:15:35 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:165)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:619)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.example.balancing.BalancingApplication.main(BalancingApplication.java:9)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:147)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:107)
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:516)
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:222)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:188)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:162)
+	... 13 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accessAuthenticationFilter' defined in file [D:\JAVA\spring-balancing\build\classes\java\main\com\example\balancing\filters\AccessAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userServiceImpl' defined in file [D:\JAVA\spring-balancing\build\classes\java\main\com\example\balancing\services\user\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.example.balancing.repositories.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:211)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:174)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:169)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:154)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:87)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:266)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:240)
+	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:52)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4414)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1203)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1193)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:749)
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:772)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1203)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1193)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:749)
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:203)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:415)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:874)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:437)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:128)
+	... 18 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userServiceImpl' defined in file [D:\JAVA\spring-balancing\build\classes\java\main\com\example\balancing\services\user\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.example.balancing.repositories.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
+	... 59 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userRepository' defined in com.example.balancing.repositories.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1705)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1454)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
+	... 73 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaSharedEM_entityManagerFactory': Cannot resolve reference to bean 'entityManagerFactory' while setting constructor argument
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:682)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:509)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
+	... 87 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing column [run_id] in table [weights]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1806)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
+	... 99 common frames omitted
+Caused by: jakarta.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing column [run_id] in table [weights]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:421)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802)
+	... 106 common frames omitted
+Caused by: org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing column [run_id] in table [weights]
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.validateTable(AbstractSchemaValidator.java:148)
+	at org.hibernate.tool.schema.internal.GroupedSchemaValidatorImpl.validateTables(GroupedSchemaValidatorImpl.java:46)
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.performValidation(AbstractSchemaValidator.java:98)
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.doValidation(AbstractSchemaValidator.java:76)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:289)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:322)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:457)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1506)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	... 110 common frames omitted
+2024-11-05 19:21:00 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2024-11-05 19:21:00 INFO  c.e.balancing.BalancingApplication - Starting BalancingApplication using Java 17.0.6 with PID 21896 (D:\JAVA\spring-balancing\build\classes\java\main started by kraj in D:\JAVA\spring-balancing)
+2024-11-05 19:21:00 INFO  c.e.balancing.BalancingApplication - No active profile set, falling back to 1 default profile: "default"
+2024-11-05 19:21:00 INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-11-05 19:21:00 INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-11-05 19:21:01 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-05 19:21:01 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 76 ms. Found 10 JPA repository interfaces.
+2024-11-05 19:21:02 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-11-05 19:21:02 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-11-05 19:21:02 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-11-05 19:21:02 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-11-05 19:21:02 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-11-05 19:21:02 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1562 ms
+2024-11-05 19:21:02 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-11-05 19:21:02 INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@68a9028a
+2024-11-05 19:21:02 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-11-05 19:21:02 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:3, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["select version()"]
+Params:[]
+2024-11-05 19:21:02 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["select version()"]
+Params:[]
+2024-11-05 19:21:02 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:4, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["select setting from pg_settings where name = 'edb_redwood_date'"]
+Params:[]
+2024-11-05 19:21:02 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Callable, Batch:False, QuerySize:1, BatchSize:0
+Query:["select current_schema()"]
+Params:[()]
+2024-11-05 19:21:02 INFO  liquibase.database - Set default schema name to public
+2024-11-05 19:21:03 INFO  liquibase.changelog - Creating database history table with name: public.databasechangelog
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:15, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["CREATE TABLE public.databasechangelog (ID VARCHAR(255) NOT NULL, AUTHOR VARCHAR(255) NOT NULL, FILENAME VARCHAR(255) NOT NULL, DATEEXECUTED TIMESTAMP WITHOUT TIME ZONE NOT NULL, ORDEREXECUTED INTEGER NOT NULL, EXECTYPE VARCHAR(10) NOT NULL, MD5SUM VARCHAR(35), DESCRIPTION VARCHAR(255), COMMENTS VARCHAR(255), TAG VARCHAR(255), LIQUIBASE VARCHAR(20), CONTEXTS VARCHAR(255), LABELS VARCHAR(255), DEPLOYMENT_ID VARCHAR(10))"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangelog"]
+Params:[]
+2024-11-05 19:21:03 INFO  liquibase.changelog - Reading from public.databasechangelog
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:2, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:4, Success:False
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangeloglock"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:0, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:0, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SET SEARCH_PATH TO public, "$user","public""]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:5, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["CREATE TABLE public.databasechangeloglock (ID INTEGER NOT NULL, LOCKED BOOLEAN NOT NULL, LOCKGRANTED TIMESTAMP WITHOUT TIME ZONE, LOCKEDBY VARCHAR(255), CONSTRAINT databasechangeloglock_pkey PRIMARY KEY (ID))"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangeloglock"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["DELETE FROM public.databasechangeloglock"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["INSERT INTO public.databasechangeloglock (ID, LOCKED) VALUES (1, FALSE)"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:0, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangeloglock"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangeloglock"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:0, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT LOCKED FROM public.databasechangeloglock WHERE ID=1"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["UPDATE public.databasechangeloglock SET LOCKED = TRUE, LOCKEDBY = 'DESKTOP-A4RTJQM (192.168.0.105)', LOCKGRANTED = NOW() WHERE ID = 1 AND LOCKED = FALSE"]
+Params:[]
+2024-11-05 19:21:03 INFO  liquibase.lockservice - Successfully acquired change log lock
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:21:03 INFO  liquibase.command - Using deploymentId: 0823663405
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT COUNT(*) FROM public.databasechangelog"]
+Params:[]
+2024-11-05 19:21:03 INFO  liquibase.changelog - Reading from public.databasechangelog
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:0, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT * FROM public.databasechangelog ORDER BY DATEEXECUTED ASC, ORDEREXECUTED ASC"]
+Params:[]
+2024-11-05 19:21:03 INFO  liquibase.ui - Running Changeset: db/changelog/db.changelog.yaml::initial_setup::krajoff
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:21:03 INFO  liquibase.changelog - ChangeSet db/changelog/db.changelog.yaml::initial_setup::krajoff ran successfully in 3ms
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SELECT MAX(ORDEREXECUTED) FROM public.databasechangelog"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('initial_setup', 'krajoff', 'db/changelog/db.changelog.yaml', NOW(), 1, '9:d41d8cd98f00b204e9800998ecf8427e', 'empty', '', 'EXECUTED', NULL, NULL, '4.27.0', '0823663405')"]
+Params:[]
+2024-11-05 19:21:03 INFO  liquibase.util - UPDATE SUMMARY
+2024-11-05 19:21:03 INFO  liquibase.util - Run:                          1
+2024-11-05 19:21:03 INFO  liquibase.util - Previously run:               0
+2024-11-05 19:21:03 INFO  liquibase.util - Filtered out:                 0
+2024-11-05 19:21:03 INFO  liquibase.util - -------------------------------
+2024-11-05 19:21:03 INFO  liquibase.util - Total change sets:            1
+2024-11-05 19:21:03 INFO  liquibase.util - Update summary generated
+2024-11-05 19:21:03 INFO  liquibase.command - Update command completed successfully.
+2024-11-05 19:21:03 INFO  liquibase.ui - Liquibase: Update has been successful. Rows affected: 1
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["UPDATE public.databasechangeloglock SET LOCKED = FALSE, LOCKEDBY = NULL, LOCKGRANTED = NULL WHERE ID = 1"]
+Params:[]
+2024-11-05 19:21:03 INFO  liquibase.lockservice - Successfully released change log lock
+2024-11-05 19:21:03 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:1, Time:1, Success:True
+Type:Statement, Batch:False, QuerySize:1, BatchSize:0
+Query:["SHOW SEARCH_PATH"]
+Params:[]
+2024-11-05 19:21:03 INFO  liquibase.command - Command execution complete
+2024-11-05 19:21:03 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-05 19:21:03 INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-11-05 19:21:03 INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-11-05 19:21:03 INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-05 19:21:04 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:3, Time:4, Success:True
+Type:Prepared, Batch:False, QuerySize:1, BatchSize:0
+Query:["select * from information_schema.sequences"]
+Params:[()]
+2024-11-05 19:21:04 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-05 19:21:04 DEBUG n.t.d.l.l.SLF4JQueryLoggingListener - 
+Name:dataSource, Connection:4, Time:2, Success:True
+Type:Prepared, Batch:False, QuerySize:1, BatchSize:0
+Query:["select * from information_schema.sequences"]
+Params:[()]
+2024-11-05 19:21:04 ERROR o.s.o.j.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing sequence [authorities_seq]
+2024-11-05 19:21:04 ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'accessAuthenticationFilter' defined in file [D:\JAVA\spring-balancing\build\classes\java\main\com\example\balancing\filters\AccessAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userServiceImpl' defined in file [D:\JAVA\spring-balancing\build\classes\java\main\com\example\balancing\services\user\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.example.balancing.repositories.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+2024-11-05 19:21:04 INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2024-11-05 19:21:04 WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2024-11-05 19:21:04 WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [pool-2-thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.6/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2024-11-05 19:21:04 WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [HikariPool-1 connection adder] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.6/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.6/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.6/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.6/java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:460)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.6/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.6/java.lang.Thread.run(Thread.java:833)
+2024-11-05 19:21:04 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
+2024-11-05 19:21:04 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-11-05 19:21:04 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-11-05 19:21:04 INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-11-05 19:21:04 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:165)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:619)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.example.balancing.BalancingApplication.main(BalancingApplication.java:9)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:147)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:107)
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:516)
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:222)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:188)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:162)
+	... 13 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'accessAuthenticationFilter' defined in file [D:\JAVA\spring-balancing\build\classes\java\main\com\example\balancing\filters\AccessAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userServiceImpl' defined in file [D:\JAVA\spring-balancing\build\classes\java\main\com\example\balancing\services\user\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.example.balancing.repositories.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:211)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:174)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:169)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:154)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:87)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:266)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:240)
+	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:52)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4414)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1203)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1193)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:749)
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:772)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1203)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1193)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:749)
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:203)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:415)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:874)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:437)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:128)
+	... 18 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userServiceImpl' defined in file [D:\JAVA\spring-balancing\build\classes\java\main\com\example\balancing\services\user\UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.example.balancing.repositories.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1375)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1212)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
+	... 59 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userRepository' defined in com.example.balancing.repositories.user.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1705)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1454)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
+	... 73 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaSharedEM_entityManagerFactory': Cannot resolve reference to bean 'entityManagerFactory' while setting constructor argument
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:682)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:509)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
+	... 87 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing sequence [authorities_seq]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1806)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
+	... 99 common frames omitted
+Caused by: jakarta.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing sequence [authorities_seq]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:421)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802)
+	... 106 common frames omitted
+Caused by: org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing sequence [authorities_seq]
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.validateSequence(AbstractSchemaValidator.java:185)
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.performValidation(AbstractSchemaValidator.java:114)
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.doValidation(AbstractSchemaValidator.java:76)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:289)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:322)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:457)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1506)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	... 110 common frames omitted
