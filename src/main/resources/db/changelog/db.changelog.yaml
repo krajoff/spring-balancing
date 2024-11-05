@@ -1,0 +1,6 @@
+databaseChangeLog:
+  - changeSet:
+      id: initial_setup
+      author: krajoff
+      changes:
+        - comment: "Initial setup - no changes"

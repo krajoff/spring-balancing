@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  postgres_db_balancing:
+  postgres:
     image: postgres:13.2-alpine
     container_name: postgres_db_balancing
     restart: always
@@ -15,12 +15,37 @@ services:
     ports:
       - '5432:5432'
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -h psql-db"]
-      interval: 1s
+      test: ["CMD-SHELL", "pg_isready -h postgres"]
+      interval: 5s
       timeout: 5s
       retries: 10
-#    networks:
-#      - postgres_db_balancing
+    networks:
+      - postgres
+
+  pgadmin:
+    container_name: pgadmin_balancing
+    image: dpage/pgadmin4:7
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@example.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_DATA_DIR: "/var/lib/pgadmin"
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - ${PGADMIN_PORT:-5050}:80
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  pgadmin-data:
 
 #  webapp:
 #    container_name: balancing-app

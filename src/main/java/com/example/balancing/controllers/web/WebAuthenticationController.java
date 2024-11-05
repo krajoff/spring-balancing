@@ -35,7 +35,7 @@ public class WebAuthenticationController {
 
     @GetMapping("/login")
     public String showLoginForm(HttpServletRequest request) {
-        return cookieService.isValidToken(request) ? "redirect:/user" : "auth/login";
+        return cookieService.isValidAccessToken(request) ? "redirect:/user" : "auth/login";
     }
 
     @PostMapping("/login")

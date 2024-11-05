@@ -33,6 +33,7 @@ improving machine performance, efficiency, and extending the life of various com
 1. docker-compose up
 2. frontend address by default is http://localhost:8080/
 3. backend swagger is available at http://localhost:8080/swagger-ui/index.html
+4. pgadmin is avaliable at http://localhost:5050
 
 </details>
 
