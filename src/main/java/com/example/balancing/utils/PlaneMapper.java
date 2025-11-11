@@ -1,7 +1,7 @@
 package com.example.balancing.utils;
 
-import com.example.balancing.dtos.plane.PlaneDto;
-import com.example.balancing.models.plane.Plane;
+import com.example.balancing.dto.plane.PlaneDto;
+import com.example.balancing.entity.plane.Plane;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

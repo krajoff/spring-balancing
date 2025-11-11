@@ -1,6 +1,6 @@
 package com.example.balancing.services.run;
 
-import com.example.balancing.models.run.Run;
+import com.example.balancing.entity.run.Run;
 
 import java.util.List;
 

@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.security.Key;
 
 public interface AccessTokenService {
+
     String extractUsername(String token);
 
     String generateToken(UserDetails userDetails);
@@ -16,4 +17,5 @@ public interface AccessTokenService {
     Key getSigningKey();
 
     long getAccessTokenExpiration();
+
 }

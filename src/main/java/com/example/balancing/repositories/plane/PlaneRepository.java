@@ -1,6 +1,6 @@
 package com.example.balancing.repositories.plane;
 
-import com.example.balancing.models.plane.Plane;
+import com.example.balancing.entity.plane.Plane;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

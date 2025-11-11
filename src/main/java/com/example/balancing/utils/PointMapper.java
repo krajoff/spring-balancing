@@ -1,8 +1,8 @@
 package com.example.balancing.utils;
 
-import com.example.balancing.dtos.point.PointDto;
-import com.example.balancing.dtos.point.SimplifiedPointDto;
-import com.example.balancing.models.point.Point;
+import com.example.balancing.dto.point.PointDto;
+import com.example.balancing.dto.point.SimplifiedPointDto;
+import com.example.balancing.entity.point.Point;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

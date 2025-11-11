@@ -1,7 +1,7 @@
 package com.example.balancing.utils;
 
-import com.example.balancing.dtos.weight.WeightDto;
-import com.example.balancing.models.weight.Weight;
+import com.example.balancing.dto.weight.WeightDto;
+import com.example.balancing.entity.weight.Weight;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

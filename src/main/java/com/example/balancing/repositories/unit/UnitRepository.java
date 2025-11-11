@@ -1,6 +1,6 @@
 package com.example.balancing.repositories.unit;
 
-import com.example.balancing.models.unit.Unit;
+import com.example.balancing.entity.unit.Unit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

@@ -1,11 +1,11 @@
 package com.example.balancing.services.unit;
 
 import com.example.balancing.exception.unit.UnitNotFoundException;
-import com.example.balancing.models.complex.Complex;
-import com.example.balancing.models.record.Record;
-import com.example.balancing.models.run.Run;
-import com.example.balancing.models.unit.Unit;
-import com.example.balancing.models.weight.Weight;
+import com.example.balancing.vo.complex.Complex;
+import com.example.balancing.entity.record.Record;
+import com.example.balancing.entity.run.Run;
+import com.example.balancing.entity.unit.Unit;
+import com.example.balancing.entity.weight.Weight;
 import com.example.balancing.repositories.unit.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

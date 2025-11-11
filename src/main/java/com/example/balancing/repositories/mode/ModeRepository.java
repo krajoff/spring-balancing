@@ -1,6 +1,6 @@
 package com.example.balancing.repositories.mode;
 
-import com.example.balancing.models.mode.Mode;
+import com.example.balancing.entity.mode.Mode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

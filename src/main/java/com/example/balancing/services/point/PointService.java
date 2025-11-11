@@ -1,6 +1,6 @@
 package com.example.balancing.services.point;
 
-import com.example.balancing.models.point.Point;
+import com.example.balancing.entity.point.Point;
 
 public interface PointService {
     Point getPointById(Long id);

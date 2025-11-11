@@ -1,6 +1,6 @@
 package com.example.balancing.services.plane;
 
-import com.example.balancing.models.plane.Plane;
+import com.example.balancing.entity.plane.Plane;
 
 public interface PlaneService {
     Plane getPlaneById(Long id);

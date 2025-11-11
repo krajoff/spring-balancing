@@ -1,8 +1,6 @@
 package com.example.balancing.services.record;
 
-import com.example.balancing.models.record.Record;
-
-import java.util.List;
+import com.example.balancing.entity.record.Record;
 
 public interface RecordService {
     Record getRecordById(Long id);

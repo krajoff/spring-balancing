@@ -1,6 +1,6 @@
 package com.example.balancing.services.station;
 
-import com.example.balancing.models.station.Station;
+import com.example.balancing.entity.station.Station;
 
 public interface StationService {
 

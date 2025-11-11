@@ -1,17 +1,29 @@
 spring:
   datasource:
-    url: ${DB_URL}?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/balancing}
+    username: ${DATABASE_USERNAME:demo}
+    password: ${DATABASE_PASSWORD:demo}
+    hikari:
+      maximum-pool-size: ${DATABASE_MAX_POOL_SIZE:10}
+      minimum-idle: ${DATABASE_MIN_IDLE:2}
+      idle-timeout: ${DATABASE_IDLE_TIMEOUT:30000}
   jpa:
-    hibernate:
-      ddl-auto: validate
-    properties:
-      hibernate:
-        format_sql: true
-    show-sql: true
+    generate-ddl: false
+    hibernate.ddl-auto: ${DATABASE_JPA_DDL:none}
+    properties.hibernate.jdbc.lob.non_contextual_creation: true
   liquibase:
     change-log: classpath:db/changelog/db.changelog.yaml
+
+server:
+  port: 5612
+
+application:
+  token:
+    refresh:
+      expiration: ${REFRESH_TOKEN_EXPIRATION:14d}
+    access:
+      secret: ${ACCESS_TOKEN_SECRET:dGhlZXJvYXJ1cHdhcmRzdGlja2dyYXZpdHlmaWZ0eXNoYWtlY2FuaHVzYmFuZHB1cmU=}
+      expiration: ${ACCESS_TOKEN_EXPIRATION:30m}
 
 logging:
   level:
@@ -20,3 +32,11 @@ logging:
         dsproxy:
           listener: debug
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, info, prometheus, readonly
+
+readonly:
+  regime: ${READONLY_REGIME:false}

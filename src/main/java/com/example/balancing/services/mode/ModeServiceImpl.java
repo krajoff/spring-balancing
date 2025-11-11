@@ -1,7 +1,7 @@
 package com.example.balancing.services.mode;
 
 import com.example.balancing.exception.mode.ModeNotFoundException;
-import com.example.balancing.models.mode.Mode;
+import com.example.balancing.entity.mode.Mode;
 import com.example.balancing.repositories.mode.ModeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

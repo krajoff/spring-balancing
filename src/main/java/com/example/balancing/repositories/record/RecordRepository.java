@@ -1,7 +1,7 @@
 package com.example.balancing.repositories.record;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.balancing.models.record.Record;
+import com.example.balancing.entity.record.Record;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 

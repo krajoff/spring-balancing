@@ -1,7 +1,7 @@
 package com.example.balancing.services.station;
 
 import com.example.balancing.exception.station.StationNotFoundException;
-import com.example.balancing.models.station.Station;
+import com.example.balancing.entity.station.Station;
 import com.example.balancing.repositories.station.StationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

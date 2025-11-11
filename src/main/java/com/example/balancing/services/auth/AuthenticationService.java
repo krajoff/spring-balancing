@@ -7,14 +7,13 @@ import com.example.balancing.payloads.requests.RefreshTokenRequest;
 import com.example.balancing.payloads.responses.AuthenticationResponse;
 import com.example.balancing.payloads.requests.SignInRequest;
 import com.example.balancing.payloads.requests.SignUpRequest;
-import com.example.balancing.models.user.Role;
-import com.example.balancing.models.user.User;
+import com.example.balancing.entity.user.Role;
+import com.example.balancing.entity.user.User;
 import com.example.balancing.services.tokens.access.AccessTokenService;
 import com.example.balancing.services.tokens.refresh.RefreshTokenService;
 import com.example.balancing.services.user.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,34 +33,23 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
-    /**
-     * Регистрация пользователя (по умолчанию у всех роль ROLE_USER)
-     *
-     * @param request {@link SignUpRequest}
-     * @return Рефреш- и аксес-токены
-     */
     public AuthenticationResponse signUp(SignUpRequest request) {
 
         try {
-
             log.info("Signing up user with username: {}", request.getUsername());
-            User user = User.builder()
-                    .username(request.getUsername())
-                    .email(request.getEmail())
-                    .password(passwordEncoder.encode(request.getPassword()))
-                    .role(Role.ROLE_USER)
-                    .build();
+            User user = new User();
+            user.setUsername(request.getUsername());
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+            user.setEmail(request.getEmail());
+            user.setRole(Role.ROLE_USER);
 
-            // Сохранение информации о пользователе
             log.info("Creating user: {}", user.getUsername());
             userService.createUser(user);
 
-            // Генерация токенов
-            var accessToken = accessTokenService.generateToken(user);
-            var refreshToken = refreshTokenService.create(user).getToken();
+            String accessToken = accessTokenService.generateToken(user);
+            String refreshToken = refreshTokenService.save(user).getToken();
 
-            log.info("User {} successfully signed up, tokens generated.",
-                    user.getUsername());
+            log.info("User {} successfully signed up, tokens generated.", user.getUsername());
 
             return new AuthenticationResponse(accessToken, refreshToken);
 

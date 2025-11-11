@@ -1,9 +1,9 @@
 package com.example.balancing.services.user;
 
-import com.example.balancing.dtos.user.UserDto;
+import com.example.balancing.dto.user.UserDto;
+import com.example.balancing.entity.user.User;
 import com.example.balancing.exception.user.UserAlreadyExistedException;
 import com.example.balancing.exception.user.UserNotFoundException;
-import com.example.balancing.models.user.User;
 import com.example.balancing.repositories.user.UserRepository;
 import com.example.balancing.utils.UserMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,32 +26,26 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 
-    public User getUserByRefreshToken(String refreshToken) {
-        return userRepository.findByRefreshToken_Token(refreshToken).orElseThrow(UserNotFoundException::new);
+    public void createUser(User user) {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) throw new UserAlreadyExistedException();
+        userRepository.save(user);
     }
 
-    public User createUser(User user) {
-        if (!userRepository.findByUsernameOrEmail(user.getUsername(), user.getEmail()).isEmpty())
-            throw new UserAlreadyExistedException();
-        return userRepository.save(user);
-    }
-
-    public User updateUser(Long id, User user) {
-        User existingUser = getUserById(id);
+    public User updateUser(User user) {
+        User existingUser = getUserById(user.getId());
         existingUser.setEmail(user.getEmail());
         existingUser.setPassword(user.getPassword());
-        return existingUser;
+        return userRepository.save(existingUser);
     }
 
-    public User updateByUsername(String username, User user) {
-        User existingUser = getUserByUsername(username);
-        existingUser.setEmail(user.getEmail());
+    public User updateByEmail(String email, User user) {
+        User existingUser = getUserByEmail(email);
         existingUser.setPassword(user.getPassword());
-        return existingUser;
+        return userRepository.save(existingUser);
     }
 
     public void deleteUser(Long id) {
@@ -62,28 +56,30 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userRepository.deleteByUsername(username);
     }
 
-    public UserDetails loadUserByUsername(String username) {
-        return getUserByUsername(username);
+    public UserDetails loadUserByUsername(String email) {
+        return getUserByEmail(email);
     }
 
     public UserDetailsService userDetailsService() {
-        return this::getUserByUsername;
+        return this::getUserByEmail;
     }
 
     public User getCurrentUser() {
-        var username = SecurityContextHolder
-                .getContext()
+        var username = SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getName();
         return getUserByUsername(username);
     }
 
     public UserDto getCurrentUserDto() {
-        var username = SecurityContextHolder
-                .getContext()
+        var username = SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getName();
-        return userMapper.userToUserDto(getUserByUsername(username));
+        return userMapper.entityToDto(getUserByUsername(username));
+    }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
     }
 
 }

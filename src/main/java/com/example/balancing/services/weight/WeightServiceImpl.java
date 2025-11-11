@@ -1,15 +1,10 @@
 package com.example.balancing.services.weight;
 
 import com.example.balancing.exception.weight.WeightNotFoundException;
-import com.example.balancing.models.unit.Unit;
-import com.example.balancing.models.weight.Weight;
+import com.example.balancing.entity.weight.Weight;
 import com.example.balancing.repositories.weight.WeightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class WeightServiceImpl implements WeightService {

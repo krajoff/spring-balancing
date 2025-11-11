@@ -1,8 +1,8 @@
 package com.example.balancing.services.weight;
 
-import com.example.balancing.models.complex.Complex;
-import com.example.balancing.models.record.Record;
-import com.example.balancing.models.weight.Weight;
+import com.example.balancing.vo.complex.Complex;
+import com.example.balancing.entity.record.Record;
+import com.example.balancing.entity.weight.Weight;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

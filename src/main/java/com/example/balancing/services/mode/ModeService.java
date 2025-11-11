@@ -1,6 +1,6 @@
 package com.example.balancing.services.mode;
 
-import com.example.balancing.models.mode.Mode;
+import com.example.balancing.entity.mode.Mode;
 
 public interface ModeService {
     Mode getModeById(Long id);

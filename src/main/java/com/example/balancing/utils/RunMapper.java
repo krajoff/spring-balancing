@@ -1,14 +1,13 @@
 package com.example.balancing.utils;
 
-import com.example.balancing.dtos.run.SimplifiedRunDto;
-import com.example.balancing.dtos.run.RunDto;
-import com.example.balancing.models.run.Run;
+import com.example.balancing.dto.run.SimplifiedRunDto;
+import com.example.balancing.dto.run.RunDto;
+import com.example.balancing.entity.run.Run;
 import com.example.balancing.services.run.RunService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 
 @Mapper(componentModel = "spring", uses = {PlaneMapper.class,
         WeightMapper.class})

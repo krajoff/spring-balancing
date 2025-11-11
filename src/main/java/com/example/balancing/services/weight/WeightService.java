@@ -1,6 +1,6 @@
 package com.example.balancing.services.weight;
 
-import com.example.balancing.models.weight.Weight;
+import com.example.balancing.entity.weight.Weight;
 
 public interface WeightService {
 

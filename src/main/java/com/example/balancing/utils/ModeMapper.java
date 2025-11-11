@@ -1,7 +1,7 @@
 package com.example.balancing.utils;
 
-import com.example.balancing.dtos.mode.ModeDto;
-import com.example.balancing.models.mode.Mode;
+import com.example.balancing.dto.mode.ModeDto;
+import com.example.balancing.entity.mode.Mode;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -12,24 +12,12 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public abstract class ModeMapper {
 
-    /**
-     * Преобразует сущность Mode в ModeDto.
-     *
-     * @param mode сущность Mode
-     * @return объект ModeDto
-     */
-    public abstract ModeDto modeToModeDto(Mode mode);
+    public abstract ModeDto entityToDto(Mode mode);
 
-    /**
-     * Преобразует сущность ModeDto to Mode.
-     *
-     * @param modeDto сущность ModeDto
-     * @return объект Mode
-     */
     @Mapping(target = "records", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "createdOn", ignore = true)
+    @Mapping(target = "updatedOn", ignore = true)
     @Mapping(target = "version", ignore = true)
-    public abstract Mode modeDtoToMode(ModeDto modeDto);
+    public abstract Mode dtoToEntity(ModeDto modeDto);
 
 }

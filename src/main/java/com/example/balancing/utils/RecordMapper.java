@@ -1,7 +1,7 @@
 package com.example.balancing.utils;
 
-import com.example.balancing.dtos.record.RecordDto;
-import com.example.balancing.models.record.Record;
+import com.example.balancing.dto.record.RecordDto;
+import com.example.balancing.entity.record.Record;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

@@ -1,6 +1,6 @@
 package com.example.balancing.repositories.weight;
 
-import com.example.balancing.models.weight.Weight;
+import com.example.balancing.entity.weight.Weight;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

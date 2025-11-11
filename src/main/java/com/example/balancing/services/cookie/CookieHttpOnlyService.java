@@ -1,6 +1,5 @@
 package com.example.balancing.services.cookie;
 
-import com.example.balancing.models.token.RefreshToken;
 import com.example.balancing.payloads.requests.SignInRequest;
 import com.example.balancing.payloads.requests.SignUpRequest;
 import com.example.balancing.services.auth.AuthenticationService;

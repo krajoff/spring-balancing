@@ -4,13 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-/**
- * Объект ответа для аутентификации.
- * <p>
- * Этот класс ответа, отправленный клиенту после успешной аутентификации,
- * который включает аксес-токен доступа.
- * </p>
- */
 @Getter
 @Setter
 @Builder

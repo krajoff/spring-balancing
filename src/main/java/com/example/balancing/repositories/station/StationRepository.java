@@ -1,8 +1,8 @@
 package com.example.balancing.repositories.station;
 
-import com.example.balancing.models.station.Station;
-import com.example.balancing.models.unit.Unit;
-import com.example.balancing.models.weight.Weight;
+import com.example.balancing.entity.station.Station;
+import com.example.balancing.entity.unit.Unit;
+import com.example.balancing.entity.weight.Weight;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
