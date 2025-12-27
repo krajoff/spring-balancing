@@ -1,15 +1,14 @@
 package com.example.balancing.services.tokens.refresh;
 
-import com.example.balancing.entity.token.RefreshToken;
+import com.example.balancing.entity.RefreshToken;
 import com.example.balancing.entity.user.User;
 import com.example.balancing.exception.token.RefreshTokenNotFoundException;
-import com.example.balancing.repositories.token.RefreshTokenRepository;
+import com.example.balancing.repository.RefreshTokenRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.Date;
-import java.util.Optional;
+import java.time.Instant;
 import java.util.UUID;
 
 @Service
@@ -41,21 +40,42 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Override
     public RefreshToken save(User user) {
-        Optional<RefreshToken> token = refreshTokenRepository.findByUserId(user.getId());
-        RefreshToken refreshToken;
-        if (token.isPresent()) {
-            refreshToken = token.get();
-        } else {
-            refreshToken = new RefreshToken();
-            refreshToken.setUser(user);
-        }
+        RefreshToken refreshToken = refreshTokenRepository.findByUserId(user.getId())
+                .orElseGet(() -> {
+                    RefreshToken t = new RefreshToken();
+                    t.setUser(user);
+                    return t;
+                });
         refreshToken.setToken(UUID.randomUUID().toString());
-        refreshToken.setExpiration(new Date(System.currentTimeMillis() + expiration.toMillis()));
-        return save(refreshToken);
+        refreshToken.setExpiration(Instant.now().plus(expiration));
+        return refreshTokenRepository.save(refreshToken);
     }
 
-    private RefreshToken save(RefreshToken refreshToken) {
+    @Override
+    public RefreshToken update(String token) {
+        RefreshToken refreshToken = findByToken(token);
+
+        if (refreshToken.getExpiration().isBefore(Instant.now()))
+            throw new RefreshTokenNotFoundException("Refresh token expired");
+
+        refreshToken.setToken(UUID.randomUUID().toString());
+        refreshToken.setExpiration(Instant.now().plus(expiration));
         return refreshTokenRepository.save(refreshToken);
+    }
+
+    @Override
+    public Duration getRefreshTokenExpiration() {
+        return expiration;
+    }
+
+    @Override
+    public boolean isValidRefreshToken(String token) {
+        try {
+            RefreshToken refreshToken = findByToken(token);
+            return refreshToken.getExpiration().isAfter(Instant.now());
+        } catch (RefreshTokenNotFoundException e) {
+            return false;
+        }
     }
 
 }

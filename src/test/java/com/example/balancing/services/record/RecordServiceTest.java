@@ -1,6 +1,6 @@
 package com.example.balancing.services.record;
 
-import com.example.balancing.repositories.record.RecordRepository;
+import com.example.balancing.repository.RecordRepository;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;

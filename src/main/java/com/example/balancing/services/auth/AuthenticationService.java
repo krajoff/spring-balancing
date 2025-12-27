@@ -1,19 +1,17 @@
 package com.example.balancing.services.auth;
 
+import com.example.balancing.entity.user.Role;
+import com.example.balancing.entity.user.User;
 import com.example.balancing.exception.auth.AuthException;
 import com.example.balancing.exception.auth.WrongRequestException;
 import com.example.balancing.exception.user.UserAlreadyExistedException;
 import com.example.balancing.payloads.requests.RefreshTokenRequest;
-import com.example.balancing.payloads.responses.AuthenticationResponse;
 import com.example.balancing.payloads.requests.SignInRequest;
 import com.example.balancing.payloads.requests.SignUpRequest;
-import com.example.balancing.entity.user.Role;
-import com.example.balancing.entity.user.User;
+import com.example.balancing.payloads.responses.AuthenticationResponse;
 import com.example.balancing.services.tokens.access.AccessTokenService;
 import com.example.balancing.services.tokens.refresh.RefreshTokenService;
 import com.example.balancing.services.user.UserService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +19,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -35,193 +35,63 @@ public class AuthenticationService {
 
     public AuthenticationResponse signUp(SignUpRequest request) {
 
-        try {
-            log.info("Signing up user with username: {}", request.getUsername());
-            User user = new User();
-            user.setUsername(request.getUsername());
-            user.setPassword(passwordEncoder.encode(request.getPassword()));
-            user.setEmail(request.getEmail());
-            user.setRole(Role.ROLE_USER);
+        if (Objects.isNull(request) || request.getUsername().isBlank() || request.getPassword().isBlank())
+            throw new WrongRequestException("Invalid sign-up data");
 
-            log.info("Creating user: {}", user.getUsername());
-            userService.createUser(user);
+        if (userService.existsByUsernameOrEmail(request.getUsername(), request.getEmail()))
+            throw new UserAlreadyExistedException("Such username or email is already taken");
 
-            String accessToken = accessTokenService.generateToken(user);
-            String refreshToken = refreshTokenService.save(user).getToken();
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setEmail(request.getEmail());
+        user.setRole(Role.ROLE_USER);
 
-            log.info("User {} successfully signed up, tokens generated.", user.getUsername());
+        userService.createUser(user);
+        log.info("User {} created successfully", user.getUsername());
 
-            return new AuthenticationResponse(accessToken, refreshToken);
-
-        } catch (UserAlreadyExistedException ex) {
-            log.error("User has already existed: {}", request.getUsername(), ex);
-            throw new UserAlreadyExistedException();
-        } catch (WrongRequestException ex) {
-            log.error("Sign-up request contains invalid data for user: {}", request.getUsername(), ex);
-            throw new WrongRequestException();
-        } catch (Exception ex) {
-            log.error("An unexpected error occurred during sign-in for user: {}", request.getUsername(), ex);
-            throw new AuthException("Произошла неизвестная ошибка. " + ex.getMessage());
-        }
-
+        return generateTokens(user);
     }
 
-    /**
-     * Аутентификация пользователя
-     *
-     * @param request {@link SignInRequest}
-     * @return Рефреш- и аксес-токены
-     */
     public AuthenticationResponse signIn(SignInRequest request) {
 
         try {
             log.info("Signing in user with username: {}", request.getUsername());
-
-            // Аутентификация пользователя
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            request.getUsername(),
-                            request.getPassword()
-                    ));
-
-            // Получение информации о пользователе
-            User user = userService.getUserByUsername(request.getUsername());
-            log.info("Loading user: {}", user.getUsername());
-
-            // Генерация токенов
-            var accessToken = accessTokenService.generateToken(user);
-            var refreshToken = refreshTokenService.update(user).getToken();
-
-            log.info("User {} successfully signed up, tokens generated.",
-                    user.getUsername());
-
-            return new AuthenticationResponse(accessToken, refreshToken);
-
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    request.getUsername(),
+                    request.getPassword()
+            ));
         } catch (AuthenticationException ex) {
-            log.error("Authentication failed for user: {}",
-                    request.getUsername(), ex);
+            log.error("Authentication failed for user: {}", request.getUsername(), ex);
             throw new AuthException();
-        } catch (WrongRequestException ex) {
-            log.error("Sign-in request contains invalid data for user: {}",
-                    request.getUsername(), ex);
-            throw new WrongRequestException();
-        } catch (Exception ex) {
-            log.error("An unexpected error occurred during sign-in for user: {}", request.getUsername(), ex);
-            throw new AuthException("Произошла неизвестная ошибка. " + ex.getMessage());
         }
+
+        User user = userService.getUserByUsername(request.getUsername());
+        log.info("Loading user: {}", user.getUsername());
+        AuthenticationResponse tokens = generateTokens(user);
+
+        log.info("User {} signed in successfully", user.getUsername());
+        return tokens;
+
     }
 
-    /**
-     * Обновление рефреш-токена
-     *
-     * @param request {@link RefreshTokenRequest}
-     * @return Рефреш- и аксес-токены
-     */
     public AuthenticationResponse refreshToken(RefreshTokenRequest request) {
-        try {
-            log.info("Refreshing tokens using refresh token.");
+        if (Objects.isNull(request) || request.getRefreshToken().isBlank())
+            throw new WrongRequestException("Refresh token is missing");
 
-            // Обновление рефреш-токена
-            var refreshToken = refreshTokenService.update(request.getRefreshToken());
+        var refreshToken = refreshTokenService.update(request.getRefreshToken());
+        var accessToken = accessTokenService.generateToken(refreshToken.getUser());
 
-            // Генерация нового аксес-токена
-            var accessToken = accessTokenService.generateToken(refreshToken.getUser());
+        AuthenticationResponse tokens = new AuthenticationResponse(accessToken, refreshToken.getToken());
 
-            log.info("Tokens refreshed successfully for user: {}", refreshToken.getUser().getUsername());
-
-            return new AuthenticationResponse(accessToken, refreshToken.getToken());
-
-        } catch (AuthenticationException ex) {
-            log.error("Authentication failed for token: {}", request.getRefreshToken(), ex);
-            throw new AuthException();
-        } catch (WrongRequestException ex) {
-            log.error("Sign-in request contains invalid data for token: {}", request.getRefreshToken(), ex);
-            throw new WrongRequestException();
-        } catch (Exception ex) {
-            log.error("An unexpected error occurred during sign-in for token: {}", request.getRefreshToken(), ex);
-            throw new AuthException("Произошла неизвестная ошибка. " + ex.getMessage());
-        }
+        log.info("Tokens refreshed for user {}", refreshToken.getUser().getUsername());
+        return tokens;
     }
 
-
-    /**
-     * Аутентификация пользователя
-     *
-     * @param request  данные пользователя
-     * @param response ответ содержащий cookies
-     * @return токен
-     */
-    public AuthenticationResponse signIn(SignInRequest request,
-                                         HttpServletResponse response) {
-
-        // Аутентификация пользователя
-        var authenticationResponse = signIn(request);
-
-        // Создание cookie для аксес-токена
-        Cookie accessTokenCookie = new Cookie("access_token",
-                authenticationResponse.getAccessToken());
-        accessTokenCookie.setHttpOnly(true);
-        accessTokenCookie.setMaxAge((int)
-                accessTokenService.getAccessTokenExpiration() / 1000);
-        accessTokenCookie.setPath("/");
-
-        // Создание cookie для рефреш-токена
-        Cookie refreshTokenCookie = new Cookie("refresh_token",
-                authenticationResponse.getRefreshToken());
-        refreshTokenCookie.setHttpOnly(true);
-        refreshTokenCookie.setSecure(true);
-        refreshTokenCookie.setMaxAge((int)
-                refreshTokenService.getRefreshTokenExpiration() / 1000);
-        refreshTokenCookie.setPath("/");
-
-        // Добавление cookies в ответ
-        response.addCookie(accessTokenCookie);
-        response.addCookie(refreshTokenCookie);
-
-        log.info("Access and refresh tokens set " +
-                "in HttpOnly cookies for user: {}", request.getUsername());
-
-        return authenticationResponse;
+    private AuthenticationResponse generateTokens(User user) {
+        String accessToken = accessTokenService.generateToken(user);
+        String refreshToken = refreshTokenService.save(user).getToken();
+        return new AuthenticationResponse(accessToken, refreshToken);
     }
-
-    /**
-     * Регистрация пользователя
-     *
-     * @param request  данные для регистрации пользователя
-     * @param response ответ, содержащий cookies
-     * @return токены
-     */
-    public AuthenticationResponse signUp(SignUpRequest request,
-                                         HttpServletResponse response) {
-
-        // Регистрация нового пользователя
-        var authenticationResponse = signUp(request);
-
-        // Создание cookie для аксес-токена
-        Cookie accessTokenCookie = new Cookie("access_token",
-                authenticationResponse.getAccessToken());
-        accessTokenCookie.setHttpOnly(true);
-        accessTokenCookie.setMaxAge((int)
-                accessTokenService.getAccessTokenExpiration() / 1000);
-        accessTokenCookie.setPath("/");
-
-        // Создание cookie для рефреш-токена
-        Cookie refreshTokenCookie = new Cookie("refresh_token",
-                authenticationResponse.getRefreshToken());
-        refreshTokenCookie.setHttpOnly(true);
-        refreshTokenCookie.setMaxAge((int)
-                refreshTokenService.getRefreshTokenExpiration() / 1000);
-        refreshTokenCookie.setPath("/");
-
-        // Добавление cookies в ответ
-        response.addCookie(accessTokenCookie);
-        response.addCookie(refreshTokenCookie);
-
-        log.info("User {} successfully signed up, tokens generated " +
-                "and set in HttpOnly cookies.", request.getUsername());
-
-        return authenticationResponse;
-    }
-
 
 }

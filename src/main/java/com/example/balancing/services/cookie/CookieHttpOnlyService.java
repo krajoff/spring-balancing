@@ -1,8 +1,5 @@
 package com.example.balancing.services.cookie;
 
-import com.example.balancing.payloads.requests.SignInRequest;
-import com.example.balancing.payloads.requests.SignUpRequest;
-import com.example.balancing.services.auth.AuthenticationService;
 import com.example.balancing.services.tokens.access.AccessTokenService;
 import com.example.balancing.services.tokens.refresh.RefreshTokenService;
 import jakarta.servlet.http.Cookie;
@@ -12,105 +9,95 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
 
+import java.time.Duration;
 import java.util.Optional;
 
 @Service
 public class CookieHttpOnlyService {
 
-    private final String ACCESS_COOKIE_NAME = "accessToken";
-    private final String ACCESS_COOKIE_PATH = "/";
-    private final String REFRESH_COOKIE_NAME = "refreshToken";
-    private final String REFRESH_COOKIE_PATH = "/";
-    private final RefreshTokenService refreshTokenService;
     private final AccessTokenService accessTokenService;
-    private final AuthenticationService authenticationService;
+    private final RefreshTokenService refreshTokenService;
 
-    public CookieHttpOnlyService(RefreshTokenService refreshTokenService, AccessTokenService accessTokenService,
-                                 AuthenticationService authenticationService) {
-        this.refreshTokenService = refreshTokenService;
+    private static final String ACCESS_COOKIE_NAME = "access_token";
+    private static final String REFRESH_COOKIE_NAME = "refresh_token";
+    private static final String COOKIE_PATH = "/";
+
+    public CookieHttpOnlyService(AccessTokenService accessTokenService,
+                                 RefreshTokenService refreshTokenService) {
         this.accessTokenService = accessTokenService;
-        this.authenticationService = authenticationService;
+        this.refreshTokenService = refreshTokenService;
     }
 
-    public void signUp(SignUpRequest request, HttpServletResponse response) {
-        var authResponse = authenticationService.signUp(request);
-        addAuthCookies(response, authResponse.getAccessToken(),
-                authResponse.getRefreshToken());
+    public void setAccessToken(HttpServletResponse response, String token) {
+        addCookie(response, ACCESS_COOKIE_NAME, token, getAccessTokenTTL());
     }
 
-    public void signIn(SignInRequest request, HttpServletResponse response) {
-        var authResponse = authenticationService.signIn(request);
-        addAuthCookies(response, authResponse.getAccessToken(),
-                authResponse.getRefreshToken());
+    public void setRefreshToken(HttpServletResponse response, String token) {
+        addCookie(response, REFRESH_COOKIE_NAME, token, getRefreshTokenTTL());
     }
 
     public Optional<String> getAccessToken(HttpServletRequest request) {
-        return getCookieValueByName(request, ACCESS_COOKIE_NAME);
+        return getCookieValue(request, ACCESS_COOKIE_NAME);
     }
 
     public Optional<String> getRefreshToken(HttpServletRequest request) {
-        return getCookieValueByName(request, REFRESH_COOKIE_NAME);
+        return getCookieValue(request, REFRESH_COOKIE_NAME);
     }
 
-    private Optional<String> getCookieValueByName(HttpServletRequest request, String name) {
-        Cookie cookie = WebUtils.getCookie(request, name);
-        return Optional.ofNullable(cookie).map(Cookie::getValue);
+    public boolean isValidAccessToken(String token) {
+        return accessTokenService.isValidAccessToken(token);
     }
 
-    public boolean isValidRefreshToken(String refreshToken) {
-        return refreshTokenService.isValidExpiration(refreshToken);
+    public boolean isValidRefreshToken(String token) {
+        return refreshTokenService.isValidRefreshToken(token);
     }
 
-    public boolean isValidRefreshToken(HttpServletRequest request) {
-        return getRefreshToken(request).map(this::isValidRefreshToken).orElse(false);
+    public String getUsernameFromAccessToken(String token) {
+        return accessTokenService.extractUsername(token);
     }
 
-    public boolean isValidAccessToken(String accessToken) {
-        return accessTokenService.isValidAccessToken(accessToken);
-    }
-
-    public boolean isValidAccessToken(HttpServletRequest request) {
-        return getAccessToken(request).map(this::isValidAccessToken).orElse(false);
-    }
-
-    private void addCookie(HttpServletResponse response, String name, String value, String path, int maxAge) {
-        Cookie cookie = new Cookie(name, value);
-        cookie.setHttpOnly(true);
-        cookie.setPath(path);
-        cookie.setMaxAge(maxAge);
-        response.addCookie(cookie);
-    }
-
-    public void addAccessTokenCookie(HttpServletResponse response, String accessToken) {
-        addCookie(response, ACCESS_COOKIE_NAME, accessToken, ACCESS_COOKIE_PATH,
-                (int) (accessTokenService.getAccessTokenExpiration() / 1000));
-    }
-
-    public void addRefreshTokenCookie(HttpServletResponse response, String refreshToken) {
-        addCookie(response, REFRESH_COOKIE_NAME, refreshToken, REFRESH_COOKIE_PATH,
-                (int) (refreshTokenService.getRefreshTokenExpiration() / 1000));
-    }
-
-    private void addAuthCookies(HttpServletResponse response, String accessToken, String refreshToken) {
-        addAccessTokenCookie(response, accessToken);
-        addRefreshTokenCookie(response, refreshToken);
+    public String getUsernameFromRefreshToken(String token) {
+        return refreshTokenService.findByToken(token).getUser().getUsername();
     }
 
     public String generateToken(UserDetails userDetails) {
         return accessTokenService.generateToken(userDetails);
     }
 
-    public void clearCookies(HttpServletResponse response) {
-        addCookie(response, ACCESS_COOKIE_NAME, null, "", 0);
-        addCookie(response, REFRESH_COOKIE_NAME, null, "", 0);
+    public Duration getAccessTokenTTL() {
+        return accessTokenService.getAccessTokenExpiration();
     }
 
-    public String getUsernameFromAccessToken(String accessToken) {
-        return accessTokenService.extractUsername(accessToken);
+    public Duration getRefreshTokenTTL() {
+        return refreshTokenService.getRefreshTokenExpiration();
     }
 
-    public String getUsernameFromRefreshToken(String refreshToken) {
-        return refreshTokenService.findByToken(refreshToken).getUser().getUsername();
+    public void clear(HttpServletResponse response) {
+        deleteCookie(response, ACCESS_COOKIE_NAME);
+        deleteCookie(response, REFRESH_COOKIE_NAME);
     }
 
+    private void addCookie(HttpServletResponse response, String name, String value, Duration ttl) {
+        Cookie cookie = new Cookie(name, value);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath(COOKIE_PATH);
+        cookie.setMaxAge((int) ttl.toSeconds());
+        response.addCookie(cookie);
+    }
+
+    private void deleteCookie(HttpServletResponse response, String name) {
+        Cookie cookie = new Cookie(name, null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath(COOKIE_PATH);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+    }
+
+    private Optional<String> getCookieValue(HttpServletRequest request, String name) {
+        return Optional.ofNullable(WebUtils.getCookie(request, name))
+                .map(Cookie::getValue);
+    }
 }
+

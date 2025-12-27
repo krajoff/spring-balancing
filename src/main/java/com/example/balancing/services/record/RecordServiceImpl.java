@@ -1,8 +1,8 @@
 package com.example.balancing.services.record;
 
 import com.example.balancing.exception.record.RecordNotFoundException;
-import com.example.balancing.entity.record.Record;
-import com.example.balancing.repositories.record.RecordRepository;
+import com.example.balancing.entity.Record;
+import com.example.balancing.repository.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +23,6 @@ public class RecordServiceImpl implements RecordService {
 
     public Record updateRecord(Long id, Record record) {
         Record existingRecord = getRecordById(id);
-        existingRecord.setMode(record.getMode());
-        existingRecord.setPoint(record.getPoint());
         existingRecord.setIsUsed(record.getIsUsed());
         if (record.getIsManualSensitivity()) {
             existingRecord.setIsManualSensitivity(Boolean.TRUE);

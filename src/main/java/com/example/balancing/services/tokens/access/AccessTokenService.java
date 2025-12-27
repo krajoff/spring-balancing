@@ -3,6 +3,7 @@ package com.example.balancing.services.tokens.access;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Key;
+import java.time.Duration;
 
 public interface AccessTokenService {
 
@@ -16,6 +17,6 @@ public interface AccessTokenService {
 
     Key getSigningKey();
 
-    long getAccessTokenExpiration();
+    Duration getAccessTokenExpiration();
 
 }

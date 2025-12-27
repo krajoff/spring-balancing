@@ -1,7 +1,10 @@
 package com.example.balancing.services.tokens.access;
 
 import com.example.balancing.entity.user.User;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
@@ -11,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +30,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
 
     @Getter
     @Value("${application.token.access.expiration}")
-    private long accessTokenExpiration;
+    private Duration accessTokenExpiration;
 
     @Override
     public String extractUsername(String token) {
@@ -40,12 +45,13 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     @Override
     public String generateToken(UserDetails userDetails) {
         var claims = generateClaims(userDetails);
+        Instant now = Instant.now();
+        Instant expiresAt = now.plus(accessTokenExpiration);
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()
-                        + getAccessTokenExpiration()))
+                .setIssuedAt(Date.from(now))
+                .setExpiration(Date.from(expiresAt))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -62,10 +68,14 @@ public class AccessTokenServiceImpl implements AccessTokenService {
 
     @Override
     public boolean isValidAccessToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        try {
+            return extractUsername(token).equals(userDetails.getUsername());
+        } catch (JwtException e) {
+            return false;
+        }
     }
 
+    //Todo: нужно подумать
     public boolean isValidAccessToken(String token) {
         return !isTokenExpired(token);
     }

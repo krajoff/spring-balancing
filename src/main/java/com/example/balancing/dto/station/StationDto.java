@@ -4,7 +4,7 @@ import com.example.balancing.dto.unit.UnitDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -18,9 +18,9 @@ public class StationDto {
     private List<UnitDto> units;
 
     @Schema(description = "Дата создания")
-    private Date createdAt;
+    private LocalDateTime createdOn;
 
     @Schema(description = "Дата последнего обновления")
-    private Date updatedAt;
+    private LocalDateTime updatedOn;
 
 }

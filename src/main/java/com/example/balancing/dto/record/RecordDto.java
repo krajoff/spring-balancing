@@ -1,21 +1,23 @@
 package com.example.balancing.dto.record;
 
-import com.example.balancing.dto.mode.ModeDto;
-import com.example.balancing.vo.complex.Complex;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.apache.commons.numbers.complex.Complex;
 
 @Data
 @Schema(description = "DTO записи вибрации")
 public class RecordDto {
 
+    @Size(min = 1, max = 15, message = "Значение не может быть пустым или длиннее 15 знаков")
     @Schema(description = "Название места измерения вибрации в упрощенном представлении", example = "ВГП или 1")
     private String pointName;
 
+    @Size(min = 1, max = 15, message = "Значение не может быть пустым или длиннее 15 знаков")
     @Schema(description = "Режима работы агрегата в упрощенном представлении", defaultValue = "No-load 100%n")
-    private ModeDto mode;
+    private String modeName;
 
     @Schema(description = "Значение амплитуды вибрации", example = "123.1")
     @DecimalMin(value = "0.0", message = "Значение не может принимать отрицательную величину")
@@ -43,5 +45,15 @@ public class RecordDto {
 
     @Schema(description = "Комплексное значение чувствительности", example = "181.1+10i")
     private Complex complexSensitivity;
+
+    public Complex getComplexVibration() {
+        this.complexVibration = Complex.ofPolar(this.magVibration, Math.toRadians(this.phaseVibration));
+        return complexVibration;
+    }
+
+    public Complex getComplexSensitivity() {
+        this.complexSensitivity = Complex.ofPolar(this.magSensitivity, Math.toRadians(this.phaseSensitivity));
+        return complexVibration;
+    }
 
 }

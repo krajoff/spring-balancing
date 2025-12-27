@@ -1,6 +1,6 @@
 package com.example.balancing.services.unit;
 
-import com.example.balancing.entity.unit.Unit;
+import com.example.balancing.entity.Unit;
 
 public interface UnitService {
     Unit getUnitById(Long id);

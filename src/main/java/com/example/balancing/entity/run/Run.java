@@ -1,112 +1,61 @@
 package com.example.balancing.entity.run;
 
-import com.example.balancing.entity.plane.Plane;
-import com.example.balancing.entity.unit.Unit;
-import com.example.balancing.entity.weight.Weight;
+import com.example.balancing.entity.Record;
+import com.example.balancing.entity.Unit;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.type.SqlTypes;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "Run")
 @Table(name = "runs")
 @Getter
 @Setter
 @ToString
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Run {
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "number")
-    private Integer number;
+    @Column(name = "run_number")
+    private Integer runNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "unit_id", referencedColumnName = "id")
-    private Unit unit;
-
-    /**
-     * Связь пуска с плоскостью. Связь многие пуски к одной плоскости.
-     * Один пуск не может быть связан с несколькими плоскостями.
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "plane_id", referencedColumnName = "id")
-    private Plane plane;
-
-    /**
-     * Связь пуска и груза, который добавлен в этот пуск
-     */
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "weight_id", referencedColumnName = "id")
-    private Weight weight;
-
-    /**
-     * Ссылка на предыдущий пуск
-     */
     @Column(name = "reference_run_id")
     private Long referenceRunId;
 
-    /**
-     * Дата создания. Поле автоматически заполняется
-     * при создании и не может быть обновлено.
-     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "unit_id", nullable = false)
+    private Unit unit;
+
+    @Column
+    @OneToMany(mappedBy = "run", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Record> records;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "run_parameters")
+    private RunParameter runsParameters;
+
     @CreationTimestamp
-    @Column(updatable = false, name = "created_at")
-    private Date createdAt;
+    @Column(updatable = false, name = "created_on")
+    private LocalDateTime createdOn;
 
-    /**
-     * Дата последнего обновления. Поле автоматически
-     * обновляется при изменении записи.
-     */
     @UpdateTimestamp
-    @Column(name = "updated_at")
-    private Date updatedAt;
+    @Column(name = "updated_on")
+    private LocalDateTime updatedOn;
 
-    /**
-     * Версия.
-     */
     @Version
-    @Builder.Default
     @Column(name = "version")
     private Long version = 1L;
 
-    public void addWeight(Weight weight){
-         plane.addWeight(weight);
-    }
-
-    public void removeWeight(Weight weight){
-        plane.removeWeight(weight);
-    }
-
-    public Run getRun(){
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Run run)) return false;
-
-        if (!getNumber().equals(run.getNumber())) return false;
-        if (!getUnit().equals(run.getUnit())) return false;
-        if (!getPlane().equals(run.getPlane())) return false;
-        if (getWeight() != null ? !getWeight().equals(run.getWeight()) : run.getWeight() != null) return false;
-        return getReferenceRunId() != null ? getReferenceRunId().equals(run.getReferenceRunId()) : run.getReferenceRunId() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getNumber().hashCode();
-        result = 31 * result + getUnit().hashCode();
-        result = 31 * result + getPlane().hashCode();
-        result = 31 * result + (getWeight() != null ? getWeight().hashCode() : 0);
-        result = 31 * result + (getReferenceRunId() != null ? getReferenceRunId().hashCode() : 0);
-        return result;
-    }
 }

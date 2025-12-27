@@ -4,8 +4,8 @@ import com.example.balancing.dto.user.UserDto;
 import com.example.balancing.entity.user.User;
 import com.example.balancing.exception.user.UserAlreadyExistedException;
 import com.example.balancing.exception.user.UserNotFoundException;
-import com.example.balancing.repositories.user.UserRepository;
-import com.example.balancing.utils.UserMapper;
+import com.example.balancing.repository.UserRepository;
+import com.example.balancing.transformer.UserMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -33,13 +33,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void createUser(User user) {
         if (userRepository.findByUsername(user.getUsername()).isPresent()) throw new UserAlreadyExistedException();
         userRepository.save(user);
-    }
-
-    public User updateUser(User user) {
-        User existingUser = getUserById(user.getId());
-        existingUser.setEmail(user.getEmail());
-        existingUser.setPassword(user.getPassword());
-        return userRepository.save(existingUser);
     }
 
     public User updateByEmail(String email, User user) {
@@ -80,6 +73,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
+    }
+
+    public boolean existsByUsername(String username) {
+        return userRepository.findByUsername(username).isPresent();
+    }
+
+    public boolean existsByUsernameOrEmail(String username, String email) {
+        return userRepository.findByUsernameOrEmail(username, email).isPresent();
     }
 
 }

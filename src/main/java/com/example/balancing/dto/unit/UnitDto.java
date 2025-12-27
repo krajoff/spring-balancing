@@ -5,6 +5,7 @@ import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -17,7 +18,7 @@ public class UnitDto {
 
     @Schema(description = "Тип агрегата", example = "СВ 477/180-16 УХЛ4")
     @Size(max = 50)
-    private String type;
+    private String unitType;
 
     @Schema(description = "Количество знаков после запятой при отображении значений грузов", example = "0", defaultValue = "0")
     @DecimalMax(value = "5", message = "Точность выше пяти знаков после запятой недоступна")
@@ -40,9 +41,9 @@ public class UnitDto {
     private String description;
 
     @Schema(description = "Дата создания")
-    private Date createdAt;
+    private LocalDateTime createdOn;
 
-    @Schema(description = "Дата последнего обновления")
-    private Date updatedAt;
+    @Schema(description = "Дата обновления")
+    private LocalDateTime updatedOn;
 
 }

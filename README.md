@@ -1,5 +1,8 @@
 # Multiplanes balancing application
 
+CREATE USER <user> WITH PASSWORD '<password>';
+CREATE DATABASE balancing WITH OWNER = <user> ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF8' LC_CTYPE = 'en_US.UTF8' TEMPLATE = template0;
+
 A multi-plane balancing application is a tool used for balancing rotating machinery by adding or removing weights on 
 multiple correction planes. It helps reduce vibrations caused by unbalanced rotating components across different planes, 
 improving machine performance, efficiency, and extending the life of various components.

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/balancing}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5433/balancing}
     username: ${DATABASE_USERNAME:demo}
     password: ${DATABASE_PASSWORD:demo}
     hikari:
@@ -14,8 +14,16 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/db.changelog.yaml
 
-server:
-  port: 5612
+#jwt:
+#  access-token-key: '{"kty":}'
+#  refresh-token-key: null
+
+#server:
+#  port: 5612
+#  ssl:
+#    key-store: /home
+#    key-store-password: password
+#    key-alias: localhost
 
 application:
   token:

@@ -1,7 +1,9 @@
 package com.example.balancing.services.tokens.refresh;
 
-import com.example.balancing.entity.token.RefreshToken;
+import com.example.balancing.entity.RefreshToken;
 import com.example.balancing.entity.user.User;
+
+import java.time.Duration;
 
 public interface RefreshTokenService {
 
@@ -13,4 +15,9 @@ public interface RefreshTokenService {
 
     RefreshToken save(User user);
 
+    RefreshToken update(String token);
+
+    Duration getRefreshTokenExpiration();
+
+    boolean isValidRefreshToken(String token);
 }

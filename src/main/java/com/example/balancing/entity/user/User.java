@@ -1,24 +1,18 @@
 package com.example.balancing.entity.user;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
-/**
- * Сущность пользователя. Хранит информацию о пользователе системы,
- * включая его учетные данные, роль, и связанный список станций.
- */
 @Setter
 @Getter
 @NoArgsConstructor
@@ -29,13 +23,12 @@ public class User implements UserDetails {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 3, max = 50)
     @Column(name = "username", unique = true, nullable = false)
     private String username;
 
-    @Size(max = 255)
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -43,8 +36,6 @@ public class User implements UserDetails {
     @Column(name = "role")
     private Role role;
 
-    @Email
-    @Size(min = 6, max = 255)
     @Column(name = "email", unique = true)
     private String email;
 
