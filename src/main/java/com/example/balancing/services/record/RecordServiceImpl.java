@@ -1,7 +1,8 @@
 package com.example.balancing.services.record;
 
-import com.example.balancing.exception.record.RecordNotFoundException;
 import com.example.balancing.entity.Record;
+import com.example.balancing.exception.EntityType;
+import com.example.balancing.exception.NotFoundElementException;
 import com.example.balancing.repository.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,7 @@ public class RecordServiceImpl implements RecordService {
     private RecordRepository recordRepository;
 
     public Record getRecordById(Long id) {
-        return recordRepository.findById(id)
-                .orElseThrow(RecordNotFoundException::new);
+        return recordRepository.findById(id).orElseThrow(() -> new NotFoundElementException(EntityType.RECORD));
     }
 
     public Record createRecord(Record record) {

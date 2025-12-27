@@ -1,7 +1,8 @@
 package com.example.balancing.services.run;
 
 import com.example.balancing.entity.run.Run;
-import com.example.balancing.exception.run.RunNotFoundException;
+import com.example.balancing.exception.EntityType;
+import com.example.balancing.exception.NotFoundElementException;
 import com.example.balancing.repository.RunRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,24 +10,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RunServiceImpl  {
+public class RunServiceImpl {
 
     @Autowired
     RunRepository runRepository;
 
-    public Run getRunById(Long id) {
-        return runRepository.findById(id)
-                .orElseThrow(RunNotFoundException::new);
-    }
-
     public Run getRunByWeightId(Long id) {
         return runRepository.findByWeightId(id)
-                .orElseThrow(RunNotFoundException::new);
+                .orElseThrow(() -> new NotFoundElementException(EntityType.WEIGHT));
     }
 
     public List<Run> getRunsByUnitId(Long id) {
         return runRepository.findByUnitId(id)
-                .orElseThrow(RunNotFoundException::new);
+                .orElseThrow(() -> new NotFoundElementException(EntityType.WEIGHT));
     }
 
 //    @Override

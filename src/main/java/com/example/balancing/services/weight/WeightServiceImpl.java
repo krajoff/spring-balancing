@@ -1,6 +1,6 @@
 //package com.example.balancing.services.weight;
 //
-//import com.example.balancing.exception.weight.WeightNotFoundException;
+//import com.example.balancing.exception.WeightNotFoundException;
 //import com.example.balancing.entity.weight.Weight;
 //import com.example.balancing.repository.weight.WeightRepository;
 //import org.springframework.beans.factory.annotation.Autowired;

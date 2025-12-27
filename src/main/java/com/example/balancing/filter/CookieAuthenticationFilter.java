@@ -1,4 +1,4 @@
-package com.example.balancing.filters;
+package com.example.balancing.filter;
 
 import com.example.balancing.services.cookie.CookieHttpOnlyService;
 import com.example.balancing.services.user.UserService;

@@ -1,6 +1,6 @@
 package com.example.balancing.transformer;
 
-import com.example.balancing.dto.run.RunDto;
+import com.example.balancing.dto.RunDto;
 import com.example.balancing.entity.run.Run;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

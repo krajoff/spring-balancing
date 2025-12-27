@@ -1,6 +1,5 @@
-package com.example.balancing.dto.station;
+package com.example.balancing.dto;
 
-import com.example.balancing.dto.unit.UnitDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

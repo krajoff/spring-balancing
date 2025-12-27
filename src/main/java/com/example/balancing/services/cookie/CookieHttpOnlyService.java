@@ -72,7 +72,8 @@ public class CookieHttpOnlyService {
         return refreshTokenService.getRefreshTokenExpiration();
     }
 
-    public void clear(HttpServletResponse response) {
+    public void clear(HttpServletResponse response, String refreshToken) {
+        if (refreshToken != null) refreshTokenService.deleteByToken(refreshToken);
         deleteCookie(response, ACCESS_COOKIE_NAME);
         deleteCookie(response, REFRESH_COOKIE_NAME);
     }

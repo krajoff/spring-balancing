@@ -1,4 +1,4 @@
-package com.example.balancing.dto.record;
+package com.example.balancing.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMax;

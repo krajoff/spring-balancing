@@ -1,9 +1,10 @@
 package com.example.balancing.services.user;
 
-import com.example.balancing.dto.user.UserDto;
+import com.example.balancing.dto.UserDto;
 import com.example.balancing.entity.user.User;
+import com.example.balancing.exception.EntityType;
+import com.example.balancing.exception.NotFoundElementException;
 import com.example.balancing.exception.user.UserAlreadyExistedException;
-import com.example.balancing.exception.user.UserNotFoundException;
 import com.example.balancing.repository.UserRepository;
 import com.example.balancing.transformer.UserMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,12 +23,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.userMapper = userMapper;
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundElementException(EntityType.USER));
     }
 
-    public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(() -> new NotFoundElementException(EntityType.USER));
     }
 
     public void createUser(User user) {
@@ -35,26 +36,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userRepository.save(user);
     }
 
-    public User updateByEmail(String email, User user) {
-        User existingUser = getUserByEmail(email);
-        existingUser.setPassword(user.getPassword());
-        return userRepository.save(existingUser);
-    }
-
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
-    }
-
     public void deleteUserByUsername(String username) {
         userRepository.deleteByUsername(username);
     }
 
-    public UserDetails loadUserByUsername(String email) {
-        return getUserByEmail(email);
-    }
-
     public UserDetailsService userDetailsService() {
-        return this::getUserByEmail;
+        return this::getUserByUsername;
     }
 
     public User getCurrentUser() {
@@ -71,8 +58,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userMapper.entityToDto(getUserByUsername(username));
     }
 
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
+    public UserDetails loadUserByUsername(String username) {
+        return getUserByUsername(username);
     }
 
     public boolean existsByUsername(String username) {

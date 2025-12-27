@@ -1,7 +1,8 @@
 package com.example.balancing.services.station;
 
-import com.example.balancing.exception.station.StationNotFoundException;
 import com.example.balancing.entity.Station;
+import com.example.balancing.exception.EntityType;
+import com.example.balancing.exception.NotFoundElementException;
 import com.example.balancing.repository.StationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,7 @@ public class StationServiceImpl implements StationService {
 
     @Override
     public Station getStationById(Long id) {
-        return stationRepository.findById(id).orElseThrow(() ->
-                new StationNotFoundException("Станции с таким id не найдено."));
+        return stationRepository.findById(id).orElseThrow(() -> new NotFoundElementException(EntityType.STATION));
     }
 
     @Override

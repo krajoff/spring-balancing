@@ -1,6 +1,6 @@
 package com.example.balancing.transformer;
 
-import com.example.balancing.dto.user.UserDto;
+import com.example.balancing.dto.UserDto;
 import com.example.balancing.entity.user.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

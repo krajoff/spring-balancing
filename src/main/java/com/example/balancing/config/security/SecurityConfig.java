@@ -1,5 +1,6 @@
 package com.example.balancing.config.security;
 
+import com.example.balancing.filter.CookieAuthenticationFilter;
 import com.example.balancing.services.user.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,9 +10,11 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * Конфигурация безопасности приложения.
@@ -22,9 +25,11 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final UserService userService;
+    private final CookieAuthenticationFilter cookieAuthenticationFilter;
 
-    public SecurityConfig(UserService userService) {
+    public SecurityConfig(UserService userService, CookieAuthenticationFilter cookieAuthenticationFilter) {
         this.userService = userService;
+        this.cookieAuthenticationFilter = cookieAuthenticationFilter;
     }
 
     @Bean
@@ -54,15 +59,16 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
+                        .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID", "access_token", "refresh_token")
                         .permitAll()
                 )
                 .sessionManagement(manager -> manager
-                        .maximumSessions(1)
-                        .maxSessionsPreventsLogin(false)
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
-                .cors(AbstractHttpConfigurer::disable);
+                .cors(AbstractHttpConfigurer::disable)
+                .addFilterBefore(cookieAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

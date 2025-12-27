@@ -1,6 +1,6 @@
 package com.example.balancing.transformer;
 
-import com.example.balancing.dto.record.RecordDto;
+import com.example.balancing.dto.RecordDto;
 import com.example.balancing.entity.Record;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

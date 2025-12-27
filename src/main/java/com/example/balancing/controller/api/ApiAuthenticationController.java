@@ -1,13 +1,12 @@
 package com.example.balancing.controller.api;
 
-import com.example.balancing.payloads.requests.RefreshTokenRequest;
-import com.example.balancing.payloads.requests.SignInRequest;
-import com.example.balancing.payloads.requests.SignUpRequest;
-import com.example.balancing.payloads.responses.AuthenticationResponse;
+import com.example.balancing.payload.request.RefreshTokenRequest;
+import com.example.balancing.payload.request.SignInRequest;
+import com.example.balancing.payload.request.SignUpRequest;
+import com.example.balancing.payload.response.AuthenticationResponse;
 import com.example.balancing.services.auth.AuthenticationService;
 import com.example.balancing.services.cookie.CookieHttpOnlyService;
-import com.example.balancing.services.tokens.access.AccessTokenService;
-import com.example.balancing.services.tokens.refresh.RefreshTokenService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +23,6 @@ public class ApiAuthenticationController {
 
     private final AuthenticationService authenticationService;
     private final CookieHttpOnlyService cookieService;
-    private final AccessTokenService accessTokenService;
-    private final RefreshTokenService refreshTokenService;
 
     @PostMapping("/signup")
     public ResponseEntity<AuthenticationResponse> signUp(@Valid @RequestBody SignUpRequest request,
@@ -52,8 +49,10 @@ public class ApiAuthenticationController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(HttpServletResponse response) {
-        cookieService.clear(response);
+    public ResponseEntity<Void> logout(HttpServletRequest request, HttpServletResponse response) {
+        String refreshToken = cookieService.getRefreshToken(request).orElse(null);
+        cookieService.clear(response, refreshToken);
+        request.getSession().invalidate();
         return ResponseEntity.noContent().build();
     }
 

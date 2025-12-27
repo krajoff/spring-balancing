@@ -1,4 +1,4 @@
-package com.example.balancing.dto.run;
+package com.example.balancing.dto;
 
 import com.example.balancing.entity.run.RunParameter;
 import io.swagger.v3.oas.annotations.media.Schema;
