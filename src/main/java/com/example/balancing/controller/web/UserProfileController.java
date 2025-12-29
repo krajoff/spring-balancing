@@ -1,7 +1,7 @@
 package com.example.balancing.controller.web;
 
 import com.example.balancing.dto.UserDto;
-import com.example.balancing.services.user.UserService;
+import com.example.balancing.service.user.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

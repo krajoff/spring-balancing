@@ -1,7 +1,7 @@
 package com.example.balancing.filter;
 
-import com.example.balancing.services.cookie.CookieHttpOnlyService;
-import com.example.balancing.services.user.UserService;
+import com.example.balancing.service.cookie.CookieHttpOnlyService;
+import com.example.balancing.service.user.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

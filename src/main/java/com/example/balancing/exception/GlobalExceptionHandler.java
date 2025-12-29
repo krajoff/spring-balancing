@@ -4,7 +4,6 @@ import com.example.balancing.exception.auth.AuthException;
 import com.example.balancing.exception.auth.PermissionException;
 import com.example.balancing.exception.auth.WrongRequestException;
 import com.example.balancing.exception.token.RefreshTokenExpiredException;
-import com.example.balancing.exception.user.UserAlreadyExistedException;
 import com.example.balancing.payload.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +24,10 @@ public class GlobalExceptionHandler {
                 HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(UserAlreadyExistedException.class)
-    public ResponseEntity<ErrorResponse> catchUserAlreadyExistedException
-            (UserAlreadyExistedException e) {
-        return new ResponseEntity<>(new ErrorResponse(HttpStatus.BAD_REQUEST.value(),
-                e.getMessage()), HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(ElementAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> catchElementAlreadyExistedException(ElementAlreadyExistsException e) {
+        return new ResponseEntity<>(new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage()),
+                HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

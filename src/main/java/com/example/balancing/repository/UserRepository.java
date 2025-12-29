@@ -1,6 +1,7 @@
 package com.example.balancing.repository;
 
 import com.example.balancing.entity.user.User;
+import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,6 +15,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
 
     Optional<User> findByUsername(String username);
+
+    @NonNull
+    Optional<User> findById(@NonNull Long id);
 
     @Query(value = "select * from users u where u.username = :username or u.email = :email", nativeQuery = true)
     Optional<User> findByUsernameOrEmail(@Param("username") String username,

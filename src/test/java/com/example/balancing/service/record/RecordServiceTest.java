@@ -1,0 +1,49 @@
+package com.example.balancing.service.record;
+
+import com.example.balancing.repository.RecordRepository;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = {RecordService.class, RecordRepository.class})
+public class RecordServiceTest {
+//
+//    @InjectMocks
+//    private RecordService recordService = new RecordServiceImpl();
+//
+//    @Mock
+//    private RecordRepository recordRepository;
+//
+//    @BeforeEach
+//    public void setup() {
+//        MockitoAnnotations.openMocks(this);
+//    }
+//
+//    @Test
+//    public void testAddRecord() {
+//        Record record = new Record();
+//        recordService.createRecord(record);
+//        Mockito.verify(recordRepository,
+//                Mockito.times(1)).save(record);
+//    }
+//
+//    @Test
+//    public void testGetRecordById() {
+//        Record mockRecord = new Record();
+//        Long id = mockRecord.getId();
+//        when(recordRepository.findById(id)).thenReturn(Optional.of(mockRecord));
+//        RecordDto realRecord = recordService.getRecordById(id);
+//        assertEquals(id, realRecord.getId());
+//    }
+//
+//    @Test
+//    public void testDeleteRecord() {
+//        Long id = 1L;
+//        recordService.deleteRecord(id);
+//        Mockito.verify(recordRepository,
+//                Mockito.times(1)).deleteById(id);
+//    }
+}

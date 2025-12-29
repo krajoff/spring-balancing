@@ -1,7 +1,7 @@
 package com.example.balancing.config.security;
 
 import com.example.balancing.filter.CookieAuthenticationFilter;
-import com.example.balancing.services.user.UserService;
+import com.example.balancing.service.user.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

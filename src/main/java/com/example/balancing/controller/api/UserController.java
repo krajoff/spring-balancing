@@ -1,7 +1,7 @@
 package com.example.balancing.controller.api;
 
 import com.example.balancing.dto.UserDto;
-import com.example.balancing.services.user.UserService;
+import com.example.balancing.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,4 +18,5 @@ public class UserController {
     public UserDto me() {
         return userService.getCurrentUserDto();
     }
+
 }

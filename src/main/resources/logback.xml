@@ -8,7 +8,6 @@
         </encoder>
     </appender>
 
-
     <!-- Файловый аппендер для записи логов в файл -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>logs/app.log</file>

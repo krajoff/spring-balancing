@@ -14,17 +14,6 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/db.changelog.yaml
 
-#jwt:
-#  access-token-key: '{"kty":}'
-#  refresh-token-key: null
-
-#server:
-#  port: 5612
-#  ssl:
-#    key-store: /home
-#    key-store-password: password
-#    key-alias: localhost
-
 application:
   token:
     refresh:

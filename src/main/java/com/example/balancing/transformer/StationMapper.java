@@ -8,13 +8,13 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = UnitMapper.class)
 public abstract class StationMapper {
 
-    public abstract StationDto stationToStationDto(Station station);
+    public abstract StationDto entityToDto(Station station);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(source = "units", target = "units")
-    public abstract Station stationDtoToStation(StationDto stationDto);
+    public abstract Station dtoToEntity(StationDto stationDto);
 
 
 }
