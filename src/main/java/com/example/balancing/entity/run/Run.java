@@ -33,7 +33,7 @@ public class Run {
     private Integer runNumber;
 
     @Column(name = "reference_run_id")
-    private Long referenceRunId;
+    private UUID referenceRunId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id", nullable = false)

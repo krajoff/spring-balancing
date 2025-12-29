@@ -1,90 +1,104 @@
 package com.example.balancing.service.run;
 
+import com.example.balancing.dto.RunDto;
+import com.example.balancing.entity.Unit;
 import com.example.balancing.entity.run.Run;
 import com.example.balancing.exception.EntityTypeException;
 import com.example.balancing.exception.NotFoundElementException;
 import com.example.balancing.repository.RunRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.balancing.repository.UnitRepository;
+import com.example.balancing.transformer.RunMapper;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
+@Slf4j
+@AllArgsConstructor
 @Service
-public class RunServiceImpl {
+public class RunServiceImpl implements RunService {
 
-    @Autowired
-    RunRepository runRepository;
+    private final RunRepository runRepository;
+    private final RunMapper runMapper;
+    private final UnitRepository unitRepository;
 
-    public List<Run> getRunsByUnitId(UUID id) {
-        return runRepository.findByUnitId(id)
-                .orElseThrow(() -> new NotFoundElementException(EntityTypeException.WEIGHT));
+    @Transactional
+    @Override
+    public RunDto create(UUID unitId, RunDto dto) {
+        Unit unit = unitRepository.findById(unitId)
+                .orElseThrow(() -> new NotFoundElementException(EntityTypeException.UNIT));
+
+        Run run = runMapper.dtoToEntity(dto);
+        run.setUnit(unit);
+
+        UUID referenceRunId = runRepository
+                .findByUnitIdAndRunNumber(unitId, dto.getRunNumber())
+                .map(Run::getId)
+                .orElse(null);
+        run.setReferenceRunId(referenceRunId);
+
+        return runMapper.entityToDto(runRepository.save(run));
     }
 
-//    @Override
-//    public Run createRun(Run run) {
-//        List<Run> runs = getRunsByUnitId(run.getUnit().getId());
-//        int number = runs == null ? 0 : runs.size();
-//        run.setNumber(number);
-//        if (!isValidReferenceRun(run) || number == 0)
-//            run.setReferenceRunId(null);
-//        return runRepository.save(run);
-//    }
-//
-//    @Override
-//    public Run updateRun(Long id, Run run) {
-//        Run existingRun = getRunById(id);
-//        existingRun.setPlane(run.getPlane());
-//        existingRun.setWeight(run.getWeight());
-//        if (isValidReferenceRun(run))
-//            existingRun.setReferenceRunId(run.getReferenceRunId());
-//        return createRun(existingRun);
-//    }
-//
-//    @Override
-//    @Transactional
-//    public void deleteRunById(Long id) {
-//        Run run = getRunById(id);
-//        runRepository.deleteById(id);
-//        runRepository.setNullReference(id);
-//        runRepository.alterNumberRun(run.getNumber());
-//    }
-//
-//
-//    private boolean isValidReferenceRun(Run run) {
-//        return runRepository.findById(run.getReferenceRunId()).isPresent();
-//    }
-//
-//    private boolean isCyclicReference(Run run) {
-//        // Получаем пуски данного агрегата
-//        List<Run> runs = getRunsByUnitId(run.getUnit().getId());
-//        Set<Long> visitedRunIds = new HashSet<>();
-//        Long referenceRunId = run.getReferenceRunId();
-//        visitedRunIds.add(run.getId());
-//
-//        // Проверка на null для начального пуска
-//        while (referenceRunId != null) {
-//            // Проверка на наличие текущего пуска в множестве посещённых
-//            if (visitedRunIds.contains(referenceRunId))
-//                return true;
-//
-//            // Добавляем текущий id пуска в посещённые
-//            visitedRunIds.add(referenceRunId);
-//
-//            // Находим текущий пуск по его id
-//            Long finalReferenceRunId = referenceRunId;
-//            Optional<Run> currentRun = runs.stream()
-//                    .filter(r -> r.getId().equals(finalReferenceRunId))
-//                    .findFirst();
-//
-//            // Если текущий пуск не найден, выходим из цикла
-//            if (currentRun.isEmpty())
-//                break;
-//
-//            // Обновляем referenceRunId для следующей итерации
-//            referenceRunId = currentRun.get().getReferenceRunId();
-//        }
-//        return false;
-//    }
+    @Transactional
+    @Override
+    public List<RunDto> getByUnitId(UUID unitId) {
+        List<Run> runs = runRepository.findByUnitId(unitId)
+                .orElseThrow(() -> new NotFoundElementException(EntityTypeException.UNIT));
+        return runs.stream().map(runMapper::entityToDto).toList();
+    }
+
+    @Transactional
+    @Override
+    public RunDto update(RunDto dto) {
+        Run existingRun = runRepository.findById(dto.getId())
+                .orElseThrow(() -> new NotFoundElementException(EntityTypeException.RUN));
+        log.info("Run to update: {}", dto);
+        if (dto.getRunNumber() != null) existingRun.setRunNumber(dto.getRunNumber());
+        if (dto.getRunParameters() != null) existingRun.setRunsParameters(dto.getRunParameters());
+        if (isCyclicReference(existingRun)) throw new IllegalArgumentException("Cyclic reference detected for Run");
+
+        return runMapper.entityToDto(runRepository.save(existingRun));
+    }
+
+    @Transactional
+    @Override
+    public void delete(RunDto dto) {
+        Run run = runRepository.findById(dto.getId())
+                .orElseThrow(() -> new NotFoundElementException(EntityTypeException.RUN));
+
+        List<Run> dependentRuns = runRepository.findByUnitIdAndReferenceRunId(
+                        run.getUnit().getId(),
+                        run.getId())
+                .orElse(List.of());
+
+        dependentRuns.forEach(r -> r.setReferenceRunId(null));
+        runRepository.saveAll(dependentRuns);
+        runRepository.delete(run);
+    }
+
+    private boolean isCyclicReference(Run run) {
+        List<Run> runs = runRepository.findByUnitId(run.getUnit().getId()).orElse(Collections.emptyList());
+
+        Set<UUID> visited = new HashSet<>();
+        UUID refId = run.getReferenceRunId();
+        visited.add(run.getId());
+
+        while (refId != null) {
+            if (!visited.add(refId)) return true;
+
+            UUID finalRefId = refId;
+            Optional<Run> next = runs.stream()
+                    .filter(r -> r.getId().equals(finalRefId))
+                    .findFirst();
+
+            if (next.isEmpty()) break;
+
+            refId = next.get().getReferenceRunId();
+        }
+        return false;
+    }
 
 }

@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public abstract class RunMapper {
 
-    public abstract RunDto runToRunDto(Run run);
+    public abstract RunDto entityToDto(Run run);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "unit", ignore = true)
@@ -16,6 +16,6 @@ public abstract class RunMapper {
     @Mapping(target = "updatedOn", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "records", ignore = true)
-    public abstract Run runDtoToRun(RunDto runDto);
+    public abstract Run dtoToEntity(RunDto runDto);
 
 }

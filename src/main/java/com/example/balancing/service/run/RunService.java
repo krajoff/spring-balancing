@@ -1,21 +1,18 @@
 package com.example.balancing.service.run;
 
-import com.example.balancing.entity.run.Run;
+import com.example.balancing.dto.RunDto;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface RunService {
 
-    Run getRunById(Long id);
+    RunDto create(UUID unitId, RunDto dto);
 
-    Run getRunByWeightId(Long id);
+    List<RunDto> getByUnitId(UUID unitId);
 
-    List<Run> getRunsByUnitId(Long id);
+    RunDto update(RunDto dto);
 
-    Run createRun(Run run);
-
-    Run updateRun(Long id, Run run);
-
-    void deleteRunById(Long id);
+    void delete(RunDto dto);
 
 }

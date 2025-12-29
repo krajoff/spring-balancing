@@ -7,6 +7,7 @@ import com.example.balancing.exception.EntityTypeException;
 import com.example.balancing.exception.NotFoundElementException;
 import com.example.balancing.repository.UserRepository;
 import com.example.balancing.transformer.UserMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
@@ -30,6 +32,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     public User getUserByUsername(String username) {
+        log.info("getUserByUsername: {}", username);
         return userRepository.findByUsername(username).orElseThrow(() -> new NotFoundElementException(EntityTypeException.USER));
     }
 
