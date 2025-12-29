@@ -25,7 +25,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     @Override
-    public RefreshToken findById(Long id) {
+    public RefreshToken findById(UUID id) {
         return refreshTokenRepository.findById(id).orElseThrow(RefreshTokenNotFoundException::new);
     }
 

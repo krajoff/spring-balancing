@@ -6,11 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public interface UnitRepository extends JpaRepository<Unit, Long> {
+public interface UnitRepository extends JpaRepository<Unit, UUID> {
 
     @Query(value = "select * from units u where u.user_id = ?1", nativeQuery = true)
-    List<Unit> findByUserId(Long id);
+    List<Unit> findByUserId(UUID id);
 
 }

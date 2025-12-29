@@ -4,10 +4,11 @@ import com.example.balancing.entity.RefreshToken;
 import com.example.balancing.entity.user.User;
 
 import java.time.Duration;
+import java.util.UUID;
 
 public interface RefreshTokenService {
 
-    RefreshToken findById(Long id);
+    RefreshToken findById(UUID id);
 
     RefreshToken findByUser(User user);
 

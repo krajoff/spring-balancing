@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class RunServiceImpl {
@@ -15,12 +16,7 @@ public class RunServiceImpl {
     @Autowired
     RunRepository runRepository;
 
-    public Run getRunByWeightId(Long id) {
-        return runRepository.findByWeightId(id)
-                .orElseThrow(() -> new NotFoundElementException(EntityTypeException.WEIGHT));
-    }
-
-    public List<Run> getRunsByUnitId(Long id) {
+    public List<Run> getRunsByUnitId(UUID id) {
         return runRepository.findByUnitId(id)
                 .orElseThrow(() -> new NotFoundElementException(EntityTypeException.WEIGHT));
     }

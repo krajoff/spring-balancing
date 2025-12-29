@@ -8,16 +8,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, UUID> {
 
     Optional<User> findByEmail(String email);
 
     Optional<User> findByUsername(String username);
 
     @NonNull
-    Optional<User> findById(@NonNull Long id);
+    Optional<User> findById(@NonNull UUID id);
 
     @Query(value = "select * from users u where u.username = :username or u.email = :email", nativeQuery = true)
     Optional<User> findByUsernameOrEmail(@Param("username") String username,

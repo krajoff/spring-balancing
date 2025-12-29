@@ -8,6 +8,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Schema(description = "DTO станции")
@@ -15,7 +16,7 @@ import java.util.List;
 public class StationDto {
 
     @Schema(description = "Уникальный номер записи")
-    private Long id;
+    private UUID id;
 
     @Schema(description = "Название станции", example = "Саяно-Шушенская ГЭС", defaultValue = "Station")
     private String name;

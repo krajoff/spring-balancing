@@ -5,6 +5,8 @@ import com.example.balancing.entity.user.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.UUID;
+
 public interface UserService {
 
     void createUser(User user);
@@ -21,6 +23,6 @@ public interface UserService {
 
     boolean existsByUsernameOrEmail(String username, String email);
 
-    UserDetails loadUserById(Long id);
+    UserDetails loadUserById(UUID uuid);
 
 }

@@ -7,13 +7,15 @@ import com.example.balancing.repository.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class RecordServiceImpl implements RecordService {
 
     @Autowired
     private RecordRepository recordRepository;
 
-    public Record getRecordById(Long id) {
+    public Record getRecordById(UUID id) {
         return recordRepository.findById(id).orElseThrow(() -> new NotFoundElementException(EntityTypeException.RECORD));
     }
 
@@ -21,7 +23,7 @@ public class RecordServiceImpl implements RecordService {
         return recordRepository.save(record);
     }
 
-    public Record updateRecord(Long id, Record record) {
+    public Record updateRecord(UUID id, Record record) {
         Record existingRecord = getRecordById(id);
         existingRecord.setIsUsed(record.getIsUsed());
         if (record.getIsManualSensitivity()) {
@@ -35,7 +37,7 @@ public class RecordServiceImpl implements RecordService {
         return createRecord(existingRecord);
     }
 
-    public void deleteRecord(Long id) {
+    public void deleteRecord(UUID id) {
         recordRepository.deleteById(id);
     }
 

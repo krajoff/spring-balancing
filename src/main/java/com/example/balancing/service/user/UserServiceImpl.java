@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
@@ -72,8 +74,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new NotFoundElementException(EntityTypeException.USER));
+    public UserDetails loadUserById(UUID uuid) {
+        return userRepository.findById(uuid).orElseThrow(() -> new NotFoundElementException(EntityTypeException.USER));
     }
 
 }
