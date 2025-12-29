@@ -5,7 +5,7 @@ import com.example.balancing.entity.Station;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = UnitMapper.class)
+@Mapper(componentModel = "spring")
 public abstract class StationMapper {
 
     public abstract StationDto entityToDto(Station station);
@@ -15,6 +15,5 @@ public abstract class StationMapper {
     @Mapping(target = "version", ignore = true)
     @Mapping(source = "units", target = "units")
     public abstract Station dtoToEntity(StationDto stationDto);
-
 
 }

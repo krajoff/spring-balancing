@@ -10,6 +10,7 @@ import com.example.balancing.service.user.UserService;
 import com.example.balancing.transformer.StationMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class StationServiceImpl implements StationService {
     private final StationMapper stationMapper;
     private final UserService userService;
 
+    @Transactional
     @Override
     public StationDto create(StationDto dto) {
         User user = userService.getCurrentUser();
@@ -30,6 +32,7 @@ public class StationServiceImpl implements StationService {
         return stationMapper.entityToDto(stationRepository.save(station));
     }
 
+    @Transactional
     @Override
     public List<StationDto> getAllByUser() {
         User user = userService.getCurrentUser();
@@ -40,6 +43,7 @@ public class StationServiceImpl implements StationService {
                 .toList();
     }
 
+    @Transactional
     @Override
     public StationDto update(StationDto source) {
         User user = userService.getCurrentUser();
@@ -50,6 +54,7 @@ public class StationServiceImpl implements StationService {
         return stationMapper.entityToDto(stationRepository.save(station));
     }
 
+    @Transactional
     @Override
     public void delete(StationDto source) {
         User user = userService.getCurrentUser();

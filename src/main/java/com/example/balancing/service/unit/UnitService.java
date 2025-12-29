@@ -1,12 +1,18 @@
 package com.example.balancing.service.unit;
 
-import com.example.balancing.entity.Unit;
+import com.example.balancing.dto.UnitDto;
+
+import java.util.List;
+import java.util.UUID;
 
 public interface UnitService {
-    Unit getUnitById(Long id);
-    Unit getFilledUnitById(Long id);
-    Unit createUnit(Unit unit);
-    Unit updateUnit(Long id, Unit unit);
-    void deleteUnit(Long id);
+
+    List<UnitDto> getByStation(UUID id);
+
+    UnitDto create(UUID stationId, UnitDto dto);
+
+    UnitDto update(UnitDto dto);
+
+    void delete(UnitDto dto);
 
 }

@@ -11,7 +11,6 @@ import java.util.UUID;
 @Repository
 public interface UnitRepository extends JpaRepository<Unit, UUID> {
 
-    @Query(value = "select * from units u where u.user_id = ?1", nativeQuery = true)
-    List<Unit> findByUserId(UUID id);
+    List<Unit> findByStationId(UUID id);
 
 }

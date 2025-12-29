@@ -1,52 +1,70 @@
-//package com.example.balancing.services.unit;
-//
-//import com.example.balancing.exception.UnitNotFoundException;
-//import com.example.balancing.vo.complex.Complex;
-//import com.example.balancing.entity.Record;
-//import com.example.balancing.entity.run.Run;
-//import com.example.balancing.entity.Unit;
-//import com.example.balancing.entity.weight.Weight;
-//import com.example.balancing.repository.UnitRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.Comparator;
-//import java.util.List;
-//import java.util.Optional;
-//
-//@Service
-//public class UnitServiceImpl implements UnitService {
-//
-//    @Autowired
-//    private UnitRepository unitRepository;
-//
-//    public Unit getUnitById(Long id) {
-//        return unitRepository.findById(id)
-//                .orElseThrow(UnitNotFoundException::new);
-//    }
-//
-//    public Unit createUnit(Unit unit) {
-//        return unitRepository.save(unit);
-//    }
-//
-//    public Unit updateUnit(Long id, Unit unit) {
-//        Unit existingUnit = getUnitById(id);
-//        existingUnit.setType(unit.getType());
-//        existingUnit.setPlanes(unit.getPlanes());
-//        existingUnit.setModes(unit.getModes());
-//        existingUnit.setPoints(unit.getPoints());
-//        existingUnit.setDescription(unit.getDescription());
-//        existingUnit.setVibrationPrecision(unit.getVibrationPrecision());
-//        existingUnit.setVibrationUnitMeasure(unit.getVibrationUnitMeasure());
-//        existingUnit.setWeightPrecision(unit.getWeightPrecision());
-//        existingUnit.setWeightUnitMeasure(unit.getWeightUnitMeasure());
-//        return createUnit(existingUnit);
-//    }
-//
-//    public void deleteUnit(Long id) {
-//        unitRepository.deleteById(id);
-//    }
-//
+package com.example.balancing.service.unit;
+
+import com.example.balancing.dto.UnitDto;
+import com.example.balancing.entity.Station;
+import com.example.balancing.entity.Unit;
+import com.example.balancing.exception.EntityTypeException;
+import com.example.balancing.exception.IllegalArgumentException;
+import com.example.balancing.exception.NotFoundElementException;
+import com.example.balancing.repository.StationRepository;
+import com.example.balancing.repository.UnitRepository;
+import com.example.balancing.transformer.UnitMapper;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.UUID;
+
+@Service
+@AllArgsConstructor
+public class UnitServiceImpl implements UnitService {
+
+    private final UnitRepository unitRepository;
+    private final StationRepository stationRepository;
+    private final UnitMapper unitMapper;
+
+    @Transactional
+    @Override
+    public UnitDto create(UUID stationId, UnitDto dto) {
+        Unit unit = unitMapper.dtoToEntity(dto);
+        Station station = stationRepository.findById(stationId)
+                .orElseThrow(() -> new NotFoundElementException(EntityTypeException.STATION));
+        unit.setStation(station);
+        return unitMapper.entityToDto(unitRepository.save(unit));
+    }
+
+    @Transactional
+    @Override
+    public List<UnitDto> getByStation(UUID stationId) {
+        if (stationId == null) throw new IllegalArgumentException(EntityTypeException.STATION);
+        return unitRepository.findByStationId(stationId)
+                .stream()
+                .map(unitMapper::entityToDto)
+                .toList();
+    }
+
+    @Transactional
+    @Override
+    public UnitDto update(UnitDto dto) {
+        Unit existing = unitRepository.findById(dto.getId())
+                .orElseThrow(() -> new NotFoundElementException(EntityTypeException.UNIT));
+        existing.setUnitNumber(dto.getUnitNumber());
+        existing.setUnitType(dto.getUnitType());
+        existing.setWeightPrecision(dto.getWeightPrecision());
+        existing.setWeightUnitMeasure(dto.getWeightUnitMeasure());
+        existing.setVibrationPrecision(dto.getVibrationPrecision());
+        existing.setVibrationUnitMeasure(dto.getVibrationUnitMeasure());
+        existing.setDescription(dto.getDescription());
+        return unitMapper.entityToDto(unitRepository.save(existing));
+    }
+
+    @Transactional
+    @Override
+    public void delete(UnitDto dto) {
+        unitRepository.deleteById(dto.getId());
+    }
+
 //    public Unit getFilledUnitById(Long id) {
 //        return calculateSensitivities(getUnitById(id));
 //    }
@@ -176,5 +194,5 @@
 //                .filter(r -> r.getId().equals(refRunId))
 //                .findFirst();
 //    }
-//
-//}
+
+}

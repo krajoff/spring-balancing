@@ -1,15 +1,21 @@
 package com.example.balancing.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Schema(description = "DTO агрегата/машины")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UnitDto {
+
+    @Schema(description = "Уникальный номер записи")
+    private UUID id;
 
     @Schema(description = "Номер агрегата на станции", example = "1, 2 и т.д.", defaultValue = "1")
     @Size(max = 3)
