@@ -57,7 +57,7 @@ public class RunServiceImpl implements RunService {
                 .orElseThrow(() -> new NotFoundElementException(EntityTypeException.RUN));
         log.info("Run to update: {}", dto);
         if (dto.getRunNumber() != null) existingRun.setRunNumber(dto.getRunNumber());
-        if (dto.getRunParameters() != null) existingRun.setRunsParameters(dto.getRunParameters());
+        if (dto.getRunParameters() != null) existingRun.setRunParameters(dto.getRunParameters());
         if (isCyclicReference(existingRun)) throw new IllegalArgumentException("Cyclic reference detected for Run");
 
         return runMapper.entityToDto(runRepository.save(existingRun));

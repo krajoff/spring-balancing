@@ -1,4 +1,4 @@
--- создаем таблицу пользователей users
+-- Создаем таблицу пользователей users
 create table if not exists users (
     id uuid not null,
     email varchar(255) not null,
@@ -13,7 +13,7 @@ create table if not exists users (
 create unique index idx_users_email on users(email);
 create unique index idx_users_username on users(username);
 
--- создаем таблицу ролей authorities
+-- Создаем таблицу ролей authorities
 create table if not exists authorities (
     id uuid not null,
     authority varchar(255),
@@ -23,7 +23,7 @@ create table if not exists authorities (
 );
 create unique index idx_authorities_user_authority on authorities(user_id, authority);
 
--- создаем таблицу токенов refresh_tokens
+-- Создаем таблицу токенов refresh_tokens
 create table if not exists refresh_tokens (
     id uuid not null,
     expiration timestamp(6) not null,
@@ -35,7 +35,7 @@ create table if not exists refresh_tokens (
 );
 create unique index idx_refresh_tokens_token on refresh_tokens(token);
 
--- создаем таблицу станций stations
+-- Ссоздаем таблицу станций stations
 create table if not exists stations (
     id uuid not null,
     name varchar(50) default 'no-name-station',
@@ -47,7 +47,7 @@ create table if not exists stations (
 );
 create index idx_stations_user_id ON stations(user_id);
 
--- создаем таблицу агрегатов units
+-- Создаем таблицу агрегатов units
 create table if not exists units (
     id uuid not null,
     unit_number integer default 1,
@@ -66,7 +66,7 @@ create table if not exists units (
 );
 create index idx_units_station_id ON units(station_id);
 
--- создаем таблицу пусков runs
+-- Создаем таблицу пусков runs
 create table if not exists runs (
     id uuid not null,
     run_number integer default 0,
@@ -84,7 +84,7 @@ create table if not exists runs (
 create index idx_runs_unit_id on runs(unit_id);
 create index idx_runs_reference_run_id on runs(reference_run_id);
 
--- создаем таблицу записей вибрации records
+-- Создаем таблицу записей вибрации records
 create table if not exists records (
     id uuid not null,
     run_id uuid not null,
@@ -94,6 +94,8 @@ create table if not exists records (
     phase_vibration double precision not null default 0,
     is_used boolean not null default true,
     is_manual_sensitivity boolean not null default false,
+    mag_sensitivity double precision not null default 0,
+    phase_sensitivity double precision not null default 0,
     created_on timestamp(6) default current_timestamp,
     updated_on timestamp(6) default current_timestamp,
     version bigint default 1,
@@ -105,9 +107,8 @@ create index idx_records_run_id on records(run_id);
 --
 -- -- заполняем таблицу пользователей
 -- insert into users (email, username, password) values
---     ('iioz@ya.ru', 'nikolay','$2a$12$sq./cdz8r.pv3wmpsjv3x.44//hq5/rm9erxbula4daankit0jork'),
---     ('pavel@mail.com', 'pavel','$2a$12$sq./cdz8r.pv3wmpsjv3x.44//hq5/rm9erxbula4daankit0jork'),
---     ('nikita@mail.com', 'nikita','$2a$12$sq./cdz8r.pv3wmpsjv3x.44//hq5/rm9erxbula4daankit0jork');
+--     ('iioz@ya.ru', 'krajoff','$2a$12$h2leTknCTYyAIlrucCXa4uj4lBEmM0hJS2UT2Wy6uQDcTTyBKS1em'),
+--     ('pavel@mail.com', 'krajon','$2a$12$h2leTknCTYyAIlrucCXa4uj4lBEmM0hJS2UT2Wy6uQDcTTyBKS1em');
 --
 -- -- заполняем таблицу станций
 -- insert into stations (name, user_id) values

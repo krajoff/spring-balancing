@@ -1,6 +1,6 @@
 package com.example.balancing.dto;
 
-import com.example.balancing.entity.run.RunParameter;
+import com.example.balancing.entity.run.RunParameters;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMin;
@@ -24,6 +24,6 @@ public class RunDto {
     private UUID referenceRunId;
 
     @Schema(description = "Параметры пуска")
-    private RunParameter runParameters;
+    private RunParameters runParameters;
 
 }

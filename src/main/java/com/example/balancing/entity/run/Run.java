@@ -45,7 +45,7 @@ public class Run {
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "run_parameters")
-    private RunParameter runsParameters;
+    private RunParameters runParameters;
 
     @CreationTimestamp
     @Column(updatable = false, name = "created_on")
