@@ -13,14 +13,43 @@ import java.util.UUID;
 @Repository
 public interface RunRepository extends JpaRepository<Run, UUID> {
 
-    @Query(value = "SELECT * FROM runs r WHERE r.unit_id = :unitId", nativeQuery = true)
+    @Query("""
+                select r from Run r
+                join r.unit u
+                join u.station s
+                where r.id = :runId
+                and s.user.id = :userId
+            """)
+    Optional<Run> findByIdAndUserId(@Param("runId") UUID runId, @Param("userId") UUID userId);
+
+    @Query("""
+                select r from Run r
+                join r.unit u
+                join u.station s
+                where u.id = :unitId
+                and s.user.id = :userId
+            """)
+    Optional<List<Run>> findByUnitIdAndUserId(@Param("unitId") UUID unitId, @Param("userId") UUID userId);
+
+    @Query(value = """
+            select r from Run r
+            where r.unit.id = :unitId
+            """)
     Optional<List<Run>> findByUnitId(@Param("unitId") UUID unitId);
 
-    @Query(value = "SELECT * FROM runs r WHERE r.unit_id = :unitId AND r.reference_run_id = :referenceRunId", nativeQuery = true)
+    @Query(value = """
+            select r from Run r
+            where r.unit.id = :unitId
+            and r.referenceRunId = :referenceRunId
+            """)
     Optional<List<Run>> findByUnitIdAndReferenceRunId(@Param("unitId") UUID unitId,
                                                       @Param("referenceRunId") UUID referenceRunId);
 
-    @Query(value = "SELECT * FROM runs r WHERE r.unit_id = :unitId AND r.run_number = :runNumber", nativeQuery = true)
+    @Query(value = """
+            select r from Run r
+            where r.unit.id = :unitId
+            and r.runNumber = :runNumber
+            """)
     Optional<Run> findByUnitIdAndRunNumber(@Param("unitId") UUID unitId,
                                            @Param("runNumber") Integer runNumber);
 

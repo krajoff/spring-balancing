@@ -3,10 +3,12 @@ package com.example.balancing.service.run;
 import com.example.balancing.dto.RunDto;
 import com.example.balancing.entity.Unit;
 import com.example.balancing.entity.run.Run;
+import com.example.balancing.entity.user.User;
 import com.example.balancing.exception.EntityTypeException;
 import com.example.balancing.exception.NotFoundElementException;
 import com.example.balancing.repository.RunRepository;
 import com.example.balancing.repository.UnitRepository;
+import com.example.balancing.service.user.UserService;
 import com.example.balancing.transformer.RunMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,17 +25,19 @@ public class RunServiceImpl implements RunService {
     private final RunRepository runRepository;
     private final RunMapper runMapper;
     private final UnitRepository unitRepository;
+    private final UserService userService;
 
     @Transactional
     @Override
     public RunDto create(UUID unitId, RunDto dto) {
-        Unit unit = unitRepository.findById(unitId).orElseThrow(() -> new NotFoundElementException(EntityTypeException.UNIT));
+        User user = userService.getCurrentUser();
+        Unit unit = unitRepository.findByIdAndUserId(unitId, user.getId())
+                .orElseThrow(() -> new NotFoundElementException(EntityTypeException.UNIT));
 
         Run run = runMapper.dtoToEntity(dto);
         run.setUnit(unit);
 
-        UUID referenceRunId = runRepository
-                .findByUnitIdAndRunNumber(unitId, dto.getRunNumber())
+        UUID referenceRunId = runRepository.findByUnitIdAndRunNumber(unitId, dto.getRunNumber())
                 .map(Run::getId)
                 .orElse(null);
         run.setReferenceRunId(referenceRunId);
@@ -44,7 +48,8 @@ public class RunServiceImpl implements RunService {
     @Transactional
     @Override
     public List<RunDto> getByUnitId(UUID unitId) {
-        List<Run> runs = runRepository.findByUnitId(unitId)
+        User user = userService.getCurrentUser();
+        List<Run> runs = runRepository.findByUnitIdAndUserId(unitId, user.getId())
                 .orElseThrow(() -> new NotFoundElementException(EntityTypeException.UNIT));
         return runs.stream().map(runMapper::entityToDto).toList();
     }
@@ -52,8 +57,10 @@ public class RunServiceImpl implements RunService {
     @Transactional
     @Override
     public RunDto update(RunDto dto) {
-        Run existing = runRepository.findById(dto.getId())
+        User user = userService.getCurrentUser();
+        Run existing = runRepository.findByIdAndUserId(dto.getId(), user.getId())
                 .orElseThrow(() -> new NotFoundElementException(EntityTypeException.RUN));
+
         log.info("Run to update: {}", dto);
         if (dto.getRunNumber() != null) existing.setRunNumber(dto.getRunNumber());
         if (dto.getRunParameters() != null) existing.setRunParameters(dto.getRunParameters());
@@ -65,7 +72,8 @@ public class RunServiceImpl implements RunService {
     @Transactional
     @Override
     public void delete(RunDto dto) {
-        Run run = runRepository.findById(dto.getId())
+        User user = userService.getCurrentUser();
+        Run run = runRepository.findByIdAndUserId(dto.getId(), user.getId())
                 .orElseThrow(() -> new NotFoundElementException(EntityTypeException.RUN));
 
         List<Run> dependentRuns = runRepository.findByUnitIdAndReferenceRunId(
