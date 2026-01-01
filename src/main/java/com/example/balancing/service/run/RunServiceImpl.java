@@ -27,8 +27,7 @@ public class RunServiceImpl implements RunService {
     @Transactional
     @Override
     public RunDto create(UUID unitId, RunDto dto) {
-        Unit unit = unitRepository.findById(unitId)
-                .orElseThrow(() -> new NotFoundElementException(EntityTypeException.UNIT));
+        Unit unit = unitRepository.findById(unitId).orElseThrow(() -> new NotFoundElementException(EntityTypeException.UNIT));
 
         Run run = runMapper.dtoToEntity(dto);
         run.setUnit(unit);
@@ -53,14 +52,14 @@ public class RunServiceImpl implements RunService {
     @Transactional
     @Override
     public RunDto update(RunDto dto) {
-        Run existingRun = runRepository.findById(dto.getId())
+        Run existing = runRepository.findById(dto.getId())
                 .orElseThrow(() -> new NotFoundElementException(EntityTypeException.RUN));
         log.info("Run to update: {}", dto);
-        if (dto.getRunNumber() != null) existingRun.setRunNumber(dto.getRunNumber());
-        if (dto.getRunParameters() != null) existingRun.setRunParameters(dto.getRunParameters());
-        if (isCyclicReference(existingRun)) throw new IllegalArgumentException("Cyclic reference detected for Run");
+        if (dto.getRunNumber() != null) existing.setRunNumber(dto.getRunNumber());
+        if (dto.getRunParameters() != null) existing.setRunParameters(dto.getRunParameters());
+        if (isCyclicReference(existing)) throw new IllegalArgumentException("Cyclic reference detected for Run");
 
-        return runMapper.entityToDto(runRepository.save(existingRun));
+        return runMapper.entityToDto(runRepository.save(existing));
     }
 
     @Transactional

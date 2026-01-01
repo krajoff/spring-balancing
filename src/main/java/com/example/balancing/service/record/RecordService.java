@@ -1,17 +1,18 @@
 package com.example.balancing.service.record;
 
-import com.example.balancing.entity.Record;
+import com.example.balancing.dto.RecordDto;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface RecordService {
 
-    Record getRecordById(UUID id);
+    List<RecordDto> getByRunId(UUID id);
 
-    Record createRecord(Record record);
+    RecordDto create(UUID runId, RecordDto dto);
 
-    Record updateRecord(UUID id, Record record);
+    RecordDto update(RecordDto dto);
 
-    void deleteRecord(UUID id);
+    void delete(RecordDto dto);
 
 }

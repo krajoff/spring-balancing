@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ public class StationDto {
     private UUID id;
 
     @Schema(description = "Название станции", example = "Саяно-Шушенская ГЭС", defaultValue = "Station")
+    @Size(max = 50, message = "Длина записи больше 50 знаков недоступна")
     private String name;
 
     @Schema(description = "Агрегаты, относящиеся к станции")

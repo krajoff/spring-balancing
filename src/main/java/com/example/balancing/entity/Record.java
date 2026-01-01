@@ -65,11 +65,5 @@ public class Record {
     @Column(name = "version")
     private Long version = 1L;
 
-    @PrePersist
-    void prePersist() {
-        if (this.isUsed == null)
-            this.isUsed = true;
-    }
-
 }
 

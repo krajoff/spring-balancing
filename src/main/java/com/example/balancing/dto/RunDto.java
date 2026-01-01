@@ -3,7 +3,8 @@ package com.example.balancing.dto;
 import com.example.balancing.entity.run.RunParameters;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 import java.util.UUID;
@@ -17,7 +18,8 @@ public class RunDto {
     private UUID id;
 
     @Schema(description = "Номер пуска", example = "0", defaultValue = "0")
-    @DecimalMin(value = "0", message = "Значение не может принимать отрицательную величину")
+    @Min(0)
+    @Max(value = 10, message = "Число пусков больше 10 недоступно")
     private Integer runNumber;
 
     @Schema(description = "Ссылка на уникальный номер предыдущего пуска", example = "0")

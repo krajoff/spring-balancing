@@ -2,6 +2,7 @@ package com.example.balancing.controller.api;
 
 import com.example.balancing.dto.StationDto;
 import com.example.balancing.service.station.StationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,17 +22,17 @@ public class StationController {
     }
 
     @PostMapping
-    public ResponseEntity<StationDto> create(@RequestBody StationDto dto) {
+    public ResponseEntity<StationDto> create(@Valid @RequestBody StationDto dto) {
         return ResponseEntity.ok(stationService.create(dto));
     }
 
     @PutMapping()
-    public ResponseEntity<StationDto> update(@RequestBody StationDto dto) {
+    public ResponseEntity<StationDto> update(@Valid @RequestBody StationDto dto) {
         return ResponseEntity.ok(stationService.update(dto));
     }
 
     @DeleteMapping()
-    public ResponseEntity<Void> delete(@RequestBody StationDto dto) {
+    public ResponseEntity<Void> delete(@Valid @RequestBody StationDto dto) {
         stationService.delete(dto);
         return ResponseEntity.noContent().build();
     }
