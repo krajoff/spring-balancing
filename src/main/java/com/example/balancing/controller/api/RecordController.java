@@ -5,7 +5,7 @@ import com.example.balancing.exception.EntityTypeException;
 import com.example.balancing.exception.IllegalArgumentException;
 import com.example.balancing.service.record.RecordService;
 import jakarta.validation.Valid;
-import lombok.NonNull;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class RecordController {
     @GetMapping
     public ResponseEntity<List<RecordDto>> getAllByRunId(@PathVariable UUID stationId,
                                                          @PathVariable UUID unitId,
-                                                         @NonNull @PathVariable UUID runId) {
+                                                         @NotNull @PathVariable UUID runId) {
         log.info("Get records for run {}, unit {}, station {}", runId, unitId, stationId);
         return ResponseEntity.ok(recordService.getByRunId(runId));
     }
@@ -39,7 +39,7 @@ public class RecordController {
 
     @PutMapping
     public ResponseEntity<RecordDto> update(@PathVariable UUID stationId, @PathVariable UUID unitId,
-                                            @PathVariable UUID runId, @Valid @RequestBody RecordDto dto) {
+                                            @NotNull @PathVariable UUID runId, @Valid @RequestBody RecordDto dto) {
         if (dto.getId() == null) throw new IllegalArgumentException(EntityTypeException.RECORD);
         log.info("Update record {} for run {}, unit {}, station {}", dto.getId(), runId, unitId, stationId);
         return ResponseEntity.ok(recordService.update(dto));
@@ -47,7 +47,7 @@ public class RecordController {
 
     @DeleteMapping
     public ResponseEntity<Void> delete(@PathVariable UUID stationId, @PathVariable UUID unitId,
-                                       @PathVariable UUID runId, @Valid @RequestBody RecordDto dto) {
+                                       @PathVariable UUID runId, @RequestBody RecordDto dto) {
         if (dto.getId() == null) throw new IllegalArgumentException(EntityTypeException.RECORD);
         log.info("Delete record {} for run {}, unit {}, station {}", dto.getId(), runId, unitId, stationId);
         recordService.delete(dto);
