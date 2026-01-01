@@ -21,7 +21,6 @@ public class UserProfileController {
     @GetMapping
     public String getMainInformation(Model model) {
         UserDto user = userService.getCurrentUserDto();
-        System.out.println("----->" + user);
         model.addAttribute("user", user);
         return "user/profile";
     }
