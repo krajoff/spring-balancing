@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Station list</title>
+    <link rel="stylesheet" href="../../static/css/style.css"/>
+    <link rel="stylesheet" href="../../static/css/tables.css"/>
+    <script src="../../static/js/show-edit.js"></script>
+    <script src="../../static/js/cancel-edit.js"></script>
+    <script src="../../static/js/station/create.js"></script>
+
+</head>
+
+<body>
+<div class="container">
+
+    <!-- Greeting -->
+    <div class="box greeting-bar">
+        <div class="links-left">
+            <a href="/user">Profile</a>
+        </div>
+        <div class="links-right">
+            <form action="/logout" method="post">
+                <input type="submit" value="Logout"/>
+            </form>
+        </div>
+    </div>
+
+    <!-- Station table -->
+    <div class="box">
+        <table class="bordered">
+            <thead>
+            <tr>
+                <th>Station name</th>
+                <th>Created</th>
+                <th>Modified</th>
+                <th>Edit</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-id="123">
+                <td>Main Station</td>
+                <td>2026-01-02</td>
+                <td>2026-01-02</td>
+                <td>
+                    <button onclick="showEdit(this); return false;">Edit</button>
+                </td>
+            </tr>
+            <tr class="edit-row">
+                <!-- Station name -->
+                <td>
+                    <input type="text" value="Main Station" class="edit-input"/>
+                </td>
+                <!-- Actions -->
+                <td colspan="3"  class="edit-actions">
+                    <button type="button" class="btn-save" onclick="update(this)">Save</button>
+                    <button class="btn-cancel" onclick="cancelEdit(this); return false;">Cancel</button>
+                </td>
+            </tr>
+
+            <tr data-id="234">
+                <td>Secondary Station</td>
+                <td>2026-01-01</td>
+                <td>2026-01-02</td>
+                <td>
+                    <button onclick="showEdit(this); return false;">Edit</button>
+                </td>
+            </tr>
+            <tr class="edit-row" style="display:none">
+                <!-- Station name -->
+                <td>
+                    <input type="text" value="Secondary Station" class="edit-input"/>
+                </td>
+                <!-- Actions -->
+                <td colspan="3"  class="edit-actions">
+                    <button type="button" class="btn-save" onclick="update(this)">Save</button>
+                    <button class="btn-cancel" onclick="cancelEdit(this); return false;">Cancel</button>
+                </td>
+            </tr>
+            </tbody>
+
+            <!-- Add new station -->
+            <tr class="new-station-row">
+                <td>
+                    <input id="stationName" type="text" placeholder="Station name"/>
+                </td>
+                <td colspan="3">
+                    <button type="button" onclick="create()">Add</button>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

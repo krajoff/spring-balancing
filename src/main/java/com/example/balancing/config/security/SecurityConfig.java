@@ -16,10 +16,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-/**
- * Конфигурация безопасности приложения.
- * Настраивает фильтры безопасности и правила доступа для различных URL-путей.
- */
+import static com.example.balancing.controller.web.WebAuthenticationController.AUTH_LOGIN;
+import static com.example.balancing.controller.web.WebAuthenticationController.SUCCESS_LOGIN;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -42,33 +41,39 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
-                                "/api/auth/**",
-                                "/login",
-                                "/signup",
+                                "/api/**",
+                                "/auth/login",
+                                "/auth/signup",
                                 "/css/**",
                                 "/js/**",
-                                "/errors/**",
-                                "/auth/**"
+                                "/errors/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
+                // Web login
                 .formLogin(form -> form
-                        .loginPage("/login")
+                        .loginPage("/" + AUTH_LOGIN)
+                        .loginProcessingUrl("/" + AUTH_LOGIN)
+                        .defaultSuccessUrl(SUCCESS_LOGIN, true)
+                        .failureUrl("/auth/login?error")
                         .permitAll()
-                        .defaultSuccessUrl("/", true)
                 )
+                // Logout
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutUrl("/auth/logout")
+                        .logoutSuccessUrl("/auth/login?logout")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID", "access_token", "refresh_token")
                         .permitAll()
                 )
+                // Session
                 .sessionManagement(manager -> manager
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
+                // CSRF
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
                 .cors(AbstractHttpConfigurer::disable)
+                // Cookie auth only for API
                 .addFilterBefore(cookieAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

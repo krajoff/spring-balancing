@@ -16,7 +16,7 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/stations/{stationId}/units")
+@RequestMapping("/api/station/{stationId}/unit")
 public class UnitController {
 
     private final UnitService unitService;

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="/css/register.css"/>
+    <link rel="stylesheet" href="/css/auth.css"/>
     <title>Registration</title>
 </head>
 <body>
@@ -13,7 +13,8 @@
     <div class="red" th:if="${error}" th:text="${error}"></div>
 
     <!-- Форма регистрации -->
-    <form th:action="@{/auth/signup}" th:object="${signupRequest}" method="post">
+    <form th:action="@{/signup}" th:object="${signupRequest}" method="post">
+
         <div class="txt_field">
             <input type="text" th:field="*{username}" />
             <span></span>
@@ -37,8 +38,9 @@
 
         <input type="submit" value="Sign up"/>
         <div class="signup_link">
-            Already have an account? <a th:href="@{/auth/login}">Login</a>
+            Already have an account? <a th:href="@{/login}">Login</a>
         </div>
+
     </form>
 </div>
 </body>

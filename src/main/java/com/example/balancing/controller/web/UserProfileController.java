@@ -2,13 +2,12 @@ package com.example.balancing.controller.web;
 
 import com.example.balancing.dto.UserDto;
 import com.example.balancing.service.user.UserService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.ui.Model;
+
 @Controller
-@Tag(name = "Общая информация о пользователе")
 @RequestMapping("/user")
 public class UserProfileController {
 

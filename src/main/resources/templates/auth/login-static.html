@@ -2,22 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="https://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="/css/auth.css"/>
+    <link rel="stylesheet" href="../../static/css/auth.css"/>
     <title>Login</title>
 </head>
 <body>
 <div class="center">
     <h1>Login</h1>
-
-    <div th:if="${param.error}" class="red">
-        Invalid username or password
-    </div>
-
-    <div th:if="${param.logout}" class="green">
-        You have been logged out
-    </div>
-
-    <form th:action="@{/auth/login}"
+    <form th:action="@{/login}"
           th:object="${loginRequest}"
           method="post">
 

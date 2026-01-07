@@ -17,7 +17,7 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/stations/{stationId}/units/{unitId}/runs/{runId}/records")
+@RequestMapping("/api/station/{stationId}/unit/{unitId}/run/{runId}/record")
 public class RecordController {
 
     private final RecordService recordService;

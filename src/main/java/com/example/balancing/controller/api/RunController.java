@@ -16,7 +16,7 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/stations/{stationId}/units/{unitId}/runs")
+@RequestMapping("/api/station/{stationId}/unit/{unitId}/run")
 public class RunController {
 
     private final RunService runService;

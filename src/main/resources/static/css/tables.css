@@ -1,12 +1,12 @@
 table {
     *border-collapse: collapse;
     border-spacing: 0;
-    width: 100%;
+    width: fit-content;
 }
 
 .greeting {
     width: 300px;
-    text-align: left;
+    text-align: right;
 }
 
 .bordered {
@@ -31,7 +31,7 @@ table {
 .bordered td, .bordered th {
     border-left: 1px solid #ccc;
     border-top: 1px solid #ccc;
-    padding: 7px;
+    padding: 8px 12px;
     text-align: center;
     font-weight: normal;
 }
