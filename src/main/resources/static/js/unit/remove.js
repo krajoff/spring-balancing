@@ -2,32 +2,37 @@ function remove(button) {
     const editRow = button.closest('tr.edit-row');
     if (!editRow) return;
 
-    const input = editRow.querySelector('input.edit-input');
-    const name = input.value.trim();
-    if (!name) {
-        alert('Station name is required');
+    const unitRow = editRow.previousElementSibling;
+    if (!unitRow) return;
+
+    const unitId = unitRow.dataset.id;
+    if (!unitId) {
+        alert('Unit ID not found');
         return;
     }
 
-    const stationRow = editRow.previousElementSibling;
-    const stationId = stationRow.dataset.id;
-    const payload = { id: stationId, name: name };
+    if (!confirm('Delete this unit?')) return;
 
-    fetch(`/api/station`, {
+    fetch(`/api/station/${stationId}/unit`, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('input[name="_csrf"]').value
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(payload)
-    })
-        .then(r => {
-            if (r.ok) {
-                stationRow.remove();
-                editRow.remove();
-            } else {
-                return r.text().then(t => { throw new Error(t || 'Delete failed') });
-            }
+        body: JSON.stringify({
+            id: unitId
         })
-        .catch(e => alert(e.message));
+    })
+        .then(res => {
+            if (!res.ok) {
+                return res.text().then(t => {
+                    throw new Error(t || 'Delete failed');
+                });
+            }
+            unitRow.remove();
+            editRow.remove();
+        })
+        .catch(err => {
+            console.error(err);
+            alert(err.message);
+        });
 }

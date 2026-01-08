@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="/css/tables.css"/>
     <script src="/js/show-edit.js"></script>
     <script src="/js/cancel-edit.js"></script>
-    <script src="/js/unit/create.js"></script>
+    <script> const stationId = '[[${station.id}]]';</script>
+    <script src="/js/unit/create.js" defer></script>
     <script src="/js/unit/update.js"></script>
     <script src="/js/unit/remove.js"></script>
 </head>
@@ -31,7 +32,7 @@
     <div class="box">
         <table class="bordered" style="table-layout: fixed;">
             <colgroup>
-                <col style="width: 50px;">   <!-- No -->
+                <col style="width: 70px;">   <!-- No -->
                 <col style="width: 200px;">  <!-- Type -->
                 <col style="width: 70px;">   <!-- Weight pr -->
                 <col style="width: 80px;">   <!-- Weight un -->
@@ -125,17 +126,16 @@
 
             <!-- Add new unit -->
             <tr class="new-station-row">
-                <td><input id="unitNumber" type="number" min="0" max="999" placeholder="Unit number"/></td>
+                <td><input id="unitNumber" type="number" min="1" max="999" placeholder="1"/></td>
                 <td><input id="unitType" type="text" placeholder="Unit type"/></td>
                 <td>
                     <select id="weightPrecision">
-                        <option disabled selected>Precision</option>
-                        <option th:each="i : ${#numbers.sequence(0,5)}" th:value="${i}" th:text="${i}"></option>
+                        <option>0</option>
+                        <option th:each="i : ${#numbers.sequence(1,5)}" th:value="${i}" th:text="${i}"></option>
                     </select>
                 </td>
                 <td>
                     <select id="weightUnitMeasure">
-                        <option disabled selected>Unit</option>
                         <option value="kg">kg</option>
                         <option value="g">g</option>
                         <option value="mg">mg</option>
@@ -143,8 +143,8 @@
                 </td>
                 <td>
                     <select id="vibrationPrecision">
-                        <option disabled selected>Precision</option>
-                        <option th:each="i : ${#numbers.sequence(0,5)}" th:value="${i}" th:text="${i}"></option>
+                        <option>0</option>
+                        <option th:each="i : ${#numbers.sequence(1,5)}" th:value="${i}" th:text="${i}"></option>
                     </select>
                 </td>
                 <td>

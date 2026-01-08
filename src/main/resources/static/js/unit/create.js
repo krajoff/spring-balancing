@@ -1,23 +1,45 @@
 function create() {
-    const name = document.getElementById('stationName').value;
+    const unitNumber = document.getElementById('unitNumber').value;
+    const unitType = document.getElementById('unitType').value;
+    const weightPrecision = document.getElementById('weightPrecision').value;
+    const weightUnitMeasure = document.getElementById('weightUnitMeasure').value;
+    const vibrationPrecision = document.getElementById('vibrationPrecision').value;
+    const vibrationUnitMeasure = document.getElementById('vibrationUnitMeasure').value;
+    const description = document.getElementById('description').value;
 
-    fetch('/api/station', {
+    if (!unitNumber) {
+        alert('Unit number is required');
+        return;
+    }
+
+    fetch(`/api/station/${stationId}/unit`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('input[name="_csrf"]').value
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            name: name
+            unitNumber: unitNumber,
+            unitType: unitType,
+            weightPrecision: weightPrecision,
+            weightUnitMeasure: weightUnitMeasure,
+            vibrationPrecision: vibrationPrecision,
+            vibrationUnitMeasure: vibrationUnitMeasure,
+            description: description
         })
     })
         .then(res => {
-            if (!res.ok) throw new Error('Create failed');
+            if (!res.ok) {
+                return res.text().then(t => {
+                    throw new Error(t || 'Create failed');
+                });
+            }
             return res.json();
         })
-        .then(data => {
-            console.log('Created:', data);
-            location.reload(); // или дорисовать строку вручную
+        .then(() => {
+            location.reload(); // пока просто обновляем страницу
         })
-        .catch(err => alert(err.message));
+        .catch(err => {
+            console.error(err);
+            alert(err.message);
+        });
 }

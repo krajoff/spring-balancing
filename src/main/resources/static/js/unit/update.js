@@ -1,38 +1,59 @@
 function update(button) {
     const editRow = button.closest('tr.edit-row');
-    if (!editRow) {
-        console.error('Cannot find edit row');
+    if (!editRow) return;
+
+    const unitRow = editRow.previousElementSibling;
+    if (!unitRow) return;
+
+    const unitId = unitRow.dataset.id;
+    if (!unitId) {
+        alert('Unit ID not found');
         return;
     }
 
-    const input = editRow.querySelector('input.edit-input');
-    if (!input) {
-        console.error('Cannot find input inside edit row');
-        return;
-    }
+    const inputs = editRow.querySelectorAll('.edit-input');
 
-    const name = input.value.trim();
-    if (!name) {
-        alert('Station name is required');
-        return;
-    }
+    const payload = {
+        id: unitId,
+        unitNumber: inputs[0].value,
+        unitType: inputs[1].value,
+        weightPrecision: inputs[2].value,
+        weightUnitMeasure: inputs[3].value,
+        vibrationPrecision: inputs[4].value,
+        vibrationUnitMeasure: inputs[5].value,
+        description: inputs[6].value
+    };
 
-    const stationRow = editRow.previousElementSibling;
-    const stationId = stationRow.dataset.id;
-    const payload = { id: stationId, name: name };
-
-    fetch(`/api/station`, {
-        method: 'DELETE',
+    fetch(`/api/station/${stationId}/unit`, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('input[name="_csrf"]').value
+            'X-CSRF-TOKEN': document.querySelector('input[name="_csrf"]')?.value
         },
         body: JSON.stringify(payload)
     })
-        .then(r => r.ok ? r.json() : r.text().then(t => { throw new Error(t || 'Remove failed') }))
-        .then(data => {
-            stationRow.querySelector('td').textContent = data.name;
+        .then(res => {
+            if (!res.ok) {
+                return res.text().then(t => {
+                    throw new Error(t || 'Update failed');
+                });
+            }
+            return res.json();
+        })
+        .then(updated => {
+            // обновляем отображаемую строку
+            const tds = unitRow.querySelectorAll('td');
+            tds[0].textContent = updated.unitNumber;
+            tds[1].textContent = updated.unitType;
+            tds[2].textContent = updated.weightPrecision;
+            tds[3].textContent = updated.weightUnitMeasure;
+            tds[4].textContent = updated.vibrationPrecision;
+            tds[5].textContent = updated.vibrationUnitMeasure;
+            tds[6].textContent = updated.description;
             editRow.style.display = 'none';
         })
-        .catch(e => alert(e.message));
+        .catch(err => {
+            console.error(err);
+            alert(err.message);
+        });
 }
