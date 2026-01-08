@@ -1,6 +1,7 @@
 package com.example.balancing.controller.web;
 
 import com.example.balancing.entity.user.User;
+import com.example.balancing.service.station.StationService;
 import com.example.balancing.service.unit.UnitService;
 import com.example.balancing.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +18,16 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class WebUnitController {
 
-    private final UnitService unitService;
     private final UserService userService;
+    private final StationService stationService;
+    private final UnitService unitService;
 
     @GetMapping
     public String listUnits(@PathVariable("stationId") UUID stationId, Model model) {
         User user = userService.getCurrentUser();
         model.addAttribute("user", user);
         model.addAttribute("units", unitService.getByStation(stationId));
+        model.addAttribute("station", stationService.getById(stationId));
         return "units/index";
     }
 

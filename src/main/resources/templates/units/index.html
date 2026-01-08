@@ -6,113 +6,158 @@
     <link rel="stylesheet" href="/css/tables.css"/>
     <script src="/js/show-edit.js"></script>
     <script src="/js/cancel-edit.js"></script>
-    <script src="/js/unit/create-station.js"></script>
-    <script src="/js/unit/update-station.js"></script>
+    <script src="/js/unit/create.js"></script>
+    <script src="/js/unit/update.js"></script>
+    <script src="/js/unit/remove.js"></script>
 </head>
+
 <body>
 <div class="container">
-    <div class="box">
-        <table class="greeting">
-            <tr>
-                <td>
-                    <span class="inside" th:text="'Hello, '+${username}"></span>
-                </td>
-                <td>
-                    <form th:action="@{/logout}" method="post">
-                        <input type="submit" value="logout"/>
-                    </form>
-                </td>
-            </tr>
-        </table>
+
+    <!-- Greeting -->
+    <div class="box greeting-bar">
+        <div class="links-left">
+            <a href="/user">Profile</a>
+            <a href="/stations">Stations</a>
+        </div>
+        <div class="links-right">
+            <form action="/logout" method="post">
+                <input type="submit" value="Logout"/>
+            </form>
+        </div>
     </div>
 
+    <!-- Unit table -->
     <div class="box">
-        <h1>Unit list</h1>
-        <ul>
-            Please provide station data. If you're short on time, just the name
-            will do. However, for a more comprehensive entry, include details
-            such as the type of machine stationed, its serial number,
-            the count of measuring planes, and any additional relevant data for clarity.
-        </ul>
-    </div>
+        <table class="bordered" style="table-layout: fixed;">
+            <colgroup>
+                <col style="width: 50px;">   <!-- No -->
+                <col style="width: 200px;">  <!-- Type -->
+                <col style="width: 70px;">   <!-- Weight pr -->
+                <col style="width: 80px;">   <!-- Weight un -->
+                <col style="width: 70px;">   <!-- Vib pr -->
+                <col style="width: 100px;">   <!-- Vib un -->
 
-    <div class="box">
-        <table class="bordered" th:switch="${units}">
-            <h2 th:case="null">No units yet.</h2>
+                <col style="width: 120px;">  <!-- Description -->
+                <col style="width: 100px;">  <!-- Created -->
+                <col style="width: 100px;">  <!-- Modified -->
+                <col style="width: 70px;">   <!-- Edit -->
+            </colgroup>
 
             <thead>
             <tr>
-                <th>No</th>
-                <th>Station<br>name</th>
-                <th style="width:20px">Unit<br>number</th>
-                <th>Type</th>
-                <th>Additional<br>information</th>
-                <th colspan="3">Control</th>
+                <th rowspan="2">No.</th>
+                <th rowspan="2">Type</th>
+
+                <th colspan="2">Weight</th>
+                <th colspan="2">Vibration</th>
+
+                <th rowspan="2">Description</th>
+                <th rowspan="2">Created</th>
+                <th rowspan="2">Modified</th>
+                <th rowspan="2">Edit</th>
+            </tr>
+            <tr>
+                <th class="precision">pr</th>
+                <th class="unit">un</th>
+                <th class="precision">pr</th>
+                <th class="unit">un</th>
             </tr>
             </thead>
 
             <tbody th:each="unit:${units}">
-            <tr>
-                <td th:text=${unit.id}></td>
-                <td th:text=${unit.station}></td>
-                <td th:text=${unit.unitnumber}></td>
-                <td th:text=${unit.type}></td>
+            <!-- Unit row -->
+            <tr th:data-id="${unit.id}"
+                th:attr="onclick=|window.location.href='/station/${station.id}/unit/${unit.id}';|"
+                style="cursor: pointer;">
+                <td th:text=${unit.unitNumber}></td>
+                <td th:text=${unit.unitType}></td>
+                <td class="precision" th:text=${unit.weightPrecision}></td>
+                <td class="unit" th:text=${unit.weightUnitMeasure}></td>
+                <td class="precision" th:text=${unit.vibrationPrecision}></td>
+                <td class="unit" th:text=${unit.vibrationUnitMeasure}></td>
                 <td th:text=${unit.description}></td>
+                <td th:text="${#temporals.format(unit.createdOn, 'dd.MM.yyyy')}"></td>
+                <td th:text="${#temporals.format(unit.updatedOn, 'dd.MM.yyyy')}"></td>
                 <td>
-                    <button onclick="showEditRow(this); return false;">Edit</button>
-                </td>
-                <td>
-                    <form th:action="@{'/unit/delete/'+${unit.id}}" th:method="get">
-                        <input type="submit" value="Delete"/>
-                    </form>
-                </td>
-                <td>
-                    <form th:action="@{'/unit/'+${unit.id}+'/record'}" th:method="get">
-                        <input type="submit" value="Edit records"/>
-                    </form>
+                    <button type="button" th:onclick="|event.stopPropagation(); showEdit(this);|">Edit</button>
                 </td>
             </tr>
 
+            <!-- Edit unit -->
             <tr class="edit-row">
-                <form th:action="@{'/unit/update/'+${unit.id}}" method="post">
-                    <td>&#10060;</td>
-                    <td><input type="text" name="station"
-                               th:value="${unit.station}"/></td>
-                    <td><input type="number" name="unitnumber"
-                               min="1" step ="1"
-                               th:value="${unit.unitnumber}"/></td>
-                    <td><input type="text" name="type"
-                               th:value="${unit.type}"/></td>
-                    <td><input type="text" name="description"
-                               th:value="${unit.description}"/></td>
-                    <td>
-                        <button type="submit">Save</button>
-                    </td>
-                    <td>
-                        <button onclick="cancelEdit(this); return false;">
-                            Cancel
-                        </button>
-                    </td>
-                </form>
+                <td><input type="number" min="0" max="999" th:value="${unit.unitNumber}" class="edit-input"/></td>
+                <td><input type="text" th:value="${unit.unitType}" class="edit-input"/></td>
+                <td>
+                    <select class="edit-input" th:value="${unit.weightPrecision}">
+                        <option th:each="i : ${#numbers.sequence(0,5)}"
+                                th:value="${i}" th:text="${i}"></option>
+                    </select>
+                </td>
+                <td>
+                    <select class="edit-input" th:value="${unit.weightUnitMeasure}">
+                        <option value="kg" th:selected="${unit.weightUnitMeasure == 'kg'}">kg</option>
+                        <option value="g" th:selected="${unit.weightUnitMeasure == 'g'}">g</option>
+                        <option value="mg" th:selected="${unit.weightUnitMeasure == 'mg'}">mg</option>
+                    </select>
+                </td>
+                <td>
+                    <select class="edit-input" th:value="${unit.vibrationPrecision}">
+                        <option th:each="i : ${#numbers.sequence(0,5)}"
+                                th:value="${i}" th:text="${i}"></option>
+                    </select>
+                </td>
+                <td>
+                    <select class="edit-input" th:value="${unit.vibrationUnitMeasure}">
+                        <option value="um" th:selected="${unit.vibrationUnitMeasure == 'um'}">um</option>
+                        <option value="mm/s" th:selected="${unit.vibrationUnitMeasure == 'mm/s'}">mm/s</option>
+                        <option value="m/s2" th:selected="${unit.vibrationUnitMeasure == 'm/s2'}">m/s2</option>
+                    </select>
+                </td>
+                <td><input type="text" th:value="${unit.description}" class="edit-input"/></td>
+                <td colspan="3" class="edit-actions">
+                    <button type="button" class="btn-save" onclick="update(this)">Save</button>
+                    <button class="btn-cancel" onclick="cancelEdit(this); return false;">Cancel</button>
+                    <button type="button" class="btn-delete" onclick="remove(this)">Delete</button>
+                </td>
             </tr>
             </tbody>
 
-            <tr>
-                <form style="background: #78DBE2" action="/unit/create" method="post">
-                    <td>&#10060;</td>
-                    <td><input type="text" name="station"/></td>
-                    <td><input type="number" name="unitnumber"
-                               min="1" step ="1"/></td>
-                    <td><input type="text" name="type"/></td>
-                    <td><input type="text" name="description"/></td>
-                    <td colspan="3" style="text-align:left">
-                        <input type="submit" value="Add unit"/>
-                    </td>
-                </form>
-            </tr>
-
-            <tr th:if="${param.error}" class="red">
-                <h2>Incorrect values</h2>
+            <!-- Add new unit -->
+            <tr class="new-station-row">
+                <td><input id="unitNumber" type="number" min="0" max="999" placeholder="Unit number"/></td>
+                <td><input id="unitType" type="text" placeholder="Unit type"/></td>
+                <td>
+                    <select id="weightPrecision">
+                        <option disabled selected>Precision</option>
+                        <option th:each="i : ${#numbers.sequence(0,5)}" th:value="${i}" th:text="${i}"></option>
+                    </select>
+                </td>
+                <td>
+                    <select id="weightUnitMeasure">
+                        <option disabled selected>Unit</option>
+                        <option value="kg">kg</option>
+                        <option value="g">g</option>
+                        <option value="mg">mg</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="vibrationPrecision">
+                        <option disabled selected>Precision</option>
+                        <option th:each="i : ${#numbers.sequence(0,5)}" th:value="${i}" th:text="${i}"></option>
+                    </select>
+                </td>
+                <td>
+                    <select id="vibrationUnitMeasure">
+                        <option value="um">um</option>
+                        <option value="mm/s">mm/s</option>
+                        <option value="m/s2">m/s2</option>
+                    </select>
+                </td>
+                <td><input id="description" type="text" placeholder="Description"/></td>
+                <td colspan="3">
+                    <button type="button" onclick="create()">Add</button>
+                </td>
             </tr>
 
         </table>

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Service
@@ -62,6 +63,15 @@ public class StationServiceImpl implements StationService {
                 .findByIdAndUserId(source.getId(), user.getId())
                 .orElseThrow(() -> new NotFoundElementException(EntityTypeException.STATION));
         stationRepository.delete(station);
+    }
+
+    @Override
+    public StationDto getById(UUID id) {
+        User user = userService.getCurrentUser();
+        Station station = stationRepository
+                .findByIdAndUserId(id, user.getId())
+                .orElseThrow(() -> new NotFoundElementException(EntityTypeException.STATION));
+        return stationMapper.entityToDto(station);
     }
 
 }

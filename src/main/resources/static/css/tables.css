@@ -4,11 +4,6 @@ table {
     width: fit-content;
 }
 
-.greeting {
-    width: 300px;
-    text-align: right;
-}
-
 .bordered {
     border: solid #ccc 1px;
     -moz-border-radius: 6px;
@@ -40,15 +35,15 @@ table {
     background-color: #dce9f9;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
     background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
-    background-image:    -moz-linear-gradient(top, #ebf3fc, #dce9f9);
-    background-image:     -ms-linear-gradient(top, #ebf3fc, #dce9f9);
-    background-image:      -o-linear-gradient(top, #ebf3fc, #dce9f9);
-    background-image:         linear-gradient(top, #ebf3fc, #dce9f9);
-    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
-    -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
-    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+    background-image: -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image: -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image: -o-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image: linear-gradient(top, #ebf3fc, #dce9f9);
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
     border-top: none;
-    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
 }
 
 .bordered td:first-child, .bordered th:first-child {
@@ -67,7 +62,7 @@ table {
     border-radius: 0 6px 0 0;
 }
 
-.bordered th:only-child{
+.bordered th:only-child {
     -moz-border-radius: 6px 6px 0 0;
     -webkit-border-radius: 6px 6px 0 0;
     border-radius: 6px 6px 0 0;
@@ -83,4 +78,22 @@ table {
     -moz-border-radius: 0 0 6px 0;
     -webkit-border-radius: 0 0 6px 0;
     border-radius: 0 0 6px 0;
+}
+
+.bordered td.precision,
+.bordered th.precision,
+.bordered td.unit,
+.bordered th.unit,
+.bordered td:first-child,
+.bordered th:first-child {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 4px 6px;
+}
+
+.bordered td input,
+.bordered td select {
+    width: 100%; /* растягиваем на всю ширину ячейки */
+    box-sizing: border-box; /* padding и border учитываются в ширине */
 }

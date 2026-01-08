@@ -239,6 +239,11 @@ input[type=text], input[type=number] {
     background-color: #c0392b;
 }
 
+.greeting-bar .links-left a:hover {
+    color: #0056b3; /* цвет при наведении */
+    text-decoration: underline; /* можно подчеркнуть при hover */
+}
+
 .edit-row {
     display: none;
     padding-left: 0;
@@ -270,4 +275,11 @@ input[type=text], input[type=number] {
 .new-station-row button {
     margin: 0;
     padding: 4px 8px;
+}
+.edit-input, .new-input {
+    width: 100%;
+    padding: 4px 8px;
+    box-sizing: border-box;
+    border: 1px solid grey;
+    border-radius: 4px;
 }
