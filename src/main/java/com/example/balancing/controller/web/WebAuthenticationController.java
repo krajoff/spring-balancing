@@ -86,10 +86,17 @@ public class WebAuthenticationController {
         return REDIRECT_AUTH_LOGIN;
     }
 
+    @GetMapping({"", "/"})
+    public String redirectToLogin() {
+        return "redirect:/auth/login";
+    }
+
     private void setAuthCookies(HttpServletResponse response, Object tokens) {
-        // tokens должен быть AuthenticationResponse
         var authTokens = (com.example.balancing.payload.response.AuthenticationResponse) tokens;
         cookieService.setAccessToken(response, authTokens.getAccessToken());
         cookieService.setRefreshToken(response, authTokens.getRefreshToken());
     }
+
+
+
 }

@@ -33,6 +33,16 @@ public interface RecordRepository extends JpaRepository<Record, UUID> {
             """)
     List<Record> findByRunIdAndUserId(UUID runId, UUID userId);
 
+    @Query("""
+                select r from Record r
+                join r.run run
+                join run.unit u
+                join u.station s
+                where u.id = :unitId
+                and s.user.id = :userId
+            """)
+    List<Record> findByUnitIdAndUserId(UUID unitId, UUID userId);
+
     @Modifying
     @Query("""
                 delete from Record r

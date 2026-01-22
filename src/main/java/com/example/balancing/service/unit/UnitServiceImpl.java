@@ -5,7 +5,6 @@ import com.example.balancing.entity.Station;
 import com.example.balancing.entity.Unit;
 import com.example.balancing.entity.user.User;
 import com.example.balancing.exception.EntityTypeException;
-import com.example.balancing.exception.IllegalArgumentException;
 import com.example.balancing.exception.NotFoundElementException;
 import com.example.balancing.repository.StationRepository;
 import com.example.balancing.repository.UnitRepository;
@@ -46,6 +45,14 @@ public class UnitServiceImpl implements UnitService {
                 .stream()
                 .map(unitMapper::entityToDto)
                 .toList();
+    }
+
+    @Override
+    public UnitDto getById(UUID id) {
+        User user = userService.getCurrentUser();
+        return unitRepository.findByIdAndUserId(id, user.getId())
+                .map(unitMapper::entityToDto)
+                .orElseThrow(() -> new NotFoundElementException(EntityTypeException.UNIT));
     }
 
     @Transactional

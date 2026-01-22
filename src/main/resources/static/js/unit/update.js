@@ -27,8 +27,7 @@ function update(button) {
     fetch(`/api/station/${stationId}/unit`, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('input[name="_csrf"]')?.value
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(payload)
     })

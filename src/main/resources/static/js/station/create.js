@@ -4,8 +4,7 @@ function create() {
     fetch('/api/station', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('input[name="_csrf"]').value
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             name: name

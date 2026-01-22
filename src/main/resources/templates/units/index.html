@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="EN">
 <head>
     <title>Units</title>
-    <link rel="stylesheet" href="/css/style.css"/>
-    <link rel="stylesheet" href="/css/tables.css"/>
-    <script src="/js/show-edit.js"></script>
-    <script src="/js/cancel-edit.js"></script>
+    <link rel="stylesheet" href="/css/other.css"/>
+    <link rel="stylesheet" href="/css/table.css"/>
+    <script src="/js/edit/show.js"></script>
+    <script src="/js/edit/cancel.js"></script>
     <script> const stationId = '[[${station.id}]]';</script>
     <script src="/js/unit/create.js" defer></script>
     <script src="/js/unit/update.js"></script>
@@ -18,11 +18,11 @@
     <!-- Greeting -->
     <div class="box greeting-bar">
         <div class="links-left">
-            <a href="/user">Profile</a>
             <a href="/stations">Stations</a>
         </div>
         <div class="links-right">
-            <form action="/logout" method="post">
+            <a href="/user" class="profile-link" title="Profile">Profile</a>
+            <form action="/auth/logout" method="post">
                 <input type="submit" value="Logout"/>
             </form>
         </div>
@@ -81,7 +81,7 @@
                 <td th:text="${#temporals.format(unit.createdOn, 'dd.MM.yyyy')}"></td>
                 <td th:text="${#temporals.format(unit.updatedOn, 'dd.MM.yyyy')}"></td>
                 <td>
-                    <button type="button" th:onclick="|event.stopPropagation(); showEdit(this);|">Edit</button>
+                    <button type="button" th:onclick="|event.stopPropagation(); show(this);|">Edit</button>
                 </td>
             </tr>
 
@@ -118,7 +118,7 @@
                 <td><input type="text" th:value="${unit.description}" class="edit-input"/></td>
                 <td colspan="3" class="edit-actions">
                     <button type="button" class="btn-save" onclick="update(this)">Save</button>
-                    <button class="btn-cancel" onclick="cancelEdit(this); return false;">Cancel</button>
+                    <button class="btn-cancel" onclick="cancel(this); return false;">Cancel</button>
                     <button type="button" class="btn-delete" onclick="remove(this)">Delete</button>
                 </td>
             </tr>

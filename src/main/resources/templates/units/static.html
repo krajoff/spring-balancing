@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="EN">
 <head>
     <title>Units</title>
-
-    <link rel="stylesheet" href="../../static/css/style.css"/>
-    <link rel="stylesheet" href="../../static/css/tables.css"/>
-
-    <script src="../../static/js/show-edit.js"></script>
-    <script src="../../static/js/cancel-edit.js"></script>
+    <link rel="stylesheet" href="../../static/css/other.css"/>
+    <link rel="stylesheet" href="../../static/css/table.css"/>
+    <script src="../../static/js/edit/show.js"></script>
+    <script src="../../static/js/edit/cancel.js"></script>
     <script src="../../static/js/unit/create.js"></script>
     <script src="../../static/js/unit/update.js"></script>
     <script src="../../static/js/unit/remove.js"></script>
@@ -19,10 +17,10 @@
     <!-- Greeting -->
     <div class="box greeting-bar">
         <div class="links-left">
-            <a href="/user">Profile</a>
             <a href="/stations">Stations</a>
         </div>
         <div class="links-right">
+            <a href="/user" class="profile-link" title="Profile">Profile</a>
             <form action="/logout" method="post">
                 <input type="submit" value="Logout"/>
             </form>
@@ -33,13 +31,12 @@
     <div class="box">
         <table class="bordered" style="table-layout: fixed">
             <colgroup>
-                <col style="width: 50px;">   <!-- No -->
-                <col style="width: 200px;">  <!-- Type -->
+                <col style="width: 70px;">   <!-- No -->
+                <col style="width: 220px;">  <!-- Type -->
                 <col style="width: 70px;">   <!-- Weight pr -->
-                <col style="width: 80px;">   <!-- Weight un -->
+                <col style="width: 70px;">   <!-- Weight un -->
                 <col style="width: 70px;">   <!-- Vib pr -->
-                <col style="width: 100px;">   <!-- Vib un -->
-
+                <col style="width: 70px;">   <!-- Vib un -->
                 <col style="width: 120px;">  <!-- Description -->
                 <col style="width: 100px;">  <!-- Created -->
                 <col style="width: 100px;">  <!-- Modified -->
@@ -81,7 +78,7 @@
                 <td>02.01.2026</td>
                 <td>03.01.2026</td>
                 <td>
-                    <button type="button" onclick="event.stopPropagation(); showEdit(this);">
+                    <button type="button" onclick="event.stopPropagation(); show(this);">
                         Edit
                     </button>
                 </td>
@@ -130,7 +127,7 @@
                 </td>
                 <td colspan="3" class="edit-actions">
                     <button type="button" class="btn-save" onclick="update(this)">Save</button>
-                    <button class="btn-cancel" onclick="cancelEdit(this); return false;">Cancel</button>
+                    <button class="btn-cancel" onclick="cancel(this); return false;">Cancel</button>
                     <button type="button" class="btn-delete" onclick="remove(this)">Delete</button>
                 </td>
             </tr>

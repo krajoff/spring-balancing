@@ -41,9 +41,9 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
+                                "/",
                                 "/api/**",
-                                "/auth/login",
-                                "/auth/signup",
+                                "/auth/**",
                                 "/css/**",
                                 "/js/**",
                                 "/errors/**"
@@ -71,7 +71,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
                 // CSRF
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**", "/auth/logout"))
                 .cors(AbstractHttpConfigurer::disable)
                 // Cookie auth only for API
                 .addFilterBefore(cookieAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

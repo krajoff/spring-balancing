@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="EN">
 <head>
+    <meta charset="UTF-8">
     <title>Stations</title>
-    <link rel="stylesheet" href="/css/style.css"/>
-    <link rel="stylesheet" href="/css/tables.css"/>
-    <script src="/js/show-edit.js"></script>
-    <script src="/js/cancel-edit.js"></script>
+    <link rel="stylesheet" href="/css/other.css"/>
+    <link rel="stylesheet" href="/css/table.css"/>
+    <script src="/js/edit/show.js"></script>
+    <script src="/js/edit/cancel.js"></script>
     <script src="/js/station/create.js"></script>
     <script src="/js/station/update.js"></script>
     <script src="/js/station/remove.js"></script>
@@ -16,11 +17,10 @@
 
     <!-- Greeting -->
     <div class="box greeting-bar">
-        <div class="links-left">
-            <a href="/user">Profile</a>
-        </div>
+        <div class="links-left"></div>
         <div class="links-right">
-            <form action="/logout" method="post">
+            <a href="/user" class="profile-link" title="Profile">Profile</a>
+            <form action="/auth/logout" method="post">
                 <input type="submit" value="Logout"/>
             </form>
         </div>
@@ -46,7 +46,7 @@
                     <td th:text="${#temporals.format(station.createdOn, 'dd.MM.yyyy')}"></td>
                     <td th:text="${#temporals.format(station.updatedOn, 'dd.MM.yyyy')}"></td>
                     <td>
-                        <button type="button" th:onclick="|event.stopPropagation(); showEdit(this);|">Edit</button>
+                        <button type="button" th:onclick="|event.stopPropagation(); show(this);|">Edit</button>
                     </td>
                 </tr>
 
@@ -55,12 +55,11 @@
                     <!-- Station name -->
                     <td>
                         <input type="text" th:value="${station.name}" class="edit-input"/>
-                        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
                     </td>
                     <!-- Actions -->
                     <td colspan="3"  class="edit-actions">
                         <button type="button" class="btn-save" onclick="update(this)">Save</button>
-                        <button class="btn-cancel" onclick="cancelEdit(this); return false;">Cancel</button>
+                        <button class="btn-cancel" onclick="cancel(this); return false;">Cancel</button>
                         <button type="button" class="btn-delete" onclick="remove(this)">Delete</button>
                     </td>
                 </tr>

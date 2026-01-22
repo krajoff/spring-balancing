@@ -9,6 +9,8 @@ public interface UnitService {
 
     List<UnitDto> getByStation(UUID id);
 
+    UnitDto getById(UUID id);
+
     UnitDto create(UUID stationId, UnitDto dto);
 
     UnitDto update(UnitDto dto);

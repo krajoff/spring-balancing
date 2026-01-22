@@ -97,3 +97,28 @@ table {
     width: 100%; /* растягиваем на всю ширину ячейки */
     box-sizing: border-box; /* padding и border учитываются в ширине */
 }
+.bordered .new-station-row td {
+    text-align: left;
+    padding-left: 8px;
+}
+/*.bordered td select.edit-input {*/
+/*    appearance: none;            !* убрать нативный вид *!*/
+/*    -webkit-appearance: none;    !* Chrome/Safari *!*/
+/*    -moz-appearance: none;       !* Firefox *!*/
+
+/*    width: 100%;*/
+/*    padding: 4px 8px;*/
+/*    border: 1px solid grey;*/
+/*    border-radius: 4px;*/
+/*    background-color: white;     !* прозрачный не всегда красиво *!*/
+/*    font-family: inherit;*/
+/*    font-size: inherit;*/
+/*    cursor: pointer;*/
+
+/*    background-image: url("data:image/svg+xml,%3Csvg fill='grey' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");*/
+/*    background-repeat: no-repeat;*/
+/*    background-position: right 8px center;*/
+/*    background-size: 12px;*/
+/*}*/
+
+

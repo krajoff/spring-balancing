@@ -1,4 +1,4 @@
-function showEdit(button) {
+function show(button) {
     document.querySelectorAll('.edit-row')
         .forEach(r => r.style.display = 'none');
 

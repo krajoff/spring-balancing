@@ -9,6 +9,8 @@ public interface RecordService {
 
     List<RecordDto> getByRunId(UUID id);
 
+    List<RecordDto> getByUnit(UUID id);
+
     RecordDto create(UUID runId, RecordDto dto);
 
     RecordDto update(RecordDto dto);

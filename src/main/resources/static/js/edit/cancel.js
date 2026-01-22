@@ -1,4 +1,4 @@
-function cancelEdit(button) {
+function cancel(button) {
     const editRow = button.closest('.edit-row');
     const row = editRow.previousElementSibling;
 

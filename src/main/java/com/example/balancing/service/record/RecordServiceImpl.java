@@ -37,6 +37,15 @@ public class RecordServiceImpl implements RecordService {
                 .toList();
     }
 
+    @Override
+    public List<RecordDto> getByUnit(UUID unitId) {
+        User user = userService.getCurrentUser();
+        return recordRepository.findByUnitIdAndUserId(unitId, user.getId())
+                .stream()
+                .map(recordMapper::entityToDto)
+                .toList();
+    }
+
     @Transactional
     @Override
     public RecordDto create(UUID runId, RecordDto dto) {

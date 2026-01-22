@@ -22,10 +22,9 @@ function update(button) {
     const payload = { id: stationId, name: name };
 
     fetch(`/api/station`, {
-        method: 'DELETE',
+        method: 'PUT',
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('input[name="_csrf"]').value
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(payload)
     })

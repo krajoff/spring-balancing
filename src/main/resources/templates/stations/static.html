@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="EN">
 <head>
+    <meta charset="UTF-8">
     <title>Station list</title>
-    <link rel="stylesheet" href="../../static/css/style.css"/>
-    <link rel="stylesheet" href="../../static/css/tables.css"/>
-    <script src="../../static/js/show-edit.js"></script>
-    <script src="../../static/js/cancel-edit.js"></script>
+    <link rel="stylesheet" href="../../static/css/other.css"/>
+    <link rel="stylesheet" href="../../static/css/table.css"/>
+    <script src="../../static/js/edit/show.js"></script>
+    <script src="../../static/js/edit/cancel.js"></script>
     <script src="../../static/js/station/create.js"></script>
-
 </head>
 
 <body>
@@ -15,10 +15,9 @@
 
     <!-- Greeting -->
     <div class="box greeting-bar">
-        <div class="links-left">
-            <a href="/user">Profile</a>
-        </div>
+        <div class="links-left"></div>
         <div class="links-right">
+            <a href="/user" class="profile-link" title="Profile">Profile</a>
             <form action="/logout" method="post">
                 <input type="submit" value="Logout"/>
             </form>
@@ -27,7 +26,14 @@
 
     <!-- Station table -->
     <div class="box">
-        <table class="bordered">
+        <table class="bordered" style="table-layout: fixed">
+            <colgroup>
+                <col style="width: 670px;">   <!-- Station name -->
+                <col style="width: 110px;">  <!-- Created -->
+                <col style="width: 110px;">  <!-- Modified -->
+                <col style="width: 70px;">   <!-- Edit -->
+            </colgroup>
+
             <thead>
             <tr>
                 <th>Station name</th>
@@ -42,7 +48,7 @@
                 <td>2026-01-02</td>
                 <td>2026-01-02</td>
                 <td>
-                    <button onclick="showEdit(this); return false;">Edit</button>
+                    <button onclick="show(this); return false;">Edit</button>
                 </td>
             </tr>
             <tr class="edit-row">
@@ -51,9 +57,9 @@
                     <input type="text" value="Main Station" class="edit-input"/>
                 </td>
                 <!-- Actions -->
-                <td colspan="3"  class="edit-actions">
+                <td colspan="3" class="edit-actions">
                     <button class="btn btn-primary" onclick="update(this)">Save</button>
-                    <button class="btn btn-secondary" onclick="cancelEdit(this); return false;">Cancel</button>
+                    <button class="btn btn-secondary" onclick="cancel(this); return false;">Cancel</button>
                     <button class="btn btn-danger" onclick="remove(this)">Delete</button>
                 </td>
             </tr>
@@ -63,7 +69,7 @@
                 <td>2026-01-01</td>
                 <td>2026-01-02</td>
                 <td>
-                    <button onclick="showEdit(this); return false;">Edit</button>
+                    <button onclick="show(this); return false;">Edit</button>
                 </td>
             </tr>
             <tr class="edit-row" style="display:none">
@@ -72,9 +78,9 @@
                     <input type="text" value="Secondary Station" class="edit-input"/>
                 </td>
                 <!-- Actions -->
-                <td colspan="3"  class="edit-actions">
+                <td colspan="3" class="edit-actions">
                     <button type="button" class="btn-save" onclick="update(this)">Save</button>
-                    <button class="btn-cancel" onclick="cancelEdit(this); return false;">Cancel</button>
+                    <button class="btn-cancel" onclick="cancel(this); return false;">Cancel</button>
                     <button type="button" class="btn-delete" onclick="remove(this)">Delete</button>
                 </td>
             </tr>
