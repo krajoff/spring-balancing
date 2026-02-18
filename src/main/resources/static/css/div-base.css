@@ -1,0 +1,99 @@
+* {
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    color: #444;
+    background-color: #f7f7f7;
+}
+
+.container {
+    max-width: 1000px;
+    width: 100%;
+    padding-top: 10px;
+}
+
+/* ===== Greeting bar ===== */
+.greeting-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 1px 1px #ccc;
+    margin-bottom: 15px; /* расстояние до таблицы */
+}
+
+.greeting-bar .links-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.greeting-bar a {
+    color: #1C6EA4;
+    text-decoration: underline;
+}
+
+.greeting-bar a:hover {
+    color: #0056b3;
+}
+
+.greeting-bar input[type="submit"] {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #e74c3c;
+    color: white;
+    cursor: pointer;
+}
+
+.greeting-bar input[type="submit"]:hover {
+    background-color: #c0392b;
+}
+
+/* ===== Buttons ===== */
+button {
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background: #f5f5f5;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #eaeaea;
+}
+
+.btn-primary {
+    background: #2691d9;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: #1c6fb8;
+}
+
+.btn-danger {
+    background: #e74c3c;
+    color: white;
+    border: none;
+}
+
+.btn-danger:hover {
+    background: #c0392b;
+}
+
+.text-center {
+    text-align: center;
+    justify-content: center;
+}
+

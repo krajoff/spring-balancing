@@ -1,0 +1,90 @@
+/* ===== Units grid ===== */
+.units-grid {
+    display: grid;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 1px 1px #ccc;
+    overflow: hidden;
+    grid-template-rows: auto auto;
+}
+
+/* ===== Rows ===== */
+.unit-row,
+.edit-row,
+.new-row {
+    display: grid;
+    grid-template-columns:
+        70px  /* No */
+        200px /* Type */
+        70px  /* Weight pr */
+        70px  /* Weight un */
+        70px  /* Vibration pr */
+        70px  /* Vibration un */
+        1fr   /* Description */
+        100px /* Created */
+        100px /* Modified */
+        70px; /* Edit */
+    border-top: 1px solid #ccc;
+    align-items: center;
+}
+
+.unit-row > div,
+.edit-row > div,
+.new-row > div {
+    padding: 8px 12px;
+    border-left: 1px solid #ccc;
+}
+
+.edit-row input,
+.edit-row select,
+.new-row input,
+.new-row select {
+    width: 100%;
+    padding: 4px 8px;
+    border: 1px solid grey;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.unit-row:hover:not(.unit-header):not(.edit-row):not(.new-row) {
+    background: #fbf8e9;
+}
+
+.units-grid .edit-row {
+    display: none;
+}
+
+.unit-header {
+    background: linear-gradient(#ebf3fc, #dce9f9);
+    font-weight: 600;
+    border-top: none;
+}
+
+.sub-header {
+    text-align: center;
+}
+
+.colspan-2 {
+    grid-column: span 2;
+    text-align: center;
+}
+
+.rowspan-2 {
+    grid-row: span 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.unit-data:hover {
+    background: #fbf8e9;
+    cursor: pointer;
+}
+
+.actions-cell {
+    grid-column: span 3;
+    display: flex;
+    gap: 6px;
+}

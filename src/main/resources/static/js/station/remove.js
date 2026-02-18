@@ -1,9 +1,9 @@
 function remove(button) {
-    const editRow = button.closest('tr.edit-row');
+    const editRow = button.closest('.edit-row');
     if (!editRow) return;
 
-    const input = editRow.querySelector('input.edit-input');
-    const name = input.value.trim();
+    const input = editRow.querySelector('input');
+    const name = input ? input.value.trim() : '';
     if (!name) {
         alert('Station name is required');
         return;

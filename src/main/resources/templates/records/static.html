@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="EN">
+<head>
+    <title>Units</title>
+    <link rel="stylesheet" href="../../static/css/other.css"/>
+    <link rel="stylesheet" href="../../static/css/table.css"/>
+    <script src="../../static/js/edit/show.js"></script>
+    <script src="../../static/js/edit/cancel.js"></script>
+    <script src="../../static/js/unit/create.js"></script>
+    <script src="../../static/js/unit/update.js"></script>
+    <script src="../../static/js/unit/remove.js"></script>
+</head>
+
+<body>
+<div class="container">
+
+    <!-- Greeting -->
+    <div class="box greeting-bar">
+        <div class="links-left">
+            <a href="/stations">Stations</a>
+            <span class="arrow">→</span>
+            <a href="/units">Units</a>
+        </div>
+        <div class="links-right">
+            <a href="/user" class="profile-link" title="Profile">Profile</a>
+            <form action="/logout" method="post">
+                <input type="submit" value="Logout"/>
+            </form>
+        </div>
+    </div>
+
+    <!-- Unit table -->
+    <div class="box">
+        <table class="bordered" style="table-layout: fixed">
+            <colgroup>
+                <col style="width: 100px;">   <!-- Place -->
+                <col style="width: 70px;">  <!-- No. -->
+                <col style="width: 120px;">   <!-- Mode -->
+                <col style="width: 100px;">   <!-- Vib magnitude -->
+                <col style="width: 100px;">   <!-- Vib phase -->
+                <col style="width: 70px;">   <!-- Edit -->
+            </colgroup>
+
+            <thead>
+            <tr>
+                <th rowspan="2">Place</th>
+                <th rowspan="2">No.</th>
+                <th rowspan="2">Mode</th>
+                <th colspan="2">Vibration</th>
+                <th rowspan="2">Edit</th>
+            </tr>
+            <tr>
+                <th class="amplitude">pr</th>
+                <th class="phase">un</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <!-- Run row -->
+            <tr data-id="1" onclick="window.location.href='/station/1/unit/1'" style="cursor:pointer;">
+                <td colspan="5">Run #0: weight 0kg / 0°; plate #1; ref = -1</td>
+                <td>
+                    <button type="button" onclick="event.stopPropagation(); show(this);">
+                        Edit
+                    </button>
+                </td>
+            </tr>
+            <!-- Edit run -->
+            <tr class="edit-row">
+                <td>Run<br> <input type="number" min="0" max="10" step="1" value="1" class="edit-input"/></td>
+                <td>Weight<br> <input type="number" value="0" class="edit-input"/></td>
+                <td>Phase <br><input type="number" value="0" class="edit-input"/></td>
+                <td colspan="3" class="edit-actions">
+                    <button type="button" class="btn-save" onclick="update(this)">Save</button>
+                    <button class="btn-cancel" onclick="cancel(this); return false;">Cancel</button>
+                    <button type="button" class="btn-delete" onclick="remove(this)">Delete</button>
+                </td>
+            </tr>
+
+            <tr data-id="1" onclick="window.location.href='/station/1/unit/1'" style="cursor:pointer;">
+                <td>GB RB</td>
+                <td>1</td>
+                <td>No-load 100%</td>
+                <td>3.1</td>
+                <td>155</td>
+                <td>
+                    <button type="button" onclick="event.stopPropagation(); show(this);">
+                        Edit
+                    </button>
+                </td>
+            </tr>
+
+            <!-- Edit record -->
+            <!--            <tr class="edit-row">-->
+            <!--                <td><input type="number" min="0" max="99" step="1" value="2" class="edit-input"/></td>-->
+            <!--                <td><input type="text" value="Rotor" class="edit-input"/></td>-->
+            <!--                <td>-->
+            <!--                    <select class="edit-input">-->
+            <!--                        <option>0</option>-->
+            <!--                        <option>1</option>-->
+            <!--                        <option selected>2</option>-->
+            <!--                        <option>3</option>-->
+            <!--                        <option>4</option>-->
+            <!--                        <option>5</option>-->
+            <!--                    </select>-->
+            <!--                </td>-->
+            <!--                <td>-->
+            <!--                    <select class="edit-input">-->
+            <!--                        <option selected>kg</option>-->
+            <!--                        <option>g</option>-->
+            <!--                        <option>mg</option>-->
+            <!--                    </select>-->
+            <!--                </td>-->
+            <!--                <td>-->
+            <!--                    <select class="edit-input">-->
+            <!--                        <option>0</option>-->
+            <!--                        <option>1</option>-->
+            <!--                        <option>2</option>-->
+            <!--                        <option selected>3</option>-->
+            <!--                        <option>4</option>-->
+            <!--                        <option>5</option>-->
+            <!--                    </select>-->
+            <!--                </td>-->
+            <!--                <td>-->
+            <!--                    <select class="edit-input">-->
+            <!--                        <option>um</option>-->
+            <!--                        <option selected>mm/s</option>-->
+            <!--                        <option>m/s2</option>-->
+            <!--                    </select>-->
+            <!--                </td>-->
+            <!--                <td>-->
+            <!--                    <input type="text" value="Main balancing unit" class="edit-input"/>-->
+            <!--                </td>-->
+            <!--                <td colspan="3" class="edit-actions">-->
+            <!--                    <button type="button" class="btn-save" onclick="update(this)">Save</button>-->
+            <!--                    <button class="btn-cancel" onclick="cancel(this); return false;">Cancel</button>-->
+            <!--                    <button type="button" class="btn-delete" onclick="remove(this)">Delete</button>-->
+            <!--                </td>-->
+            <!--            </tr>-->
+            </tbody>
+
+            <!--            &lt;!&ndash; Add new record &ndash;&gt;-->
+            <!--            <tr class="new-station-row">-->
+            <!--                <td><input id="unitNumber" type="number" min="0" max="99" step="1" placeholder="1"/></td>-->
+            <!--                <td><input id="unitType" type="text" placeholder="Unit type"/></td>-->
+            <!--                <td>-->
+            <!--                    <select id="weightPrecision">-->
+            <!--                        <option>0</option>-->
+            <!--                        <option>1</option>-->
+            <!--                        <option>2</option>-->
+            <!--                        <option>3</option>-->
+            <!--                        <option>4</option>-->
+            <!--                        <option>5</option>-->
+            <!--                    </select>-->
+            <!--                </td>-->
+            <!--                <td>-->
+            <!--                    <select id="weightUnitMeasure">-->
+            <!--                        <option>kg</option>-->
+            <!--                        <option>g</option>-->
+            <!--                        <option>mg</option>-->
+            <!--                    </select>-->
+            <!--                </td>-->
+            <!--                <td>-->
+            <!--                    <select id="vibrationPrecision">-->
+            <!--                        <option>0</option>-->
+            <!--                        <option>1</option>-->
+            <!--                        <option>2</option>-->
+            <!--                        <option>3</option>-->
+            <!--                        <option>4</option>-->
+            <!--                        <option>5</option>-->
+            <!--                    </select>-->
+            <!--                </td>-->
+            <!--                <td>-->
+            <!--                    <select id="vibrationUnitMeasure">-->
+            <!--                        <option>um</option>-->
+            <!--                        <option>mm/s</option>-->
+            <!--                        <option>m/s2</option>-->
+            <!--                    </select>-->
+            <!--                </td>-->
+            <!--                <td><input id="description" type="text" placeholder="Description"/></td>-->
+            <!--                <td colspan="3">-->
+            <!--                    <button type="button" onclick="create()">Add</button>-->
+            <!--                </td>-->
+            <!--            </tr>-->
+
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

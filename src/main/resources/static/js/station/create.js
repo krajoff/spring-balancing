@@ -16,7 +16,7 @@ function create() {
         })
         .then(data => {
             console.log('Created:', data);
-            location.reload(); // или дорисовать строку вручную
+            location.reload();
         })
         .catch(err => alert(err.message));
 }

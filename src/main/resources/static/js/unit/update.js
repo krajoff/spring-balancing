@@ -1,6 +1,9 @@
 function update(button) {
-    const editRow = button.closest('tr.edit-row');
-    if (!editRow) return;
+    const editRow = button.closest('.edit-row');
+    if (!editRow) {
+        console.error('Cannot find edit row');
+        return;
+    }
 
     const unitRow = editRow.previousElementSibling;
     if (!unitRow) return;
@@ -11,7 +14,7 @@ function update(button) {
         return;
     }
 
-    const inputs = editRow.querySelectorAll('.edit-input');
+    const inputs = editRow.querySelectorAll('input, select');
 
     const payload = {
         id: unitId,
@@ -40,8 +43,7 @@ function update(button) {
             return res.json();
         })
         .then(updated => {
-            // обновляем отображаемую строку
-            const tds = unitRow.querySelectorAll('td');
+            const tds = unitRow.querySelectorAll('div');
             tds[0].textContent = updated.unitNumber;
             tds[1].textContent = updated.unitType;
             tds[2].textContent = updated.weightPrecision;
@@ -49,6 +51,7 @@ function update(button) {
             tds[4].textContent = updated.vibrationPrecision;
             tds[5].textContent = updated.vibrationUnitMeasure;
             tds[6].textContent = updated.description;
+
             editRow.style.display = 'none';
         })
         .catch(err => {

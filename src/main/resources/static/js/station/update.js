@@ -1,11 +1,11 @@
 function update(button) {
-    const editRow = button.closest('tr.edit-row');
+    const editRow = button.closest('.edit-row');
     if (!editRow) {
         console.error('Cannot find edit row');
         return;
     }
 
-    const input = editRow.querySelector('input.edit-input');
+    const input = editRow.querySelector('input');
     if (!input) {
         console.error('Cannot find input inside edit row');
         return;
@@ -30,7 +30,7 @@ function update(button) {
     })
         .then(r => r.ok ? r.json() : r.text().then(t => { throw new Error(t || 'Remove failed') }))
         .then(data => {
-            stationRow.querySelector('td').textContent = data.name;
+            stationRow.querySelector('td, div').textContent = data.name;
             editRow.style.display = 'none';
         })
         .catch(e => alert(e.message));

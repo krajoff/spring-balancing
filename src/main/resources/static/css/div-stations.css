@@ -1,0 +1,72 @@
+/* ===== Station grid ===== */
+.station-table {
+    display: grid;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 1px 1px #ccc;
+    overflow: hidden;
+}
+
+/* ===== Строки ===== */
+.station-row,
+.edit-row,
+.new-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 80px; /* ровно как header */
+    border-top: 1px solid #ccc;
+    align-items: center;
+}
+
+.station-row > div,
+.edit-row > div,
+.new-row > div {
+    padding: 8px 12px;
+    border-left: 1px solid #ccc;
+}
+
+.station-row > div:first-child,
+.edit-row > div:first-child,
+.new-row > div:first-child {
+    border-left: none;
+}
+
+/* ===== Header ===== */
+.station-header {
+    background: linear-gradient(#ebf3fc, #dce9f9);
+    font-weight: 600;
+    border-top: none;
+}
+
+/* ===== Hover ===== */
+.station-row:hover:not(.station-header):not(.edit-row):not(.new-row) {
+    background: #fbf8e9;
+}
+
+/* ===== Edit row ===== */
+.edit-row {
+    display: none; /* по умолчанию скрыта */
+    background: #f9f9f9;
+}
+
+.edit-row input[type="text"] {
+    width: 100%;
+    padding: 4px 8px;
+    border: 1px solid grey;
+    border-radius: 4px;
+}
+
+/* Кнопки редактирования */
+.edit-actions {
+    display: flex;
+    gap: 6px;
+}
+
+/* ===== New row ===== */
+.new-row input[type="text"] {
+    width: 100%;
+    padding: 4px 8px;
+    border: 1px solid grey;
+    border-radius: 4px;
+}
+

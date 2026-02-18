@@ -1,5 +1,5 @@
 function remove(button) {
-    const editRow = button.closest('tr.edit-row');
+    const editRow = button.closest('.edit-row');
     if (!editRow) return;
 
     const unitRow = editRow.previousElementSibling;

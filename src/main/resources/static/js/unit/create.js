@@ -36,7 +36,7 @@ function create() {
             return res.json();
         })
         .then(() => {
-            location.reload(); // пока просто обновляем страницу
+            location.reload();
         })
         .catch(err => {
             console.error(err);

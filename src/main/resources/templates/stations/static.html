@@ -1,104 +1,95 @@
 <!DOCTYPE html>
-<html lang="EN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Station list</title>
-    <link rel="stylesheet" href="../../static/css/other.css"/>
-    <link rel="stylesheet" href="../../static/css/table.css"/>
+    <link rel="stylesheet" href="../../static/css/div-base.css"/>
+    <link rel="stylesheet" href="../../static/css/div-stations.css"/>
     <script src="../../static/js/edit/show.js"></script>
     <script src="../../static/js/edit/cancel.js"></script>
     <script src="../../static/js/station/create.js"></script>
+    <script src="../../static/js/station/update.js"></script>
+    <script src="../../static/js/station/remove.js"></script>
 </head>
-
 <body>
+
 <div class="container">
 
     <!-- Greeting -->
-    <div class="box greeting-bar">
-        <div class="links-left"></div>
+    <div class="greeting-bar">
+        <div></div>
         <div class="links-right">
-            <a href="/user" class="profile-link" title="Profile">Profile</a>
+            <a href="/user">Profile</a>
             <form action="/logout" method="post">
-                <input type="submit" value="Logout"/>
+                <input type="submit" value="Logout">
             </form>
         </div>
     </div>
 
     <!-- Station table -->
-    <div class="box">
-        <table class="bordered" style="table-layout: fixed">
-            <colgroup>
-                <col style="width: 670px;">   <!-- Station name -->
-                <col style="width: 110px;">  <!-- Created -->
-                <col style="width: 110px;">  <!-- Modified -->
-                <col style="width: 70px;">   <!-- Edit -->
-            </colgroup>
+    <div class="station-table">
 
-            <thead>
-            <tr>
-                <th>Station name</th>
-                <th>Created</th>
-                <th>Modified</th>
-                <th>Edit</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr data-id="123">
-                <td>Main Station</td>
-                <td>2026-01-02</td>
-                <td>2026-01-02</td>
-                <td>
-                    <button onclick="show(this); return false;">Edit</button>
-                </td>
-            </tr>
-            <tr class="edit-row">
-                <!-- Station name -->
-                <td>
-                    <input type="text" value="Main Station" class="edit-input"/>
-                </td>
-                <!-- Actions -->
-                <td colspan="3" class="edit-actions">
-                    <button class="btn btn-primary" onclick="update(this)">Save</button>
-                    <button class="btn btn-secondary" onclick="cancel(this); return false;">Cancel</button>
-                    <button class="btn btn-danger" onclick="remove(this)">Delete</button>
-                </td>
-            </tr>
+        <!-- header -->
+        <div class="station-row station-header">
+            <div>Station name</div>
+            <div>Created</div>
+            <div>Modified</div>
+        </div>
 
-            <tr data-id="234">
-                <td>Secondary Station</td>
-                <td>2026-01-01</td>
-                <td>2026-01-02</td>
-                <td>
-                    <button onclick="show(this); return false;">Edit</button>
-                </td>
-            </tr>
-            <tr class="edit-row" style="display:none">
-                <!-- Station name -->
-                <td>
-                    <input type="text" value="Secondary Station" class="edit-input"/>
-                </td>
-                <!-- Actions -->
-                <td colspan="3" class="edit-actions">
-                    <button type="button" class="btn-save" onclick="update(this)">Save</button>
-                    <button class="btn-cancel" onclick="cancel(this); return false;">Cancel</button>
-                    <button type="button" class="btn-delete" onclick="remove(this)">Delete</button>
-                </td>
-            </tr>
-            </tbody>
+        <!-- Example station 1 row -->
+        <div class="station-row">
+            <div>Main Station</div>
+            <div>2026-01-02</div>
+            <div>2026-01-02</div>
+            <div>
+                <button onclick="show(this)">Edit</button>
+            </div>
+        </div>
 
-            <!-- Add new station -->
-            <tr class="new-station-row">
-                <td>
-                    <input id="stationName" type="text" placeholder="Station name"/>
-                </td>
-                <td colspan="3">
-                    <button class="btn btn-primary" onclick="create()">Add</button>
-                </td>
-            </tr>
+        <div class="station-row edit-row">
+            <div>
+                <input type="text" value="Main Station">
+            </div>
+            <div>
+                <button onclick="update(this)">Save</button>
+                <button onclick="cancel(this)">Cancel</button>
+                <button onclick="remove(this)">Delete</button>
+            </div>
+        </div>
 
-        </table>
+        <!-- Example station 2 row -->
+        <div class="station-row">
+            <div>Secondary Station</div>
+            <div>2026-01-01</div>
+            <div>2026-01-02</div>
+            <div>
+                <button onclick="show(this)">Edit</button>
+            </div>
+        </div>
+
+        <div class="station-row edit-row">
+            <div>
+                <input type="text" value="Secondary Station">
+            </div>
+            <div>
+                <button onclick="update(this)">Save</button>
+                <button onclick="cancel(this)">Cancel</button>
+                <button onclick="remove(this)">Delete</button>
+            </div>
+        </div>
+
+        <!-- Add new station -->
+        <div class="station-row new-row">
+            <div>
+                <input id="stationName" type="text" placeholder="Station name">
+            </div>
+            <div>
+                <button onclick="create()">Add</button>
+            </div>
+        </div>
+
     </div>
-
 </div>
+
 </body>
 </html>

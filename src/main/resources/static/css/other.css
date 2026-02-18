@@ -218,7 +218,7 @@ input[type=text], input[type=number] {
 }
 
 .greeting-bar a {
-    margin-right: 15px; /* расстояние между ссылками */
+    margin-right: 4px; /* расстояние между ссылками */
     text-decoration: none;
     color: #2691d9;
     font-weight: 500;
@@ -249,6 +249,11 @@ input[type=text], input[type=number] {
 
 .greeting-bar .links-left a:hover {
     color: #0056b3;
+}
+
+.arrow {
+    color: #999;
+    font-size: 14px;
 }
 
 .greeting-bar .links-right {
@@ -305,4 +310,5 @@ input[type=text], input[type=number] {
     box-sizing: border-box;
     border: 1px solid grey;
     border-radius: 4px;
+    overflow: visible;
 }

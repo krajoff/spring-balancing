@@ -2,9 +2,9 @@
 <html lang="EN">
 <head>
     <meta charset="UTF-8">
-    <title>Stations</title>
-    <link rel="stylesheet" href="/css/other.css"/>
-    <link rel="stylesheet" href="/css/table.css"/>
+    <title>Station list</title>
+    <link rel="stylesheet" href="/css/div-base.css"/>
+    <link rel="stylesheet" href="/css/div-stations.css"/>
     <script src="/js/edit/show.js"></script>
     <script src="/js/edit/cancel.js"></script>
     <script src="/js/station/create.js"></script>
@@ -16,10 +16,10 @@
 <div class="container">
 
     <!-- Greeting -->
-    <div class="box greeting-bar">
-        <div class="links-left"></div>
+    <div class="greeting-bar">
+        <div></div>
         <div class="links-right">
-            <a href="/user" class="profile-link" title="Profile">Profile</a>
+            <a href="/user">Profile</a>
             <form action="/auth/logout" method="post">
                 <input type="submit" value="Logout"/>
             </form>
@@ -27,58 +27,55 @@
     </div>
 
     <!-- Station table -->
-    <div class="box">
-        <table class="bordered">
-            <thead>
-            <tr>
-                <th>Station name</th>
-                <th>Created</th>
-                <th>Modified</th>
-                <th>Edit</th>
-            </tr>
-            </thead>
+    <div class="station-table">
 
-            <tbody th:each="station:${stations}">
-                <tr th:data-id="${station.id}"
-                    th:attr="onclick=|window.location.href='/station/${station.id}';|"
-                    style="cursor: pointer;">
-                    <td th:text=${station.name}></td>
-                    <td th:text="${#temporals.format(station.createdOn, 'dd.MM.yyyy')}"></td>
-                    <td th:text="${#temporals.format(station.updatedOn, 'dd.MM.yyyy')}"></td>
-                    <td>
-                        <button type="button" th:onclick="|event.stopPropagation(); show(this);|">Edit</button>
-                    </td>
-                </tr>
+        <!-- header -->
+        <div class="station-row station-header">
+            <div>Station name</div>
+            <div>Created</div>
+            <div>Modified</div>
+        </div>
 
-                <!-- Edit station -->
-                <tr class="edit-row">
-                    <!-- Station name -->
-                    <td>
-                        <input type="text" th:value="${station.name}" class="edit-input"/>
-                    </td>
-                    <!-- Actions -->
-                    <td colspan="3"  class="edit-actions">
-                        <button type="button" class="btn-save" onclick="update(this)">Save</button>
-                        <button class="btn-cancel" onclick="cancel(this); return false;">Cancel</button>
-                        <button type="button" class="btn-delete" onclick="remove(this)">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
+        <th:block th:each="station:${stations}">
 
-            <!-- Add new station -->
-            <tr class="new-station-row">
-                <td>
-                    <input id="stationName" type="text" placeholder="Station name"/>
-                </td>
-                <td colspan="3">
-                    <button type="button" onclick="create()">Add</button>
-                </td>
-            </tr>
+            <div th:data-id="${station.id}"
+                 th:attr="onclick=|window.location.href='/station/${station.id}';|"
+                 style="cursor: pointer;"
+                 class="station-row">
+                <div th:text=${station.name}></div>
+                <div th:text="${#temporals.format(station.createdOn, 'dd.MM.yyyy')}"></div>
+                <div th:text="${#temporals.format(station.updatedOn, 'dd.MM.yyyy')}"></div>
+                <div>
+                    <button th:onclick="|event.stopPropagation(); show(this);|">Edit</button>
+                </div>
+            </div>
 
-            <tr th:if="${param.error}" class="red"><h2>Incorrect values</h2></tr>
+            <!-- Edit station -->
+            <div class="station-row edit-row">
+                <div>
+                    <input type="text" th:value="${station.name}">
+                </div>
+                <div>
+                    <button onclick="update(this)">Save</button>
+                    <button onclick="cancel(this)">Cancel</button>
+                    <button onclick="remove(this)">Delete</button>
+                </div>
+            </div>
 
-        </table>
+        </th:block>
+
+        <!-- Add new station -->
+        <div class="station-row new-row">
+            <div>
+                <input id="stationName" type="text" placeholder="Station name">
+            </div>
+            <div>
+                <button onclick="create()">Add</button>
+            </div>
+        </div>
+
     </div>
 </div>
+
 </body>
 </html>
